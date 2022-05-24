@@ -6,6 +6,11 @@ const routes = [
         name: 'home',
         component: () => import('./views/Index')
     },
+    {
+        path: '/desks',
+        name: 'desks',
+        component: () => import('./views/Desks/Desks')
+    },
 ]
 
 const router = createRouter({

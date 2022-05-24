@@ -1,0 +1,12 @@
+.desks {
+    @include flex(stretch);
+
+    &__item {
+        border: 1px solid gray;
+        background: $color-white;
+    }
+
+    &__title {
+        @include font(18px, null, 15px, null, null)
+    }
+}

@@ -6,7 +6,6 @@
 
     class HomeController extends SiteController
     {
-
         public function index(): string
         {
             return view('site.common.index', $this->data);
