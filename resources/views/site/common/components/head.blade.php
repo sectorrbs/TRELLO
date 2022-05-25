@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{asset(PATH_SITE . '/css/app.css')}}">
     <link rel="stylesheet" href="{{asset(PATH_PLUGINS . '/font-awesome/css/all.min.css')}}">
-    <link rel="stylesheet" href="{{asset(PATH_PLUGINS . '/font-montserrat/font.css')}}">
+    <link rel="stylesheet" href="{{asset(PATH_PLUGINS . '/font-muller/font.css')}}">
 
     <title>Шаблон</title>
 

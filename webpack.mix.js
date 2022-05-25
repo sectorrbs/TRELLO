@@ -11,6 +11,11 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
-    .sourceMaps();
+mix
+    .disableNotifications()
+    .js('resources/assets/site/js/app.js', 'public/assets/site/js')
+    .js('resources/assets/admin/js/admin.js', 'public/assets/admin/js')
+    .postCss('resources/assets/site/css/app.css', 'public/assets/site/css')
+    .postCss('resources/assets/admin/css/admin.css', 'public/assets/admin/css')
+    .vue()
+    .browserSync('localhost:8000')

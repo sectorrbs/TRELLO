@@ -1,8 +1,11 @@
 <template>
-    <router-link v-for="navigation in navigations"
-                 :to="navigation.link">
-        {{ navigation.title }}
-    </router-link>
+    <div class="navigations">
+        <router-link v-for="navigation in navigations"
+                     :to="navigation.link"
+                     class="navigations__link">
+            {{ navigation.title }}
+        </router-link>
+    </div>
 </template>
 
 <script>

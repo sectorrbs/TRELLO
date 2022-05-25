@@ -4,7 +4,8 @@ import { createApp,h } from 'vue'
 import App from './App.vue'
 import router from './router';
 import store from './store/index';
-import components from './views/UI'
+import components from './views/Global'
+import plugins from './utils/plugins'
 
 const app  = createApp({
     render: ()=>h(App)
@@ -16,5 +17,5 @@ components.forEach(component => {
     app.component(component.name, component)
 })
 
-app.use(router).use(store).mount('#app')
+app.use(plugins).use(router).use(store).mount('#app')
 

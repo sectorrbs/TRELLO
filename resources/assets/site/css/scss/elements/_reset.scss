@@ -21,9 +21,8 @@ body {
     @include font($font-size, null, null, $color, $font);
     @include transition;
     display: flex;
-    background: null;
+    background: $color-gray-lite;
     flex-direction: column;
-    animation: fadeIn 0.5s linear;
 
     &.overflow {
         overflow: hidden;
@@ -37,16 +36,6 @@ body {
 
     &::-webkit-scrollbar {
         width: 3px;
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
     }
 }
 
