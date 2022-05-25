@@ -13,4 +13,10 @@
         {
             return DeskResource::collection(Desk::all());
         }
+
+        public function getDeskList()
+        {
+            var_dump(898797897889);
+            return DeskResource::collection($desk);
+        }
     }

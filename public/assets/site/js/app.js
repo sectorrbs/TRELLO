@@ -20365,9 +20365,15 @@ var routes = [{
   }
 }, {
   path: '/desks',
-  name: 'desks',
+  name: 'desks_index',
   component: function component() {
-    return __webpack_require__("./resources/assets/site/js lazy recursive ^.*Desks\\/Desks$")("".concat(appPath, "Desks/Desks"));
+    return __webpack_require__("./resources/assets/site/js lazy recursive ^.*Desks\\/Index$")("".concat(appPath, "Desks/Index"));
+  }
+}, {
+  path: '/desks/:id',
+  name: 'show',
+  component: function component() {
+    return __webpack_require__("./resources/assets/site/js lazy recursive ^.*Desks\\/Show$")("".concat(appPath, "Desks/Show"));
   }
 }];
 var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
@@ -20528,6 +20534,17 @@ var actions = {
     })["finally"](function () {
       return commit('changeLoader', false);
     });
+  },
+  getDesk: function getDesk(_ref2) {
+    var commit = _ref2.commit;
+    commit('changeLoader', true);
+    axios.get('api/v1/desk').then(function (res) {
+      commit('setDesk', res.data.data);
+    })["catch"](function (e) {
+      return commit('setErrorMessage', e.message);
+    })["finally"](function () {
+      return commit('changeLoader', false);
+    });
   }
 };
 
@@ -20547,6 +20564,9 @@ __webpack_require__.r(__webpack_exports__);
 var getters = {
   desks: function desks(state) {
     return state.desks;
+  },
+  desk: function desk(state) {
+    return state.desk;
   }
 };
 
@@ -20594,6 +20614,9 @@ __webpack_require__.r(__webpack_exports__);
 var mutations = {
   setDesks: function setDesks(state, desks) {
     state.desks = desks;
+  },
+  setDesk: function setDesk(state, desk) {
+    state.desk = desk;
   }
 };
 
@@ -20611,7 +20634,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "state": () => (/* binding */ state)
 /* harmony export */ });
 var state = {
-  desks: null
+  desks: null,
+  desk: null
 };
 
 /***/ }),
@@ -26756,16 +26780,16 @@ var index = {
 
 /***/ }),
 
-/***/ "./resources/assets/site/js lazy recursive ^.*Desks\\/Desks$":
+/***/ "./resources/assets/site/js lazy recursive ^.*Desks\\/Index$":
 /*!**************************************************************************!*\
-  !*** ./resources/assets/site/js/ lazy ^.*Desks\/Desks$ namespace object ***!
+  !*** ./resources/assets/site/js/ lazy ^.*Desks\/Index$ namespace object ***!
   \**************************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
-	"./views/App/Desks/Desks": [
-		"./resources/assets/site/js/views/App/Desks/Desks.vue",
-		"resources_assets_site_js_views_App_Desks_Desks_vue"
+	"./views/App/Desks/Index": [
+		"./resources/assets/site/js/views/App/Desks/Index.vue",
+		"resources_assets_site_js_views_App_Desks_Index_vue"
 	]
 };
 function webpackAsyncContext(req) {
@@ -26783,7 +26807,39 @@ function webpackAsyncContext(req) {
 	});
 }
 webpackAsyncContext.keys = () => (Object.keys(map));
-webpackAsyncContext.id = "./resources/assets/site/js lazy recursive ^.*Desks\\/Desks$";
+webpackAsyncContext.id = "./resources/assets/site/js lazy recursive ^.*Desks\\/Index$";
+module.exports = webpackAsyncContext;
+
+/***/ }),
+
+/***/ "./resources/assets/site/js lazy recursive ^.*Desks\\/Show$":
+/*!*************************************************************************!*\
+  !*** ./resources/assets/site/js/ lazy ^.*Desks\/Show$ namespace object ***!
+  \*************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var map = {
+	"./views/App/Desks/Show": [
+		"./resources/assets/site/js/views/App/Desks/Show.vue",
+		"resources_assets_site_js_views_App_Desks_Show_vue"
+	]
+};
+function webpackAsyncContext(req) {
+	if(!__webpack_require__.o(map, req)) {
+		return Promise.resolve().then(() => {
+			var e = new Error("Cannot find module '" + req + "'");
+			e.code = 'MODULE_NOT_FOUND';
+			throw e;
+		});
+	}
+
+	var ids = map[req], id = ids[0];
+	return __webpack_require__.e(ids[1]).then(() => {
+		return __webpack_require__(id);
+	});
+}
+webpackAsyncContext.keys = () => (Object.keys(map));
+webpackAsyncContext.id = "./resources/assets/site/js lazy recursive ^.*Desks\\/Show$";
 module.exports = webpackAsyncContext;
 
 /***/ }),
@@ -26891,7 +26947,7 @@ module.exports = JSON.parse('{"_args":[["axios@0.21.4","W:\\\\domains\\\\trello.
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_assets_site_js_views_Index_vue":1,"resources_assets_site_js_views_App_Desks_Desks_vue":1}[chunkId]) return "assets/site/js/" + chunkId + ".js";
+/******/ 			if ({"resources_assets_site_js_views_Index_vue":1,"resources_assets_site_js_views_App_Desks_Index_vue":1,"resources_assets_site_js_views_App_Desks_Show_vue":1}[chunkId]) return "assets/site/js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

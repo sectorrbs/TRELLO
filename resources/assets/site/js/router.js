@@ -10,8 +10,13 @@ const routes = [
     },
     {
         path: '/desks',
-        name: 'desks',
-        component: () => import(`${appPath}Desks/Desks`)
+        name: 'desks_index',
+        component: () => import(`${appPath}Desks/Index`)
+    },
+    {
+        path: '/desks/:id',
+        name: 'show',
+        component: () => import(`${appPath}Desks/Show`),
     },
 ]
 

@@ -2,10 +2,11 @@
 
     <Loader v-if="loader"/>
 
-    <div class="desks" v-else >
-        <div class="container desks__inner">
+    <div class="desks" v-else>
+        <div class="container desks__inner" v-if="desks">
             <DeskItem v-for="desk in desks" :desk="desk" :key="desk.id"/>
         </div>
+        <Error v-else :error="errorMessage"/>
     </div>
 
 </template>

@@ -1,9 +1,9 @@
 <template>
-    <div class="desks__item" :id="desk.id">
+    <router-link :to="{name: 'show', params: { id: desk.id }}" class="desks__item" :id="desk.id">
         <div class="desks__title">
             {{ desk.name }}
         </div>
-    </div>
+    </router-link>
 </template>
 
 <script>
