@@ -6,11 +6,13 @@ const routes = [
     {
         path: '/',
         name: 'home',
+        meta: {page_title: 'Главная'} ,
         component: () => import('./views/Index')
     },
     {
         path: '/desks',
         name: 'desks_index',
+        meta: {page_title: 'Доски'},
         component: () => import(`${appPath}Desks/Index`)
     },
     {

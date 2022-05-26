@@ -7,18 +7,18 @@
     @include font(17px, 700, $form-height, $color-white);
     @include text(center, none);
     padding: 0 30px;
-    border-radius: 5px;
-    background: $color-red;
+    background: $color-blue-lite;
+    white-space: nowrap;
     @include transition;
 
     &:hover {
-        background: darken($color-red, 20%);
+        background: darken($color-blue-lite, 5%);
         cursor: pointer;
     }
 
     &.disabled {
-        background: $color-red;
-        opacity: .7;
+        background: $color-blue-lite;
+        opacity: .3;
         pointer-events: none;
     }
 

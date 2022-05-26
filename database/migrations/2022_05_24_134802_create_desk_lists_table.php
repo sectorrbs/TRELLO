@@ -21,7 +21,6 @@
                     ->on('desks')
                     ->onDelete('cascade');
                 $table->timestamps();
-                $table->softDeletes();
             });
         }
 

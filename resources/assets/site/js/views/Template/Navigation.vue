@@ -2,6 +2,7 @@
     <div class="navigations">
         <router-link v-for="navigation in navigations"
                      :to="navigation.link"
+                     :class="{current: true}"
                      class="navigations__link">
             {{ navigation.title }}
         </router-link>
@@ -10,7 +11,6 @@
 
 <script>
 
-import {mapGetters, mapActions} from 'vuex'
 
 export default {
     name: "Navigation",

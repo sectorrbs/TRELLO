@@ -16,5 +16,4 @@
     |
     */
 
-    Route::get('desks', [DesksController::class, 'getDesks']);
-    Route::get('desk', [DesksController::class, 'getDeskList']);
+    require 'components/desks.php';

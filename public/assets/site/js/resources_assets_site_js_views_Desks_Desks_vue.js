@@ -33,7 +33,7 @@ var _hoisted_1 = {
   "class": "container"
 };
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"desks\"><div class=\"desks-item\"><div class=\"desks-title\"> TEST </div></div><div class=\"desks-item\"><div class=\"desks-title\"> TEST </div></div><div class=\"desks-item\"><div class=\"desks-title\"> TEST </div></div><div class=\"desks-item\"><div class=\"desks-title\"> TEST </div></div></div>", 1);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"components\"><div class=\"components-item\"><div class=\"components-title\"> TEST </div></div><div class=\"components-item\"><div class=\"components-title\"> TEST </div></div><div class=\"components-item\"><div class=\"components-title\"> TEST </div></div><div class=\"components-item\"><div class=\"components-title\"> TEST </div></div></div>", 1);
 
 var _hoisted_3 = [_hoisted_2];
 function render(_ctx, _cache, $props, $setup, $data, $options) {

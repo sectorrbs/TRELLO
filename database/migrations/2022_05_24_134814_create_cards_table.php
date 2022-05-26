@@ -21,7 +21,6 @@ class CreateCardsTable extends Migration
                 ->on('desk_lists')
                 ->onDelete('cascade');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

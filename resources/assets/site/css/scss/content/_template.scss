@@ -19,6 +19,7 @@
 ------------------------------------------------------------------------ */
 
 .header {
+    background: $color-blue-lite;
 
     &__wrapper {
         @include flex(center, null, nowrap);
@@ -103,13 +104,27 @@
 
 .navigations {
     @include flex(center);
+    margin: 0 -10px;
 
     &__link {
-        @include font(15px, 600, 1, $color-gray, null);
+        @include transition;
+        @include font(18px, 500, 1, $color-gray, null);
         padding: 20px 10px;
         display: block;
         text-decoration: none;
         text-transform: uppercase;
+
+        &:hover {
+            background: darken($color-blue-lite, 3%);
+        }
+    }
+}
+
+.router {
+    &-link {
+        &-active {
+            color: $color-white;
+        }
     }
 }
 
@@ -265,10 +280,10 @@
 ------------------------------------------------------------------------ */
 
 .loader {
-    @include position(fixed,50%,40%,null,null);
+    @include position(fixed, 50%, 40%, null, null);
 
     &__icon {
-        @include font(50px,null,15px,null,null);
+        @include font(50px, null, 15px, null, null);
         animation: move 0.9s infinite linear;
     }
 }
@@ -282,6 +297,23 @@
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+/* CONTENT
+------------------------------------------------------------------------ */
+
+.content {
+    margin-top: 35px;
+
+    &__title {
+        @include font(24px, 500, 15px, null, null);
+        text-transform: uppercase;
+    }
+
+    &__error {
+        @include font(13px, null, 15px, $color-red, null);
+        margin-top: 5px;
     }
 }
 

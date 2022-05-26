@@ -1,11 +1,19 @@
 <?php
 
-namespace App\Models;
+    namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Database\Eloquent\Factories\HasFactory;
+    use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Desk extends Model
-{
-    use HasFactory;
-}
+    class Desk extends Model
+    {
+        use HasFactory;
+
+        public $guarded = false;
+
+        public function lists()
+        {
+            return $this->hasMany(DeskList::class);
+        }
+    }

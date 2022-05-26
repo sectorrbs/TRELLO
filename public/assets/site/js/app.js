@@ -19972,7 +19972,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Navigation",
   data: function data() {
@@ -20031,18 +20030,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "container"
-};
-var _hoisted_2 = {
   "class": "error"
 };
-var _hoisted_3 = {
+var _hoisted_2 = {
   "class": "error__text"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.error), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.error), 1
   /* TEXT */
-  )])]);
+  )]);
 }
 
 /***/ }),
@@ -20287,7 +20283,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.navigations, function (navigation) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
       to: navigation.link,
-      "class": "navigations__link"
+      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
+        current: true
+      }, "navigations__link"])
     }, {
       "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
         return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(navigation.title), 1
@@ -20360,12 +20358,18 @@ var appPath = './views/App/';
 var routes = [{
   path: '/',
   name: 'home',
+  meta: {
+    page_title: 'Главная'
+  },
   component: function component() {
     return __webpack_require__.e(/*! import() */ "resources_assets_site_js_views_Index_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./views/Index */ "./resources/assets/site/js/views/Index.vue"));
   }
 }, {
   path: '/desks',
   name: 'desks_index',
+  meta: {
+    page_title: 'Доски'
+  },
   component: function component() {
     return __webpack_require__("./resources/assets/site/js lazy recursive ^.*Desks\\/Index$")("".concat(appPath, "Desks/Index"));
   }
@@ -20527,7 +20531,7 @@ var actions = {
   getDesks: function getDesks(_ref) {
     var commit = _ref.commit;
     commit('changeLoader', true);
-    axios.get('api/v1/desks').then(function (res) {
+    axios.get('/api/v1/desks').then(function (res) {
       commit('setDesks', res.data.data);
     })["catch"](function (e) {
       return commit('setErrorMessage', e.message);
@@ -20535,13 +20539,61 @@ var actions = {
       return commit('changeLoader', false);
     });
   },
-  getDesk: function getDesk(_ref2) {
+  getDesk: function getDesk(_ref2, id) {
     var commit = _ref2.commit;
     commit('changeLoader', true);
-    axios.get('api/v1/desk').then(function (res) {
+    axios.get("/api/v1/desk/".concat(id)).then(function (res) {
+      console.log(res.data.data);
       commit('setDesk', res.data.data);
     })["catch"](function (e) {
       return commit('setErrorMessage', e.message);
+    })["finally"](function () {
+      return commit('changeLoader', false);
+    });
+  },
+  createDesk: function createDesk(_ref3, name) {
+    var commit = _ref3.commit,
+        dispatch = _ref3.dispatch;
+    commit('changeLoader', true);
+    axios.post("/api/v1/desk/create", {
+      _method: 'POST',
+      name: name
+    }).then(function (res) {
+      commit('setErrorMessage', null);
+      commit('setDesk', res.data.data);
+    })["catch"](function (e) {
+      commit('setErrorMessage', e.response.data.errors.name[0]);
+    })["finally"](function () {
+      dispatch('getDesks');
+      setTimeout(function () {
+        commit('changeLoader', false);
+      }, 250);
+    });
+  },
+  updateDesk: function updateDesk(_ref4, desk) {
+    var commit = _ref4.commit;
+    commit('changeLoader', true);
+    axios.post("/api/v1/desk/".concat(desk.id, "/update"), {
+      _method: 'PUT',
+      name: desk.name,
+      id: desk.id
+    })["catch"](function (e) {
+      commit('setErrorMessage', e.response.data.errors.name[0]);
+    })["finally"](function () {
+      return commit('changeLoader', false);
+    });
+  },
+  deleteDesk: function deleteDesk(_ref5, desk) {
+    var commit = _ref5.commit;
+    commit('changeLoader', true);
+    axios.post("/api/v1/desk/".concat(desk.id, "/delete"), {
+      _method: 'DELETE',
+      name: desk.name,
+      id: desk.id
+    }).then(function (res) {
+      commit('setDesks', res.data.data);
+    })["catch"](function (e) {
+      commit('setErrorMessage', e.response.data.errors.name[0]);
     })["finally"](function () {
       return commit('changeLoader', false);
     });

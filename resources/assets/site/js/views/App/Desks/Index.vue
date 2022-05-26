@@ -2,11 +2,17 @@
 
     <Loader v-if="loader"/>
 
-    <div class="desks" v-else>
-        <div class="container desks__inner" v-if="desks">
-            <DeskItem v-for="desk in desks" :desk="desk" :key="desk.id"/>
+    <div class="content" v-else>
+        <div class="container">
+            <div class="content__title">{{ $route.meta.page_title }}</div>
+            <DeskCreateForm/>
+            <div class="desks">
+                <div class="desks__inner" v-if="desks">
+                    <DeskItem v-for="desk in desks" :desk="desk" :key="desk.id"/>
+                </div>
+                <Error v-else :error="errorMessage"/>
+            </div>
         </div>
-        <Error v-else :error="errorMessage"/>
     </div>
 
 </template>
@@ -14,11 +20,12 @@
 <script>
 
 import DeskItem from "./Components/DeskItem";
+import DeskCreateForm from "./Components/DeskCreateForm";
 import {mapActions, mapGetters} from 'vuex'
 
 export default {
     name: "Desks",
-    components: {DeskItem},
+    components: {DeskItem, DeskCreateForm},
     mounted() {
         this.getDesks();
     },

@@ -3,18 +3,79 @@
     margin-top: 30px;
 
     &__inner {
-        @include flex(stretch);
+        @include grid(20px, 20px, 300px, 373px);
         gap: 10px;
     }
 
     &__item {
+        position: relative;
         border: 1px solid rgba(gray, .4);
         background: $color-white;
         padding: 20px;
-        width: calc((100%/3) - 20px);
+        text-decoration: none;
+
+        &-title {
+            @include font(16px, 600, 1, $color-blue-lite, null)
+        }
+
+        &:hover {
+            .desks__item-title {
+                text-decoration: underline;
+            }
+
+            .desks__delete {
+                opacity: 1;
+            }
+        }
     }
 
-    &__title {
-        @include font(16px, 600, 1, $color-blue-lite, null)
+    &__delete {
+        opacity: 0;
+        @include position(absolute, null, 0, 0, null);
+        @include font(19px, null, 15px, null, null);
+        padding: 5px 10px;
+
+        &:hover {
+            color: #d20909;
+        }
+    }
+
+    &__form {
+        @include flex(center, null, nowrap);
+        margin-top: 30px;
+
+        &-error {
+            margin-top: 10px;
+        }
+    }
+
+    &__lists {
+        @include flex(stretch);
+        @include grid(20px, 20px, 300px, 373px);
+        gap: 10px;
+        margin-top: 35px;
+    }
+
+    &__list{
+        position: relative;
+        border: 1px solid rgba(gray, .4);
+        background: $color-white;
+        padding: 20px;
+        text-decoration: none;
+
+        &-title {
+            @include font(16px, 600, 1, $color-blue-lite, null)
+        }
+
+        &:hover {
+            .desks__list-title {
+                text-decoration: underline;
+            }
+
+            .desks__delete {
+                opacity: 1;
+            }
+        }
     }
 }
+

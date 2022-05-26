@@ -21,7 +21,6 @@
                     ->on('cards')
                     ->onDelete('cascade');
                 $table->timestamps();
-                $table->softDeletes();
             });
         }
 
