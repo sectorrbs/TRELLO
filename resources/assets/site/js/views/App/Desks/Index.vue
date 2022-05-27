@@ -34,6 +34,6 @@ export default {
     },
     computed: {
         ...mapGetters(['desks', 'errorMessage', 'loader'])
-    }
+    },
 }
 </script>

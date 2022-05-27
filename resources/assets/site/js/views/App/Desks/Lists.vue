@@ -4,16 +4,16 @@
 
     <div class="content" v-else>
         <div v-if="desk" class="container">
-            <div class="content__title">Списки доски "{{desk.name}}"</div>
-            <div class="desks">
-                <DeskUpdateInput v-model="desk.name" @update="updateDeskName" @rename="renameDesk"/>
+            <div class="content__title">
+                Списки доски "{{ desk.name }}"
+                <router-link to="/desks" class="content__back btn">
+                    Назад
+                </router-link>
             </div>
-            <Error v-if="errorMessage" class="desks__form-error" :error="errorMessage"/>
-            <Error v-if="v$.name.$error" class="desks__form-error" :error="'Название не указано'"/>
             <div class="desks__create-list">
                 <DeskListCreateForm :desk_id="desk.id"/>
             </div>
-            <div v-if="desk.lists.length" class="desks__lists">
+            <div v-if="desk.lists?.length" class="desks__lists">
                 <DeskList v-for="list in desk.lists" :list="list" :key="list.id"/>
             </div>
             <div v-else class="desks__lists-empty">
@@ -31,7 +31,6 @@ import {required} from '@vuelidate/validators'
 import {useVuelidate} from '@vuelidate/core'
 import DeskList from "./Components/DeskList";
 import DeskListCreateForm from "./Components/DeskListCreateForm";
-import DeskUpdateInput from "./Components/DeskUpdateInput";
 
 export default {
     name: "Lists",
@@ -39,12 +38,12 @@ export default {
         v$: useVuelidate(),
         name: null
     }),
-    components: {DeskList, DeskUpdateInput, DeskListCreateForm},
+    components: {DeskList, DeskListCreateForm},
     mounted() {
         this.getDesk(this.$route.params.id)
     },
     methods: {
-        ...mapActions(['getDesk', 'updateDesk']),
+        ...mapActions(['getDesks', 'getDesk', 'updateDesk']),
         updateDeskName() {
             this.name = this.desk.name
             this.v$.$touch()

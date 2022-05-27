@@ -35,16 +35,14 @@ export const actions = {
                 dispatch('getDesks')
                 setTimeout(() => {
                     commit('changeLoader', false)
-                }, 250)
+                }, 200)
             })
     },
     updateDesk({commit}, desk) {
-        commit('changeLoader', true)
         axios.post(`/api/v1/desk/${desk.id}/update`, {_method: 'PUT', name: desk.name, id: desk.id})
             .catch(e => {
                 commit('setErrorMessage', e.response.data.errors.name[0])
             })
-            .finally(() => commit('changeLoader', false))
     },
     deleteDesk({commit}, desk) {
         commit('changeLoader', true)
