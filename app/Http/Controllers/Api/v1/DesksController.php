@@ -1,48 +1,44 @@
 <?php
 
-    namespace App\Http\Controllers\Api\v1;
+namespace App\Http\Controllers\Api\v1;
 
-    use App\Http\Controllers\Controller;
-    use App\Http\Requests\DeskRequest;
-    use App\Http\Resources\DeskResource;
-    use App\Models\Desk;
-    use Illuminate\Http\Request;
-    use Illuminate\Http\Resources\Json\JsonResource;
-    use Illuminate\Support\Facades\Cache;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\DeskRequest;
+use App\Http\Resources\DeskResource;
+use App\Models\Desk;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Cache;
 
-    class DesksController extends Controller
+class DesksController extends Controller
+{
+    public function getDesks()
     {
-        public function getDesks()
-        {
-            #Cache::forget('desks');
-            return DeskResource::collection(Cache::remember('desks', 60 * 60 * 24, function () {
-                return Desk::orderBy('created_at', 'desc')->get();
-            }));
-        }
-
-        public function getDesk(Desk $desk)
-        {
-            return new DeskResource($desk);
-        }
-
-        public function createDesk(DeskRequest $request)
-        {
-            Desk::create($request->validated());
-
-            return DeskResource::collection(Desk::orderBy('created_at', 'desc')->get());
-        }
-
-        public function updateDesk(DeskRequest $request, Desk $desk)
-        {
-            $desk->update($request->validated());
-            return DeskResource::make($desk);
-        }
-
-        public function deleteDesk(Desk $desk)
-        {
-            $desk->delete();
-            return DeskResource::collection(Cache::remember('desks', 60 * 60 * 24, function () {
-                return Desk::orderBy('created_at', 'desc')->get();
-            }));
-        }
+        #Cache::forget('desks');
+        return DeskResource::collection(Desk::orderBy('created_at', 'desc')->get());
     }
+
+    public function getDesk(Desk $desk)
+    {
+        return new DeskResource($desk);
+    }
+
+    public function createDesk(DeskRequest $request)
+    {
+        Desk::create($request->validated());
+
+        return DeskResource::collection(Desk::orderBy('created_at', 'desc')->get());
+    }
+
+    public function updateDesk(DeskRequest $request, Desk $desk)
+    {
+        $desk->update($request->validated());
+        return DeskResource::make($desk);
+    }
+
+    public function deleteDesk(Desk $desk)
+    {
+        $desk->delete();
+        return DeskResource::collection(Desk::orderBy('created_at', 'desc')->get());
+    }
+}

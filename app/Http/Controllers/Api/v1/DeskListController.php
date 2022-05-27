@@ -1,38 +1,19 @@
 <?php
 
-    namespace App\Http\Controllers\Api\v1;
+namespace App\Http\Controllers\Api\v1;
 
-    use App\Http\Controllers\Controller;
-    use App\Http\Resources\DeskListResource;
-    use App\Models\DeskList;
-    use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\DeskListRequest;
+use App\Http\Resources\DeskListResource;
+use App\Models\DeskList;
+use Illuminate\Http\Response;
 
-    class DeskListController extends Controller
+class DeskListController extends Controller
+{
+    public function createList(DeskListRequest $request)
     {
-        public function index()
-        {
-            return DeskListResource::collection(DeskList::orderBy('created_at', 'desc'));
-        }
-
-        public function store(Request $request)
-        {
-            //
-        }
-
-
-        public function show($id)
-        {
-            //
-        }
-
-        public function update(Request $request, $id)
-        {
-            //
-        }
-
-
-        public function destroy($id)
-        {
-            //
-        }
+        DeskList::create($request->validated());
+        return response(null, Response::HTTP_NO_CONTENT);
+        return DeskListResource::collection(DeskList::orderBy('created_at', 'desc')->get());
     }
+}

@@ -53,10 +53,17 @@
         @include flex(stretch);
         @include grid(20px, 20px, 300px, 373px);
         gap: 10px;
-        margin-top: 35px;
+        margin-top: 20px;
+
+        &-empty {
+            @include font(14px, 600, 15px, null, null);
+            background: rgba($color-blue-lite, .5);
+            padding: 10px;
+            margin-top: 25px;
+        }
     }
 
-    &__list{
+    &__list {
         position: relative;
         border: 1px solid rgba(gray, .4);
         background: $color-white;

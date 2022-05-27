@@ -16,7 +16,6 @@ export const actions = {
         commit('changeLoader', true)
         axios.get(`/api/v1/desk/${id}`)
             .then(res => {
-                 console.log(res.data.data)
                 commit('setDesk', res.data.data)
             })
             .catch(e => commit('setErrorMessage', e.message))

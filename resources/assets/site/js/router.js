@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 
 const appPath = './views/App/'
 
+
 const routes = [
     {
         path: '/',
@@ -17,8 +18,8 @@ const routes = [
     },
     {
         path: '/desks/:id',
-        name: 'show',
-        component: () => import(`${appPath}Desks/Show`),
+        name: 'lists',
+        component: () => import(`${appPath}Desks/Lists`),
     },
 ]
 

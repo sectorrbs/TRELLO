@@ -9,4 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class DeskList extends Model
 {
     use HasFactory;
+
+    public $guarded = false;
 }
