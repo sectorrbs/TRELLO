@@ -34,9 +34,6 @@ export default {
         name: null,
     }),
     props: ['modelValue', 'show', 'desk', 'old_name'],
-    updated(){
-        this.$refs.input.focus()
-    },
     methods: {
         updateDesk() {
             this.name = this.desk.name

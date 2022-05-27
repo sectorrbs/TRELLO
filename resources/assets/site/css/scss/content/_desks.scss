@@ -8,14 +8,71 @@
     }
 
     &__item {
+        @include flex(flex-start);
+        pointer-events: painted;
+        gap: 10px;
         position: relative;
         border: 1px solid rgba(gray, .4);
         background: $color-white;
-        padding: 20px;
+        padding: 20px 50px 20px 20px;
         text-decoration: none;
 
+        &-error {
+            font-weight: 300;
+            background: transparent;
+            padding: 0;
+            @include position(absolute, 20px, null, null, 2px);
+
+            .error__text {
+                @include font(13px, 400, 1, $color-red, null);
+            }
+        }
+
+        &-input {
+            @include size(100%, 100%);
+            padding: 20px 75px 20px 20px;
+        }
+
         &-title {
-            @include font(16px, 600, 1, $color-blue-lite, null)
+            @include font(16px, 600, 1, $color-blue-lite, null) ;
+            position: relative;
+        }
+
+        &-rename {
+            @include position(absolute, 0, 0, null, null, 1);
+            @include size(100%, 100%);
+            @include flex(center);
+            opacity: 0;
+            visibility: hidden;
+
+            &.show {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        &-btns {
+            @include flex(center, center);
+            gap: 5px;
+            @include position(absolute, null, 50%, 20px, null);
+            transform: translateY(-50%);
+        }
+
+        &-cancel {
+            @include font(19px, 300, 15px, null, null);
+
+            &:hover {
+                color: #d20909;
+            }
+        }
+
+        &-confirm {
+            @include font(17px, null, 15px, $color-green-lite, null);
+            transform: translateY(0);
+
+            &:hover {
+                color: $color-green;
+            }
         }
 
         &:hover {
@@ -26,6 +83,19 @@
             .desks__delete {
                 opacity: 1;
             }
+
+            .desks__edit {
+                opacity: .7;
+            }
+        }
+    }
+
+    &__edit {
+
+        opacity: 0;
+
+        &:hover {
+            opacity: 1 !important;
         }
     }
 
@@ -64,14 +134,55 @@
     }
 
     &__list {
-        position: relative;
+        @include flex(stretch);
+        flex-direction: column;
         border: 1px solid rgba(gray, .4);
         background: $color-white;
-        padding: 20px;
+
         text-decoration: none;
+
+        &-inner {
+            padding: 20px;
+            @include flex(flex-start);
+            pointer-events: painted;
+            gap: 10px;
+            position: relative;
+        }
 
         &-title {
             @include font(16px, 600, 1, $color-blue-lite, null)
+        }
+
+        .desks__edit,
+        .desks__item-confirm {
+            cursor: pointer
+        }
+
+        .desks__delete,
+        .desks__item-cancel {
+            cursor: pointer;
+            color: #ff0606;
+
+            &:hover {
+                color: $color-red;
+            }
+        }
+
+        &-btns {
+
+        }
+
+        &-btn {
+            @include transition(.2s);
+            @include font(15px, null, 1, $color-white, null);
+            text-align: center;
+            padding: 7px;
+            background: $color-green-lite;
+            cursor: pointer;
+
+            &:hover {
+                background: $color-green-hover;
+            }
         }
 
         &:hover {
@@ -82,6 +193,54 @@
             .desks__delete {
                 opacity: 1;
             }
+
+            .desks__edit {
+                opacity: .7;
+            }
+        }
+    }
+
+    &__edit {
+        @include font(15px, 400, 1, $color-gray, null);
+    }
+
+    &__cards {
+        padding: 20px 10px;
+        position: relative;
+        flex: 1;
+
+        &-empty {
+            @include font(13px, 400, 1, null, null);
+            border-radius: 5px;
+            background: rgba($color-gray, .1);
+            padding: 10px;
+        }
+
+        &-items {
+            @include flex(stretch);
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        &-item {
+            @include transition(.2s);
+            @include font(13px, 400, 1, $color, null);
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            background: $color-blue-lite;
+
+            &:hover {
+                background: #20a5aebf;
+            }
+        }
+
+        &::after {
+            content: '';
+            @include position(absolute, null, 0, 50%, null);
+            transform: translateX(50%);
+            @include size(95%, 1px);
+            background: rgba($color, .3);
         }
     }
 }

@@ -2251,9 +2251,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: ['modelValue', 'show', 'desk', 'old_name'],
-  updated: function updated() {
-    this.$refs.input.focus();
-  },
   methods: {
     updateDesk: function updateDesk() {
       var _this = this;

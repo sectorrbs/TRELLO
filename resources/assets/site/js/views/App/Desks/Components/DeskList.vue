@@ -1,27 +1,37 @@
 <template>
-    <router-link draggable="false" :to="{name: 'lists', params: { id: 2}}" class="desks__list">
-        <div class="desks__list-title">
-            {{ list.name }}
+    <div draggable="false" class="desks__list">
+        <div class="desks__list-inner">
+            <div class="desks__list-title">
+                {{ list.name }}
+            </div>
+            <DeskListRenameInput
+                ref="input"
+                @editShow="show = false"
+                :list="list"
+                :show="show"
+                :old_name="name"
+                v-model="list.name"/>
+            <Fa :type="'r'"
+                @click.prevent="renameDesk"
+                :name="'pen desks__edit'"/>
+            <Fa :type="'l'"
+                @click.prevent="this.$store.dispatch('deleteList',list)"
+                :name="'times desks__delete'"/>
         </div>
-        <DeskListRenameInput
-            ref="input"
-            @editShow="show = false"
-            :list="list"
-            :show="show"
-            :old_name="name"
-            v-model="list.name"/>
-        <Fa :type="'r'"
-            @click.prevent="renameDesk"
-            :name="'pen desks__edit'"/>
-        <Fa :type="'l'"
-            @click.prevent="this.$store.dispatch('deleteList',list)"
-            :name="'times desks__delete'"/>
-    </router-link>
+
+        <Cards :cards="list.cards"/>
+
+        <div class="desks__list-btns">
+            <div class="desks__list-btn">Добавить карточку</div>
+        </div>
+
+    </div>
 </template>
 
 <script>
 
 import DeskListRenameInput from './DeskListRenameInput'
+import Cards from '../../Cards/Cards'
 
 export default {
     name: "DeskList",
@@ -30,7 +40,7 @@ export default {
         name: null
     }),
     props: ['list'],
-    components: {DeskListRenameInput},
+    components: {DeskListRenameInput, Cards},
     methods: {
         renameDesk() {
             document.querySelectorAll('.desks__item-rename').forEach(el => {

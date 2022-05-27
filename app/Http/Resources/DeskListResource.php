@@ -18,6 +18,7 @@
                 'id' => $this->id,
                 'desk_id' => $this->desk_id,
                 'name' => $this->name,
+                'cards' => CardResource::collection($this->cards)
             ];
         }
     }

@@ -34,9 +34,6 @@ export default {
         name: null,
     }),
     props: ['modelValue', 'show', 'list', 'old_name'],
-    updated(){
-        this.$refs.input.focus()
-    },
     methods: {
         updateList() {
             this.name = this.list.name

@@ -1,7 +1,6 @@
 export const actions = {
     updateList({commit}, data) {
-        console.log(212)
-        axios.post(`/api/v1/list/${data.id}/update`, {_method: 'PUT', name: data.name, desk_id: data.desk_id})
+        axios.post(`/api/v1/list/${data.id}/update`, {_method: 'PUT', id: data.id, name: data.name, desk_id: data.desk_id})
             .catch(e => {
                 commit('setErrorMessage', e.response.data.errors.name[0])
             })

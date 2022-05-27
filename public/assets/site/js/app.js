@@ -20803,9 +20803,9 @@ __webpack_require__.r(__webpack_exports__);
 var actions = {
   updateList: function updateList(_ref, data) {
     var commit = _ref.commit;
-    console.log(212);
     axios.post("/api/v1/list/".concat(data.id, "/update"), {
       _method: 'PUT',
+      id: data.id,
       name: data.name,
       desk_id: data.desk_id
     })["catch"](function (e) {

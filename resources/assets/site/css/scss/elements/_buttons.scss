@@ -17,8 +17,7 @@
     }
 
     &.disabled {
-        background: $color-blue-lite;
-        opacity: .3;
+        background: rgba($color-gray,.1);
         pointer-events: none;
     }
 
