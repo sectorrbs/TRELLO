@@ -21,9 +21,7 @@
 
         <Cards :cards="list.cards"/>
 
-        <div class="desks__list-btns">
-            <div class="desks__list-btn">Добавить карточку</div>
-        </div>
+        <DeskListNewCard/>
 
     </div>
 </template>
@@ -31,16 +29,17 @@
 <script>
 
 import DeskListRenameInput from './DeskListRenameInput'
+import DeskListNewCard from './DeskListNewCard'
 import Cards from '../../Cards/Cards'
 
 export default {
     name: "DeskList",
     data: () => ({
         show: false,
-        name: null
+        name: null,
     }),
     props: ['list'],
-    components: {DeskListRenameInput, Cards},
+    components: {DeskListRenameInput, DeskListNewCard, Cards},
     methods: {
         renameDesk() {
             document.querySelectorAll('.desks__item-rename').forEach(el => {
