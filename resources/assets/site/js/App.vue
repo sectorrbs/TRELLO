@@ -1,6 +1,7 @@
 <template>
     <Header/>
     <router-view></router-view>
+    <Modal />
 </template>
 
 <script>
@@ -11,6 +12,9 @@ export default {
     name: "App",
     components: {
         Header
+    },
+    mounted() {
+        this.$closed('app')
     }
 }
 </script>

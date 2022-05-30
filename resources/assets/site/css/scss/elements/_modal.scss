@@ -1,23 +1,61 @@
 .modal {
-    opacity: 0;
-    visibility: hidden;
-    @include transition;
-    @include position(fixed, 0, 0, null, null);
+    @include transition(.2s);
+    @include position(fixed, 0, 0, null, null, 1000);
     @include size(100%, 100%);
     @include flex(center, center);
+    visibility: hidden;
+    opacity: 0;
     animation: fadeIn 0.5s linear;
     background: rgba($color, .7);
 
+    &__close {
+        @include position(absolute, null, 0, 0, null);
+        @include font(30px, 300, 15px, $color-white, null);
+        cursor: pointer;
+        padding: 5px 10px 10px 15px;
+        background: $color-blue-lite;
+        border-bottom-left-radius: 25px;
+
+        &:hover {
+            background: $color-blue;
+        }
+    }
+
+    &__inner {
+        @include flex(stretch);
+        flex-direction: column;
+        height: 100%;
+    }
+
     &__window {
+        @include transition(.2s);
+        @include font(17px, 700, 23px, null, null);
+        width: 500px;
+        height: 500px;
+        position: relative;
         padding: 30px 15px 15px;
         background: $color-white;
-        @include font(17px, 700, 23px, null, null);
+
+        &-content {
+            flex: 1;
+        }
 
         &-actions {
             @include flex(center, flex-end, nowrap);
             width: 100%;
             gap: 10px;
             margin-top: 30px;
+        }
+    }
+
+    &__load {
+        @include position(absolute, 50%, 50%, null, null);
+        @include transition(.2s);
+        transform: translate(-50%, -50%);
+
+        &-icon {
+            @include font(50px, null, 15px, rgba($color-gray, .5), null);
+            animation: move 0.9s infinite linear;
         }
     }
 

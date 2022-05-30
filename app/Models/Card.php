@@ -9,4 +9,12 @@
     class Card extends Model
     {
         use HasFactory;
+
+        public $guarded = false;
+
+
+        public function deskList()
+        {
+            return $this->belongsTo(DeskList::class, 'desk_lists_id');
+        }
     }

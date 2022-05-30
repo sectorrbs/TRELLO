@@ -18,3 +18,4 @@
 
     require 'components/desks.php';
     require 'components/lists.php';
+    require 'components/cards.php';

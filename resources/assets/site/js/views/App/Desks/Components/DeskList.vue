@@ -1,6 +1,6 @@
 <template>
-    <div draggable="false" class="desks__list">
-        <div class="desks__list-inner">
+    <div draggable="false" ref="desk_list" class="desks__list">
+        <div class="desks__list-inner" ref="renameList">
             <div class="desks__list-title">
                 {{ list.name }}
             </div>
@@ -12,16 +12,21 @@
                 :old_name="name"
                 v-model="list.name"/>
             <Fa :type="'r'"
-                @click.prevent="renameDesk"
+                @click.prevent="renameList"
                 :name="'pen desks__edit'"/>
-            <Fa :type="'l'"
-                @click.prevent="this.$store.dispatch('deleteList',list)"
-                :name="'times desks__delete'"/>
+            <Fa :type="'s'"
+                @click.prevent="showSettingsList"
+                :name="'ellipsis-h desks__settings'"/>
+
+            <div ref="desk_list-settings" class="desks__list-settings">
+                <Settings :list="list"/>
+            </div>
+
         </div>
 
-        <Cards :cards="list.cards"/>
+        <Cards :cards="cards"/>
 
-        <DeskListNewCard/>
+        <DeskListNewCard @addNewCard="reloadCards" :list="list"/>
 
     </div>
 </template>
@@ -37,17 +42,48 @@ export default {
     data: () => ({
         show: false,
         name: null,
+        items: []
     }),
     props: ['list'],
     components: {DeskListRenameInput, DeskListNewCard, Cards},
     methods: {
-        renameDesk() {
-            document.querySelectorAll('.desks__item-rename').forEach(el => {
-                el.classList.remove('show')
-            })
-            this.show = true
+        renameList() {
+            this.$closed('renameList')
+            setTimeout(() => {
+                this.$refs.renameList.querySelector('.desks__item-input').focus()
+            }, 1)
             this.name = this.$refs.input.modelValue
+            this.show = !this.show
         },
+
+        reloadCards(data) {
+            console.log(this.list.cards)
+           this.items.push(data)
+            this.$store.dispatch('getDeskNotLoader', data.desk_id)
+            console.log(this.$store.getters.desk)
+        },
+
+        showSettingsList() {
+            let btn = this.$refs.desk_list.querySelector('.desks__settings')
+            let list = this.$refs.desk_list.querySelector('.desks__list-settings')
+
+            if (btn.classList.contains('open')) {
+                btn.classList.remove('open')
+                list.classList.remove('open')
+            } else {
+                this.$closed('settings')
+                btn.classList.add('open')
+                list.classList.add('open')
+            }
+        }
     },
+    mounted() {
+        this.items = this.list.cards
+    },
+    computed: {
+        cards() {
+            return this.items
+        }
+    }
 }
 </script>

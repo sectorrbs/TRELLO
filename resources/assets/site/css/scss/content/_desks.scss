@@ -110,6 +110,23 @@
         }
     }
 
+    &__settings {
+        @include position(absolute, null, 0, 0, null);
+        @include font(19px, null, 15px, rgba($color-gray, .5), null);
+        opacity: 0;
+        cursor: pointer;
+        padding: 5px 10px;
+
+        &:hover {
+            color: $color-gray;
+        }
+
+        &.open {
+            opacity: 1;
+            color: $color;
+        }
+    }
+
     &__form {
         @include flex(center, null, nowrap);
         margin-top: 30px;
@@ -145,7 +162,7 @@
             padding: 20px;
             @include flex(flex-start);
             pointer-events: painted;
-            gap: 10px;
+            gap: 5px;
             position: relative;
         }
 
@@ -181,6 +198,10 @@
             width: 100%;
             padding: 5px 75px 5px 10px;
             outline: 1px solid rgba(gray, .4);
+
+            &::placeholder {
+                @include font(11px, null, null, rgba($color-gray, .7), null);
+            }
         }
 
         &-btns {
@@ -194,6 +215,7 @@
                     opacity: 0;
                     visibility: hidden;
                 }
+
                 .desks__list-newcard {
                     opacity: 1;
                     visibility: visible;
@@ -215,12 +237,23 @@
             }
         }
 
+        &-settings {
+            @include position(absolute, null, 30px, -165px, null, 1000);
+            opacity: 0;
+            visibility: hidden;
+
+            &.open {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
         &:hover {
             .desks__list-title {
                 text-decoration: underline;
             }
 
-            .desks__delete {
+            .desks__settings {
                 opacity: 1;
             }
 

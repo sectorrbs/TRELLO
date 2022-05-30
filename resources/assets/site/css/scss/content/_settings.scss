@@ -1,0 +1,18 @@
+.settings {
+    padding: 5px 0;
+    background: $color-white;
+    border: 1px solid rgba(128, 128, 128, .4);
+    box-shadow: 0 4px 9px 0 rgba(34, 60, 80, 0.2);
+    min-width: 200px;
+
+    &__item {
+        @include font(13px, null, 15px, null, null);
+        @include transition(.2s);
+        cursor: pointer;
+        padding: 10px;
+
+        &:hover {
+            background: rgba($color-gray, .2);
+        }
+    }
+}

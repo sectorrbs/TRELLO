@@ -28,7 +28,7 @@ export const actions = {
                 dispatch('getDesk', list.desk_id)
                 setTimeout(() => {
                     commit('changeLoader', false)
-                }, 200)
+                }, 220)
             })
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
 
-use App\Http\Controllers\Api\v1\DeskListController;
-use Illuminate\Support\Facades\Route;
+    use App\Http\Controllers\Api\v1\CardController;
+    use Illuminate\Support\Facades\Route;
 
-Route::post('card/create', [DeskListController::class, 'createList']);
+    Route::get('card/{card}', [CardController::class, 'getCard']);
+    Route::post('card/create', [CardController::class, 'createCard']);

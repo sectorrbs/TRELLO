@@ -18,7 +18,6 @@
             @input="updateInput"
             @click.prevent>
         <Error v-if="v$.name.$error" class="desks__item-error" :error="'Название не указано'"/>
-
     </div>
 </template>
 
@@ -51,7 +50,6 @@ export default {
             this.$emit('update:modelValue', e.target.value)
             this.name = this.desk.name
             this.v$.$touch()
-            this.$emit('rename')
         },
         cancelRenameDesk() {
             this.$emit('update:modelValue', this.old_name)

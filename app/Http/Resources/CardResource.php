@@ -18,6 +18,7 @@ class CardResource extends JsonResource
             'id' => $this->id,
             'desk_lists_id' => $this->desk_lists_id,
             'name' => $this->name,
+            'deskList'=> $this->deskList
         ];
     }
 }
