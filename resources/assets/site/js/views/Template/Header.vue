@@ -1,18 +1,19 @@
 <template>
     <header class="header">
-        <div class="container">
-        <Navigation/>
+        <div class="header__logo">
+            <Fa :type="'b'"
+                :name="'trello header__logo-icon'"/>
+            Rafaello
         </div>
+        <div class="header__btn">Создать</div>
     </header>
 </template>
 
 <script>
 
-import Navigation from "./Navigation";
 
 export default {
     name: "Header",
-    components: {Navigation}
 }
 </script>
 

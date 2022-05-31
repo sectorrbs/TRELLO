@@ -10,7 +10,15 @@ export const actions = {
 
     },
 
-    getDesk({commit}, id) {
+    getDesksNotLoader({commit}) {
+        axios.get('/api/v1/desks')
+            .then(res => {
+                commit('setDesks', res.data.data)
+            })
+            .catch(e => commit('setErrorMessage', e.message))
+    },
+
+     getDesk({commit}, id) {
         commit('changeLoader', true)
         axios.get(`/api/v1/desk/${id}`)
             .then(res => {
@@ -29,7 +37,7 @@ export const actions = {
     },
 
     createDesk({commit, dispatch}, name) {
-        commit('changeLoader', true)
+        commit('changePageLoad', true)
         axios.post(`/api/v1/desk/create`, {_method: 'POST', name,})
             .then(res => {
                 commit('setErrorMessage', null)
@@ -41,7 +49,7 @@ export const actions = {
             .finally(() => {
                 dispatch('getDesks')
                 setTimeout(() => {
-                    commit('changeLoader', false)
+                    commit('changePageLoad', false)
                 }, 220)
             })
     },
@@ -52,7 +60,7 @@ export const actions = {
             })
     },
     deleteDesk({commit}, desk) {
-        commit('changeLoader', true)
+        commit('changePageLoad', true)
         axios.post(`/api/v1/desk/${desk.id}/delete`, {_method: 'DELETE', name: desk.name, id: desk.id})
             .then(res => {
                 commit('setDesks', res.data.data)
@@ -60,6 +68,6 @@ export const actions = {
             .catch(e => {
                 commit('setErrorMessage', e.response.data.errors.name[0])
             })
-            .finally(() => commit('changeLoader', false))
+            .finally(() => commit('changePageLoad', false))
     }
 }

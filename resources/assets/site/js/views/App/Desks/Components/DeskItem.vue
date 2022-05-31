@@ -1,5 +1,8 @@
 <template>
-    <router-link draggable="false" :to="{name: 'lists', params: { id: desk.id }}" class="desks__item" :id="desk.id">
+    <router-link draggable="false"
+                 :to="{name: 'lists', params: { id: desk.id }}"
+                 class="desks__item"
+                 :id="desk.id">
         <div class="desks__item-title">
             {{ desk.name }}
         </div>

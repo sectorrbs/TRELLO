@@ -2,10 +2,11 @@
 
     <div class="modal" :class="{show: this.$store.getters.modal}">
         <div class="modal__wrapper">
+            <ModalLoad v-if="modalLoad"/>
+            <CardInfo v-else :cardInfo="cardInfo"/>
             <Fa :type="'l'"
                 @click.prevent="closeModal"
                 :name="'times modal__close'"/>
-            <CardInfo :cardInfo="cardInfo"/>
         </div>
     </div>
 
@@ -47,7 +48,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['cardInfo'])
+        ...mapGetters(['cardInfo', 'modalLoad'])
     },
 }
 </script>

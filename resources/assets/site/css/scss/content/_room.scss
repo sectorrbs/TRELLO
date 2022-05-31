@@ -1,0 +1,83 @@
+.room {
+    &__title {
+        text-transform: uppercase;
+        @include font(18px, 500, 1, $color-gray, null);
+    }
+
+    &__desks {
+        &-create {
+            position: relative;
+            min-height: 74px;
+        }
+
+        &-form {
+            @include position(absolute, null, 0, -376px, null);
+            opacity: 0;
+            visibility: hidden;
+
+            &.show {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        &-add {
+            @include font(17px, 500, 1, $color-white, null);
+            @include flex(center, center);
+            background: rgba($color-gray, .1);
+            cursor: pointer;
+            gap: 10px;
+            height: 100%;
+
+            &-icon {
+                font-size: 25px;
+                transform: translateY(-1px);
+            }
+
+            &:hover {
+                background: rgba($color-gray, .2);
+            }
+        }
+    }
+
+    &__items {
+        margin-top: 15px;
+    }
+
+    &__item {
+        &-actions {
+            @include flex(center, space-between);
+            margin-bottom: 20px;
+        }
+
+        &-btns {
+            @include flex(center);
+            gap: 10px;
+        }
+
+        &-btn {
+            @include flex(center, center);
+            @include font(13px, null, 15px, null, null);
+            gap: 7px;
+            cursor: pointer;
+            padding: 10px;
+            background: rgba($color-gray, .1);
+
+            &:hover {
+                background: rgba($color-gray, .2);
+            }
+        }
+
+        &-name {
+            @include font(17px, 600, 1, null, null);
+            @include flex(center);
+            gap: 8px;
+        }
+
+        &-logo {
+            @include size(30px, 30px);
+            border-radius: 10px;
+            background: rgba($color-gray, .5);
+        }
+    }
+}

@@ -1,8 +1,6 @@
 <template>
     <div v-if="cardInfo" class="details__window">
 
-        <ModalLoad v-if="modalLoad"/>
-
         <div class="details__window-top">
             <div class="details__window-content">
                 <div class="details__window-title">

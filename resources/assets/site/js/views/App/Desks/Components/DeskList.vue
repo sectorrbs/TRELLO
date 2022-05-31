@@ -62,7 +62,7 @@ export default {
             setTimeout(() => {
                 this.items.pop()
                 this.items.push(this.$store.getters.cardInfo)
-            }, 200)
+            }, 500)
         },
 
         showSettingsList() {

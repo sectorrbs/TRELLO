@@ -16,7 +16,7 @@
             <div class="details__actions-modal-text">
                 Все действия будут удалены из ленты, и вы не сможете повторно открыть карточку. Отмена невозможна.
             </div>
-            <div class="details__actions-modal-btn" @click="this.$store.dispatch('deleteCard', cardInfo)">
+            <div class="details__actions-modal-btn" @click="cardDelete">
                 Удалить
             </div>
         </div>
@@ -32,11 +32,15 @@ export default {
     }),
     props: ['cardInfo'],
     mounted() {
-        window.addEventListener('click', () => this.show = !this.show)
+        window.addEventListener('click', () => this.show = false)
     },
     methods: {
         showModalDelete() {
             this.show = !this.show
+        },
+        cardDelete() {
+            this.$store.dispatch('closeModal')
+            this.$store.dispatch('deleteCard', this.cardInfo)
         }
     },
 }

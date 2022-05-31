@@ -21,4 +21,10 @@
             $new_card = Card::create($request->validated());
             return CardResource::make($new_card);
         }
+
+        public function deleteCard(Card $card)
+        {
+            $card->delete();
+            return response(null, Response::HTTP_NO_CONTENT);
+        }
     }

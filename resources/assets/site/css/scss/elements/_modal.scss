@@ -21,7 +21,17 @@
         }
     }
 
-    &__wrapper{
+    &__load {
+        @include position(absolute, 50%, 50%, null, null);
+        transform: translate(-50%, -50%);
+
+        &-icon {
+            @include font(45px,null,15px,null,null);
+            animation: move 0.9s infinite linear;
+        }
+    }
+
+    &__wrapper {
         @include transition(.2s);
         width: 700px;
         height: 500px;

@@ -6,3 +6,4 @@
 
     Route::get('card/{card}', [CardController::class, 'getCard']);
     Route::post('card/create', [CardController::class, 'createCard']);
+    Route::delete('card/{card}/delete', [CardController::class, 'deleteCard']);

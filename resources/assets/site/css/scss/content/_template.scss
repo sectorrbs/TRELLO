@@ -4,7 +4,7 @@
 .container {
     position: relative;
     z-index: 10;
-    width: 1170px;
+    width: 1270px;
     padding: {
         left: 15px;
         right: 15px;
@@ -19,7 +19,9 @@
 ------------------------------------------------------------------------ */
 
 .header {
+    @include flex(center);
     background: $color-blue-lite;
+    gap: 10px;
 
     &__wrapper {
         @include flex(center, null, nowrap);
@@ -32,12 +34,23 @@
         @include flex(center, space-around);
         @include size(115px, 48px);
         @include font(20px, 700, 27px, $color-white, null);
-        background: $color-red;
-        border-radius: 5px;
         padding: 5px;
 
         &-icon {
-            font-size: 30px;
+            transform: translateY(-2px);
+            font-size: 20px;
+        }
+    }
+
+    &__btn {
+        @include flex(center, center);
+        @include font(15px, 500, 1, $color-white, null);
+        cursor: pointer;
+        padding: 10px 15px;
+        background: $color-green-lite;
+
+        &:hover {
+            background: rgba(46,187,46,.82);
         }
     }
 
@@ -304,7 +317,7 @@
 ------------------------------------------------------------------------ */
 
 .content {
-    margin-top: 35px;
+    margin-top: 50px;
 
     &__title {
         @include flex(center, space-between);

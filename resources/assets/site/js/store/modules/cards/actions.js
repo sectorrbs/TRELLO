@@ -5,7 +5,7 @@ export const actions = {
             name: data.name,
             desk_lists_id: data.desk_lists_id
         })
-            .then(res=>{
+            .then(res => {
                 commit('setCardInfo', res.data.data)
             })
             .catch(e => {
@@ -28,7 +28,7 @@ export const actions = {
     },
 
     deleteCard({commit, dispatch}, data) {
-        console.log(data)
+
         commit('changeLoader', true)
         axios.post(`/api/v1/card/${data.id}/delete`, {_method: 'DELETE', name: data.name, id: data.id})
             .catch(e => {
@@ -38,7 +38,7 @@ export const actions = {
                 dispatch('getDesk', data.deskList.desk_id)
                 setTimeout(() => {
                     commit('changeLoader', false)
-                }, 220)
+                }, 500)
             })
     }
 }

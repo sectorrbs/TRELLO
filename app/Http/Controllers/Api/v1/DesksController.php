@@ -6,9 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DeskRequest;
 use App\Http\Resources\DeskResource;
 use App\Models\Desk;
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Cache;
 
 class DesksController extends Controller
 {
