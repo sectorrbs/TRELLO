@@ -1,0 +1,311 @@
+.details {
+    @include transition(.2s);
+    @include position(fixed, 0, 0, null, null, 1000);
+    @include size(100%, 100%);
+    @include flex(center, center);
+    visibility: hidden;
+    opacity: 0;
+    animation: fadeIn 0.5s linear;
+    background: rgba($color, .7);
+
+    &__close {
+        @include position(absolute, null, 0, 0, null);
+        @include font(30px, 300, 15px, $color-white, null);
+        cursor: pointer;
+        padding: 5px 10px 10px 15px;
+        background: $color-blue-lite;
+        border-bottom-left-radius: 25px;
+
+        &:hover {
+            background: $color-blue;
+        }
+    }
+
+    &__window {
+        @include flex(stretch, null, nowrap);
+        flex-direction: column;
+        height: 100%;
+        background: #f4f5f7;
+
+        &-icon {
+            transform: translateY(-1px);
+        }
+
+        &-participants {
+            &-subtitle {
+                @include font(13px, 400, 1, null, null);
+                padding-left: 35px;
+            }
+
+            &-content {
+                @include flex(center, null, nowrap);
+                gap: 5px;
+                margin-top: 7px;
+            }
+
+            &-items {
+                @include flex(center, null, nowrap);
+                gap: 5px;
+            }
+
+            &-item {
+                @include size(30px, 30px);
+                background: rgba($color-gray, .3);
+                border-radius: 50%;
+            }
+
+            &-btn {
+                @include transition(.2s);
+                @include flex(center, center);
+                @include size(30px, 30px);
+                background: rgba($color-gray, .1);
+                border-radius: 50%;
+                cursor: pointer;
+
+                &:hover {
+                    background: rgba($color-gray, .2);
+                }
+            }
+        }
+
+        &-description {
+            margin-top: 20px;
+
+            &-title {
+                @include flex(center);
+                @include font(16px, 500, 1, null, null);
+                gap: 18px;
+                position: relative;
+            }
+
+            &-btn {
+                @include font(13px, null, 1, $color-gray, null);
+                @include transition(.2s);
+                width: 100%;
+                cursor: pointer;
+                padding: 10px;
+                background: rgba($color-gray, .1);
+                height: 50px;
+                margin-top: 15px;
+
+                &:hover {
+                    background: rgba($color-gray, .2);
+                }
+            }
+
+            &-more {
+                margin-top: 7px;
+                padding-left: 35px;
+            }
+        }
+
+        &-action {
+            margin-top: 20px;
+
+
+            &-title {
+                @include flex(center);
+                @include font(16px, 500, 1, null, null);
+                gap: 18px;
+                position: relative;
+            }
+
+            &-logo {
+                @include size(30px, 30px);
+                background: rgba($color-gray, .3);
+                border-radius: 50%;
+                flex-shrink: 0;
+            }
+
+            &-btn {
+                @include font(13px, null, 1, $color-gray, null);
+                background: $color-white;
+                border: 1px solid rgba($color-gray, .5);
+                border-radius: 5px;
+                padding: 10px;
+                width: 100%;
+                cursor: pointer;
+
+                &:hover {
+                    box-shadow: 0 3px 8px 0 rgba(34, 60, 80, 0.2);
+                }
+            }
+
+            &-comment {
+                @include flex(center, null, nowrap);
+                margin-top: 15px;
+                gap: 10px;
+            }
+        }
+
+        &-top {
+            padding: 20px 60px 20px 15px;
+        }
+
+        &-bottom {
+            @include flex(stretch, space-between, nowrap);
+            height: 100%;
+            padding: 0 15px 15px;
+
+            &-left {
+                width: 72%;
+            }
+
+            &-right {
+                width: 25%;
+            }
+        }
+
+        &-title {
+            @include font(19px, 700, 20px, null, null);
+            position: relative;
+            padding-left: 35px;
+
+            .details__window-icon {
+                @include position(absolute, 0, 0, null, null);
+            }
+        }
+
+        &-subtitle {
+            @include font(14px, 400, 20px, null, null);
+            @include flex(center);
+            gap: 3px;
+            margin-top: 10px;
+            padding-left: 35px;
+        }
+
+        &-card {
+            @include font(14px, 400, 20px, null, null);
+            cursor: pointer;
+            text-decoration: underline;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        &-content {
+            flex: 1;
+        }
+
+        &-actions {
+            @include flex(center, flex-end, nowrap);
+            width: 100%;
+            gap: 10px;
+            margin-top: 30px;
+        }
+    }
+
+    &__load {
+        @include position(absolute, 50%, 50%, null, null);
+        @include transition(.2s);
+        transform: translate(-50%, -50%);
+
+        &-icon {
+            @include font(50px, null, 15px, rgba($color-gray, .5), null);
+            animation: move 0.9s infinite linear;
+        }
+    }
+
+    &__actions {
+        @include flex(stretch);
+        flex-direction: column;
+
+        &-subtitle {
+            @include font(13px, 400, 1, null, null);
+        }
+
+        &-btns {
+            @include flex(stretch);
+            flex-direction: column;
+            gap: 7px;
+            margin-top: 10px;
+        }
+
+        &-btn {
+            @include transition(.2s);
+            @include font(13px, 300, 1, null, null);
+            @include flex(center);
+            position: relative;
+            gap: 9px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+            background: rgba($color-gray, .1);
+
+            &.delete {
+                background: rgba($color-red, .3);
+
+                &:hover {
+                    background: rgba($color-red, .4);
+                }
+            }
+
+            &:hover {
+                background: rgba($color-gray, .2);
+            }
+        }
+
+        &-icon {
+            @include font(12px, 400, 1, null, null);
+        }
+
+        &-modal {
+            @include position(absolute, null, -150px, 0, null);
+            background: $color-white;
+            width: 290px;
+            padding: 0 10px 10px 10px;
+            border-radius: 5px;
+            box-shadow: -1px 4px 8px 0px rgba(34, 60, 80, 0.2);
+            opacity: 0;
+            visibility: hidden;
+
+            &.show {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            &-close {
+                @include font(15px, null, 1, null, null);
+                @include position(absolute, null, 50%, 10px, null);
+                transform: translateY(-50%);
+            }
+
+            &-top {
+                @include flex(center, center);
+                position: relative;
+                padding: 10px 0;
+                text-align: center;
+                border-bottom: 1px solid rgba($color-gray, .3)
+            }
+
+            &-title {
+                @include font(15px, null, 1, null, null);
+            }
+
+            &-text {
+                @include font(13px, null, 1, null, null);
+                padding-top: 10px;
+            }
+
+            &-btn {
+                color: $color-white;
+                margin-top: 15px;
+                padding: 10px;
+                text-align: center;
+                width: 100%;
+                background: rgba($color-red, .6);
+
+                &:hover {
+                    background: rgba($color-red, .7);
+                }
+            }
+        }
+    }
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+    }
+}

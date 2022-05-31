@@ -113,7 +113,7 @@
     &__settings {
         @include position(absolute, null, 0, 0, null);
         @include font(19px, null, 15px, rgba($color-gray, .5), null);
-        opacity: 0;
+        opacity: 1;
         cursor: pointer;
         padding: 5px 10px;
 
@@ -287,14 +287,14 @@
 
         &-item {
             @include transition(.2s);
-            @include font(13px, 400, 1, $color, null);
+            @include font(12px, 500, 1.3, $color, null);
             cursor: pointer;
-            padding: 10px;
+            padding: 10px 40px 10px 10px;
             border-radius: 5px;
             background: $color-blue-lite;
 
             &:hover {
-                background: #20a5aebf;
+                background: #20a5aebf
             }
         }
 

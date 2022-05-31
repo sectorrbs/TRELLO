@@ -1,18 +1,12 @@
 <template>
 
     <div class="modal" :class="{show: this.$store.getters.modal}">
-        <div v-if="cardInfo" class="modal__window">
+        <div class="modal__wrapper">
             <Fa :type="'l'"
                 @click.prevent="closeModal"
                 :name="'times modal__close'"/>
-            <ModalLoad v-if="modalLoad"/>
-            <div v-else class="modal__inner">
-                <div class="modal__window-content">
-                    {{ cardInfo.name }}
-                </div>
-            </div>
+            <CardInfo :cardInfo="cardInfo"/>
         </div>
-
     </div>
 
 </template>
@@ -20,6 +14,7 @@
 <script>
 
 import {mapActions, mapGetters} from 'vuex'
+import CardInfo from '../App/Cards/CardInfo'
 
 export default {
     name: "Modal",
@@ -30,8 +25,9 @@ export default {
             text: null,
         }
     },
+    components: {CardInfo},
     mounted() {
-        window.addEventListener('click', e =>{
+        window.addEventListener('click', e => {
             if (e.target.classList.contains('modal')) {
                 this.$store.dispatch('closeModal')
             }
@@ -51,7 +47,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['cardInfo', 'modalLoad'])
+        ...mapGetters(['cardInfo'])
     },
 }
 </script>

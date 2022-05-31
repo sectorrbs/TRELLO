@@ -8,11 +8,6 @@
 export default {
     name: "CardItem" ,
     props: ['card'],
-    methods: {
-    },
 }
 </script>
 
-<style scoped>
-
-</style>

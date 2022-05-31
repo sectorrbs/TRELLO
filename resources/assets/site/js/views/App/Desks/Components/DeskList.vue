@@ -57,10 +57,12 @@ export default {
         },
 
         reloadCards(data) {
-            console.log(this.list.cards)
-           this.items.push(data)
             this.$store.dispatch('getDeskNotLoader', data.desk_id)
-            console.log(this.$store.getters.desk)
+            this.items.push(data)
+            setTimeout(() => {
+                this.items.pop()
+                this.items.push(this.$store.getters.cardInfo)
+            }, 200)
         },
 
         showSettingsList() {
