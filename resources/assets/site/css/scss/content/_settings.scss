@@ -1,18 +1,51 @@
 .settings {
-    padding: 5px 0;
+    padding: 0 0 5px;
+    color: $color;
     background: $color-white;
     border: 1px solid rgba(128, 128, 128, .4);
     box-shadow: 0 4px 9px 0 rgba(34, 60, 80, 0.2);
     min-width: 200px;
 
-    &__item {
-        @include font(13px, null, 15px, null, null);
-        @include transition(.2s);
-        cursor: pointer;
-        padding: 10px;
+    &__title {
+        @include font(14px);
+        padding: 10px 0;
+        text-align: center;
+        position: relative;
+        margin-bottom: 6px;
 
-        &:hover {
+        &::before {
+            content: '';
+            @include position(absolute, null, null, 50%, 0);
+            @include size(95%, 1px);
             background: rgba($color-gray, .2);
+            transform: translateX(50%);
+        }
+    }
+
+    &__item {
+
+        &-btns {
+            @include flex(center, null, nowrap);
+            gap: 5px;
+        }
+
+        &-btn {
+            @include font(13px, null, 15px, null, null);
+            @include transition(.2s);
+            padding: 10px;
+            cursor: pointer;
+
+            &:hover {
+                background: rgba($color-gray, .2);
+            }
+        }
+
+        &-alert {
+            @include flex(center, null, nowrap);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 10px;
+            gap: 19px;
         }
     }
 }

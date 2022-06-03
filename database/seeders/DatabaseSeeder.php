@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Card;
+use App\Models\CheckList;
 use App\Models\Desk;
 use App\Models\DeskList;
 use App\Models\Task;
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
         Desk::factory(10)->create();
         DeskList::factory(30)->create();
         Card::factory(30)->create();
+        CheckList::factory(30)->create();
         Task::factory(30)->create();
     }
 }

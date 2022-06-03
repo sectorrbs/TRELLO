@@ -26,7 +26,7 @@
         transform: translate(-50%, -50%);
 
         &-icon {
-            @include font(45px,null,15px,null,null);
+            @include font(45px, null, 15px, null, null);
             animation: move 0.9s infinite linear;
         }
     }

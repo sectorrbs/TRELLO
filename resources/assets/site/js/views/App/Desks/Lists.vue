@@ -4,20 +4,23 @@
 
     <div class="content" v-else>
         <div v-if="desk" class="desks__lists">
-<!--            <div class="content__title">-->
-<!--                <router-link to="/desks" class="content__back btn">-->
-<!--                    Назад-->
-<!--                </router-link>-->
-<!--            </div>-->
-<!--            <div class="desks__create-list">-->
-<!--                <DeskListCreateForm :desk_id="desk.id"/>-->
-<!--            </div>-->
+            <!--            <div class="content__title">-->
+            <!--                <router-link to="/desks" class="content__back btn">-->
+            <!--                    Назад-->
+            <!--                </router-link>-->
+            <!--            </div>-->
+
             <div v-if="desk.lists?.length" class="desks__lists-inner">
                 <DeskList v-for="list in desk.lists" :list="list" :key="list.id"/>
                 <div class="desks__lists-add">
-                    <Fa :type="'r'"
-                        :name="'plus desks__add-icon'"/>
-                    Добавить список
+                    <div class="desks__create-list">
+                        <DeskListCreateForm :show="show" @showClose="showForm" :desk_id="desk.id"/>
+                    </div>
+                    <div class="desks__lists-add-btn" @click="showForm">
+                        <Fa :type="'r'"
+                            :name="'plus desks__add-icon'"/>
+                        Добавить ещё одну колонку
+                    </div>
                 </div>
             </div>
             <div v-else class="desks__lists-empty">
@@ -40,7 +43,8 @@ export default {
     name: "Lists",
     data: () => ({
         v$: useVuelidate(),
-        name: null
+        name: null,
+        show: false
     }),
     components: {DeskList, DeskListCreateForm},
     mounted() {
@@ -59,6 +63,10 @@ export default {
             this.$store.commit('setErrorMessage', null)
             this.name = this.desk.name
             this.v$.$touch()
+        },
+        showForm() {
+            this.show = !this.show
+            this.$store.commit('setErrorMessage', null)
         }
     },
     computed: {

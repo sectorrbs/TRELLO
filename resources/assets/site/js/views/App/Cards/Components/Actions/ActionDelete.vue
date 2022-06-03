@@ -1,43 +1,36 @@
 <template>
-    <div class="details__actions-btn delete" @click.stop="showModalDelete">
+    <div class="details__actions-btn delete" @click.stop="show=!show">
         <Fa :type="'r'"
             :name="'minus details__actions-icon'"/>
         Удалить
-        <div class="details__actions-modal" :class="{show}">
-            <div class="details__actions-modal-top">
-                <div class="details__actions-modal-title">
-                    Удаление карточки
+        <CardActionModal :show="show">
+            <template v-slot:modal_title>
+                Удалить карточку
+            </template>
+            <template v-slot:modal_content>
+                <div class="details__actions-modal-text">
+                    Все действия будут удалены из ленты, и вы не сможете повторно открыть карточку. Отмена невозможна.
                 </div>
-                <div class="details__actions-modal-close">
-                    <Fa :type="'l'"
-                        :name="'times'"/>
+                <div class="details__actions-modal-btn delete" @click="cardDelete">
+                    Удалить
                 </div>
-            </div>
-            <div class="details__actions-modal-text">
-                Все действия будут удалены из ленты, и вы не сможете повторно открыть карточку. Отмена невозможна.
-            </div>
-            <div class="details__actions-modal-btn" @click="cardDelete">
-                Удалить
-            </div>
-        </div>
+            </template>
+        </CardActionModal>
     </div>
 </template>
 
 <script>
+
+import CardActionModal from './ActionModal'
 
 export default {
     name: "ActionDelete",
     data: () => ({
         show: false
     }),
+    components: {CardActionModal},
     props: ['cardInfo'],
-    mounted() {
-        window.addEventListener('click', () => this.show = false)
-    },
     methods: {
-        showModalDelete() {
-            this.show = !this.show
-        },
         cardDelete() {
             this.$store.dispatch('closeModal')
             this.$store.dispatch('deleteCard', this.cardInfo)

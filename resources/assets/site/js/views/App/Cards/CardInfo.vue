@@ -19,6 +19,7 @@
         <div class="details__window-bottom">
             <div class="details__window-bottom-left">
                 <CardParticipants/>
+                <CardCheckLists v-if="cardInfo.checkLists.length" :checkLists="cardInfo.checkLists"/>
                 <CardDescription/>
                 <CardComment/>
             </div>
@@ -34,13 +35,14 @@
 import {mapGetters} from 'vuex'
 import CardParticipants from './Components/CardParticipants'
 import CardDescription from './Components/CardDescription'
+import CardCheckLists from './Components/CardCheckLists'
 import CardComment from './Components/CardComment'
 import CardActions from './Components/CardActions'
 
 export default {
     name: "CardInfo",
     props: ['cardInfo'],
-    components: {CardParticipants, CardDescription, CardComment, CardActions},
+    components: {CardParticipants, CardDescription, CardComment, CardActions, CardCheckLists},
     computed: {
         ...mapGetters(['modalLoad'])
     }

@@ -1,4 +1,3 @@
-
 export default {
     install(app, options) {
         app.config.globalProperties.$closed = (key) => {
@@ -21,6 +20,9 @@ export default {
                 case 'renameDesk':
                     clearDeskLists()
                     break;
+                case 'cardActions':
+                    clearCardActionsModal()
+                    break;
             }
 
             window.addEventListener('click', e => {
@@ -28,11 +30,12 @@ export default {
                     !e.target.classList.contains('desks__edit') &&
                     !e.target.classList.contains('desks__list-btn') &&
                     !e.target.classList.contains('desks__list-input') &&
-                    !e.target.classList.contains('desks__item-input')) {
+                    !e.target.classList.contains('desks__item-input') &&
+                    !e.target.classList.contains('settings__item-btn') &&
+                    !e.target.classList.contains('settings__cancel')) {
                     clearAll()
                 }
             })
-
 
             function clearAll() {
                 document.querySelectorAll('.desks__item-rename').forEach(el => {
@@ -48,6 +51,10 @@ export default {
                     .forEach(el => el.classList.remove('open'))
                 document.querySelectorAll('.desks__list-settings')
                     .forEach(el => el.classList.remove('open'))
+                document.querySelectorAll('.desks__list')
+                    .forEach(el => el.classList.remove('show'))
+                document.querySelectorAll('.details__actions-modal')
+                    .forEach(el => el.classList.remove('show'))
             }
 
             function clearDeskLists() {
@@ -72,6 +79,11 @@ export default {
             function clearSettingsList() {
                 document.querySelectorAll('.desks__settings-list')
                     .forEach(el => el.classList.remove('open'))
+            }
+
+            function clearCardActionsModal() {
+                document.querySelectorAll('.details__actions-modal')
+                    .forEach(el => el.classList.remove('show'))
             }
         }
     }

@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Models\CheckList;
+use App\Models\Card;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class TaskFactory extends Factory
+class CheckListFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,8 +15,8 @@ class TaskFactory extends Factory
     public function definition()
     {
         return [
-            'name'=>$this->faker->text(30),
-            'check_lists_id' => CheckList::all()->random()->id
+            'name' => $this->faker->text(20),
+            'card_id' => Card::all()->random()->id
         ];
     }
 }

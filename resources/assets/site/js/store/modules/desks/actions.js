@@ -32,12 +32,15 @@ export const actions = {
         axios.get(`/api/v1/desk/${id}`)
             .then(res => {
                 commit('setDesk', res.data.data)
+                setTimeout(() => {
+                    document.querySelector('.desks__lists-inner').scrollLeft += 1000
+                }, 300)
             })
             .catch(e => commit('setErrorMessage', e.message))
     },
 
     createDesk({commit, dispatch}, name) {
-        commit('changePageLoad', true)
+        // commit('changePageLoad', true)
         axios.post(`/api/v1/desk/create`, {_method: 'POST', name,})
             .then(res => {
                 commit('setErrorMessage', null)
@@ -48,9 +51,9 @@ export const actions = {
             })
             .finally(() => {
                 dispatch('getDesks')
-                setTimeout(() => {
-                    commit('changePageLoad', false)
-                }, 220)
+                // setTimeout(() => {
+                //     commit('changePageLoad', false)
+                // }, 220)
             })
     },
     updateDesk({commit}, desk) {

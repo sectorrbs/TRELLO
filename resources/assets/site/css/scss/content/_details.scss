@@ -69,12 +69,12 @@
         }
 
         &-description {
-            margin-top: 20px;
+            margin-top: 25px;
 
             &-title {
                 @include flex(center);
                 @include font(16px, 500, 1, null, null);
-                gap: 18px;
+                gap: 16px;
                 position: relative;
             }
 
@@ -86,7 +86,7 @@
                 padding: 10px;
                 background: rgba($color-gray, .1);
                 height: 50px;
-                margin-top: 15px;
+                margin-top: 10px;
 
                 &:hover {
                     background: rgba($color-gray, .2);
@@ -94,13 +94,56 @@
             }
 
             &-more {
-                margin-top: 7px;
-                padding-left: 35px;
+                margin-top: 10px;
+                padding-left: 30px;
+            }
+        }
+
+        &-checklists {
+            @include flex(stretch);
+            margin-top: 25px;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        &-checklist {
+            &-title {
+                @include flex(center);
+                @include font(16px, 500, 1, null, null);
+                gap: 16px;
+                position: relative;
+            }
+
+            &-more {
+                margin-top: 5px;
+                padding-left: 30px;
+            }
+
+            &-create {
+
+            }
+
+            &-input {
+                border: 1px solid $color-blue-lite;
+                background: $color-white;
+                width: 100%;
+                min-height: 50px;
+                padding: 7px 10px 10px;
+                font-size: 13px;
+
+                &::placeholder {
+                    font-size: 13px;
+                }
+            }
+
+            &-btns {
+                @include flex(center);
+                gap: 10px;
             }
         }
 
         &-action {
-            margin-top: 20px;
+            margin-top: 25px;
 
 
             &-title {
@@ -145,7 +188,7 @@
         &-bottom {
             @include flex(stretch, space-between, nowrap);
             height: 100%;
-            padding: 0 15px 15px;
+            padding: 0 15px 25px;
 
             &-left {
                 width: 72%;
@@ -159,7 +202,7 @@
         &-title {
             @include font(19px, 700, 20px, null, null);
             position: relative;
-            padding-left: 35px;
+            padding-left: 30px;
 
             .details__window-icon {
                 @include position(absolute, 0, 0, null, null);
@@ -175,9 +218,42 @@
         }
 
         &-card {
-            @include font(14px, 400, 20px, null, null);
+            @include font(14px, 400, 20px, $color-gray, null);
             cursor: pointer;
             text-decoration: underline;
+
+            &-btn {
+                @include font(13px, 400, 1, null, null);
+                padding: 10px;
+                width: max-content;
+                margin-top: 5px;
+                cursor: pointer;
+                background: rgba($color-gray, .1);
+
+                &.top {
+                    margin: 0 0 0 auto;
+                }
+
+                &.blue {
+                    background: $color-blue-lite;
+
+                    &:hover {
+                        background: $color-blue;
+                    }
+                }
+
+                &.transparent {
+                    background: transparent;
+
+                    &:hover {
+                        background: rgba($color-gray, .2)
+                    }
+                }
+
+                &:hover {
+                    background: rgba($color-gray, .2);
+                }
+            }
 
             &:hover {
                 text-decoration: none;
@@ -273,32 +349,76 @@
             }
 
             &-top {
+                @include font(15px, 400, 1, null, null);
                 @include flex(center, center);
                 position: relative;
-                padding: 10px 0;
+                padding: 10px 30px 10px 10px;
                 text-align: center;
                 border-bottom: 1px solid rgba($color-gray, .3)
             }
 
+            &-subtitle {
+                @include font(13px, 600, 1);
+                margin: 14px 0 3px;
+            }
+
             &-title {
                 @include font(15px, null, 1, null, null);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             &-text {
-                @include font(13px, null, 1, null, null);
+                @include font(13px, 400, 1, null, null);
                 padding-top: 10px;
             }
 
+            &-input {
+                font-size: 13px;
+                line-height: 1;
+                color: #6b6b6b;
+                background: #fff;
+                border: 1px solid rgba(107, 107, 107, .5);
+                padding: 10px;
+                width: 100%;
+            }
+
+            &-close {
+                cursor: pointer
+            }
+
             &-btn {
-                color: $color-white;
+                @include font(13px, 400, 1, $color-white, null);
                 margin-top: 15px;
                 padding: 10px;
                 text-align: center;
                 width: 100%;
-                background: rgba($color-red, .6);
+                cursor: pointer;
 
-                &:hover {
-                    background: rgba($color-red, .7);
+                &.delete {
+                    background: rgba($color-red, .6);
+
+                    &:hover {
+                        background: rgba($color-red, .7);
+                    }
+                }
+
+                &.create {
+                    background: rgba($color-green-lite, .6);
+
+                    &:hover {
+                        background: rgba($color-green-lite, .7);
+                    }
+                }
+
+                &.disabled {
+                    background: rgba($color-gray, .1);
+                    pointer-events: none;
+
+                    &:hover {
+                        background: rgba($color-gray, .1)
+                    }
                 }
             }
         }

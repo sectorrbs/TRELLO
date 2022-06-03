@@ -2,10 +2,10 @@
     <div :class="{show : show}" class="desks__item-rename">
         <div class="desks__item-btns">
             <Fa :type="'r'"
-                @click.prevent
+                @click.prevent.stop
                 :name="'check desks__item-confirm'"/>
             <Fa :type="'l'"
-                @click.prevent="cancelRenameDesk"
+                @click.prevent.stop="cancelRenameDesk"
                 :name="'times desks__item-cancel'"/>
         </div>
         <input
@@ -39,22 +39,21 @@ export default {
             this.v$.$touch()
             if (!this.v$.$error) {
                 this.$store.dispatch('updateDesk', this.desk)
-            } else {
-                this.cancelRenameDesk()
+                setTimeout(() => {
+                    this.$emit('editShow')
+                }, 100)
             }
-            setTimeout(() => {
-                this.$emit('editShow')
-            }, 100)
         },
         updateInput(e) {
             this.$emit('update:modelValue', e.target.value)
             this.name = this.desk.name
             this.v$.$touch()
+            this.$emit('rename')
         },
         cancelRenameDesk() {
             this.$emit('update:modelValue', this.old_name)
-            this.$emit('editShow')
             this.v$.$reset()
+            this.$emit('editShow')
         }
     },
     validations() {

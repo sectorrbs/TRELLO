@@ -6,7 +6,7 @@
         <div class="desks__item-title">
             {{ desk.name }}
         </div>
-        <form ref="renameDesk" @submit.prevent="renameDesk">
+        <form ref="renameDesk" @submit.prevent="piska">
             <DeskRenameInput
                 ref="input"
                 @editShow="show = false"
@@ -15,11 +15,16 @@
                 :old_name="name"
                 v-model="desk.name"/>
             <Fa :type="'r'"
-                @click.prevent="renameDesk"
+                @click.prevent.stop="renameDesk"
                 :name="'pen desks__edit'"/>
-            <Fa :type="'l'"
-                @click.prevent="this.$store.dispatch('deleteDesk',desk)"
-                :name="'times desks__delete'"/>
+            <Fa :type="'s'"
+                @click.prevent.stop="showSettingsList"
+                :name="'ellipsis-h desks__settings desks__item-settings'"/>
+
+            <div class="desks__list-settings">
+                <DeskSettings :desk="desk"/>
+            </div>
+
         </form>
 
     </router-link>
@@ -27,6 +32,7 @@
 
 <script>
 
+import DeskSettings from './DeskSettings'
 import DeskRenameInput from './DeskRenameInput'
 
 export default {
@@ -35,17 +41,41 @@ export default {
         show: false,
         name: null
     }),
-    components: {DeskRenameInput},
+    components: {DeskRenameInput, DeskSettings},
     props: ['desk'],
     methods: {
+        piska() {
+            if (this.$refs.renameDesk.querySelector('.desks__item-input').value) {
+                this.$store.dispatch('updateDesk', this.desk)
+                this.show = false
+            } else {
+                console.log('пнх')
+            }
+        },
         renameDesk() {
             this.$closed('renameDesk')
             this.show = !this.show
             setTimeout(() => {
-               this.$refs.renameDesk.querySelector('.desks__item-input').focus()
+                this.$refs.renameDesk.querySelector('.desks__item-input').focus()
             }, 1)
             this.name = this.$refs.input.modelValue
         },
+        showSettingsList() {
+
+            let btn = this.$refs.renameDesk.querySelector('.desks__settings')
+            let list = this.$refs.renameDesk.querySelector('.desks__list-settings')
+
+            if (btn.classList.contains('open')) {
+                this.$refs.renameDesk.classList.remove('show')
+                btn.classList.remove('open')
+                list.classList.remove('open')
+            } else {
+                this.$closed('settings')
+                btn.classList.add('open')
+                list.classList.add('open')
+                this.$refs.renameDesk.classList.add('show')
+            }
+        }
     },
 }
 </script>

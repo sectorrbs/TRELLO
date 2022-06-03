@@ -10,7 +10,8 @@
 
     &__create {
         &-list {
-            margin-top: 25px;
+            @include position(absolute, 0, 0, null, null);
+            width: 100%;
         }
     }
 
@@ -71,10 +72,10 @@
         }
 
         &-cancel {
-            @include font(19px, 300, 15px, null, null);
+            @include font(19px, 300, 15px, rgba($color-red, .7) null);
 
             &:hover {
-                color: #d20909;
+                color: $color-red;
             }
         }
 
@@ -84,6 +85,16 @@
 
             &:hover {
                 color: $color-green;
+            }
+        }
+
+        &-alert {
+            gap: 39px !important;
+        }
+
+        &-settings {
+            &.open {
+                color: $color !important;
             }
         }
 
@@ -134,15 +145,66 @@
 
         &.open {
             opacity: 1;
-            color: $color;
+            color: $color-white;
         }
     }
 
     &__form {
-        @include flex(center, null, nowrap);
+
+        @include flex(center, null);
+        width: 100%;
+
+        &-content {
+            width: 100%;
+        }
+
+        &-load {
+            @include transition(.3s);
+            @include flex(center, center);
+            @include position(absolute, 0, 0, null, null);
+            opacity: 0;
+            visibility: hidden;
+            background: rgba($color-gray, .5);
+            width: 100%;
+            height: 100%;
+
+            &-icon {
+                @include font(30px, null, 15px, null, null);
+                animation: move 0.9s infinite linear;
+            }
+        }
+
+        &-bottom {
+            position: relative;
+            background: $color-white;
+            padding: 10px;
+            width: 100%;
+        }
+
+        &-close {
+            @include position(absolute, null, 50%, 15px, null);
+            cursor: pointer;
+            font-size: 24px;
+            color: $color-gray;
+            transform: translateY(-50%);
+        }
 
         &-error {
             margin-top: 10px;
+        }
+
+        &.load {
+            .desks__form-load {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        .btn {
+            height: 35px;
+            line-height: 35px;
+            font-size: 13px;
+            padding: 0 15px;
         }
     }
 
@@ -150,22 +212,26 @@
         margin: 0 15px;
 
         &-add {
-            @include font(17px, 500, 1, $color-white, null);
-            @include flex(center, center);
-            background: rgba($color-gray, .1);
-            cursor: pointer;
-            gap: 10px;
-            width: 300px;
-            flex-shrink: 0;
-            padding: 30px 0;
+            position: relative;
 
-            &-icon {
-                font-size: 25px;
-                transform: translateY(-1px);
-            }
+            &-btn {
+                @include font(17px, 500, 1, $color-white, null);
+                @include flex(center, center);
+                background: rgba($color-gray, .1);
+                cursor: pointer;
+                gap: 10px;
+                width: 300px;
+                flex-shrink: 0;
+                padding: 30px 0;
 
-            &:hover {
-                background: rgba($color-gray, .2);
+                &-icon {
+                    font-size: 25px;
+                    transform: translateY(-1px);
+                }
+
+                &:hover {
+                    background: rgba($color-gray, .2);
+                }
             }
         }
 
@@ -174,6 +240,7 @@
             height: calc(100vh - 98px);
             gap: 10px;
             overflow: auto;
+            padding-bottom: 25px;
         }
 
         &-empty {
@@ -185,14 +252,26 @@
     }
 
     &__list {
-        @include flex;
-        min-width: 300px;
-        max-height: 700px;
-        flex-direction: column;
-        border: 1px solid rgba(gray, .4);
-        background: $color-white;
-        text-decoration: none;
-        position: relative;
+        @include size(300px, 100%);
+        overflow-x: hidden;
+        overflow-y: auto;
+        flex-shrink: 0;
+
+        &::-webkit-scrollbar {
+            width: 2px;
+        }
+
+        &-wrapper {
+            @include flex;
+            @include transition(.2s);
+            min-width: 300px;
+            max-height: 700px;
+            flex-direction: column;
+            border: 1px solid rgba(gray, .4);
+            background: $color-white;
+            text-decoration: none;
+            position: relative;
+        }
 
         &-inner {
             padding: 20px;
@@ -274,13 +353,30 @@
         }
 
         &-settings {
-            @include position(absolute, null, 30px, -165px, null, 1000);
+            @include position(absolute, null, 30px, 50%, null, 1000);
+            width: 95%;
+            transform: translateX(50%);
             opacity: 0;
             visibility: hidden;
 
             &.open {
                 opacity: 1;
                 visibility: visible;
+            }
+        }
+
+        &.show {
+            .desks__list-wrapper {
+                background: rgba($color, .4)
+            }
+
+            .desks__list-title {
+                color: $color-gray;
+            }
+
+            .desks__cards-item, .desks__list-btn {
+                background: rgba($color, .1);
+                color: $color-gray
             }
         }
 

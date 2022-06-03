@@ -16,9 +16,9 @@
             Schema::create('tasks', function (Blueprint $table) {
                 $table->id();
                 $table->string('name');
-                $table->foreignId('card_id')
+                $table->foreignId('check_lists_id')
                     ->references('id')
-                    ->on('cards')
+                    ->on('check_lists')
                     ->onDelete('cascade');
                 $table->timestamps();
             });
@@ -34,3 +34,5 @@
             Schema::dropIfExists('tasks');
         }
     }
+
+

@@ -1,6 +1,11 @@
 export const actions = {
     updateList({commit}, data) {
-        axios.post(`/api/v1/list/${data.id}/update`, {_method: 'PUT', id: data.id, name: data.name, desk_id: data.desk_id})
+        axios.post(`/api/v1/list/${data.id}/update`, {
+            _method: 'PUT',
+            id: data.id,
+            name: data.name,
+            desk_id: data.desk_id
+        })
             .catch(e => {
                 commit('setErrorMessage', e.response.data.errors.name[0])
             })
@@ -15,7 +20,7 @@ export const actions = {
                 commit('setErrorMessage', e.response.data.errors.name[0])
             })
             .finally(() => {
-                dispatch('getDesk', data.desk_id)
+                dispatch('getDeskNotLoader', data.desk_id)
             })
     },
     deleteList({commit, dispatch}, list) {

@@ -28,11 +28,11 @@
 
 textarea {
 
-	@include font(16px, 500, 18px, #7B7D80, null);
+	@include font(14px, 500, 18px, #7B7D80, null);
 	background: #f5f6f8;
 	width: 100%;
 	min-height: 120px;
-	padding: 20px;
+    resize: none;
 
 	&::placeholder {
 		@include font(16px, 500, 18px, #7B7D80, null);
@@ -46,7 +46,7 @@ textarea {
 	}
 
 	&.no-resize {
-		resize: none;
+
 	}
 }
 

@@ -1,32 +1,34 @@
 <template>
     <div draggable="false" ref="desk_list" class="desks__list">
-        <div class="desks__list-inner" ref="renameList">
-            <div class="desks__list-title">
-                {{ list.name }}
-            </div>
-            <DeskListRenameInput
-                ref="input"
-                @editShow="show = false"
-                :list="list"
-                :show="show"
-                :old_name="name"
-                v-model="list.name"/>
-            <Fa :type="'r'"
-                @click.prevent="renameList"
-                :name="'pen desks__edit'"/>
-            <Fa :type="'s'"
-                @click.prevent="showSettingsList"
-                :name="'ellipsis-h desks__settings'"/>
+        <div class="desks__list-wrapper">
+            <div class="desks__list-inner" ref="renameList">
+                <div class="desks__list-title">
+                    {{ list.name }}
+                </div>
+                <DeskListRenameInput
+                    ref="input"
+                    @editShow="show = false"
+                    :list="list"
+                    :show="show"
+                    :old_name="name"
+                    v-model="list.name"/>
+                <Fa :type="'r'"
+                    @click.prevent="renameList"
+                    :name="'pen desks__edit'"/>
+                <Fa :type="'s'"
+                    @click.prevent="showSettingsList"
+                    :name="'ellipsis-h desks__settings'"/>
 
-            <div ref="desk_list-settings" class="desks__list-settings">
-                <Settings :list="list"/>
+                <div class="desks__list-settings">
+                    <DeskListSettings :list="list"/>
+                </div>
+
             </div>
 
+            <Cards :cards="cards"/>
+
+            <DeskListNewCard @addNewCard="reloadCards" :list="list"/>
         </div>
-
-        <Cards :cards="cards"/>
-
-        <DeskListNewCard @addNewCard="reloadCards" :list="list"/>
 
     </div>
 </template>
@@ -35,6 +37,7 @@
 
 import DeskListRenameInput from './DeskListRenameInput'
 import DeskListNewCard from './DeskListNewCard'
+import DeskListSettings from './DeskListSettings'
 import Cards from '../../Cards/Cards'
 
 export default {
@@ -45,7 +48,7 @@ export default {
         items: []
     }),
     props: ['list'],
-    components: {DeskListRenameInput, DeskListNewCard, Cards},
+    components: {DeskListRenameInput, DeskListNewCard, Cards, DeskListSettings},
     methods: {
         renameList() {
             this.$closed('renameList')
@@ -66,16 +69,19 @@ export default {
         },
 
         showSettingsList() {
+
             let btn = this.$refs.desk_list.querySelector('.desks__settings')
             let list = this.$refs.desk_list.querySelector('.desks__list-settings')
 
             if (btn.classList.contains('open')) {
+                this.$refs.desk_list.classList.remove('show')
                 btn.classList.remove('open')
                 list.classList.remove('open')
             } else {
                 this.$closed('settings')
                 btn.classList.add('open')
                 list.classList.add('open')
+                this.$refs.desk_list.classList.add('show')
             }
         }
     },

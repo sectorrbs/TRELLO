@@ -12,6 +12,13 @@
 
         &-form {
             @include position(absolute, null, 0, -376px, null);
+        }
+
+        &-error {
+            @include flex(center, center);
+            @include position(absolute, 0, 0, null, null);
+            @include transition(.2s);
+            @include size(100%, 100%);
             opacity: 0;
             visibility: hidden;
 
@@ -28,6 +35,7 @@
             cursor: pointer;
             gap: 10px;
             height: 100%;
+            position: relative;
 
             &-icon {
                 font-size: 25px;

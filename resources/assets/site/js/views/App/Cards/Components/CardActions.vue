@@ -6,7 +6,7 @@
         <div class="details__actions-btns">
             <ActionParticipants/>
             <ActionTags/>
-            <ActionCheckList/>
+            <ActionCheckList :cardInfo="cardInfo"/>
             <ActionDate/>
             <ActionAttachment/>
             <ActionCover/>
