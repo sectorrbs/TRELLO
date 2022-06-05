@@ -13,6 +13,10 @@ export const actions = {
             })
     },
 
+    getCardId({commit},id){
+        commit('setCardId', id)
+    },
+
     getCardInfo({commit}, data) {
         commit('changeModalLoad', true)
         axios.get(`/api/v1/card/${data.id}`)
@@ -24,6 +28,16 @@ export const actions = {
             })
             .finally(() => {
                 commit('changeModalLoad', false)
+            })
+    },
+
+    getCardInfoNotLoader({commit}, data) {
+        axios.get(`/api/v1/card/${data.id}`)
+            .then(res => {
+                commit('setCardInfo', res.data.data)
+            })
+            .catch(e => {
+                commit('setErrorMessage', e.response.data.errors.name[0])
             })
     },
 

@@ -23,5 +23,5 @@ defined('ACCESS_USER') or define('ACCESS_USER', 'user');
 |--------------------------------------------------------------------------
 */
 
-const EMPTY_TEXT = '<span class="color-gray-lite">не указано<span>';
-const ICON_SUFFIX = ' fa-fw color-gray-lite';
+//const EMPTY_TEXT = '<span class="color-gray-lite">не указано<span>';
+//const ICON_SUFFIX = ' fa-fw color-gray-lite';

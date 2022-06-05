@@ -15,10 +15,10 @@
 
 <script>
 
-import ActionCardBtn from './Actions/ActionСardBtn'
+import ActionCardBtn from '../../Cards/Components/Actions/ActionСardBtn'
 
 export default {
-    name: "CardCheckListCreateField",
+    name: "CheckListCreateField",
     components: {ActionCardBtn},
     props: ['check_lists_id'],
     data: () => ({

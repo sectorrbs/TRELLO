@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\v1\CheckListController;
+use App\Http\Controllers\Api\v1\TaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('check_list/create', [CheckListController::class, 'createCheckList']);

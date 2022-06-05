@@ -1,6 +1,5 @@
 <template>
     <div class="details__window-checklist" ref="checklist">
-        Ы
         <div class="details__window-checklist-title">
             <Fa :type="'r'"
                 :name="'check-square details__window-icon'"/>
@@ -31,14 +30,14 @@
 
 <script>
 
-import ActionCardBtn from './Actions/ActionСardBtn'
-import CardActionModal from './Actions/ActionModal'
-import Tasks from '../../Tasks/Index'
-import CardCheckListCreateField from './CardCheckListCreateField'
-import CardCreateTask from './CardCreateTask'
+import ActionCardBtn from '../Cards/Components/Actions/ActionСardBtn'
+import CardActionModal from '../Cards/Components/Actions/ActionModal'
+import Tasks from '../Tasks/Index'
+import CheckListCreateField from './Components/CheckListCreateField'
+import CardCreateTask from '../Cards/Components/CardCreateTask'
 
 export default {
-    name: "CardCheckList",
+    name: "CheckList",
     data: () => ({
         show: false
     }),
@@ -51,7 +50,7 @@ export default {
             }
         })
     },
-    components: {ActionCardBtn, CardActionModal, CardCheckListCreateField, Tasks, CardCreateTask},
+    components: {ActionCardBtn, CardActionModal, CheckListCreateField, Tasks, CardCreateTask},
     methods: {
 
         showDeleteModalCheckList() {

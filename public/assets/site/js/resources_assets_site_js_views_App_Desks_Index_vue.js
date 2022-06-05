@@ -2233,14 +2233,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: ['desk'],
   methods: {
-    piska: function piska() {
-      if (this.$refs.renameDesk.querySelector('.desks__item-input').value) {
-        this.$store.dispatch('updateDesk', this.desk);
-        this.show = false;
-      } else {
-        console.log('пнх');
-      }
-    },
     renameDesk: function renameDesk() {
       var _this = this;
 
@@ -2652,7 +2644,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
         ref: "renameDesk",
         onSubmit: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
-          return $options.piska && $options.piska.apply($options, arguments);
+          return _ctx.piska && _ctx.piska.apply(_ctx, arguments);
         }, ["prevent"]))
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeskRenameInput, {
         ref: "input",

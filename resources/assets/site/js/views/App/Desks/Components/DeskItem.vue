@@ -44,14 +44,6 @@ export default {
     components: {DeskRenameInput, DeskSettings},
     props: ['desk'],
     methods: {
-        piska() {
-            if (this.$refs.renameDesk.querySelector('.desks__item-input').value) {
-                this.$store.dispatch('updateDesk', this.desk)
-                this.show = false
-            } else {
-                console.log('пнх')
-            }
-        },
         renameDesk() {
             this.$closed('renameDesk')
             this.show = !this.show

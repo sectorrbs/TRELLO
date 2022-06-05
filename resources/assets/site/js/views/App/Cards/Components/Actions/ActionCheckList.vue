@@ -11,15 +11,17 @@
                 <div class="details__actions-modal-subtitle">
                     Название
                 </div>
-                <input type="text"
-                       class="details__actions-modal-input"
-                       placeholder="Введите название списка"
-                       v-model="checkListName">
-                <div :class="{disabled: !checkListName}"
-                     class="details__actions-modal-btn create"
-                     @click="checkListAdd">
-                    Добавить
-                </div>
+                <form @submit.prevent="checkListAdd">
+                    <input type="text"
+                           class="details__actions-modal-input"
+                           placeholder="Введите название списка"
+                           v-model="checkListName">
+                    <div :class="{disabled: !checkListName}"
+                         class="details__actions-modal-btn create"
+                         @click="checkListAdd">
+                        Добавить
+                    </div>
+                </form>
             </template>
         </CardActionModal>
     </div>
@@ -40,6 +42,7 @@ export default {
     methods: {
         checkListAdd() {
             this.$store.dispatch('createCheckList', {name: this.checkListName, card_id: this.cardInfo.id})
+            this.$closed()
         },
         actionModal(e) {
             if (!e.target.classList.contains('details__actions-modal-input') &&

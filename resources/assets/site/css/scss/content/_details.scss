@@ -236,9 +236,18 @@
 
                 &.blue {
                     background: $color-blue-lite;
+                    color: $color-white;
+
+                    &.disabled {
+                        cursor: default;
+                        background: rgba($color-blue-lite, .3);
+                        &:hover {
+                            background: rgba($color-blue-lite, .3)
+                        }
+                    }
 
                     &:hover {
-                        background: $color-blue;
+                        background: $color-blue
                     }
                 }
 
@@ -340,6 +349,7 @@
             &.show {
                 opacity: 1;
                 visibility: visible;
+                z-index: 1;
             }
 
             &-close {
@@ -419,6 +429,20 @@
                     &:hover {
                         background: rgba($color-gray, .1)
                     }
+                }
+            }
+
+            &-items {
+                margin-top: 10px;
+            }
+
+            &-item {
+                @include font(13px, null, 1, null, null);
+                margin: 0 -10px;
+                padding: 10px;
+
+                &:hover {
+                    background: rgba($color-gray, .1);
                 }
             }
         }

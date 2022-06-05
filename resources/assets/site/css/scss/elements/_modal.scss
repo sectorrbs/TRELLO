@@ -34,7 +34,6 @@
     &__wrapper {
         @include transition(.2s);
         width: 700px;
-        height: 500px;
         position: relative;
         background: $color-white;
     }

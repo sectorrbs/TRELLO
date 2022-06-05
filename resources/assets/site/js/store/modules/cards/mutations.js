@@ -3,6 +3,10 @@ export const mutations = {
         state.list = list
     },
 
+    setCardId(state, cardId) {
+        state.cardId = cardId
+    },
+
     setCardInfo(state, cardInfo) {
         state.cardInfo = cardInfo
     }

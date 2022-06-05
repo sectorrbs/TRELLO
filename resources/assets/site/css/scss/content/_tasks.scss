@@ -1,0 +1,117 @@
+.tasks {
+    padding: 5px 0;
+
+    &__item {
+        @include flex(center, null, nowrap);
+        gap: 5px;
+        cursor: pointer;
+        padding: 0 0 0 5px;
+        margin-left: -5px;
+
+        &-settings {
+            @include position(absolute, null, 50%, 5px, null);
+            opacity: 0;
+            transform: translateY(-50%);
+            color: rgba($color-gray, .4);
+            padding: 5px;
+
+            &:hover {
+                color: rgba($color-gray, .7);
+            }
+
+            &.show {
+                color: $color;
+            }
+        }
+
+        &-inner {
+            width: 100%;
+            position: relative;
+
+            &:hover {
+                .tasks__item-settings {
+                    opacity: 1;
+                }
+            }
+        }
+
+        &-rename {
+            display: none;
+        }
+
+        &-input {
+            color: $color;
+            background: $color-white;
+            padding: 7px;
+            border: 1px solid $color-blue-lite;
+            min-height: 60px;
+            height: 60px;
+            position: relative;
+            z-index: 15;
+        }
+
+        &-btns {
+            @include flex(center, null, nowrap);
+            gap: 10px;
+        }
+
+        &-btn {
+            @include font(13px, null, 1, $color-white, null);
+            @include flex(center, center);
+            padding: 10px;
+            background: $color-blue-lite;
+            width: max-content;
+
+            &.disabled {
+                cursor: default;
+                background: rgba($color-blue-lite, .3);
+                &:hover {
+                    background: rgba($color-blue-lite, .3)
+                }
+            }
+
+            &:hover {
+                background: $color-blue;
+            }
+        }
+
+        &-cancel {
+            font-size: 20px;
+        }
+
+        &-name {
+            width: 100%;
+            padding: 10px 0;
+        }
+
+        &-modal {
+            @include position(absolute, null, null, 0, -150px);
+
+            &.show {
+                opacity: 1;
+            }
+        }
+
+        &:hover {
+            background: rgba($color-gray, .1)
+        }
+
+        &.show {
+            align-items: flex-start;
+            margin-bottom: 10px;
+
+            .tasks__item-name {
+                display: none;
+            }
+
+            .tasks__item-rename {
+                display: block;
+            }
+
+            &:hover {
+                background: transparent;
+            }
+        }
+    }
+}
+

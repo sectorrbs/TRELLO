@@ -13,6 +13,6 @@ class CheckList extends Model
 
     public function tasks()
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Task::class, 'check_lists_id');
     }
 }

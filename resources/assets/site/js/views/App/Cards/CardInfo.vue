@@ -1,6 +1,5 @@
 <template>
     <div v-if="cardInfo" class="details__window">
-
         <div class="details__window-top">
             <div class="details__window-content">
                 <div class="details__window-title">
@@ -11,7 +10,7 @@
                 <div class="details__window-subtitle">
                     В колонке
                     <div class="details__window-card">
-                        {{cardInfo.deskList.name}}
+                        {{ cardInfo.deskList.name }}
                     </div>
                 </div>
             </div>
@@ -19,7 +18,7 @@
         <div class="details__window-bottom">
             <div class="details__window-bottom-left">
                 <CardParticipants/>
-                <CardCheckLists v-if="cardInfo.checkLists.length" :checkLists="cardInfo.checkLists"/>
+                <CheckLists v-if="cardInfo.checkLists.length" :checkLists="cardInfo.checkLists"/>
                 <CardDescription/>
                 <CardComment/>
             </div>
@@ -35,14 +34,24 @@
 import {mapGetters} from 'vuex'
 import CardParticipants from './Components/CardParticipants'
 import CardDescription from './Components/CardDescription'
-import CardCheckLists from './Components/CardCheckLists'
 import CardComment from './Components/CardComment'
 import CardActions from './Components/CardActions'
+import CheckLists from '../CheckLists/Index'
 
 export default {
     name: "CardInfo",
     props: ['cardInfo'],
-    components: {CardParticipants, CardDescription, CardComment, CardActions, CardCheckLists},
+    mounted(){
+        this.getCardId()
+    },
+    methods: {
+       getCardId(){
+           if(this.cardInfo){
+               this.$store.dispatch('getCardId', this.cardInfo.id)
+           }
+       }
+    },
+    components: {CardParticipants, CardDescription, CardComment, CardActions, CheckLists},
     computed: {
         ...mapGetters(['modalLoad'])
     }

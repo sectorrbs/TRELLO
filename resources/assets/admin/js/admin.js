@@ -4,9 +4,6 @@ import {createApp} from 'vue';
 import router from './router';
 import store from './store/index';
 
-
-
-console.log(123)
 const app = createApp({});
 
 app.component('admin', require('./Admin.vue').default)

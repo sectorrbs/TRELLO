@@ -32,7 +32,10 @@ export default {
                     !e.target.classList.contains('desks__list-input') &&
                     !e.target.classList.contains('desks__item-input') &&
                     !e.target.classList.contains('settings__item-btn') &&
-                    !e.target.classList.contains('settings__cancel')) {
+                    !e.target.classList.contains('settings__cancel') &&
+                    !e.target.classList.contains('tasks__item-settings') &&
+                    !e.target.classList.contains('tasks__item-settings-icon') &&
+                    !e.target.classList.contains('create-task-btn')) {
                     clearAll()
                 }
             })
@@ -54,6 +57,8 @@ export default {
                 document.querySelectorAll('.desks__list')
                     .forEach(el => el.classList.remove('show'))
                 document.querySelectorAll('.details__actions-modal')
+                    .forEach(el => el.classList.remove('show'))
+                document.querySelectorAll('.tasks__item-settings')
                     .forEach(el => el.classList.remove('show'))
             }
 

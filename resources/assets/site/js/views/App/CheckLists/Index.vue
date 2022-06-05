@@ -1,7 +1,6 @@
 <template>
     <div v-if="checkLists" class="details__window-checklists">
-        <CardCheckList :checkList="checkList"
-                       @assayExistsCheckLists="assayExistsCheckLists"
+        <CheckList :checkList="checkList"
                        v-for="checkList in checkLists"
                        :key="checkList.id"/>
     </div>
@@ -9,11 +8,11 @@
 
 <script>
 
-import CardCheckList from "./CardCheckList";
+import CheckList from "./List";
 
 export default {
-    name: "CardCheckLists",
+    name: "CheckLists",
     props: ['checkLists'],
-    components: {CardCheckList},
+    components: {CheckList},
 }
 </script>

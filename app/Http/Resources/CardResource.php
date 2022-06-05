@@ -9,8 +9,7 @@ class CardResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @param \Illuminate\Http\Request $request
      */
     public function toArray($request)
     {
@@ -18,8 +17,8 @@ class CardResource extends JsonResource
             'id' => $this->id,
             'desk_lists_id' => $this->desk_lists_id,
             'name' => $this->name,
-            'deskList'=> $this->deskList,
-            'checkLists'=>$this->checkLists,
+            'deskList' => $this->deskList,
+            'checkLists' => CheckListResource::collection($this->checkLists),
         ];
     }
 }
