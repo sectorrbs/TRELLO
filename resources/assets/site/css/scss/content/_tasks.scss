@@ -39,6 +39,15 @@
             display: none;
         }
 
+        &-name {
+            width: 100%;
+            padding: 10px 0;
+
+            &.performed {
+                text-decoration: line-through;
+            }
+        }
+
         &-input {
             color: $color;
             background: $color-white;
@@ -77,11 +86,6 @@
 
         &-cancel {
             font-size: 20px;
-        }
-
-        &-name {
-            width: 100%;
-            padding: 10px 0;
         }
 
         &-modal {

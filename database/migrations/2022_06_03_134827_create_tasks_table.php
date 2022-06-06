@@ -20,6 +20,7 @@
                     ->references('id')
                     ->on('check_lists')
                     ->onDelete('cascade');
+                $table->boolean('check')->default(0);
                 $table->timestamps();
             });
         }

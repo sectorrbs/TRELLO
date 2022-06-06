@@ -41,15 +41,15 @@ import CheckLists from '../CheckLists/Index'
 export default {
     name: "CardInfo",
     props: ['cardInfo'],
-    mounted(){
+    mounted() {
         this.getCardId()
     },
     methods: {
-       getCardId(){
-           if(this.cardInfo){
-               this.$store.dispatch('getCardId', this.cardInfo.id)
-           }
-       }
+        getCardId() {
+            if (this.cardInfo) {
+                this.$store.dispatch('getCardId', this.cardInfo.id)
+            }
+        }
     },
     components: {CardParticipants, CardDescription, CardComment, CardActions, CheckLists},
     computed: {

@@ -1,6 +1,6 @@
 <template>
     <div class="details__window-checklist" ref="checklist">
-        <div class="details__window-checklist-title">
+        <div class="details__window-checklist-title" @click="renameCheckList">
             <Fa :type="'r'"
                 :name="'check-square details__window-icon'"/>
             {{ checkList.name }}
@@ -22,6 +22,8 @@
                 </template>
             </CardActionModal>
         </div>
+        <CheckListRenameField :checkList="checkList"/>
+        <Scale :percent="percent"/>
         <Tasks v-if="checkList.tasks?.length"
                :tasks="checkList.tasks"/>
         <CardCreateTask :check_lists_id="checkList.id"/>
@@ -34,7 +36,9 @@ import ActionCardBtn from '../Cards/Components/Actions/ActionСardBtn'
 import CardActionModal from '../Cards/Components/Actions/ActionModal'
 import Tasks from '../Tasks/Index'
 import CheckListCreateField from './Components/CheckListCreateField'
+import CheckListRenameField from './Components/CheckListRenameField'
 import CardCreateTask from '../Cards/Components/CardCreateTask'
+import Scale from './Components/CheckListScale'
 
 export default {
     name: "CheckList",
@@ -50,16 +54,35 @@ export default {
             }
         })
     },
-    components: {ActionCardBtn, CardActionModal, CheckListCreateField, Tasks, CardCreateTask},
+    components: {
+        ActionCardBtn,
+        CardActionModal,
+        CheckListCreateField,
+        Tasks,
+        CardCreateTask,
+        Scale,
+        CheckListRenameField
+    },
     methods: {
-
         showDeleteModalCheckList() {
             this.show = !this.show
             this.field = false
         },
         deleteCheckList() {
             this.$store.dispatch('deleteCheckList', this.checkList)
-        }
+        },
+        renameCheckList() {
+            let input = this.$refs.checklist.querySelector('.details__window-checklist-rename')
+            let form = this.$refs.checklist.querySelector('.details__window-checklist-form')
+            form.classList.add('show')
+            input.focus()
+        },
+    },
+    computed: {
+        percent() {
+            let scales = this.$store.getters.percentPerformedTasks
+            return Math.round(scales.find(el => el.id === this.checkList.id)?.percent) ?? null
+        },
     },
 }
 </script>

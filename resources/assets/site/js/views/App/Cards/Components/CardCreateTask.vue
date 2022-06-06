@@ -3,14 +3,14 @@
         <ActionCardBtn class="card-create-field" v-if="!field" @click="toggleCreateField">
             Добавить элемент
         </ActionCardBtn>
-        <CardCheckListCreateField :check_lists_id="check_lists_id" v-else/>
+        <CheckListCreateField :check_lists_id="check_lists_id" v-else/>
     </div>
 </template>
 
 <script>
 
 import ActionCardBtn from './Actions/ActionСardBtn'
-import CardCheckListCreateField from './CardCheckListCreateField'
+import CheckListCreateField from '../../CheckLists/Components/CheckListCreateField'
 
 export default {
     name: "CardCreateTask",
@@ -18,7 +18,7 @@ export default {
         field: false,
     }),
     props: ['check_lists_id'],
-    components: {ActionCardBtn, CardCheckListCreateField},
+    components: {ActionCardBtn, CheckListCreateField},
     mounted() {
         window.addEventListener('click', (e) => {
             if (!e.target.classList.contains('details__window-checklist-input') &&

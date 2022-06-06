@@ -1,0 +1,28 @@
+.scale {
+    @include flex(center, null, nowrap);
+    gap: 10px;
+    margin: 11px 0 5px;
+
+    &__percent {
+        @include font(13px, 500);
+    }
+
+    &__progress-bar {
+        @include size(100%, 8px);
+        border-radius: 5px;
+        background: rgba($color-gray, .2);
+        position: relative;
+
+        &-check {
+            @include transition(.2s);
+            @include position(absolute, 0, 0, null, null);
+            @include size(null, 8px);
+            border-radius: 5px;
+            background: $color-blue;
+
+            &.success {
+                background: $color-green-lite;
+            }
+        }
+    }
+}

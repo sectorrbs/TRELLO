@@ -20058,49 +20058,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Cards/Components/CardCheckListCreateField.vue?vue&type=script&lang=js":
-/*!**********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Cards/Components/CardCheckListCreateField.vue?vue&type=script&lang=js ***!
-  \**********************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _Actions_Action_ardBtn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Actions/ActionСardBtn */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionСardBtn.vue");
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "CardCheckListCreateField",
-  components: {
-    ActionCardBtn: _Actions_Action_ardBtn__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  props: ['check_lists_id'],
-  data: function data() {
-    return {
-      taskName: null
-    };
-  },
-  methods: {
-    enterSubmit: function enterSubmit(e) {
-      if (e.keyCode === 13) this.createTask();
-    },
-    createTask: function createTask() {
-      if (this.taskName) {
-        this.$store.dispatch('createTask', {
-          name: this.taskName,
-          check_lists_id: this.check_lists_id,
-          card_id: this.$store.getters.cardId
-        });
-        this.taskName = '';
-      }
-    }
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Cards/Components/CardComment.vue?vue&type=script&lang=js":
 /*!*********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Cards/Components/CardComment.vue?vue&type=script&lang=js ***!
@@ -20130,7 +20087,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _Actions_Action_ardBtn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Actions/ActionСardBtn */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionСardBtn.vue");
-/* harmony import */ var _CardCheckListCreateField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardCheckListCreateField */ "./resources/assets/site/js/views/App/Cards/Components/CardCheckListCreateField.vue");
+/* harmony import */ var _CheckLists_Components_CheckListCreateField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../CheckLists/Components/CheckListCreateField */ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListCreateField.vue");
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -20143,7 +20100,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['check_lists_id'],
   components: {
     ActionCardBtn: _Actions_Action_ardBtn__WEBPACK_IMPORTED_MODULE_0__["default"],
-    CardCheckListCreateField: _CardCheckListCreateField__WEBPACK_IMPORTED_MODULE_1__["default"]
+    CheckListCreateField: _CheckLists_Components_CheckListCreateField__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {
     var _this = this;
@@ -20223,7 +20180,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     enterSubmit: function enterSubmit(e) {
-      if (e.keyCode === 13) this.createTask();
+      var _this = this;
+
+      if (e.keyCode === 13) {
+        this.createTask();
+        setTimeout(function () {
+          _this.taskName = '';
+        }, 0);
+      }
     },
     createTask: function createTask() {
       if (this.taskName) {
@@ -20236,6 +20200,48 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue?vue&type=script&lang=js":
+/*!***********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "CheckListRenameField",
+  props: ['checkList'],
+  methods: {
+    renameCheckList: function renameCheckList() {
+      this.$refs.checklistForm.classList.remove('show');
+      this.$store.dispatch('updateCheckList', this.checkList);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue?vue&type=script&lang=js":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue?vue&type=script&lang=js ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "CheckListScale",
+  props: ['percent']
 });
 
 /***/ }),
@@ -20278,7 +20284,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Cards_Components_Actions_ActionModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Cards/Components/Actions/ActionModal */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionModal.vue");
 /* harmony import */ var _Tasks_Index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Tasks/Index */ "./resources/assets/site/js/views/App/Tasks/Index.vue");
 /* harmony import */ var _Components_CheckListCreateField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Components/CheckListCreateField */ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListCreateField.vue");
-/* harmony import */ var _Cards_Components_CardCreateTask__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Cards/Components/CardCreateTask */ "./resources/assets/site/js/views/App/Cards/Components/CardCreateTask.vue");
+/* harmony import */ var _Components_CheckListRenameField__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Components/CheckListRenameField */ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue");
+/* harmony import */ var _Cards_Components_CardCreateTask__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Cards/Components/CardCreateTask */ "./resources/assets/site/js/views/App/Cards/Components/CardCreateTask.vue");
+/* harmony import */ var _Components_CheckListScale__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Components/CheckListScale */ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue");
+
+
 
 
 
@@ -20306,7 +20316,9 @@ __webpack_require__.r(__webpack_exports__);
     CardActionModal: _Cards_Components_Actions_ActionModal__WEBPACK_IMPORTED_MODULE_1__["default"],
     CheckListCreateField: _Components_CheckListCreateField__WEBPACK_IMPORTED_MODULE_3__["default"],
     Tasks: _Tasks_Index__WEBPACK_IMPORTED_MODULE_2__["default"],
-    CardCreateTask: _Cards_Components_CardCreateTask__WEBPACK_IMPORTED_MODULE_4__["default"]
+    CardCreateTask: _Cards_Components_CardCreateTask__WEBPACK_IMPORTED_MODULE_5__["default"],
+    Scale: _Components_CheckListScale__WEBPACK_IMPORTED_MODULE_6__["default"],
+    CheckListRenameField: _Components_CheckListRenameField__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   methods: {
     showDeleteModalCheckList: function showDeleteModalCheckList() {
@@ -20315,6 +20327,24 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteCheckList: function deleteCheckList() {
       this.$store.dispatch('deleteCheckList', this.checkList);
+    },
+    renameCheckList: function renameCheckList() {
+      var input = this.$refs.checklist.querySelector('.details__window-checklist-rename');
+      var form = this.$refs.checklist.querySelector('.details__window-checklist-form');
+      form.classList.add('show');
+      input.focus();
+    }
+  },
+  computed: {
+    percent: function percent() {
+      var _Math$round,
+          _scales$find,
+          _this2 = this;
+
+      var scales = this.$store.getters.percentPerformedTasks;
+      return (_Math$round = Math.round((_scales$find = scales.find(function (el) {
+        return el.id === _this2.checkList.id;
+      })) === null || _scales$find === void 0 ? void 0 : _scales$find.percent)) !== null && _Math$round !== void 0 ? _Math$round : null;
     }
   }
 });
@@ -20349,7 +20379,7 @@ __webpack_require__.r(__webpack_exports__);
     renameTask: function renameTask(e) {
       if (this.modelValue) {
         this.task.name = this.modelValue;
-        this.$store.dispatch('renameTask', this.task);
+        this.$store.dispatch('updateTask', this.task);
       }
 
       this.$emit('closeField');
@@ -20371,18 +20401,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _Task__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Task */ "./resources/assets/site/js/views/App/Tasks/Task.vue");
-/* harmony import */ var _Cards_Components_Actions_Action_ardBtn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Cards/Components/Actions/ActionСardBtn */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionСardBtn.vue");
-/* harmony import */ var _Cards_Components_CardCheckListCreateField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Cards/Components/CardCheckListCreateField */ "./resources/assets/site/js/views/App/Cards/Components/CardCheckListCreateField.vue");
-
-
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Index",
   props: ['tasks'],
   components: {
-    Task: _Task__WEBPACK_IMPORTED_MODULE_0__["default"],
-    ActionCardBtn: _Cards_Components_Actions_Action_ardBtn__WEBPACK_IMPORTED_MODULE_1__["default"],
-    CardCheckListCreateField: _Cards_Components_CardCheckListCreateField__WEBPACK_IMPORTED_MODULE_2__["default"]
+    Task: _Task__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -20451,10 +20475,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteTask: function deleteTask() {
       this.$store.dispatch('deleteTask', {
-        id: this.task.id,
-        card_id: this.$store.getters.cardId
+        id: this.task.id
       });
       this.$refs.taskItem.remove();
+    },
+    checkTask: function checkTask() {
+      this.task.check = !this.task.check;
+      this.$store.dispatch('updateTask', this.task);
     }
   }
 });
@@ -21251,73 +21278,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Cards/Components/CardCheckListCreateField.vue?vue&type=template&id=39b71bb4":
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Cards/Components/CardCheckListCreateField.vue?vue&type=template&id=39b71bb4 ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* binding */ render)
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-
-var _hoisted_1 = {
-  "class": "details__window-checklist-create"
-};
-var _hoisted_2 = {
-  "class": "details__window-checklist-btns"
-};
-
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Добавить ");
-
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Отмена ");
-
-function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_ActionCardBtn = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ActionCardBtn");
-
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
-    onKeydown: _cache[0] || (_cache[0] = function () {
-      return $options.enterSubmit && $options.enterSubmit.apply($options, arguments);
-    }),
-    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-      return _ctx.taskName = $event;
-    }),
-    type: "text",
-    "class": "details__window-checklist-input",
-    placeholder: "Добавить элемент"
-  }, null, 544
-  /* HYDRATE_EVENTS, NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.taskName]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ActionCardBtn, {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
-      disabled: !_ctx.taskName
-    }, "create-task-btn blue"]),
-    onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($options.createTask, ["prevent"])
-  }, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_3];
-    }),
-    _: 1
-    /* STABLE */
-
-  }, 8
-  /* PROPS */
-  , ["class", "onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ActionCardBtn, {
-    "class": "transparent"
-  }, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_4];
-    }),
-    _: 1
-    /* STABLE */
-
-  })])]);
-}
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Cards/Components/CardComment.vue?vue&type=template&id=46a2d993":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Cards/Components/CardComment.vue?vue&type=template&id=46a2d993 ***!
@@ -21384,7 +21344,7 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ActionCardBtn = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ActionCardBtn");
 
-  var _component_CardCheckListCreateField = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CardCheckListCreateField");
+  var _component_CheckListCreateField = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CheckListCreateField");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [!_ctx.field ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_ActionCardBtn, {
     key: 0,
@@ -21399,7 +21359,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["onClick"])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_CardCheckListCreateField, {
+  , ["onClick"])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_CheckListCreateField, {
     key: 1,
     check_lists_id: $props.check_lists_id
   }, null, 8
@@ -21530,9 +21490,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ActionCardBtn = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ActionCardBtn");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
-    onKeydown: _cache[0] || (_cache[0] = function () {
+    onKeydown: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.enterSubmit && $options.enterSubmit.apply($options, arguments);
-    }),
+    }, ["stop"])),
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return _ctx.taskName = $event;
     }),
@@ -21565,6 +21525,99 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* STABLE */
 
   })])]);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue?vue&type=template&id=4bff0444":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue?vue&type=template&id=4bff0444 ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "details__window-checklist-form",
+  ref: "checklistForm"
+};
+var _hoisted_2 = ["value"];
+var _hoisted_3 = {
+  "class": "details__window-checklist-renamebtns"
+};
+var _hoisted_4 = {
+  "class": "details__window-checklist-btn red"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    "class": "details__window-checklist-rename",
+    value: $props.checkList.name,
+    placeholder: "Введите название чек-листа"
+  }, null, 8
+  /* PROPS */
+  , _hoisted_2), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+    type: 'r',
+    name: 'times details__window-icon'
+  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "details__window-checklist-btn green",
+    onClick: _cache[0] || (_cache[0] = function () {
+      return $options.renameCheckList && $options.renameCheckList.apply($options, arguments);
+    })
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+    type: 'r',
+    name: 'check details__window-icon'
+  })])])], 512
+  /* NEED_PATCH */
+  );
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue?vue&type=template&id=08d5874c":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue?vue&type=template&id=08d5874c ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "scale"
+};
+var _hoisted_2 = {
+  "class": "scale__percent"
+};
+var _hoisted_3 = {
+  "class": "scale__progress-bar"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _$props$percent;
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$props$percent = $props.percent) !== null && _$props$percent !== void 0 ? _$props$percent : 0) + "% ", 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["scale__progress-bar-check", {
+      success: $props.percent === 100
+    }]),
+    style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
+      width: $props.percent + '%'
+    })
+  }, null, 6
+  /* CLASS, STYLE */
+  )])]);
 }
 
 /***/ }),
@@ -21620,13 +21673,10 @@ var _hoisted_1 = {
   "class": "details__window-checklist",
   ref: "checklist"
 };
-var _hoisted_2 = {
-  "class": "details__window-checklist-title"
-};
 
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Удалить ");
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Удалить ");
 
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "details__actions-modal-text"
 }, " Удаление списка задач необратимо, и не будет возможности его вернуть. ", -1
 /* HOISTED */
@@ -21641,11 +21691,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_CardActionModal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CardActionModal");
 
+  var _component_CheckListRenameField = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CheckListRenameField");
+
+  var _component_Scale = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Scale");
+
   var _component_Tasks = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Tasks");
 
   var _component_CardCreateTask = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CardCreateTask");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "details__window-checklist-title",
+    onClick: _cache[1] || (_cache[1] = function () {
+      return $options.renameCheckList && $options.renameCheckList.apply($options, arguments);
+    })
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'r',
     name: 'check-square details__window-icon'
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.checkList.name) + " ", 1
@@ -21655,7 +21714,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "top"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_3];
+      return [_hoisted_2];
     }),
     _: 1
     /* STABLE */
@@ -21671,7 +21730,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       )];
     }),
     modal_content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      return [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
         "class": "details__actions-modal-btn delete",
         onClick: _cache[0] || (_cache[0] = function () {
           return $options.deleteCheckList && $options.deleteCheckList.apply($options, arguments);
@@ -21683,7 +21742,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["show"])]), (_$props$checkList$tas = $props.checkList.tasks) !== null && _$props$checkList$tas !== void 0 && _$props$checkList$tas.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Tasks, {
+  , ["show"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CheckListRenameField, {
+    checkList: $props.checkList
+  }, null, 8
+  /* PROPS */
+  , ["checkList"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Scale, {
+    percent: $options.percent
+  }, null, 8
+  /* PROPS */
+  , ["percent"]), (_$props$checkList$tas = $props.checkList.tasks) !== null && _$props$checkList$tas !== void 0 && _$props$checkList$tas.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Tasks, {
     key: 0,
     tasks: $props.checkList.tasks
   }, null, 8
@@ -21803,7 +21870,7 @@ var _hoisted_1 = {
 var _hoisted_2 = {
   "class": "tasks__item-checkbox"
 };
-var _hoisted_3 = ["id", "name"];
+var _hoisted_3 = ["checked", "id", "name"];
 var _hoisted_4 = ["for"];
 var _hoisted_5 = {
   "class": "tasks__item-inner"
@@ -21825,28 +21892,33 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_CardActionModal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CardActionModal");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    checked: $props.task.check,
     type: "checkbox",
     "class": "custom-checkbox",
     id: $props.task.name,
     name: $props.task.name,
-    value: "yes"
-  }, null, 8
-  /* PROPS */
+    onChange: _cache[0] || (_cache[0] = function () {
+      return $options.checkTask && $options.checkTask.apply($options, arguments);
+    })
+  }, null, 40
+  /* PROPS, HYDRATE_EVENTS */
   , _hoisted_3), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": $props.task.name
   }, null, 8
   /* PROPS */
   , _hoisted_4)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "tasks__item-name",
-    onClick: _cache[0] || (_cache[0] = function () {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["tasks__item-name", {
+      performed: $props.task.check
+    }]),
+    onClick: _cache[1] || (_cache[1] = function () {
       return $options.renameTaskShowField && $options.renameTaskShowField.apply($options, arguments);
     })
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.task.name), 1
-  /* TEXT */
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.task.name), 3
+  /* TEXT, CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TaskRenameField, {
     onCloseField: $options.renameTaskHideField,
     modelValue: _ctx.taskName,
-    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return _ctx.taskName = $event;
     }),
     task: $props.task
@@ -21856,7 +21928,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["tasks__item-settings", {
       show: _ctx.show
     }]),
-    onClick: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+    onClick: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.showSettingsTask && $options.showSettingsTask.apply($options, arguments);
     }, ["stop"]))
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
@@ -21873,7 +21945,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     modal_content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
         "class": "details__actions-modal-item",
-        onClick: _cache[3] || (_cache[3] = function () {
+        onClick: _cache[4] || (_cache[4] = function () {
           return $options.deleteTask && $options.deleteTask.apply($options, arguments);
         })
       }, " Удалить ")])];
@@ -22355,6 +22427,38 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
 
 /***/ }),
 
+/***/ "./resources/assets/site/js/store/common/foo.js":
+/*!******************************************************!*\
+  !*** ./resources/assets/site/js/store/common/foo.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getPercentPerformedTasks": () => (/* binding */ getPercentPerformedTasks)
+/* harmony export */ });
+var getPercentPerformedTasks = function getPercentPerformedTasks(checkLists) {
+  var scales = [];
+  checkLists.forEach(function (el) {
+    if (el.tasks.length) {
+      var countAllTasks = el.tasks.length;
+      var countCheckTasks = el.tasks.filter(function (task) {
+        return task.check;
+      }).length;
+      var rate = countAllTasks / countCheckTasks;
+      var percent = 100 / rate;
+      scales.push({
+        id: el.id,
+        percent: percent
+      });
+    }
+  });
+  return scales;
+};
+
+/***/ }),
+
 /***/ "./resources/assets/site/js/store/index.js":
 /*!*************************************************!*\
   !*** ./resources/assets/site/js/store/index.js ***!
@@ -22408,6 +22512,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "actions": () => (/* binding */ actions)
 /* harmony export */ });
+/* harmony import */ var _common_foo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../common/foo */ "./resources/assets/site/js/store/common/foo.js");
+
 var actions = {
   addCard: function addCard(_ref, data) {
     var commit = _ref.commit,
@@ -22427,9 +22533,14 @@ var actions = {
     commit('setCardId', id);
   },
   getCardInfo: function getCardInfo(_ref3, data) {
-    var commit = _ref3.commit;
+    var commit = _ref3.commit,
+        dispatch = _ref3.dispatch;
     commit('changeModalLoad', true);
     axios.get("/api/v1/card/".concat(data.id)).then(function (res) {
+      if (res.data.data.checkLists.length) {
+        dispatch('getPercentPerformedTasks', res.data.data.checkLists);
+      }
+
       commit('setCardInfo', res.data.data);
     })["catch"](function (e) {
       commit('setErrorMessage', e.response.data.errors.name[0]);
@@ -22438,16 +22549,28 @@ var actions = {
     });
   },
   getCardInfoNotLoader: function getCardInfoNotLoader(_ref4, data) {
-    var commit = _ref4.commit;
+    var commit = _ref4.commit,
+        dispatch = _ref4.dispatch;
     axios.get("/api/v1/card/".concat(data.id)).then(function (res) {
+      if (res.data.data.checkLists.length) {
+        dispatch('getPercentPerformedTasks', res.data.data.checkLists);
+      }
+
       commit('setCardInfo', res.data.data);
     })["catch"](function (e) {
       commit('setErrorMessage', e.response.data.errors.name[0]);
     });
   },
-  deleteCard: function deleteCard(_ref5, data) {
-    var commit = _ref5.commit,
-        dispatch = _ref5.dispatch;
+  getPercentPerformedTasks: function getPercentPerformedTasks(_ref5, data) {
+    var commit = _ref5.commit;
+
+    var percentPerformedTasks = (0,_common_foo__WEBPACK_IMPORTED_MODULE_0__.getPercentPerformedTasks)(data);
+
+    commit('setPercentPerformedTasks', percentPerformedTasks);
+  },
+  deleteCard: function deleteCard(_ref6, data) {
+    var commit = _ref6.commit,
+        dispatch = _ref6.dispatch;
     commit('changeLoader', true);
     axios.post("/api/v1/card/".concat(data.id, "/delete"), {
       _method: 'DELETE',
@@ -22571,6 +22694,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "actions": () => (/* binding */ actions)
 /* harmony export */ });
+/* harmony import */ var _common_foo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../common/foo */ "./resources/assets/site/js/store/common/foo.js");
+
 var actions = {
   createCheckList: function createCheckList(_ref, data) {
     var commit = _ref.commit,
@@ -22584,9 +22709,25 @@ var actions = {
       dispatch('getCardInfoNotLoader', data);
     });
   },
-  deleteCheckList: function deleteCheckList(_ref2, data) {
+  updateCheckList: function updateCheckList(_ref2, data) {
+    var _this = this;
+
     var commit = _ref2.commit,
         dispatch = _ref2.dispatch;
+    console.log(data);
+    axios.post("/api/v1/check_list/".concat(data.id, "/update"), {
+      _method: 'PUT',
+      name: data.name,
+      id: data.id,
+      card_id: data.card_id
+    }).then(function (res) {
+      data.id = _this.getters.cardId;
+      dispatch('getCardInfoNotLoader', data);
+    });
+  },
+  deleteCheckList: function deleteCheckList(_ref3, data) {
+    var commit = _ref3.commit,
+        dispatch = _ref3.dispatch;
     axios.post("/api/v1/check_list/".concat(data.id, "/delete"), {
       _method: 'DELETE'
     }).then(function (res) {
@@ -23257,25 +23398,27 @@ var actions = {
     });
   },
   deleteTask: function deleteTask(_ref2, data) {
+    var _this = this;
+
     var dispatch = _ref2.dispatch;
     axios.post("/api/v1/task/".concat(data.id, "/delete"), {
       _method: 'DELETE'
     }).then(function (res) {
-      data.id = data.card_id;
+      data.id = _this.getters.cardId;
       dispatch('getCardInfoNotLoader', data);
     });
   },
-  renameTask: function renameTask(_ref3, data) {
-    var _this = this;
+  updateTask: function updateTask(_ref3, data) {
+    var _this2 = this;
 
     var dispatch = _ref3.dispatch;
-    console.log(data);
     axios.post("/api/v1/task/".concat(data.id, "/update"), {
       _method: 'PUT',
       name: data.name,
-      check_lists_id: data.check_lists_id
+      check_lists_id: data.check_lists_id,
+      check: data.check
     }).then(function (res) {
-      data.id = _this.getters.cardId;
+      data.id = _this2.getters.cardId;
       dispatch('getCardInfoNotLoader', data);
     });
   }
@@ -23294,7 +23437,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getters": () => (/* binding */ getters)
 /* harmony export */ });
-var getters = {};
+var getters = {
+  percentPerformedTasks: function percentPerformedTasks(state) {
+    return state.percentPerformedTasks;
+  }
+};
 
 /***/ }),
 
@@ -23337,7 +23484,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "mutations": () => (/* binding */ mutations)
 /* harmony export */ });
-var mutations = {};
+var mutations = {
+  setPercentPerformedTasks: function setPercentPerformedTasks(state, percentPerformedTasks) {
+    state.percentPerformedTasks = percentPerformedTasks;
+  }
+};
 
 /***/ }),
 
@@ -23352,7 +23503,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "state": () => (/* binding */ state)
 /* harmony export */ });
-var state = {};
+var state = {
+  percentPerformedTasks: 0
+};
 
 /***/ }),
 
@@ -24079,34 +24232,6 @@ if (false) {}
 
 /***/ }),
 
-/***/ "./resources/assets/site/js/views/App/Cards/Components/CardCheckListCreateField.vue":
-/*!******************************************************************************************!*\
-  !*** ./resources/assets/site/js/views/App/Cards/Components/CardCheckListCreateField.vue ***!
-  \******************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _CardCheckListCreateField_vue_vue_type_template_id_39b71bb4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardCheckListCreateField.vue?vue&type=template&id=39b71bb4 */ "./resources/assets/site/js/views/App/Cards/Components/CardCheckListCreateField.vue?vue&type=template&id=39b71bb4");
-/* harmony import */ var _CardCheckListCreateField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardCheckListCreateField.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/CardCheckListCreateField.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
-
-
-
-
-;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardCheckListCreateField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardCheckListCreateField_vue_vue_type_template_id_39b71bb4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardCheckListCreateField.vue"]])
-/* hot reload */
-if (false) {}
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
-
-/***/ }),
-
 /***/ "./resources/assets/site/js/views/App/Cards/Components/CardComment.vue":
 /*!*****************************************************************************!*\
   !*** ./resources/assets/site/js/views/App/Cards/Components/CardComment.vue ***!
@@ -24239,6 +24364,62 @@ __webpack_require__.r(__webpack_exports__);
 
 ;
 const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CheckListCreateField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CheckListCreateField_vue_vue_type_template_id_83e3ac40__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/CheckLists/Components/CheckListCreateField.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue":
+/*!*******************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _CheckListRenameField_vue_vue_type_template_id_4bff0444__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CheckListRenameField.vue?vue&type=template&id=4bff0444 */ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue?vue&type=template&id=4bff0444");
+/* harmony import */ var _CheckListRenameField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CheckListRenameField.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue?vue&type=script&lang=js");
+/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CheckListRenameField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CheckListRenameField_vue_vue_type_template_id_4bff0444__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue":
+/*!*************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _CheckListScale_vue_vue_type_template_id_08d5874c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CheckListScale.vue?vue&type=template&id=08d5874c */ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue?vue&type=template&id=08d5874c");
+/* harmony import */ var _CheckListScale_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CheckListScale.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue?vue&type=script&lang=js");
+/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CheckListScale_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CheckListScale_vue_vue_type_template_id_08d5874c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -24859,22 +25040,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/assets/site/js/views/App/Cards/Components/CardCheckListCreateField.vue?vue&type=script&lang=js":
-/*!******************************************************************************************************************!*\
-  !*** ./resources/assets/site/js/views/App/Cards/Components/CardCheckListCreateField.vue?vue&type=script&lang=js ***!
-  \******************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CardCheckListCreateField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CardCheckListCreateField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CardCheckListCreateField.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Cards/Components/CardCheckListCreateField.vue?vue&type=script&lang=js");
- 
-
-/***/ }),
-
 /***/ "./resources/assets/site/js/views/App/Cards/Components/CardComment.vue?vue&type=script&lang=js":
 /*!*****************************************************************************************************!*\
   !*** ./resources/assets/site/js/views/App/Cards/Components/CardComment.vue?vue&type=script&lang=js ***!
@@ -24951,6 +25116,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CheckListCreateField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CheckListCreateField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CheckListCreateField.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/CheckLists/Components/CheckListCreateField.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue?vue&type=script&lang=js":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue?vue&type=script&lang=js ***!
+  \*******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CheckListRenameField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CheckListRenameField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CheckListRenameField.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue?vue&type=script&lang=js":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue?vue&type=script&lang=js ***!
+  \*************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CheckListScale_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CheckListScale_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CheckListScale.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue?vue&type=script&lang=js");
  
 
 /***/ }),
@@ -25387,22 +25584,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/assets/site/js/views/App/Cards/Components/CardCheckListCreateField.vue?vue&type=template&id=39b71bb4":
-/*!************************************************************************************************************************!*\
-  !*** ./resources/assets/site/js/views/App/Cards/Components/CardCheckListCreateField.vue?vue&type=template&id=39b71bb4 ***!
-  \************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CardCheckListCreateField_vue_vue_type_template_id_39b71bb4__WEBPACK_IMPORTED_MODULE_0__.render)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CardCheckListCreateField_vue_vue_type_template_id_39b71bb4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CardCheckListCreateField.vue?vue&type=template&id=39b71bb4 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Cards/Components/CardCheckListCreateField.vue?vue&type=template&id=39b71bb4");
-
-
-/***/ }),
-
 /***/ "./resources/assets/site/js/views/App/Cards/Components/CardComment.vue?vue&type=template&id=46a2d993":
 /*!***********************************************************************************************************!*\
   !*** ./resources/assets/site/js/views/App/Cards/Components/CardComment.vue?vue&type=template&id=46a2d993 ***!
@@ -25479,6 +25660,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CheckListCreateField_vue_vue_type_template_id_83e3ac40__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CheckListCreateField_vue_vue_type_template_id_83e3ac40__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CheckListCreateField.vue?vue&type=template&id=83e3ac40 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/CheckLists/Components/CheckListCreateField.vue?vue&type=template&id=83e3ac40");
+
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue?vue&type=template&id=4bff0444":
+/*!*************************************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue?vue&type=template&id=4bff0444 ***!
+  \*************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CheckListRenameField_vue_vue_type_template_id_4bff0444__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CheckListRenameField_vue_vue_type_template_id_4bff0444__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CheckListRenameField.vue?vue&type=template&id=4bff0444 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue?vue&type=template&id=4bff0444");
+
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue?vue&type=template&id=08d5874c":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue?vue&type=template&id=08d5874c ***!
+  \*******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CheckListScale_vue_vue_type_template_id_08d5874c__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CheckListScale_vue_vue_type_template_id_08d5874c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CheckListScale.vue?vue&type=template&id=08d5874c */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue?vue&type=template&id=08d5874c");
 
 
 /***/ }),

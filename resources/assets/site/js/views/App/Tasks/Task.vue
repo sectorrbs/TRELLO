@@ -1,15 +1,25 @@
 <template>
     <div class="tasks__item" ref="taskItem">
         <div class="tasks__item-checkbox">
-            <input type="checkbox" class="custom-checkbox" :id="task.name" :name="task.name" value="yes">
+            <input :checked="task.check"
+                   type="checkbox" class="custom-checkbox"
+                   :id="task.name"
+                   :name="task.name"
+                   @change="checkTask">
             <label :for="task.name"></label>
         </div>
         <div class="tasks__item-inner">
-            <div class="tasks__item-name" @click="renameTaskShowField">
+            <div class="tasks__item-name"
+                 :class="{performed: task.check}"
+                 @click="renameTaskShowField">
                 {{ task.name }}
             </div>
-            <TaskRenameField @closeField="renameTaskHideField" v-model="taskName" :task="task"/>
-            <div class="tasks__item-settings" :class="{show}" @click.stop="showSettingsTask">
+            <TaskRenameField @closeField="renameTaskHideField"
+                             v-model="taskName"
+                             :task="task"/>
+            <div class="tasks__item-settings"
+                 :class="{show}"
+                 @click.stop="showSettingsTask">
                 <Fa :type="'s'"
                     :name="'ellipsis-h tasks__item-settings-icon'"/>
             </div>
@@ -77,10 +87,13 @@ export default {
             }, 0)
         },
         deleteTask() {
-            this.$store.dispatch('deleteTask', {id: this.task.id, card_id: this.$store.getters.cardId})
+            this.$store.dispatch('deleteTask', {id: this.task.id})
             this.$refs.taskItem.remove()
         },
-
+        checkTask() {
+            this.task.check = !this.task.check
+            this.$store.dispatch('updateTask', this.task)
+        }
     },
 }
 </script>

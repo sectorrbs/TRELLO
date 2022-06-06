@@ -13,16 +13,16 @@ export const actions = {
     deleteTask({dispatch}, data) {
         axios.post(`/api/v1/task/${data.id}/delete`, {_method: 'DELETE'})
             .then(res => {
-                data.id = data.card_id
+                data.id = this.getters.cardId
                 dispatch('getCardInfoNotLoader', data)
             })
     },
-    renameTask({dispatch}, data){
-        console.log(data)
+    updateTask({dispatch}, data) {
         axios.post(`/api/v1/task/${data.id}/update`, {
             _method: 'PUT',
             name: data.name,
-            check_lists_id: data.check_lists_id
+            check_lists_id: data.check_lists_id,
+            check: data.check,
         })
             .then(res => {
                 data.id = this.getters.cardId

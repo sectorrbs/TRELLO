@@ -1,3 +1,5 @@
+import {getPercentPerformedTasks} from "../../common/foo";
+
 export const actions = {
     addCard({commit, dispatch}, data) {
         axios.post(`/api/v1/card/create`, {
@@ -13,14 +15,17 @@ export const actions = {
             })
     },
 
-    getCardId({commit},id){
+    getCardId({commit}, id) {
         commit('setCardId', id)
     },
 
-    getCardInfo({commit}, data) {
+    getCardInfo({commit, dispatch}, data) {
         commit('changeModalLoad', true)
         axios.get(`/api/v1/card/${data.id}`)
             .then(res => {
+                if (res.data.data.checkLists.length) {
+                    dispatch('getPercentPerformedTasks', res.data.data.checkLists)
+                }
                 commit('setCardInfo', res.data.data)
             })
             .catch(e => {
@@ -31,14 +36,22 @@ export const actions = {
             })
     },
 
-    getCardInfoNotLoader({commit}, data) {
+    getCardInfoNotLoader({commit, dispatch}, data) {
         axios.get(`/api/v1/card/${data.id}`)
             .then(res => {
+                if (res.data.data.checkLists.length) {
+                    dispatch('getPercentPerformedTasks', res.data.data.checkLists)
+                }
                 commit('setCardInfo', res.data.data)
             })
             .catch(e => {
                 commit('setErrorMessage', e.response.data.errors.name[0])
             })
+    },
+
+    getPercentPerformedTasks({commit}, data) {
+        let percentPerformedTasks = getPercentPerformedTasks(data)
+        commit('setPercentPerformedTasks', percentPerformedTasks)
     },
 
     deleteCard({commit, dispatch}, data) {

@@ -25,7 +25,8 @@ class TaskRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'check_lists_id' => 'required|exists:check_lists,id'
+            'check_lists_id' => 'required|exists:check_lists,id',
+            'check' => ''
         ];
     }
 }

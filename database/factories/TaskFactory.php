@@ -16,7 +16,8 @@ class TaskFactory extends Factory
     {
         return [
             'name'=>$this->faker->text(30),
-            'check_lists_id' => CheckList::all()->random()->id
+            'check_lists_id' => CheckList::all()->random()->id,
+            'check'=>$this->faker->boolean
         ];
     }
 }

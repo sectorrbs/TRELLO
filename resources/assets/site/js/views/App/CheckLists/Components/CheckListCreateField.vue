@@ -1,6 +1,6 @@
 <template>
     <div class="details__window-checklist-create">
-        <textarea @keydown="enterSubmit" v-model="taskName" type="text" class="details__window-checklist-input"
+        <textarea @keydown.stop="enterSubmit" v-model="taskName" type="text" class="details__window-checklist-input"
                   placeholder="Добавить элемент"></textarea>
         <div class="details__window-checklist-btns">
             <ActionCardBtn :class="{disabled:!taskName}" class="create-task-btn blue" @click.prevent="createTask">
@@ -26,7 +26,12 @@ export default {
     }),
     methods: {
         enterSubmit(e) {
-            if (e.keyCode === 13) this.createTask()
+            if (e.keyCode === 13) {
+                this.createTask()
+                setTimeout(() => {
+                    this.taskName = ''
+                },0)
+            }
         },
         createTask() {
             if (this.taskName) {

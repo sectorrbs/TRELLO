@@ -28,7 +28,7 @@ export default {
         renameTask(e) {
             if (this.modelValue) {
                 this.task.name = this.modelValue
-                this.$store.dispatch('renameTask', this.task)
+                this.$store.dispatch('updateTask', this.task)
             }
             this.$emit('closeField')
         },

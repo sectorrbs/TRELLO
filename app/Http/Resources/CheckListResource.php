@@ -17,7 +17,7 @@ class CheckListResource extends JsonResource
             'id'=>$this->id,
             'name'=>$this->name,
             'card_id' =>$this->card_id,
-            'tasks' =>$this->tasks,
+            'tasks' =>TaskResource::collection($this->tasks),
         ];
     }
 }

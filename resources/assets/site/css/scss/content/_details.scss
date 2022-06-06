@@ -107,11 +107,14 @@
         }
 
         &-checklist {
+            position: relative;
+
             &-title {
                 @include flex(center);
                 @include font(16px, 500, 1, null, null);
                 gap: 16px;
                 position: relative;
+                cursor: pointer;
             }
 
             &-more {
@@ -134,6 +137,51 @@
                 &::placeholder {
                     font-size: 13px;
                 }
+            }
+
+            &-renamebtns {
+                @include flex(center, center, nowrap);
+                @include position(absolute,null,0,0,null);
+            }
+
+            &-btn {
+                @include flex(center, center);
+                @include size(33px, 33px);
+                cursor: pointer;
+
+                &.red {
+                    background: rgba($color-red, .2);
+
+                    &:hover {
+                        background: rgba($color-red, .3);
+                    }
+                }
+
+                &.green {
+                    background: rgba($color-green-lite, .3);
+
+                    &:hover {
+                        background: rgba($color-green-lite, .4);
+                    }
+                }
+            }
+
+            &-form {
+                @include position(absolute, 0, 0, null, null);
+                @include size(100%, 33px);
+                @include flex(center, null, nowrap);
+                opacity: 0;
+                visibility: hidden;
+
+                &.show {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+
+            &-rename {
+                @include size(100%, 100%);
+                padding: 0 75px 0 10px;
             }
 
             &-btns {
@@ -241,6 +289,7 @@
                     &.disabled {
                         cursor: default;
                         background: rgba($color-blue-lite, .3);
+
                         &:hover {
                             background: rgba($color-blue-lite, .3)
                         }
