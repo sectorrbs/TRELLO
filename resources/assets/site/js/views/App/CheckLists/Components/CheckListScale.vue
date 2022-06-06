@@ -1,7 +1,7 @@
 <template>
     <div class="scale">
         <div class="scale__percent">
-            {{ percent ?? 0 }}%
+            {{ percent }}%
         </div>
         <div class="scale__progress-bar">
             <div class="scale__progress-bar-check" :class="{success: percent === 100}" :style="{width: percent + '%' }"></div>

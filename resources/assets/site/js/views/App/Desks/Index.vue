@@ -1,6 +1,6 @@
 <template>
 
-    <div class="content" v-else>
+    <div class="content">
         <div class="container page__content">
             <div class="page__content-left">
                 <Sidebar/>

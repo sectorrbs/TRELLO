@@ -23,7 +23,7 @@
             </CardActionModal>
         </div>
         <CheckListRenameField :checkList="checkList"/>
-        <Scale :percent="percent"/>
+        <Scale v-if="percent !== -1" :percent="percent"/>
         <Tasks v-if="checkList.tasks?.length"
                :tasks="checkList.tasks"/>
         <CardCreateTask :check_lists_id="checkList.id"/>
