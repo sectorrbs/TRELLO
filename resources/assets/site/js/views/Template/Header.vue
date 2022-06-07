@@ -6,14 +6,19 @@
             Rafaello
         </div>
         <div class="header__btn">Создать</div>
+
+        <HeaderAcc/>
+
     </header>
 </template>
 
 <script>
 
+import HeaderAcc from "./components/HeaderAcc";
 
 export default {
     name: "Header",
+    components: {HeaderAcc},
 }
 </script>
 

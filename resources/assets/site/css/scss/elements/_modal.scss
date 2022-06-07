@@ -46,3 +46,124 @@
         visibility: visible;
     }
 }
+
+
+.global-modal {
+    @include position(absolute, null, 0, 0, null);
+    background: $color-white;
+    width: 290px;
+    border-radius: 5px;
+    box-shadow: -1px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    opacity: 0;
+    visibility: hidden;
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+        z-index: 1;
+    }
+
+    &-close {
+        @include font(15px, null, 1, null, null);
+        @include position(absolute, null, 50%, 10px, null);
+        transform: translateY(-50%);
+    }
+
+    &-top {
+        @include font(15px, 400, 1, null, null);
+        @include flex(center, center);
+        position: relative;
+        padding: 10px 30px 10px 10px;
+        text-align: center;
+        margin: 0 10px;
+        border-bottom: 1px solid rgba($color-gray, .3)
+    }
+
+    &-subtitle {
+        @include font(13px, 600, 1);
+        margin: 14px 0 3px;
+    }
+
+    &-title {
+        @include font(15px, null, 1, null, null);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &-text {
+        @include font(13px, 400, 1, null, null);
+        padding-top: 10px;
+    }
+
+    &-input {
+        font-size: 13px;
+        line-height: 1;
+        color: #6b6b6b;
+        background: #fff;
+        border: 1px solid rgba(107, 107, 107, .5);
+        padding: 10px;
+        width: 100%;
+    }
+
+    &-close {
+        cursor: pointer
+    }
+
+    &-btn {
+        @include font(13px, 400, 1, $color-white, null);
+        margin-top: 15px;
+        padding: 10px;
+        text-align: center;
+        width: 100%;
+        cursor: pointer;
+
+        &.delete {
+            background: rgba($color-red, .6);
+
+            &:hover {
+                background: rgba($color-red, .7);
+            }
+        }
+
+        &.create {
+            background: rgba($color-green-lite, .6);
+
+            &:hover {
+                background: rgba($color-green-lite, .7);
+            }
+        }
+
+        &.disabled {
+            background: rgba($color-gray, .1);
+            pointer-events: none;
+
+            &:hover {
+                background: rgba($color-gray, .1)
+            }
+        }
+    }
+
+    &-items {
+        margin: 10px 0;
+        padding: 0 10px;
+    }
+
+    &-item {
+        @include font(13px, null, 1, null, null);
+        margin: 0 -10px;
+        padding: 10px;
+        cursor: pointer;
+
+        &:hover {
+            background: rgba($color-gray, .1);
+        }
+    }
+
+    &-bottom {
+        @include flex(center, center);
+        background: $color-blue-lite;
+        padding: 5px;
+        color: $color-white;
+    }
+}

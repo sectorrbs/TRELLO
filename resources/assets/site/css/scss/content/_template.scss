@@ -50,7 +50,34 @@
         background: $color-green-lite;
 
         &:hover {
-            background: rgba(46,187,46,.82);
+            background: rgba(46, 187, 46, .82);
+        }
+    }
+
+    &__user {
+        margin-left: auto;
+
+        &-modal {
+            &.global-modal {
+                top: 47px;
+                right: 9px;
+            }
+        }
+    }
+
+    &__acc {
+        position: relative;
+        @include flex(center, center);
+        @include font(16px, 700, 1, null, null);
+        @include size(35px, 35px);
+        border-radius: 50%;
+        background: $color-white;
+        margin: 0 10px;
+        cursor: pointer;
+
+        &-initials {
+            @include position(absolute, 50%, 55%, null, null);
+            transform: translate(-50%, -50%);
         }
     }
 

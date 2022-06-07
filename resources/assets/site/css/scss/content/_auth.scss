@@ -1,0 +1,91 @@
+.auth {
+
+    position: relative;
+
+    &__btns {
+        @include flex(center, null, nowrap);
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    &__label {
+        @include position(absolute, 0, 0, null, null);
+        @include font(14px, null, 1, null, null);
+        background: rgba($color-white, .8);
+        padding: 7px;
+        border-top-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    &__wrapper {
+        @include size(100%, 100vh);
+        @include flex(center, center);
+        background: url('/storage/common/bg.login.jpg');
+    }
+
+    &__inputs {
+        @include flex(stretch);
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 10px;
+        width: 350px;
+    }
+
+    &__item {
+        @include flex(stretch);
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    &__error {
+        margin-top: 0;
+
+        &.error {
+            padding: 5px 10px;
+
+            .error__text {
+                font-weight: 400 !important;
+                font-size: 12px;
+            }
+        }
+    }
+
+    &__input {
+        @include transition(.2s);
+        @include size(100%, 40px);
+        padding: 0 10px;
+        border-radius: 5px;
+        font-size: 13px;
+
+        &::placeholder {
+            font-size: 13px;
+            color: $color-gray !important;
+        }
+
+        &:focus {
+            background: #f3feff;
+        }
+    }
+
+    &__logo {
+        @include flex(center, center);
+        @include font(50px, null, 1, #0cc7d4, null);
+        gap: 7px;
+
+        &-icon {
+            font-size: 50px;
+            transform: translateY(-5px);
+        }
+    }
+
+    &__inner {
+        @include flex(stretch);
+        position: relative;
+        padding: 60px;
+        background: rgba($color-white, .7);
+        flex-direction: column;
+        border-radius: 5px;
+        gap: 10px;
+        max-width: 600px;
+    }
+}

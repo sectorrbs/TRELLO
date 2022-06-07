@@ -4,12 +4,6 @@
 
     <div class="content" v-else>
         <div v-if="desk" class="desks__lists">
-            <!--            <div class="content__title">-->
-            <!--                <router-link to="/desks" class="content__back btn">-->
-            <!--                    Назад-->
-            <!--                </router-link>-->
-            <!--            </div>-->
-
             <div v-if="desk.lists?.length" class="desks__lists-inner">
                 <DeskList v-for="list in desk.lists" :list="list" :key="list.id"/>
                 <div class="desks__lists-add">
