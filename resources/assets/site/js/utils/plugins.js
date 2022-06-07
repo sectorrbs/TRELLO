@@ -35,7 +35,12 @@ export default {
                     !e.target.classList.contains('settings__cancel') &&
                     !e.target.classList.contains('tasks__item-settings') &&
                     !e.target.classList.contains('tasks__item-settings-icon') &&
-                    !e.target.classList.contains('create-task-btn')) {
+                    !e.target.classList.contains('create-task-btn') &&
+                    !e.target.classList.contains('details__window-title') &&
+                    !e.target.classList.contains('details__window-card-rename') &&
+                    !e.target.classList.contains('details__window-checklist-rename') &&
+                    !e.target.classList.contains('details__window-checklist-btn') &&
+                    !e.target.classList.contains('details__window-checklist-title')) {
                     clearAll()
                 }
             })
@@ -60,6 +65,12 @@ export default {
                     .forEach(el => el.classList.remove('show'))
                 document.querySelectorAll('.tasks__item-settings')
                     .forEach(el => el.classList.remove('show'))
+                document.querySelectorAll('.details__window-checklist-form').forEach(el => {
+                    el.classList.remove('show')
+                })
+                document.querySelectorAll('.details__window-card-form').forEach(el => {
+                    el.classList.remove('show')
+                })
             }
 
             function clearDeskLists() {

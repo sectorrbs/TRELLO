@@ -27,6 +27,10 @@
         height: 100%;
         background: #f4f5f7;
 
+        &-inner {
+            position: relative;
+        }
+
         &-icon {
             transform: translateY(-1px);
         }
@@ -141,7 +145,7 @@
 
             &-renamebtns {
                 @include flex(center, center, nowrap);
-                @include position(absolute,null,0,0,null);
+                @include position(absolute, null, 0, 0, null);
             }
 
             &-btn {
@@ -182,6 +186,11 @@
             &-rename {
                 @include size(100%, 100%);
                 padding: 0 75px 0 10px;
+
+                &::placeholder {
+                    font-size: 13px;
+                    color: rgba($color-gray, .7)
+                }
             }
 
             &-btns {
@@ -251,6 +260,7 @@
             @include font(19px, 700, 20px, null, null);
             position: relative;
             padding-left: 30px;
+            cursor: pointer;
 
             .details__window-icon {
                 @include position(absolute, 0, 0, null, null);
@@ -263,6 +273,30 @@
             gap: 3px;
             margin-top: 10px;
             padding-left: 35px;
+        }
+
+        &-cardinfo {
+            &-btn {
+                @include flex(center, center);
+                @include size(33px, 33px);
+                cursor: pointer;
+
+                &.red {
+                    background: rgba($color-red, .2);
+
+                    &:hover {
+                        background: rgba($color-red, .3);
+                    }
+                }
+
+                &.green {
+                    background: rgba($color-green-lite, .3);
+
+                    &:hover {
+                        background: rgba($color-green-lite, .4);
+                    }
+                }
+            }
         }
 
         &-card {
@@ -311,6 +345,34 @@
                 &:hover {
                     background: rgba($color-gray, .2);
                 }
+            }
+
+            &-form {
+                @include position(absolute, 0, -7px, null, null);
+                @include size(100%, 33px);
+                @include flex(center, null, nowrap);
+                opacity: 0;
+                visibility: hidden;
+
+                &.show {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+
+            &-rename {
+                @include size(100%, 100%);
+                padding: 0 75px 0 10px;
+
+                &::placeholder {
+                    font-size: 13px;
+                    color: rgba($color-gray, .7)
+                }
+            }
+
+            &-renamebtns {
+                @include flex(center, center, nowrap);
+                @include position(absolute, null, 0, 0, null);
             }
 
             &:hover {

@@ -1,11 +1,16 @@
 <template>
-    <div v-if="cardInfo" class="details__window">
+    <div v-if="cardInfo" class="details__window" ref="cardInfo">
         <div class="details__window-top">
             <div class="details__window-content">
-                <div class="details__window-title">
-                    <Fa :type="'r'"
-                        :name="'desktop-alt details__window-icon'"/>
-                    {{ cardInfo.name }}
+                <div class="details__window-inner">
+                    <div class="details__window-title" @click="renameCardShowField">
+                        <Fa :type="'r'"
+                            :name="'desktop-alt details__window-icon'"/>
+                        {{ cardInfo.name }}
+                    </div>
+                    <CardRenameField @hideField="renameCheckListHideField"
+                                     :oldName="cardInfo.name"
+                                     :card="cardInfo"/>
                 </div>
                 <div class="details__window-subtitle">
                     В колонке
@@ -33,6 +38,7 @@
 
 import {mapGetters} from 'vuex'
 import CardParticipants from './Components/CardParticipants'
+import CardRenameField from './Components/CardRenameField'
 import CardDescription from './Components/CardDescription'
 import CardComment from './Components/CardComment'
 import CardActions from './Components/CardActions'
@@ -43,15 +49,32 @@ export default {
     props: ['cardInfo'],
     mounted() {
         this.getCardId()
+        setTimeout(() => {
+            window.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('details__window-checklist-input') &&
+                    !e.target.classList.contains('card-create-field')) {
+                    this.field = false
+                }
+            })
+        }, 100)
     },
     methods: {
         getCardId() {
             if (this.cardInfo) {
                 this.$store.dispatch('getCardId', this.cardInfo.id)
             }
-        }
+        },
+        renameCheckListHideField() {
+            this.$closed()
+        },
+        renameCardShowField() {
+            let input = this.$refs.cardInfo.querySelector('.details__window-card-rename')
+            let form = this.$refs.cardInfo.querySelector('.details__window-card-form')
+            form.classList.add('show')
+            input.focus()
+        },
     },
-    components: {CardParticipants, CardDescription, CardComment, CardActions, CheckLists},
+    components: {CardParticipants, CardDescription, CardComment, CardActions, CheckLists, CardRenameField},
     computed: {
         ...mapGetters(['modalLoad'])
     }

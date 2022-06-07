@@ -1,14 +1,27 @@
 import {createRouter, createWebHistory} from 'vue-router'
 
 const appPath = './views/App/'
+const authPath = './auth/'
 
 
 const routes = [
     {
         path: '/',
         name: 'home',
-        meta: {page_title: 'Главная'} ,
+        meta: {page_title: 'Главная'},
         component: () => import('./views/Index')
+    },
+    {
+        path: '/login',
+        name: 'login',
+        meta: {page_title: 'Вход в рафаелло'},
+        component: () => import(`${authPath}Login`)
+    },
+    {
+        path: '/register',
+        name: 'register',
+        meta: {page_title: 'Регистрация'},
+        component: () => import(`${authPath}Register`)
     },
     {
         path: '/desks',

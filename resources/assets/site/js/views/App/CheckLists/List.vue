@@ -1,6 +1,6 @@
 <template>
     <div class="details__window-checklist" ref="checklist">
-        <div class="details__window-checklist-title" @click="renameCheckList">
+        <div class="details__window-checklist-title" @click="renameCheckListShowField">
             <Fa :type="'r'"
                 :name="'check-square details__window-icon'"/>
             {{ checkList.name }}
@@ -16,17 +16,23 @@
                         Удаление списка задач необратимо, и не будет возможности его вернуть.
                     </div>
                     <div class="details__actions-modal-btn delete"
-                         @click="deleteCheckList">
+                         @click.stop="deleteCheckList">
                         Удаление списка задач
                     </div>
                 </template>
             </CardActionModal>
         </div>
-        <CheckListRenameField :checkList="checkList"/>
+
+        <CheckListRenameField @hideField="renameCheckListHideField"
+                              :oldName="checkList.name"
+                              :checkList="checkList"/>
+
         <Scale v-if="percent !== -1" :percent="percent"/>
         <Tasks v-if="checkList.tasks?.length"
                :tasks="checkList.tasks"/>
+
         <CardCreateTask :check_lists_id="checkList.id"/>
+
     </div>
 </template>
 
@@ -47,12 +53,14 @@ export default {
     }),
     props: ['checkList'],
     mounted() {
-        window.addEventListener('click', (e) => {
-            if (!e.target.classList.contains('details__window-checklist-input') &&
-                !e.target.classList.contains('card-create-field')) {
-                this.field = false
-            }
-        })
+        setTimeout(() => {
+            window.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('details__window-checklist-input') &&
+                    !e.target.classList.contains('card-create-field')) {
+                    this.field = false
+                }
+            })
+        }, 100)
     },
     components: {
         ActionCardBtn,
@@ -71,11 +79,14 @@ export default {
         deleteCheckList() {
             this.$store.dispatch('deleteCheckList', this.checkList)
         },
-        renameCheckList() {
+        renameCheckListShowField() {
             let input = this.$refs.checklist.querySelector('.details__window-checklist-rename')
             let form = this.$refs.checklist.querySelector('.details__window-checklist-form')
             form.classList.add('show')
             input.focus()
+        },
+        renameCheckListHideField() {
+            this.$closed()
         },
     },
     computed: {
@@ -86,7 +97,3 @@ export default {
     },
 }
 </script>
-
-<style scoped>
-
-</style>

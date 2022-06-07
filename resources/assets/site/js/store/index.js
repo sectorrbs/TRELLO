@@ -6,10 +6,11 @@ import Common from './modules/common/index'
 import Cards from './modules/cards/index'
 import CheckLists from './modules/check_lists/index'
 import Tasks from './modules/tasks/index'
+import Auth from './modules/auth/index'
 
 const store = createStore({
     modules: {
-        Desks, Error, Common, Lists, Cards, CheckLists, Tasks
+        Desks, Error, Common, Lists, Cards, CheckLists, Tasks, Auth
     }
 })
 

@@ -7,6 +7,8 @@
     opacity: 0;
     animation: fadeIn 0.5s linear;
     background: rgba($color, .7);
+    overflow: auto;
+    padding: 40px 0;
 
     &__close {
         @include position(absolute, null, 0, 0, null);
@@ -36,7 +38,7 @@
         width: 700px;
         min-height: 500px;
         position: relative;
-        background: $color-white;
+        background: #f4f5f7;
     }
 
     &.show {

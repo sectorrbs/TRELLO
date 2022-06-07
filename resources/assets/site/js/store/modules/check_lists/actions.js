@@ -14,17 +14,12 @@ export const actions = {
     },
 
     updateCheckList({commit, dispatch}, data) {
-        console.log(data)
         axios.post(`/api/v1/check_list/${data.id}/update`, {
             _method: 'PUT',
             name: data.name,
             id: data.id,
             card_id: data.card_id
         })
-            .then(res => {
-                data.id = this.getters.cardId
-                dispatch('getCardInfoNotLoader', data)
-            })
     },
 
     deleteCheckList({commit, dispatch}, data) {

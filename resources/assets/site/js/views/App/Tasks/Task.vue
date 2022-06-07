@@ -3,10 +3,10 @@
         <div class="tasks__item-checkbox">
             <input :checked="task.check"
                    type="checkbox" class="custom-checkbox"
-                   :id="task.name"
+                   :id="task.id"
                    :name="task.name"
                    @change="checkTask">
-            <label :for="task.name"></label>
+            <label :for="task.id"></label>
         </div>
         <div class="tasks__item-inner">
             <div class="tasks__item-name"

@@ -22,6 +22,12 @@ class CardController extends Controller
         return CardResource::make($new_card);
     }
 
+    public function updateCard(CardRequest $request, Card $card)
+    {
+        $card->update($request->validated());
+        return response(null, Response::HTTP_NO_CONTENT);
+    }
+
     public function deleteCard(Card $card)
     {
         $card->delete();

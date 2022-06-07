@@ -7,10 +7,9 @@ export const getPercentPerformedTasks = (checkLists) => {
             let rate = countAllTasks / countCheckTasks
             let percent = 100 / rate
             scales.push({id: el.id, percent})
-        }  else {
+        } else {
             scales.push({id: el.id, percent: -1})
         }
     })
-    console.log(scales)
     return scales;
 }

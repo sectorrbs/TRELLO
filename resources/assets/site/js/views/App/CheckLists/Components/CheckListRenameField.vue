@@ -1,11 +1,12 @@
 <template>
-    <form class="details__window-checklist-form" ref="checklistForm">
+    <form class="details__window-checklist-form" ref="checklistForm" @submit.prevent="renameCheckList">
         <input type="text"
                class="details__window-checklist-rename"
-               :value="checkList.name"
+               :value="oldName"
+               @input="changeChecklistName"
                placeholder="Введите название чек-листа">
         <div class="details__window-checklist-renamebtns">
-            <div class="details__window-checklist-btn red">
+            <div class="details__window-checklist-btn red" @click.prevent="this.$emit('hideField')">
                 <Fa :type="'r'"
                     :name="'times details__window-icon'"/>
             </div>
@@ -20,12 +21,22 @@
 <script>
 export default {
     name: "CheckListRenameField",
-    props: ['checkList'],
+    data: () => ({
+        newName: null
+    }),
+    props: ['checkList', 'oldName'],
+
     methods: {
-        renameCheckList(){
+        renameCheckList(e) {
             this.$refs.checklistForm.classList.remove('show')
-            this.$store.dispatch('updateCheckList', this.checkList)
+            if (this.newName) {
+                this.checkList.name = this.newName
+                this.$store.dispatch('updateCheckList', this.checkList)
+            }
         },
+        changeChecklistName(e) {
+            this.newName = e.target.value
+        }
     },
 }
 </script>

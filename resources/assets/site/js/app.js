@@ -1,6 +1,6 @@
 window.Vue = require('vue').default;
 window.axios = require('axios');
-
+axios.defaults.withCredentials = true;
 import { createApp,h } from 'vue'
 import App from './App.vue'
 

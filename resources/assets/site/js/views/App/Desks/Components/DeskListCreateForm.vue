@@ -6,7 +6,6 @@
                 @input="this.$store.commit('setErrorMessage', null)"
                 placeholder="Введите название колонки"
                 type="text"
-                value=""
                 class="form-input">
             <div class="desks__form-bottom">
                 <button
