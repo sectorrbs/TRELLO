@@ -6,7 +6,7 @@
                 @input="this.$store.commit('setErrorMessage', null)"
                 placeholder="Введите название доски"
                 type="text"
-                class="form-input">
+                class="form-input desks__form-input">
             <div class="desks__form-bottom">
                 <button
                     :class="{disabled: !name}"

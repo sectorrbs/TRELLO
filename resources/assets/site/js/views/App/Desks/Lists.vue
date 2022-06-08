@@ -6,19 +6,11 @@
         <div v-if="desk" class="desks__lists">
             <div v-if="desk.lists?.length" class="desks__lists-inner">
                 <DeskList v-for="list in desk.lists" :list="list" :key="list.id"/>
-                <div class="desks__lists-add">
-                    <div class="desks__create-list">
-                        <DeskListCreateForm :show="show" @showClose="showForm" :desk_id="desk.id"/>
-                    </div>
-                    <div class="desks__lists-add-btn" @click="showForm">
-                        <Fa :type="'r'"
-                            :name="'plus desks__add-icon'"/>
-                        Добавить ещё одну колонку
-                    </div>
-                </div>
+                <DeskListCreateNewList :desk_id="desk.id"/>
             </div>
             <div v-else class="desks__lists-empty">
                 Списков у доски пока нет
+                <DeskListCreateNewList :desk_id="desk.id"/>
             </div>
         </div>
     </div>
@@ -31,7 +23,7 @@ import {mapGetters, mapActions} from 'vuex'
 import {required} from '@vuelidate/validators'
 import {useVuelidate} from '@vuelidate/core'
 import DeskList from "./Components/DeskList";
-import DeskListCreateForm from "./Components/DeskListCreateForm";
+import DeskListCreateNewList from "./Components/DeskListCreateNewList";
 
 export default {
     name: "Lists",
@@ -40,7 +32,7 @@ export default {
         name: null,
         show: false
     }),
-    components: {DeskList, DeskListCreateForm},
+    components: {DeskList, DeskListCreateNewList},
     mounted() {
         this.getDesk(this.$route.params.id)
     },

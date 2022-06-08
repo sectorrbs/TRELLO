@@ -1,4 +1,4 @@
-import {getPercentPerformedTasks} from "../../common/foo";
+import {getCountTasks} from "../../common/foo";
 
 export const actions = {
     createCheckList({commit, dispatch}, data) {
@@ -22,11 +22,14 @@ export const actions = {
         })
     },
 
-    deleteCheckList({commit, dispatch}, data) {
+    deleteCheckList({commit, dispatch, getters}, data) {
         axios.post(`/api/v1/check_list/${data.id}/delete`, {_method: 'DELETE'})
             .then(res => {
                 data.id = data.card_id
                 dispatch('getCardInfoNotLoader', data)
+                setTimeout(() => {
+                    getCountTasks(getters.cardInfo)
+                }, 600)
             })
     },
 }

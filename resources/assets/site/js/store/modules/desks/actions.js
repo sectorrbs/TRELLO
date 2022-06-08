@@ -1,3 +1,5 @@
+import router from '../../../router';
+
 export const actions = {
     getDesks({commit}) {
         commit('changeLoader', true)
@@ -18,11 +20,15 @@ export const actions = {
             .catch(e => commit('setErrorMessage', e.message))
     },
 
-     getDesk({commit}, id) {
+    getDesk({commit}, id) {
         commit('changeLoader', true)
         axios.get(`/api/v1/desk/${id}`)
             .then(res => {
-                commit('setDesk', res.data.data)
+                if (res.data.data) {
+                    commit('setDesk', res.data.data)
+                } else {
+                    router.push('/desks')
+                }
             })
             .catch(e => commit('setErrorMessage', e.message))
             .finally(() => commit('changeLoader', false))
@@ -41,7 +47,8 @@ export const actions = {
 
     createDesk({commit, dispatch}, name) {
         // commit('changePageLoad', true)
-        axios.post(`/api/v1/desk/create`, {_method: 'POST', name,})
+        let user_id = localStorage.getItem('user_id')
+        axios.post(`/api/v1/desk/create`, {_method: 'POST', name, user_id})
             .then(res => {
                 commit('setErrorMessage', null)
                 commit('setDesk', res.data.data)

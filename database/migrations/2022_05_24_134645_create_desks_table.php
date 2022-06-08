@@ -17,7 +17,7 @@ class CreateDesksTable extends Migration
             $table->id();
             $table->foreignId('user_id')
                 ->references('id')
-                ->on('desks')
+                ->on('users')
                 ->onDelete('cascade');
             $table->string('name');
             $table->timestamps();

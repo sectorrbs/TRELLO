@@ -25,6 +25,7 @@
         {
             return [
                 'name' => 'required|unique:desks,name,' . $this->id,
+                'user_id' => 'required|exists:users,id'
             ];
         }
 

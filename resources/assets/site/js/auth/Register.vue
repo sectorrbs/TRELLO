@@ -25,7 +25,7 @@
                                @input="checkData"
                                placeholder="Введите email">
                         <AuthError v-if="authErrors"
-                                   class="desks__form-error auth__error"
+                                   class="auth__error"
                                    :errors="authErrors.email"/>
                     </div>
                     <div class="auth__item">
@@ -35,7 +35,7 @@
                                @input="checkData"
                                placeholder="Введите пароль">
                         <AuthError v-if="authErrors"
-                                   class="desks__form-error auth__error"
+                                   class="auth__error"
                                    :errors="authErrors.password"/>
                     </div>
                     <div class="auth__item">

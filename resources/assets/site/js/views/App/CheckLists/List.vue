@@ -80,6 +80,7 @@ export default {
             this.$store.dispatch('deleteCheckList', this.checkList)
         },
         renameCheckListShowField() {
+            this.$closed()
             let input = this.$refs.checklist.querySelector('.details__window-checklist-rename')
             let form = this.$refs.checklist.querySelector('.details__window-checklist-form')
             form.classList.add('show')

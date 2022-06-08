@@ -26,10 +26,19 @@ export default {
         error: false,
         errorMessage: ''
     }),
+    mounted() {
+        window.addEventListener('click', e => {
+            if (!e.target.classList.contains('room__desks-add') &&
+                !e.target.classList.contains('desks__form-input') &&
+                !e.target.classList.contains('desks__form-bottom')) {
+                this.show = false
+            }
+        })
+    },
     components: {DeskCreateForm},
     methods: {
         showDeskAddForm() {
-            this.show = !this.show
+            this.show = true
             this.$store.commit('setErrorMessage', null)
         },
         showError(message) {
@@ -38,7 +47,7 @@ export default {
             setTimeout(() => {
                 this.error = false
                 this.$store.commit('setErrorMessage', null)
-            },1500)
+            }, 1500)
         }
     }
 }
