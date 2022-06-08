@@ -6,6 +6,7 @@ import Loader from './Loader'
 import ModalLoad from './ModalLoad'
 import PageLoad from './PageLoad'
 import Error from './Error'
+import AuthError from './AuthError'
 import Sidebar from './Sidebar'
 import GlobalModal from './GlobalModal'
 
@@ -19,5 +20,6 @@ export default [
     ModalLoad,
     Sidebar,
     PageLoad,
-    GlobalModal
+    GlobalModal,
+    AuthError
 ]

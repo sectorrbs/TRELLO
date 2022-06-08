@@ -23,6 +23,7 @@ body {
     display: flex;
     background: $color-gray-lite;
     flex-direction: column;
+    animation: bodyFadeIn .3s;
 
     &.overflow {
         overflow: hidden;
@@ -33,6 +34,15 @@ body {
         }
     }
 
+}
+
+@keyframes bodyFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 input, textarea, button, select {

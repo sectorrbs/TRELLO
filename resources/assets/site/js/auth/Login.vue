@@ -24,8 +24,9 @@
                                class="auth__input"
                                placeholder="Введите пароль"
                                @input="checkData">
-                        <Error v-if="setAuthErrors" class="desks__form-error auth__error" :error="setAuthErrors"/>
+                        <AuthError v-if="authErrors" class="desks__form-error auth__error" :errors="authErrors.password"/>
                     </div>
+                    <AuthError v-if="authErrors" class="desks__form-error auth__error" :errors="authErrors.email"/>
                     <div class="auth__btns">
                         <button :class="{disabled}" class="btn" @click.prevent="logIn">Войти</button>
                         <router-link class="btn" :to="{name: 'register'}">
@@ -65,7 +66,7 @@ export default {
         },
     },
     computed: {
-        ...mapGetters(['setAuthErrors'])
+        ...mapGetters(['authErrors'])
     },
 }
 </script>

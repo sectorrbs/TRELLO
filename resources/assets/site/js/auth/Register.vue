@@ -24,7 +24,9 @@
                                class="auth__input"
                                @input="checkData"
                                placeholder="Введите email">
-<!--                        <Error v-if="authErrors" class="desks__form-error auth__error" :error="authErrors.email[0]"/>-->
+                        <AuthError v-if="authErrors"
+                                   class="desks__form-error auth__error"
+                                   :errors="authErrors.email"/>
                     </div>
                     <div class="auth__item">
                         <input type="password"
@@ -32,8 +34,9 @@
                                class="auth__input"
                                @input="checkData"
                                placeholder="Введите пароль">
-<!--                        <Error v-if="authErrors" class="desks__form-error auth__error" :error="authErrors.password[0]"/>-->
-<!--                        <Error v-if="authErrors" class="desks__form-error auth__error" :error="authErrors.password[1]"/>-->
+                        <AuthError v-if="authErrors"
+                                   class="desks__form-error auth__error"
+                                   :errors="authErrors.password"/>
                     </div>
                     <div class="auth__item">
                         <input type="password"
