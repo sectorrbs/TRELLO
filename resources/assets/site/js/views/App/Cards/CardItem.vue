@@ -1,7 +1,8 @@
 <template>
-    <div class="desks__cards-item"
+    <div class="desks__cards-item draggable"
          :class="{success: successAllTasks}"
          :data-card-item="card.id"
+         @dragStart="onDragStart($event, card)"
          @click="this.$store.dispatch('openModal', card)">
         {{ card.name }}
         <div :class="{hidden: !countAllTasks}" class="desks__cards-count-tasks">
@@ -42,6 +43,11 @@ export default {
         successAllTasks() {
             return this.countPerformTasks === this.countAllTasks && this.countAllTasks > 0
         }
+    },
+    methods: {
+        onDragStart(e, card) {
+            e.dataTransfer.setData('itemId', card.id.toString())
+        },
     },
 }
 </script>

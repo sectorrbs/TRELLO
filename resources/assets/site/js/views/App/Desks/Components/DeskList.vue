@@ -1,6 +1,8 @@
 <template>
     <div draggable="false" ref="desk_list" class="desks__list">
-        <div class="desks__list-wrapper">
+        <div @drop="onDrop($event, list.id)"
+             class="desks__list-wrapper droppable"
+             :id="`list-${list.id}`">
             <div class="desks__list-inner" ref="renameList">
                 <div class="desks__list-title">
                     {{ list.name }}
@@ -29,7 +31,6 @@
 
             <DeskListNewCard @addNewCard="reloadCards" :list="list"/>
         </div>
-
     </div>
 </template>
 
@@ -83,6 +84,9 @@ export default {
                 list.classList.add('open')
                 this.$refs.desk_list.classList.add('show')
             }
+        },
+        onDrop(e, listId) {
+
         }
     },
     mounted() {

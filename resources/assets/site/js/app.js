@@ -9,18 +9,21 @@ import plugins from './utils/plugins'
 
 window.Vue = require('vue').default;
 window.axios = require('axios');
-window.axios.interceptors.response.use({}, e => {
+
+axios.defaults.withCredentials = true;
+
+const myInterceptor = window.axios.interceptors.response.use({}, e => {
     if (e.response.status === 401 || e.response.status === 419) {
         const token = localStorage.getItem('x_xsrf_token'),
             user_id = localStorage.getItem('user_id')
-        router.push('/login')
         if (token) {
             localStorage.removeItem('x_xsrf_token')
             localStorage.removeItem('user_id')
         }
+        router.push('/login')
     }
 })
-axios.defaults.withCredentials = true;
+window.axios.interceptors.response.eject(myInterceptor);
 
 const app = createApp({
     render: () => h(App)
