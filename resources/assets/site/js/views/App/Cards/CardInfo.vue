@@ -68,7 +68,6 @@ export default {
             this.$closed()
         },
         renameCardShowField() {
-            console.log(123)
             this.$closed()
             let input = this.$refs.cardInfo.querySelector('.details__window-card-rename')
             let form = this.$refs.cardInfo.querySelector('.details__window-card-form')

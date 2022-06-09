@@ -449,7 +449,7 @@
         &-count-tasks {
             @include flex(center, center);
             @include font(11px, null, 1, null, null);
-            @include position(absolute, null, 50%, 10px, null);
+            @include position(absolute, 232px, 50%, null, null);
             transform: translateY(-50%);
             gap: 5px;
 

@@ -6,7 +6,7 @@
         <div class="desks__lists-add-btn" @click="showForm">
             <Fa :type="'r'"
                 :name="'plus desks__add-icon'"/>
-            Добавить первую колонку
+            Добавить новую колонку
         </div>
     </div>
 </template>

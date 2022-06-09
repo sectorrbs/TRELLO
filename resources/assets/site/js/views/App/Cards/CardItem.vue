@@ -1,8 +1,9 @@
 <template>
     <div class="desks__cards-item draggable"
+         draggable="true"
          :class="{success: successAllTasks}"
          :data-card-item="card.id"
-         @dragStart="onDragStart($event, card)"
+         @dragstart="onDragStart($event, card)"
          @click="this.$store.dispatch('openModal', card)">
         {{ card.name }}
         <div :class="{hidden: !countAllTasks}" class="desks__cards-count-tasks">
@@ -17,6 +18,7 @@
 </template>
 
 <script>
+
 export default {
     name: "CardItem",
     props: ['card'],
@@ -46,7 +48,13 @@ export default {
     },
     methods: {
         onDragStart(e, card) {
-            e.dataTransfer.setData('itemId', card.id.toString())
+            e.dataTransfer.dropEffect = 'move'
+            e.dataTransfer.effectAllowed = 'move'
+            e.dataTransfer.setData('id', card.id.toString())
+            e.dataTransfer.setData('desk_lists_id', card.desk_lists_id.toString())
+            e.dataTransfer.setData('cardName', card.name.toString())
+            e.dataTransfer.setData('deskList', JSON.stringify(card.deskList))
+            e.dataTransfer.setData('checkLists', JSON.stringify(card.checkLists))
         },
     },
 }
