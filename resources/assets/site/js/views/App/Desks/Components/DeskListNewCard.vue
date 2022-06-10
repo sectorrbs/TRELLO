@@ -36,12 +36,14 @@ export default {
             this.$refs.input.value = ''
         },
         addNewCard() {
-
-            let data = {
-                desk_id: this.list.desk_id,
-                desk_lists_id: this.list.id,
-                name: this.$refs.input.value
-            }
+            let list = document.getElementById(this.list.id),
+                cards = list.querySelectorAll('.desks__cards-item'),
+                data = {
+                    desk_id: this.list.desk_id,
+                    desk_lists_id: this.list.id,
+                    num: cards.length + 1,
+                    name: this.$refs.input.value
+                }
 
             if (this.$refs.input.value) {
                 this.$store.dispatch('addCard', data)

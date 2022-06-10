@@ -20,6 +20,7 @@ class CreateCardsTable extends Migration
                 ->references('id')
                 ->on('desk_lists')
                 ->onDelete('cascade');
+            $table->integer('num')->default(1);
             $table->timestamps();
         });
     }

@@ -1,40 +1,41 @@
 <?php
 
-namespace App\Http\Requests;
+    namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+    use Illuminate\Foundation\Http\FormRequest;
 
-class DeskListRequest extends FormRequest
-{
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    class DeskListRequest extends FormRequest
     {
-        return true;
-    }
+        /**
+         * Determine if the user is authorized to make this request.
+         *
+         * @return bool
+         */
+        public function authorize()
+        {
+            return true;
+        }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [
-            'name' => 'required|unique:desk_lists,name,' . $this->id,
-            'desk_id' => 'required|exists:desks,id'
-        ];
-    }
+        /**
+         * Get the validation rules that apply to the request.
+         *
+         * @return array
+         */
+        public function rules()
+        {
+            return [
+                'name' => 'required|unique:desk_lists,name,' . $this->id,
+                'desk_id' => 'required|exists:desks,id',
+                'num' => 'required'
+            ];
+        }
 
-    public function messages()
-    {
-        return [
-            'name.required' => 'Название списка не указано',
-            'name.unique' => 'Название списка уже занято',
-            'desk_id.exists' => 'Такой лоски нету'
-        ];
+        public function messages()
+        {
+            return [
+                'name.required' => 'Название списка не указано',
+                'name.unique' => 'Название списка уже занято',
+                'desk_id.exists' => 'Такой лоски нету'
+            ];
+        }
     }
-}

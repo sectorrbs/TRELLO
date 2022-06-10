@@ -1,10 +1,9 @@
 <template>
-    <div draggable="false" ref="desk_list" class="desks__list">
+    <div draggable="false" ref="desk_list" :id=list.id class="desks__list">
         <div @drop="onDrop($event, list.id)"
              class="desks__list-wrapper droppable"
              @dragover.prevent
-             @dragenter.prevent
-             :id=list.id>
+             @dragenter.prevent>
             <div class="desks__list-inner" ref="renameList">
                 <div class="desks__list-title">
                     {{ list.name }}
@@ -43,7 +42,6 @@ import DeskListNewCard from './DeskListNewCard'
 import DeskListSettings from './DeskListSettings'
 import Cards from '../../Cards/Cards'
 
-
 export default {
     name: "DeskList",
     data: () => ({
@@ -54,6 +52,7 @@ export default {
     props: ['list'],
     components: {DeskListRenameInput, DeskListNewCard, Cards, DeskListSettings},
     methods: {
+
         renameList() {
             this.$closed('renameList')
             setTimeout(() => {
@@ -65,11 +64,9 @@ export default {
 
         reloadCards(data) {
             this.$store.dispatch('getDeskNotLoader', data.desk_id)
-            this.items.push(data)
-            setTimeout(() => {
-                this.items.pop()
-                this.items.push(this.$store.getters.cardInfo)
-            }, 500)
+            let list = this.$store.getters.desk.lists.find(el => el.id === data.desk_lists_id)
+            this.cards = list.cards
+            console.log(this.cards)
         },
 
         showSettingsList() {
@@ -90,24 +87,65 @@ export default {
         },
         onDrop(e, listId) {
 
-            const id = e.dataTransfer.getData('id')
-            const desk_lists_id = e.dataTransfer.getData('desk_lists_id')
-            const name = e.dataTransfer.getData('cardName')
-            const deskList = e.dataTransfer.getData('deskList')
-            const checkLists = e.dataTransfer.getData('checkLists')
-
+            let desk_lists_id = e.dataTransfer.getData('desk_lists_id')
             let listItem = document.getElementById(desk_lists_id)
 
-            const newCard = {
-                id,
-                desk_lists_id: listId,
-                name,
-                deskList: JSON.parse(deskList),
-                checkLists: JSON.parse(checkLists)
-            }
+            if (listItem) {
 
-            this.$store.dispatch('updateCard', newCard)
-            this.$store.dispatch('getDeskNotLoader', this.list.desk_id)
+                let id = e.dataTransfer.getData('id')
+                let name = e.dataTransfer.getData('cardName')
+                let deskList = e.dataTransfer.getData('deskList')
+                let checkLists = e.dataTransfer.getData('checkLists')
+                let num = e.dataTransfer.getData('num')
+
+                const newPositionCard = {
+                    id,
+                    desk_lists_id: listId,
+                    name,
+                    num,
+                    deskList: JSON.parse(deskList),
+                    checkLists: JSON.parse(checkLists)
+                }
+
+                this.$store.dispatch('updateCard', newPositionCard)
+                this.$store.dispatch('updateSuccessionCards', {
+                    desk_id: this.$store.getters.desk.id,
+                    succession: this.getSuccessionCards(listId)
+                })
+                this.$store.dispatch('getDeskNotLoader', this.list.desk_id)
+
+            } else {
+                this.$store.dispatch('updateSuccessionLists', {
+                    desk_id: this.$store.getters.desk.id,
+                    succession: this.getSuccessionLists()
+                })
+            }
+        },
+        getSuccessionLists() {
+            let succession = [],
+                num = 1;
+
+            document.querySelectorAll('.desks__list').forEach(el => {
+                succession.push({
+                    id: el.getAttribute('id'),
+                    num: num++
+                })
+            })
+
+            return succession;
+        },
+        getSuccessionCards(listId) {
+            let list = document.getElementById(listId),
+                succession = [],
+                num = 1;
+
+            list.querySelectorAll('.desks__cards-item').forEach(el => {
+                succession.push({
+                    id: el.getAttribute('data-card-item'),
+                    num: num++
+                })
+            })
+            return succession;
         }
     },
     mounted() {
@@ -118,8 +156,8 @@ export default {
             get() {
                 return this.items
             },
-            set(val) {
-                return this.items
+            set(cards) {
+                return cards
             }
         }
     }

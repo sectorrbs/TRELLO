@@ -35,6 +35,7 @@ export const actions = {
     },
 
     getDeskNotLoader({commit}, id) {
+
         axios.get(`/api/v1/desk/${id}`)
             .then(res => {
                 commit('setDesk', res.data.data)

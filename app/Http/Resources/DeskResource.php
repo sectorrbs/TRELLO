@@ -17,7 +17,7 @@
             return [
                 'id' => $this->id,
                 'name' => $this->name,
-                'lists' => DeskListResource::collection($this->lists)
+                'lists' => DeskListResource::collection($this->lists->sortBy('num'))
             ];
         }
     }

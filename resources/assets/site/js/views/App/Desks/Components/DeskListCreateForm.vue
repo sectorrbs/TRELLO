@@ -40,7 +40,11 @@ export default {
     props: ['desk_id', 'show'],
     methods: {
         create() {
-            this.$store.dispatch('createList', {name: this.name, desk_id: this.desk_id})
+
+            let list = document.querySelectorAll('.desks__list')
+
+            this.$store.dispatch('createList',
+                {name: this.name, num: list.length + 1, desk_id: this.desk_id})
 
             this.$refs.deskListForm.classList.add('load')
 

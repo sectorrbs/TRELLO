@@ -1,10 +1,13 @@
 import {getPercentPerformedTasks} from "../../common/foo";
+import axios from "axios";
 
 export const actions = {
     addCard({commit, dispatch}, data) {
+
         axios.post(`/api/v1/card/create`, {
             _method: 'POST',
             name: data.name,
+            num: data.num,
             desk_lists_id: data.desk_lists_id
         })
             .then(res => {
@@ -19,9 +22,15 @@ export const actions = {
         axios.post(`/api/v1/card/${data.id}/update`, {
             _method: 'PUT',
             name: data.name,
+            num: data.num,
             desk_lists_id: data.desk_lists_id,
             id: data.id,
         })
+    },
+
+    updateSuccessionCards({dispatch}, data) {
+        axios.post('/api/v1/card/update-succession', data.succession)
+            .then(res => dispatch('getDeskNotLoader', data.desk_id))
     },
 
     getCardId({commit}, id) {

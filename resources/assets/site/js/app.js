@@ -12,6 +12,7 @@ window.axios = require('axios');
 
 axios.defaults.withCredentials = true;
 
+
 window.axios.interceptors.response.use({}, e => {
     console.log('ошибка авторизации, в app.js ' + e.response.status)
     if (e.response.status === 401 || e.response.status === 419) {
@@ -23,12 +24,9 @@ window.axios.interceptors.response.use({}, e => {
         }
         router.push('/login')
     }
-    abcd(e)
 })
 
-function abcd(e) {
-    window.axios.interceptors.response.eject(e);
-}
+window.axios.interceptors.response.eject();
 
 const app = createApp({
     render: () => h(App)

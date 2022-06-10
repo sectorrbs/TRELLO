@@ -20,6 +20,7 @@
                     ->references('id')
                     ->on('desks')
                     ->onDelete('cascade');
+                $table->integer('num')->default(1);
                 $table->timestamps();
             });
         }
