@@ -419,13 +419,14 @@
         }
 
         &-items {
+            @include transition;
             @include flex(stretch);
             flex-direction: column;
             gap: 7px;
         }
 
         &-item {
-            @include transition(.2s);
+            @include transition;
             @include font(12px, 500, 1.3, $color, null);
             cursor: pointer;
             padding: 10px 65px 10px 10px;

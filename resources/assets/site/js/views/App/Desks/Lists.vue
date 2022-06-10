@@ -4,9 +4,19 @@
 
     <div class="content" v-else>
         <div v-if="desk" class="desks__lists">
-            <div v-if="desk.lists?.length" class="desks__lists-inner">
-                <DeskList v-for="list in desk.lists" :list="list" :key="list.id"/>
-                <DeskListCreateNewList :desk_id="desk.id"/>
+            <div v-if="desk.lists?.length">
+                <draggable
+                    item-key="id"
+                    v-model="desk.lists"
+
+                    class="desks__lists-inner">
+                    <template #item="{element}">
+                        <DeskList :list="element" :key="element.id"/>
+                    </template>
+                </draggable>
+                <div>
+                    <DeskListCreateNewList :desk_id="desk.id"/>
+                </div>
             </div>
             <div v-else class="desks__lists-empty">
                 Списков у доски пока нет
@@ -24,6 +34,7 @@ import {required} from '@vuelidate/validators'
 import {useVuelidate} from '@vuelidate/core'
 import DeskList from "./Components/DeskList";
 import DeskListCreateNewList from "./Components/DeskListCreateNewList";
+import draggable from 'vuedraggable'
 
 export default {
     name: "Lists",
@@ -32,7 +43,7 @@ export default {
         name: null,
         show: false
     }),
-    components: {DeskList, DeskListCreateNewList},
+    components: {DeskList, DeskListCreateNewList, draggable},
     mounted() {
         this.getDesk(this.$route.params.id)
     },
