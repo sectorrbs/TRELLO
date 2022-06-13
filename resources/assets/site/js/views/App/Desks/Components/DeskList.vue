@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            <Cards :cards="cards"/>
+            <Cards :cards="list.cards"/>
 
             <DeskListNewCard @addNewCard="reloadCards" :list="list"/>
 
@@ -52,7 +52,6 @@ export default {
     props: ['list'],
     components: {DeskListRenameInput, DeskListNewCard, Cards, DeskListSettings},
     methods: {
-
         renameList() {
             this.$closed('renameList')
             setTimeout(() => {
@@ -63,10 +62,12 @@ export default {
         },
 
         reloadCards(data) {
+            this.items.push(data)
             this.$store.dispatch('getDeskNotLoader', data.desk_id)
-            let list = this.$store.getters.desk.lists.find(el => el.id === data.desk_lists_id)
-            this.cards = list.cards
-            console.log(this.cards)
+            setTimeout(() => {
+                let list = this.$store.getters.desk.lists.find(el => el.id === data.desk_lists_id)
+                this.items = list.cards
+            }, 500)
         },
 
         showSettingsList() {
@@ -112,8 +113,7 @@ export default {
                     desk_id: this.$store.getters.desk.id,
                     succession: this.getSuccessionCards(listId)
                 })
-                this.$store.dispatch('getDeskNotLoader', this.list.desk_id)
-
+                // this.$store.dispatch('getDeskNotLoader', this.list.desk_id)
             } else {
                 this.$store.dispatch('updateSuccessionLists', {
                     desk_id: this.$store.getters.desk.id,

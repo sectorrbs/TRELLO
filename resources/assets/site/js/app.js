@@ -12,21 +12,19 @@ window.axios = require('axios');
 
 axios.defaults.withCredentials = true;
 
-
-window.axios.interceptors.response.use({}, e => {
-    console.log('ошибка авторизации, в app.js ' + e.response.status)
-    if (e.response.status === 401 || e.response.status === 419) {
-        const token = localStorage.getItem('x_xsrf_token'),
-            user_id = localStorage.getItem('user_id')
-        if (token) {
-            localStorage.removeItem('x_xsrf_token')
-            localStorage.removeItem('user_id')
-        }
-        router.push('/login')
-    }
-})
-
-window.axios.interceptors.response.eject();
+// window.axios.interceptors.response.use({}, e => {
+//     if (e.response.status === 401 || e.response.status === 419) {
+//         const token = localStorage.getItem('x_xsrf_token'),
+//             user_id = localStorage.getItem('user_id')
+//         if (token) {
+//             localStorage.removeItem('x_xsrf_token')
+//             localStorage.removeItem('user_id')
+//         }
+//         router.push('/login')
+//     }
+// })
+//
+// window.axios.interceptors.response.eject();
 
 const app = createApp({
     render: () => h(App)

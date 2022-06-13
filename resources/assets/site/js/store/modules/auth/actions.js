@@ -15,7 +15,6 @@ export const actions = {
                     router.push('/')
                 })
                 .catch(e => {
-                    console.log(e.response)
                     commit('setAuthErrors', e.response.data.errors)
                 })
         });
@@ -30,7 +29,6 @@ export const actions = {
                     router.push('/')
                 })
                 .catch(e => {
-                    console.log(e.response.data.errors)
                     commit('setAuthErrors', e.response.data.errors)
                 })
         });

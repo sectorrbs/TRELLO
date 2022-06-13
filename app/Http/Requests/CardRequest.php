@@ -24,7 +24,7 @@ class CardRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:desk_lists,name,' . $this->id,
+            'name' => 'required',
             'desk_lists_id' => 'required|exists:desk_lists,id',
             'num' => 'required'
         ];

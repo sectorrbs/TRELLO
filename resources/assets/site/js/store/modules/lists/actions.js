@@ -22,10 +22,6 @@ export const actions = {
             .then(res => {
                 commit('setErrorMessage', null)
                 commit('setList', res.data.data)
-
-                console.log(getters)
-
-
             })
             .catch(e => {
                 commit('setErrorMessage', e.response.data.errors.name[0])

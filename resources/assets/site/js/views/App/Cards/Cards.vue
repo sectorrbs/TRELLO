@@ -23,9 +23,7 @@
                 @start="drag=true"
                 @end="drag=false"
                 item-key="id">
-                <template #item="{element}">
-
-                </template>
+                <template #item="{element}"></template>
             </draggable>
 
         </div>
@@ -44,6 +42,8 @@ export default {
     }),
     props: ['cards'],
     components: {CardItem, draggable},
+    methods: {
+    }
 }
 </script>
 

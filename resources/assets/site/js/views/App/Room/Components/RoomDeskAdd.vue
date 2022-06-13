@@ -4,13 +4,14 @@
 
             <Fa :type="'r'"
                 :name="'plus desks__add-icon'"/>
+
             Добавить доску
 
             <Error :class="{show: error}" class="room__desks-error" :error="errorMessage"/>
 
         </div>
         <div class="desks__create-list room__desks-form">
-            <DeskCreateForm :show="show" @showError="showError" @showClose="showDeskAddForm"/>
+            <DeskCreateForm :show="show" @showError="showError" @showClose="hideDeskAddForm"/>
         </div>
     </div>
 </template>
@@ -40,6 +41,9 @@ export default {
         showDeskAddForm() {
             this.show = true
             this.$store.commit('setErrorMessage', null)
+        },
+        hideDeskAddForm(){
+            this.show = false
         },
         showError(message) {
             this.errorMessage = message

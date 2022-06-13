@@ -1,7 +1,7 @@
 <template>
     <div class="desks__lists-add">
         <div class="desks__create-list">
-            <DeskListCreateForm :show="show" @showClose="showForm" :desk_id="desk_id"/>
+            <DeskListCreateForm :show="show" @showClose="hideForm" :desk_id="desk_id"/>
         </div>
         <div class="desks__lists-add-btn" @click="showForm">
             <Fa :type="'r'"
@@ -33,7 +33,11 @@ export default {
     components: {DeskListCreateForm},
     methods: {
         showForm() {
-            this.show = true
+            this.show =  true
+            this.$store.commit('setErrorMessage', null)
+        },
+        hideForm(){
+            this.show =  false
             this.$store.commit('setErrorMessage', null)
         }
     }
