@@ -3,7 +3,7 @@
         <ActionCardBtn class="card-create-field" v-if="!field" @click="toggleCreateField">
             Добавить элемент
         </ActionCardBtn>
-        <CheckListCreateField :check_lists_id="check_lists_id" v-else/>
+        <CheckListCreateField @hidden="field = false" :check_lists_id="check_lists_id" v-else/>
     </div>
 </template>
 
@@ -35,7 +35,3 @@ export default {
     },
 }
 </script>
-
-<style scoped>
-
-</style>

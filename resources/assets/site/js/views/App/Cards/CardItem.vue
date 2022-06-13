@@ -56,6 +56,7 @@ export default {
             e.dataTransfer.setData('deskList', JSON.stringify(card.deskList))
             e.dataTransfer.setData('checkLists', JSON.stringify(card.checkLists))
             e.dataTransfer.setData('num', JSON.stringify(card.num))
+            e.dataTransfer.setData('description', JSON.stringify(card.description))
         },
     },
 }

@@ -26,7 +26,8 @@ class CardRequest extends FormRequest
         return [
             'name' => 'required',
             'desk_lists_id' => 'required|exists:desk_lists,id',
-            'num' => 'required'
+            'num' => 'required',
+            'description' => '',
         ];
     }
 }

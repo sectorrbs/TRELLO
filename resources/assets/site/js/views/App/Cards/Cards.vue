@@ -42,8 +42,6 @@ export default {
     }),
     props: ['cards'],
     components: {CardItem, draggable},
-    methods: {
-    }
 }
 </script>
 

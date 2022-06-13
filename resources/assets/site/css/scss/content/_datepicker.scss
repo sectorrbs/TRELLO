@@ -1,0 +1,23 @@
+.dp__menu {
+    min-width: 200px;
+    border: none !important;
+}
+
+.dp__main {
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.dp__range_end, .dp__range_start, .dp__active_date {
+    background: $color-blue-lite !important;
+    border: none !important;
+}
+
+.dp__today {
+    border: none !important;
+    outline: 1px solid $color-blue-lite;
+}
+
+.dp__date_hover_end:hover, .dp__date_hover_start:hover, .dp__date_hover:hover {
+    background: rgba(107, 107, 107, .1);
+}

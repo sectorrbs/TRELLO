@@ -23,14 +23,14 @@ export const actions = {
             _method: 'PUT',
             name: data.name,
             num: data.num,
+            description: data.description || null,
             desk_lists_id: data.desk_lists_id,
             id: data.id,
-        })
+        }).then(res => dispatch('getDeskNotLoader', data.deskList.desk_id))
     },
 
     updateSuccessionCards({dispatch}, data) {
         axios.post('/api/v1/card/update-succession', data.succession)
-            .then(res => dispatch('getDeskNotLoader', data.desk_id))
     },
 
     getCardId({commit}, id) {

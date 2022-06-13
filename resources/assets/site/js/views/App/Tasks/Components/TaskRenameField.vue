@@ -13,14 +13,10 @@
 <script>
 export default {
     name: "TaskRenameField",
-    data: () => ({
-        //taskName: null
-    }),
     props: ['task', 'modelValue'],
     methods: {
         editTaskName(e) {
             this.$emit('update:modelValue', e.target.value)
-            //this.taskName = e.target.value
         },
         enterSubmit(e) {
             if (e.keyCode === 13) this.renameTask()

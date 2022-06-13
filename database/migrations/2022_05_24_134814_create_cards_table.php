@@ -16,6 +16,7 @@ class CreateCardsTable extends Migration
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->text('description')->default(null)->nullable();
             $table->foreignId('desk_lists_id')
                 ->references('id')
                 ->on('desk_lists')

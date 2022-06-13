@@ -12,18 +12,22 @@ window.axios = require('axios');
 
 axios.defaults.withCredentials = true;
 
-// window.axios.interceptors.response.use({}, e => {
-//     if (e.response.status === 401 || e.response.status === 419) {
-//         const token = localStorage.getItem('x_xsrf_token'),
-//             user_id = localStorage.getItem('user_id')
-//         if (token) {
-//             localStorage.removeItem('x_xsrf_token')
-//             localStorage.removeItem('user_id')
-//         }
-//         router.push('/login')
-//     }
-// })
-//
+window.axios.interceptors.response.use({}, e => {
+    if (e.response.status === 401 || e.response.status === 419) {
+        const token = localStorage.getItem('x_xsrf_token'),
+            user_id = localStorage.getItem('user_id')
+        if (token) {
+            localStorage.removeItem('x_xsrf_token')
+            localStorage.removeItem('user_id')
+        }
+        router.push('/login')
+    }
+    if(e.response.status === 404){
+        router.push('/')
+    }
+})
+
+
 // window.axios.interceptors.response.eject();
 
 const app = createApp({

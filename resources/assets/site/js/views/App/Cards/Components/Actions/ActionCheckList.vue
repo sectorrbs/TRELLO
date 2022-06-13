@@ -30,6 +30,7 @@
 <script>
 
 import CardActionModal from './ActionModal'
+import {cardMixin} from "../../../../../mixins/cardMixin";
 
 export default {
     name: "ActionCheckList",
@@ -37,6 +38,7 @@ export default {
         show: false,
         checkListName: 'Чек-лист'
     }),
+    mixins: [cardMixin],
     components: {CardActionModal},
     props: ['cardInfo'],
     methods: {
@@ -44,12 +46,6 @@ export default {
             this.$store.dispatch('createCheckList', {name: this.checkListName, card_id: this.cardInfo.id})
             this.$closed()
         },
-        actionModal(e) {
-            if (!e.target.classList.contains('details__actions-modal-input') &&
-                !e.target.classList.contains('details__actions-modal-btn')) {
-                this.show = !this.show
-            }
-        }
     },
 }
 </script>

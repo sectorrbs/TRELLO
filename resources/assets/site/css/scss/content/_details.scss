@@ -83,13 +83,13 @@
             }
 
             &-btn {
-                @include font(13px, null, 1, $color-gray, null);
+                @include font(13px, null, 18px, $color-gray, null);
                 @include transition(.2s);
                 width: 100%;
                 cursor: pointer;
                 padding: 10px;
                 background: rgba($color-gray, .1);
-                height: 50px;
+                min-height: 50px;
                 margin-top: 10px;
 
                 &:hover {
@@ -137,6 +137,11 @@
                 min-height: 50px;
                 padding: 7px 10px 10px;
                 font-size: 13px;
+
+
+                &.card-description {
+                    min-height: 100px;
+                }
 
                 &::placeholder {
                     font-size: 13px;

@@ -23,8 +23,8 @@
         <div class="details__window-bottom">
             <div class="details__window-bottom-left">
                 <CardParticipants/>
+                <CardDescription :card="cardInfo"/>
                 <CheckLists v-if="cardInfo.checkLists.length" :checkLists="cardInfo.checkLists"/>
-                <CardDescription/>
                 <CardComment/>
             </div>
             <div class="details__window-bottom-right">

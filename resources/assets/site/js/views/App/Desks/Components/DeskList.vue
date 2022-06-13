@@ -98,16 +98,17 @@ export default {
                 let deskList = e.dataTransfer.getData('deskList')
                 let checkLists = e.dataTransfer.getData('checkLists')
                 let num = e.dataTransfer.getData('num')
+                let description = e.dataTransfer.getData('description')
 
                 const newPositionCard = {
                     id,
                     desk_lists_id: listId,
                     name,
                     num,
+                    description: JSON.parse(description),
                     deskList: JSON.parse(deskList),
                     checkLists: JSON.parse(checkLists)
                 }
-
                 this.$store.dispatch('updateCard', newPositionCard)
                 this.$store.dispatch('updateSuccessionCards', {
                     desk_id: this.$store.getters.desk.id,

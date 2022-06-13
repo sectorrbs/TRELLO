@@ -29,12 +29,14 @@ export default {
             if (e.keyCode === 13) {
                 this.createTask()
                 setTimeout(() => {
+                    this.$emit('hidden')
                     this.taskName = ''
-                },0)
+                }, 0)
             }
         },
         createTask() {
             if (this.taskName) {
+                this.$emit('hidden')
                 this.$store.dispatch('createTask', {
                     name: this.taskName,
                     check_lists_id: this.check_lists_id,
