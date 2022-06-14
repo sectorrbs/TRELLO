@@ -39,7 +39,3 @@ export default {
     props:['cardInfo'],
 }
 </script>
-
-<style scoped>
-
-</style>

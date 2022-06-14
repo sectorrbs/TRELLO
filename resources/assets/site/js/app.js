@@ -25,8 +25,8 @@ window.axios.interceptors.response.use({}, e => {
     if(e.response.status === 404){
         router.push('/')
     }
+    return Promise.reject(e)
 })
-
 
 // window.axios.interceptors.response.eject();
 

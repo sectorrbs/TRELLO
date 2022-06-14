@@ -6,18 +6,27 @@
          @dragstart="onDragStart($event, card)"
          @click="this.$store.dispatch('openModal', card)">
         {{ card.name }}
-        <div :class="{hidden: !countAllTasks}" class="desks__cards-count-tasks">
-            <Fa :type="'r'"
-                :name="'check-square icon'"/>
-            <div class="count">
-                <span class="count-performed">{{ countPerformTasks }}</span>/<span
-                class="count-notperformed">{{ countAllTasks }}</span>
+        <div v-show="countAllTasks" class="desks__cards-labels">
+            <div :class="{hidden: !countAllTasks}" class="desks__cards-term">
+                <Fa :type="'r'"
+                    :name="'line-columns icon'"/>
+                {{ term }}
+            </div>
+            <div :class="{hidden: !countAllTasks}" class="desks__cards-count-tasks">
+                <Fa :type="'r'"
+                    :name="'check-square icon'"/>
+                <div class="count">
+                    <span class="count-performed">{{ countPerformTasks }}</span>/<span
+                    class="count-notperformed">{{ countAllTasks }}</span>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+
+import {dateMixin} from "../../../mixins/dateMixin";
 
 export default {
     name: "CardItem",
@@ -42,6 +51,10 @@ export default {
                 return count
             }
         },
+        term() {
+            let term = this.card.term
+            if (term) this.reformatDateDayAndMonth(term)
+        },
         successAllTasks() {
             return this.countPerformTasks === this.countAllTasks && this.countAllTasks > 0
         }
@@ -57,8 +70,11 @@ export default {
             e.dataTransfer.setData('checkLists', JSON.stringify(card.checkLists))
             e.dataTransfer.setData('num', JSON.stringify(card.num))
             e.dataTransfer.setData('description', JSON.stringify(card.description))
+            e.dataTransfer.setData('term', JSON.stringify(card.term))
+            e.dataTransfer.setData('status', JSON.stringify(card.status))
         },
     },
+    mixins: [dateMixin],
 }
 </script>
 

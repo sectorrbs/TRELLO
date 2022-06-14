@@ -27,6 +27,45 @@
         height: 100%;
         background: #f4f5f7;
 
+        &-term {
+            @include flex(center);
+            margin-top: 5px;
+
+            &-box {
+                @include font(12px, 300, 1, null, null);
+                @include flex(center, center);
+                padding: 0 5px;
+                background: rgba(107, 107, 107, .1);
+                border-radius: 5px;
+                height: 25px;
+            }
+
+            &-label {
+                @include flex(center, center);
+                @include font(10px, 400, 1, $color-white, null);
+                padding: 0 5px;
+                height: 15px;
+
+                .label-checked {
+                    @include flex(center, center);
+                    background: $color-green-lite;
+                    height: 100%;
+                    padding: 0 5px;
+                }
+
+                .label-overdue {
+                    @include flex(center, center);
+                    background: $color-error;
+                    height: 100%;
+                    padding: 0 5px;
+                }
+
+                &.disabled {
+                    display: none;
+                }
+            }
+        }
+
         &-inner {
             position: relative;
         }
@@ -73,8 +112,6 @@
         }
 
         &-description {
-            margin-top: 25px;
-
             &-title {
                 @include flex(center);
                 @include font(16px, 500, 1, null, null);
@@ -105,7 +142,6 @@
 
         &-checklists {
             @include flex(stretch);
-            margin-top: 25px;
             flex-direction: column;
             gap: 20px;
         }
@@ -205,9 +241,6 @@
         }
 
         &-action {
-            margin-top: 25px;
-
-
             &-title {
                 @include flex(center);
                 @include font(16px, 500, 1, null, null);
@@ -253,6 +286,9 @@
             padding: 0 15px 25px;
 
             &-left {
+                @include flex(stretch);
+                flex-direction: column;
+                gap: 25px;
                 width: 72%;
             }
 
@@ -441,6 +477,23 @@
                 &:hover {
                     background: rgba($color-red, .4);
                 }
+            }
+
+            &.btn-date {
+                background: $color-blue-lite;
+                justify-content: center;
+                margin-top: 15px;
+                font-size: 15px;
+
+                &:hover {
+                    background: darken($color-blue-lite, 10%);
+                }
+            }
+
+            &.disabled {
+                opacity: .3;
+                pointer-events: none;
+                cursor: default
             }
 
             &:hover {

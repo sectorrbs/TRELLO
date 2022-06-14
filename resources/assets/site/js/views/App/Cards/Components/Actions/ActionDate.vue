@@ -8,7 +8,18 @@
                 Даты
             </template>
             <template v-slot:modal_content>
-                <Datepicker locale="ru" v-model="date" inline autoApply/>
+                <Datepicker locale="ru"
+                            monthNameFormat="long"
+                            v-model="date"
+                            inline
+                            textInput
+                            inlineWithInput
+                            @cleared="clearValue"
+                            @update:modelValue="handleDate"
+                            autoApply/>
+                <button @click.prevent="termSelection" :class="{disabled}" class="btn-date details__actions-btn">
+                    Назначить срок
+                </button>
             </template>
         </CardActionModal>
     </div>
@@ -18,6 +29,7 @@
 
 import CardActionModal from './ActionModal'
 import {cardMixin} from "../../../../../mixins/cardMixin";
+import {dateMixin} from "../../../../../mixins/dateMixin";
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 
@@ -26,10 +38,24 @@ export default {
     data: () => ({
         date: new Date(),
         show: false,
-        checkListName: 'Даты'
+        checkListName: 'Даты',
+        disabled: false,
     }),
-    mixins: [cardMixin],
+    methods: {
+        clearValue() {
+            this.disabled = true;
+        },
+        handleDate() {
+            this.disabled = false;
+        },
+        termSelection() {
+            let term = document.querySelector('.dp__input').value
+            this.$store.getters.cardInfo.term = term
+            this.$store.getters.cardInfo.status = term >= this.currentDate ? 0 : 2
+            this.$store.dispatch('updateCard', this.$store.getters.cardInfo)
+        }
+    },
+    mixins: [cardMixin, dateMixin],
     components: {CardActionModal, Datepicker},
-
 }
 </script>

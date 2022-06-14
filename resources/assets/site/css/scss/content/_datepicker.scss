@@ -21,3 +21,14 @@
 .dp__date_hover_end:hover, .dp__date_hover_start:hover, .dp__date_hover:hover {
     background: rgba(107, 107, 107, .1);
 }
+
+.dp__flex_display_with_input {
+    flex-direction: column-reverse !important;
+    align-items: center !important;
+    gap: 10px;
+}
+
+.dp__input {
+    border: 1px solid $color-blue-lite !important;
+}
+

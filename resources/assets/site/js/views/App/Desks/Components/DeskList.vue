@@ -99,13 +99,17 @@ export default {
                 let checkLists = e.dataTransfer.getData('checkLists')
                 let num = e.dataTransfer.getData('num')
                 let description = e.dataTransfer.getData('description')
+                let term = e.dataTransfer.getData('term')
+                let status = e.dataTransfer.getData('status')
 
                 const newPositionCard = {
                     id,
                     desk_lists_id: listId,
                     name,
                     num,
+                    status,
                     description: JSON.parse(description),
+                    term: JSON.parse(term),
                     deskList: JSON.parse(deskList),
                     checkLists: JSON.parse(checkLists)
                 }

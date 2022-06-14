@@ -19,6 +19,8 @@ class CardResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'num' => $this->num,
+            'term' => $this->term,
+            'status' => $this->status,
             'deskList' => $this->deskList,
             'checkLists' => CheckListResource::collection($this->checkLists),
         ];

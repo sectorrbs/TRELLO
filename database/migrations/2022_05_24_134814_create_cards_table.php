@@ -22,6 +22,8 @@ class CreateCardsTable extends Migration
                 ->on('desk_lists')
                 ->onDelete('cascade');
             $table->integer('num')->default(1);
+            $table->string('term')->nullable();
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

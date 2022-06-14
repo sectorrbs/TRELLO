@@ -23,7 +23,9 @@ export const actions = {
             _method: 'PUT',
             name: data.name,
             num: data.num,
+            status: data.status,
             description: data.description || null,
+            term: data.term || null,
             desk_lists_id: data.desk_lists_id,
             id: data.id,
         }).then(res => dispatch('getDeskNotLoader', data.deskList.desk_id))

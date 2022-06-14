@@ -28,6 +28,8 @@ class CardRequest extends FormRequest
             'desk_lists_id' => 'required|exists:desk_lists,id',
             'num' => 'required',
             'description' => '',
+            'term' => '',
+            'status' => 'required|integer',
         ];
     }
 }
