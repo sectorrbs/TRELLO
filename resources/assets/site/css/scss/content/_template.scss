@@ -1,3 +1,13 @@
+#app {
+    flex: 1;
+}
+
+main {
+    @include flex(stretch, null, nowrap);
+    flex-direction: column;
+    height: 100%;
+}
+
 /* container
 --------------------------------------------------------*/
 
@@ -344,7 +354,8 @@
 ------------------------------------------------------------------------ */
 
 .content {
-    margin-top: 50px;
+    padding: 50px 0;
+    height: 100%;
 
     &__title {
         @include flex(center, space-between);

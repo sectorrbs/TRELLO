@@ -1,24 +1,28 @@
 <template>
     <div class="desks__cards-item draggable"
          draggable="true"
-         :class="{success: successAllTasks}"
+         :class="{success: successAllTasks || status, overdue: status === 2}"
          :data-card-item="card.id"
          @dragstart="onDragStart($event, card)"
          @click="this.$store.dispatch('openModal', card)">
         {{ card.name }}
-        <div v-show="countAllTasks" class="desks__cards-labels">
-            <div :class="{hidden: !countAllTasks}" class="desks__cards-term">
+        <div class="desks__cards-labels">
+            <div :class="{hidden: !term}" class="desks__cards-term">
                 <Fa :type="'r'"
-                    :name="'line-columns icon'"/>
-                {{ term }}
+                    :name="'clock icon'"/>
+                <span>{{ term }}</span>
             </div>
-            <div :class="{hidden: !countAllTasks}" class="desks__cards-count-tasks">
+            <div :class="{hidden: !countAllTasks}" class="desks__cards-term desks__cards-count-tasks">
                 <Fa :type="'r'"
                     :name="'check-square icon'"/>
                 <div class="count">
                     <span class="count-performed">{{ countPerformTasks }}</span>/<span
                     class="count-notperformed">{{ countAllTasks }}</span>
                 </div>
+            </div>
+            <div :class="{hidden: !description}" class="desks__cards-term desks__cards-description">
+                <Fa :type="'r'"
+                    :name="'line-columns icon'"/>
             </div>
         </div>
     </div>
@@ -53,7 +57,28 @@ export default {
         },
         term() {
             let term = this.card.term
-            if (term) this.reformatDateDayAndMonth(term)
+            if (term) return this.reformatDateDayAndMonth(term)
+        },
+        status() {
+            if (this.card.term) {
+                if (this.currentDate > this.card.term && this.card.status !== 1) {
+                    let currentCard = this.card
+                    currentCard.status = 2
+                    this.$store.dispatch('updateCardOverdue', currentCard)
+                    return 2
+                }
+                if (this.card.status === 1) {
+                    return 1
+                }
+                if (this.card.status === 0) {
+                    return 0
+                }
+                return 0
+            }
+            return 0
+        },
+        description() {
+            return this.card.description
         },
         successAllTasks() {
             return this.countPerformTasks === this.countAllTasks && this.countAllTasks > 0

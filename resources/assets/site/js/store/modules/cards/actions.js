@@ -8,6 +8,9 @@ export const actions = {
             _method: 'POST',
             name: data.name,
             num: data.num,
+            description: data.description,
+            term: data.term,
+            status: data.status,
             desk_lists_id: data.desk_lists_id
         })
             .then(res => {
@@ -29,6 +32,19 @@ export const actions = {
             desk_lists_id: data.desk_lists_id,
             id: data.id,
         }).then(res => dispatch('getDeskNotLoader', data.deskList.desk_id))
+    },
+
+    updateCardOverdue({commit},data){
+        axios.post(`/api/v1/card/${data.id}/update`, {
+            _method: 'PUT',
+            name: data.name,
+            num: data.num,
+            status: data.status,
+            description: data.description || null,
+            term: data.term || null,
+            desk_lists_id: data.desk_lists_id,
+            id: data.id,
+        })
     },
 
     updateSuccessionCards({dispatch}, data) {

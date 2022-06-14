@@ -2,11 +2,12 @@
     <router-link draggable="false"
                  :to="{name: 'lists', params: { id: desk.id }}"
                  class="desks__item"
+                 :style="{background: deskBackground, color: deskColor}"
                  :id="desk.id">
         <div class="desks__item-title">
             {{ desk.name }}
         </div>
-        <form ref="renameDesk" @submit.prevent="piska">
+        <form ref="renameDesk">
             <DeskRenameInput
                 ref="input"
                 @editShow="show = false"
@@ -43,6 +44,9 @@ export default {
     }),
     components: {DeskRenameInput, DeskSettings},
     props: ['desk'],
+    mounted() {
+        console.log(this.desk)
+    },
     methods: {
         renameDesk() {
             this.$closed('renameDesk')
@@ -69,5 +73,19 @@ export default {
             }
         }
     },
+    computed: {
+        deskBackground() {
+            let color = this.desk.background.color,
+                image = this.desk.background.image
+            if (color) {
+                return color
+            } else {
+                return `url("/storage/backgrounds/${image}")`
+            }
+        } ,
+        deskColor(){
+
+        }
+    }
 }
 </script>

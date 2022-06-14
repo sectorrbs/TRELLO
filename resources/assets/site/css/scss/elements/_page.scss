@@ -2,13 +2,18 @@
     &__content {
         @include flex(stretch, null, nowrap);
         gap: 25px;
+        height: 100%;
 
         &-left {
             width: 20%;
+            padding: 15px;
+            background: $color-white;
         }
 
         &-right {
             flex: 1;
+            padding: 15px;
+            background: $color-white;
         }
     }
 

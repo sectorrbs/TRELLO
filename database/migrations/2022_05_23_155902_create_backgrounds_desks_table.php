@@ -4,7 +4,7 @@
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Support\Facades\Schema;
 
-    class CreateDesksTable extends Migration
+    class CreateBackgroundsDesksTable extends Migration
     {
         /**
          * Run the migrations.
@@ -13,16 +13,10 @@
          */
         public function up()
         {
-            Schema::create('desks', function (Blueprint $table) {
+            Schema::create('backgrounds_desks', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('user_id')
-                    ->references('id')
-                    ->on('users')
-                    ->onDelete('cascade');
-                $table->string('name');
-                $table->foreignId('id_backgrounds_desks')
-                    ->references('id')
-                    ->on('backgrounds_desks');
+                $table->string('color')->nullable();
+                $table->text('image')->nullable();
                 $table->timestamps();
             });
         }
@@ -34,6 +28,6 @@
          */
         public function down()
         {
-            Schema::dropIfExists('desks');
+            Schema::dropIfExists('backgrounds_desks');
         }
     }

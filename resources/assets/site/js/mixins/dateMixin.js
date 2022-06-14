@@ -3,7 +3,7 @@ export const dateMixin = {
         reformatDateDayAndMonth(date) {
             let month = +(date.split('/')[0]) - 1
             let day = date.split('/')[1]
-            let year = date.split('/')[2]
+            let year = date.split('/')[2].split(', ')[0]
             const months =
                 [
                     "января",
@@ -20,9 +20,15 @@ export const dateMixin = {
                     "декабря"
                 ];
 
+            let currentYear = new Date().getFullYear()
+
             let reformatDate = `${day} ${months[month]}`
 
+            if (+currentYear !== +year) {
+                reformatDate = reformatDate + ` ${year} г.`
+            }
 
+            return reformatDate
         }
     },
     computed: {

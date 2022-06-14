@@ -79,7 +79,7 @@ export default {
     },
     components: {CardParticipants, CardDescription, CardComment, CardActions, CheckLists, CardRenameField, CardTerms},
     computed: {
-        ...mapGetters(['modalLoad'])
+        ...mapGetters(['modalLoad']) ,
     }
 }
 </script>

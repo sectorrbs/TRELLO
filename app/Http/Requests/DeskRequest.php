@@ -25,6 +25,7 @@
         {
             return [
                 'name' => 'required|unique:desks,name,' . $this->id,
+                'id_backgrounds_desks' => 'required|exists:backgrounds_desks,id',
                 'user_id' => 'required|exists:users,id'
             ];
         }

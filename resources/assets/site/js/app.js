@@ -1,5 +1,9 @@
 import {createApp, h} from 'vue'
+import SwiperClass, { /* swiper modules... */ } from 'swiper'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
 import App from './App.vue'
+
+import 'swiper/css'
 
 import router from './router';
 import store from './store/index';
@@ -30,6 +34,8 @@ window.axios.interceptors.response.use({}, e => {
 
 // window.axios.interceptors.response.eject();
 
+SwiperClass.use([/* swiper modules... */])
+
 const app = createApp({
     render: () => h(App)
 });
@@ -40,5 +46,5 @@ components.forEach(component => {
     app.component(component.name, component)
 })
 
-app.use(plugins).use(router).use(store).mount('#app')
+app.use(VueAwesomeSwiper).use(plugins).use(router).use(store).mount('#app')
 

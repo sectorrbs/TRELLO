@@ -40,7 +40,6 @@ export default {
     props: ['desk_id', 'show'],
     methods: {
         create() {
-
             let list = document.querySelectorAll('.desks__list')
 
             this.$store.dispatch('createList',

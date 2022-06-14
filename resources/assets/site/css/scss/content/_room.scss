@@ -65,14 +65,14 @@
 
         &-btn {
             @include flex(center, center);
-            @include font(13px, null, 15px, null, null);
+            @include font(13px, null, 15px, $color-white, null);
             gap: 7px;
             cursor: pointer;
             padding: 10px;
-            background: rgba($color-gray, .1);
+            background: $color-blue-lite;
 
             &:hover {
-                background: rgba($color-gray, .2);
+                background: $color-blue;
             }
         }
 

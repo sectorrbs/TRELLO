@@ -4,7 +4,6 @@
 
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
-    use Illuminate\Database\Eloquent\SoftDeletes;
 
     class Desk extends Model
     {
@@ -15,5 +14,10 @@
         public function lists()
         {
             return $this->hasMany(DeskList::class);
+        }
+
+        public function background()
+        {
+            return $this->hasMany(BackgroundDesk::class, 'id');
         }
     }

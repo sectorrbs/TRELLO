@@ -42,7 +42,10 @@ export default {
                     desk_id: this.list.desk_id,
                     desk_lists_id: this.list.id,
                     num: cards.length + 1,
-                    name: this.$refs.input.value
+                    name: this.$refs.input.value,
+                    description: null,
+                    term: null,
+                    status: 0,
                 }
 
             if (this.$refs.input.value) {

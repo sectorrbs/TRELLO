@@ -40,7 +40,8 @@ export default {
                     !e.target.classList.contains('details__window-card-rename') &&
                     !e.target.classList.contains('details__window-checklist-rename') &&
                     !e.target.classList.contains('details__window-checklist-btn') &&
-                    !e.target.classList.contains('details__window-checklist-title')) {
+                    !e.target.classList.contains('details__window-checklist-title')
+                ) {
                     clearAll()
                 }
             })

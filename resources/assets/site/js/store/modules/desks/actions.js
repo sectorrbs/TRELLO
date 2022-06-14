@@ -45,10 +45,10 @@ export const actions = {
             .catch(e => commit('setErrorMessage', e.message))
     },
 
-    createDesk({commit, dispatch}, name) {
-        // commit('changePageLoad', true)
+    createDesk({commit, dispatch}, data) {
         let user_id = localStorage.getItem('user_id')
-        axios.post(`/api/v1/desk/create`, {_method: 'POST', name, user_id})
+        axios.post(`/api/v1/desk/create`,
+            {_method: 'POST', name: data.name, id_backgrounds_desks: data.idBg, user_id})
             .then(res => {
                 commit('setErrorMessage', null)
                 commit('setDesk', res.data.data)
@@ -58,9 +58,6 @@ export const actions = {
             })
             .finally(() => {
                 dispatch('getDesks')
-                // setTimeout(() => {
-                //     commit('changePageLoad', false)
-                // }, 220)
             })
     },
     updateDesk({commit}, desk) {

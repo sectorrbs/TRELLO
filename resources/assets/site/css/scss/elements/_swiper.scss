@@ -1,0 +1,39 @@
+.swiper {
+    &-slide {
+        height: 40px !important;
+        cursor: pointer;
+        border-radius: 7px;
+
+        &::after {
+            content: '';
+            @include position(absolute, 0, 0, null, null);
+            @include size(100%, 100%);
+            background: rgba($color, 0);
+            border-radius: 7px;
+        }
+
+        &:hover {
+            &::after {
+                background: rgba($color, .2);
+            }
+        }
+    }
+
+    &-button-next, &-button-prev {
+        background: rgba($color-white, .5);
+        width: 15px !important;
+    }
+
+    &-button-next {
+        right: 0 !important;
+    }
+
+    &-button-prev {
+        left: 0 !important;
+    }
+
+    &-button-next:after, &-button-prev:after {
+        font-size: 13px !important;
+        color: $color
+    }
+}

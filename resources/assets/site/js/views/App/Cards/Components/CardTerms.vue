@@ -4,11 +4,11 @@
         <div class="details__window-term">
             <div class="tasks__item-checkbox">
                 <input type="checkbox" class="custom-checkbox"
-                       :id="1"
+                       :id="0"
                        :checked="card.status === 1"
-                       :name="1"
+                       :name="0"
                        @change="checkTerm">
-                <label :for="1"></label>
+                <label :for="0"></label>
             </div>
             <div class="details__window-term-box">
                 {{ card.term }}
@@ -34,9 +34,6 @@ export default {
     name: "CardTerms",
     data: () => ({}),
     props: ['card'],
-    mounted() {
-
-    },
     methods: {
         checkTerm(e) {
             let term = this.$store.getters.cardInfo.term

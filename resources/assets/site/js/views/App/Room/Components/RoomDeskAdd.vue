@@ -31,7 +31,13 @@ export default {
         window.addEventListener('click', e => {
             if (!e.target.classList.contains('room__desks-add') &&
                 !e.target.classList.contains('desks__form-input') &&
-                !e.target.classList.contains('desks__form-bottom')) {
+                !e.target.classList.contains('desks__form-content') &&
+                !e.target.classList.contains('desks__form-bottom') &&
+                !e.target.classList.contains('desks__form') &&
+                !e.target.classList.contains('swiper-button-next') &&
+                !e.target.classList.contains('swiper-button-prev') &&
+                !e.target.classList.contains('swiper') &&
+                !e.target.classList.contains('swiper-slide')) {
                 this.show = false
             }
         })
@@ -42,7 +48,7 @@ export default {
             this.show = true
             this.$store.commit('setErrorMessage', null)
         },
-        hideDeskAddForm(){
+        hideDeskAddForm() {
             this.show = false
         },
         showError(message) {
