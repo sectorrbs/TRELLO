@@ -7,7 +7,7 @@
                 placeholder="Введите название доски"
                 type="text"
                 class="form-input desks__form-input">
-            <DeskBackground/>
+            <DeskBackground @changeBgId="changeBgId"/>
             <div class="desks__form-bottom">
                 <button
                     :class="{disabled: !name}"
@@ -45,13 +45,14 @@ export default {
         create() {
             this.$store.dispatch('createDesk', {name: this.name, idBg: this.idBg})
             this.$emit('showClose')
-
             setTimeout(() => {
                 if (this.errorMessage) {
                     this.$emit('showError', this.errorMessage)
                 }
             }, 300)
-
+        },
+        changeBgId(id) {
+            this.idBg = id
         }
     },
     computed: {

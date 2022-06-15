@@ -50,7 +50,8 @@ export default {
             setTimeout(() => {
                 if (!this.errorMessage) {
                     this.$emit('showClose')
-                    this.$refs.deskListForm.classList.remove('load')
+                    if (this.$refs.deskListForm)
+                        this.$refs.deskListForm.classList.remove('load')
                 } else {
                     this.$refs.deskListForm.classList.remove('load')
                 }

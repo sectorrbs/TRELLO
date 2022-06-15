@@ -32,7 +32,7 @@ const routes = [
     {
         path: '/desks/:id',
         name: 'lists',
-        meta: {layout: 'main'},
+        meta: {layout: 'main', header: 'transparent'},
         component: () => import(`${appPath}Desks/Lists`),
     },
 ]

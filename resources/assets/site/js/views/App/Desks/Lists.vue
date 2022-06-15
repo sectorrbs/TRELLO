@@ -2,27 +2,29 @@
 
     <Loader v-if="loader"/>
 
-    <div class="content" v-else>
-        <div v-if="desk" class="desks__lists">
-            <div class="desks__lists-wrapper" v-if="desk.lists?.length">
+    <div v-else class="content__wrapper">
+        <div v-if="desk" class="content" :style="{background: deskBackgrounds}">
+            <div class="desks__lists">
+                <div class="desks__lists-wrapper" v-if="desk.lists?.length">
 
-                <draggable
-                    item-key="id"
-                    v-model="desk.lists"
-                    class="desks__lists-inner">
-                    <template #item="{element}">
-                        <DeskList :list="element" :key="element.id"/>
-                    </template>
-                </draggable>
+                    <draggable
+                        item-key="id"
+                        v-model="desk.lists"
+                        class="desks__lists-inner">
+                        <template #item="{element}">
+                            <DeskList :list="element" :key="element.id"/>
+                        </template>
+                    </draggable>
 
-                <div>
+                    <div>
+                        <DeskListCreateNewList :desk_id="desk.id"/>
+                    </div>
+
+                </div>
+                <div v-else class="desks__lists-empty">
+                    Списков у доски пока нет
                     <DeskListCreateNewList :desk_id="desk.id"/>
                 </div>
-
-            </div>
-            <div v-else class="desks__lists-empty">
-                Списков у доски пока нет
-                <DeskListCreateNewList :desk_id="desk.id"/>
             </div>
         </div>
     </div>
@@ -68,6 +70,18 @@ export default {
     },
     computed: {
         ...mapGetters(['desk', 'loader', 'errorMessage']),
+        deskBackgrounds() {
+            let desk = this.desk[0] || this.desk
+            if (desk) {
+                let color = desk.background['color'],
+                    image = desk.background['image']
+                if (color) {
+                    return color
+                } else {
+                    return `url("/storage/backgrounds/${image}") no-repeat`
+                }
+            }
+        },
     },
     validations() {
         return {

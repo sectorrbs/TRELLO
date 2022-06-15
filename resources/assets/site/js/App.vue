@@ -1,7 +1,7 @@
 <template>
 
     <component :is="main">
-        <Header/>
+        <Header :class="{transparent: headerClass}"/>
         <router-view></router-view>
         <Modal/>
     </component>
@@ -21,6 +21,9 @@ export default {
     components: {
         Header
     },
+    data: () => ({
+        transparent: false
+    }),
     mounted() {
         this.$closed('app')
         this.getUser()
@@ -37,6 +40,11 @@ export default {
         empty() {
             if (this.$route.meta.layout === 'empty') {
                 return 'empty'
+            }
+        },
+        headerClass() {
+            if (this.$route.meta.header === 'transparent') {
+                return this.transparent = true
             }
         }
     },

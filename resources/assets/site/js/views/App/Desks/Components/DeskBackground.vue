@@ -6,14 +6,16 @@
                 :slides-per-view="5"
                 :slides-per-group="5"
                 :loop="true"
-                :loop-fill-group-with-blank="true"
                 :navigation="true">
-            <swiper-slide style="background: rgb(0, 121, 191)"></swiper-slide>
-            <swiper-slide style="background: rgb(210, 144, 52)"></swiper-slide>
-            <swiper-slide style="background: rgb(81, 152, 57)"></swiper-slide>
-            <swiper-slide style="background: rgb(176, 70, 50)"></swiper-slide>
-            <swiper-slide style="background: rgb(137, 96, 158)"></swiper-slide>
-            <swiper-slide style="background: rgb(246,224,86)"></swiper-slide>
+            <swiper-slide v-for="background in backgrounds"
+                          :key="background.id"
+                          @click="bgSelection($event,background.id)"
+                          :style="
+                          {
+                              background: background.image
+                              ? `url('/storage/backgrounds/thumb_55_40/${background.image}')`
+                              : background.color
+                          }"/>
         </swiper>
 
     </div>
@@ -21,9 +23,8 @@
 
 <script>
 
-import { defineComponent } from 'vue'
-import { Pagination, Navigation } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/vue'
+import {Pagination, Navigation} from 'swiper'
+import {Swiper, SwiperSlide} from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
@@ -37,6 +38,25 @@ export default {
     setup() {
         return {
             modules: [Pagination, Navigation]
+        }
+    },
+    methods: {
+        bgSelection(e, id) {
+            if (e.currentTarget.classList.contains('select')) {
+                e.currentTarget.classList.remove('select')
+                this.$emit('changeBgId', 1)
+            } else {
+                document.querySelectorAll('.swiper-slide').forEach(el => {
+                    el.classList.remove('select')
+                })
+                e.currentTarget.classList.add('select')
+                this.$emit('changeBgId', id)
+            }
+        }
+    },
+    computed: {
+        backgrounds() {
+            return this.$store.getters.backgrounds
         }
     }
 

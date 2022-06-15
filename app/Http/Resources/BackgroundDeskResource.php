@@ -16,7 +16,6 @@
         {
             return [
                 'id' => $this->id,
-                'type' => $this->type,
                 'color' => $this->color,
                 'image' => $this->image,
             ];

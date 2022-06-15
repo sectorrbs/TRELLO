@@ -61,7 +61,9 @@ export const actions = {
             })
     },
     updateDesk({commit}, desk) {
-        axios.post(`/api/v1/desk/${desk.id}/update`, {_method: 'PUT', name: desk.name, id: desk.id})
+        let user_id = localStorage.getItem('user_id')
+        axios.post(`/api/v1/desk/${desk.id}/update`,
+            {_method: 'PUT', name: desk.name, id_backgrounds_desks: desk.id_backgrounds_desks, id: desk.id, user_id})
             .catch(e => {
                 commit('setErrorMessage', e.response.data.errors.name[0])
             })
@@ -76,5 +78,11 @@ export const actions = {
                 commit('setErrorMessage', e.response.data.errors.name[0])
             })
             .finally(() => commit('changePageLoad', false))
+    },
+    getBackgroundsDesks({commit}) {
+        axios.get('/api/v1/backgrounds-desks')
+            .then(res => {
+                commit('setBackgroundsDesks', res.data.data)
+            })
     }
 }

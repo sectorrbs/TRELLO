@@ -147,6 +147,12 @@ main {
         gap: 20px;
     }
 
+    &.transparent {
+        background: rgba($color-white, .4);
+        position: relative;
+        z-index: 1;
+    }
+
 }
 
 /* navigation
@@ -366,6 +372,15 @@ main {
     &__error {
         @include font(13px, null, 15px, $color-red, null);
         margin-top: 5px;
+    }
+
+    &__wrapper {
+        @include position(absolute, 0, 0, null, null);
+        @include size(100%, 100%);
+
+        .content {
+            padding: 98px 0 50px;
+        }
     }
 }
 

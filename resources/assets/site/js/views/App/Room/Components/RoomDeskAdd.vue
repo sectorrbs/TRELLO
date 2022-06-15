@@ -47,6 +47,7 @@ export default {
         showDeskAddForm() {
             this.show = true
             this.$store.commit('setErrorMessage', null)
+            this.$store.dispatch('getBackgroundsDesks')
         },
         hideDeskAddForm() {
             this.show = false

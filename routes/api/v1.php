@@ -9,5 +9,6 @@
         require 'components/check_lists.php';
         require 'components/tasks.php';
         require 'components/user.php';
+        require 'components/backgrounds-desks.php';
     });
 

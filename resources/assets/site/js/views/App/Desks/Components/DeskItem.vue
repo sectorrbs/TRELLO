@@ -2,7 +2,8 @@
     <router-link draggable="false"
                  :to="{name: 'lists', params: { id: desk.id }}"
                  class="desks__item"
-                 :style="{background: deskBackground, color: deskColor}"
+                 :class="{default: desk.id_backgrounds_desks === 1}"
+                 :style="{background: deskBackground}"
                  :id="desk.id">
         <div class="desks__item-title">
             {{ desk.name }}
@@ -45,7 +46,7 @@ export default {
     components: {DeskRenameInput, DeskSettings},
     props: ['desk'],
     mounted() {
-        console.log(this.desk)
+
     },
     methods: {
         renameDesk() {
@@ -75,17 +76,17 @@ export default {
     },
     computed: {
         deskBackground() {
-            let color = this.desk.background.color,
-                image = this.desk.background.image
-            if (color) {
-                return color
-            } else {
-                return `url("/storage/backgrounds/${image}")`
+            if(this.desk){
+                let color = this.desk.background.color,
+                    image = this.desk.background.image
+                if (color) {
+                    return color
+                } else {
+                    return `url("/storage/backgrounds/thumb_305_75/${image}")`
+                }
             }
-        } ,
-        deskColor(){
 
-        }
+        },
     }
 }
 </script>

@@ -24,7 +24,7 @@
         public function rules()
         {
             return [
-                'name' => 'required|unique:desk_lists,name,' . $this->id,
+                'name' => 'required|unique:desk_lists,name,' . $this->desk_id,
                 'desk_id' => 'required|exists:desks,id',
                 'num' => 'required'
             ];

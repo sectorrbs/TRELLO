@@ -18,6 +18,6 @@
 
         public function background()
         {
-            return $this->hasMany(BackgroundDesk::class, 'id');
+            return $this->belongsTo(BackgroundDesk::class, 'id');
         }
     }
