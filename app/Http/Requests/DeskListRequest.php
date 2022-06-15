@@ -2,6 +2,7 @@
 
     namespace App\Http\Requests;
 
+    use App\Rules\UniqueName;
     use Illuminate\Foundation\Http\FormRequest;
 
     class DeskListRequest extends FormRequest
@@ -24,7 +25,7 @@
         public function rules()
         {
             return [
-                'name' => 'required|unique:desk_lists,name,' . $this->desk_id,
+                'name' => ['required', new UniqueName($this->id)],
                 'desk_id' => 'required|exists:desks,id',
                 'num' => 'required'
             ];

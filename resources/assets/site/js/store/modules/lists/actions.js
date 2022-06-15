@@ -5,6 +5,7 @@ export const actions = {
         axios.post(`/api/v1/list/${data.id}/update`, {
             _method: 'PUT',
             id: data.id,
+            num: data.num,
             name: data.name,
             desk_id: data.desk_id
         })

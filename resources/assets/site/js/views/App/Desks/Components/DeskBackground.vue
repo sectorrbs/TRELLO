@@ -5,7 +5,6 @@
                 :space-between="5"
                 :slides-per-view="5"
                 :slides-per-group="5"
-                :loop="true"
                 :navigation="true">
             <swiper-slide v-for="background in backgrounds"
                           :key="background.id"

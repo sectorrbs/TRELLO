@@ -229,7 +229,7 @@
         &-error {
             @include flex(center, center);
             @include size(100%, 45px);
-            background: rgba($color-red, .2);
+            background: #ff0748a1;
             @include position(absolute, null, null, null, -125px);
 
         }
@@ -281,6 +281,18 @@
             height: calc(100vh - 148px);
             gap: 10px;
             padding-bottom: 25px;
+
+            .desks__settings, .desks__edit {
+                color: rgba($color-gray, .5);
+
+                &:hover {
+                    color: rgba($color-gray, .6)
+                }
+            }
+
+            .desks__settings.open {
+                color: $color-white;
+            }
         }
 
         &-empty {

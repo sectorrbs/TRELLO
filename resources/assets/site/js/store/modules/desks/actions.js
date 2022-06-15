@@ -80,8 +80,10 @@ export const actions = {
             .finally(() => commit('changePageLoad', false))
     },
     getBackgroundsDesks({commit}) {
+
         axios.get('/api/v1/backgrounds-desks')
             .then(res => {
+                console.log(res.data.data)
                 commit('setBackgroundsDesks', res.data.data)
             })
     }
