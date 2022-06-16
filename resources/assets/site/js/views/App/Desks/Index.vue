@@ -23,7 +23,6 @@ export default {
     components: {Room},
     mounted() {
         this.getRooms();
-        //this.getDesksNotLoader();
     },
     methods: {
         ...mapActions(['getDesksNotLoader', 'getRooms'])
