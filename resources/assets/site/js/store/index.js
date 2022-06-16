@@ -1,4 +1,5 @@
 import {createStore} from 'vuex'
+import Rooms from './modules/rooms/index'
 import Desks from './modules/desks/index'
 import Lists from './modules/lists/index'
 import Error from './modules/errors/index'
@@ -10,7 +11,7 @@ import Auth from './modules/auth/index'
 
 const store = createStore({
     modules: {
-        Desks, Error, Common, Lists, Cards, CheckLists, Tasks, Auth
+        Rooms, Desks, Error, Common, Lists, Cards, CheckLists, Tasks, Auth
     }
 })
 

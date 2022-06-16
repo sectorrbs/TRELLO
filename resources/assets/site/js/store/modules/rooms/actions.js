@@ -1,26 +1,24 @@
 import router from '../../../router';
 
 export const actions = {
-    getDesks({commit}) {
-        commit('changeLoader', true)
+    getRooms({commit}) {
+        axios.get('/api/v1/rooms')
+            .then(res => {
+                console.log(res.data)
+                commit('setRooms', res.data.data)
+            })
+            .catch(e => commit('setErrorMessage', e.message))
+    },
+
+    getRoomsNotLoader({commit}) {
         axios.get('/api/v1/desks')
             .then(res => {
                 commit('setDesks', res.data.data)
             })
             .catch(e => commit('setErrorMessage', e.message))
-            .finally(() => commit('changeLoader', false))
-
     },
 
-    getDesksNotLoader({commit}) {
-        axios.get('/api/v1/desks')
-            .then(res => {
-                commit('setDesks', res.data.data)
-            })
-            .catch(e => commit('setErrorMessage', e.message))
-    },
-
-    getDesk({commit}, id) {
+    getRoom({commit}, id) {
         commit('changeLoader', true)
         axios.get(`/api/v1/desk/${id}`)
             .then(res => {
@@ -34,7 +32,7 @@ export const actions = {
             .finally(() => commit('changeLoader', false))
     },
 
-    getDeskNotLoader({commit}, id) {
+    getRoomNotLoader({commit}, id) {
         axios.get(`/api/v1/desk/${id}`)
             .then(res => {
                 commit('setDesk', res.data.data)
@@ -45,7 +43,7 @@ export const actions = {
             .catch(e => commit('setErrorMessage', e.message))
     },
 
-    createDesk({commit, dispatch}, data) {
+    createRoom({commit, dispatch}, data) {
         let user_id = localStorage.getItem('user_id')
         axios.post(`/api/v1/desk/create`,
             {_method: 'POST', name: data.name, id_backgrounds_desks: data.idBg, user_id})
@@ -60,7 +58,7 @@ export const actions = {
                 dispatch('getDesks')
             })
     },
-    updateDesk({commit}, desk) {
+    updateRoom({commit}, desk) {
         let user_id = localStorage.getItem('user_id')
         axios.post(`/api/v1/desk/${desk.id}/update`,
             {_method: 'PUT', name: desk.name, id_backgrounds_desks: desk.id_backgrounds_desks, id: desk.id, user_id})
@@ -68,7 +66,7 @@ export const actions = {
                 commit('setErrorMessage', e.response.data.errors.name[0])
             })
     },
-    deleteDesk({commit}, desk) {
+    deleteRoom({commit}, desk) {
         commit('changePageLoad', true)
         axios.post(`/api/v1/desk/${desk.id}/delete`, {_method: 'DELETE', name: desk.name, id: desk.id})
             .then(res => {
@@ -79,11 +77,4 @@ export const actions = {
             })
             .finally(() => commit('changePageLoad', false))
     },
-    getBackgroundsDesks({commit}) {
-
-        axios.get('/api/v1/backgrounds-desks')
-            .then(res => {
-                commit('setBackgroundsDesks', res.data.data)
-            })
-    }
 }

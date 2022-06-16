@@ -11,7 +11,7 @@
 
     class DesksController extends Controller
     {
-        public function getDesks(Auth $auth)
+        public function getDesks()
         {
             return DeskResource::collection(Desk::orderBy('created_at', 'desc')
                 ->where('user_id', auth()->user()->id)->get());

@@ -49,6 +49,9 @@
     }
 
     &__items {
+        @include flex(stretch, null, null);
+        flex-direction: column;
+        gap: 65px;
         margin-top: 15px;
     }
 
@@ -86,6 +89,25 @@
             @include size(30px, 30px);
             border-radius: 10px;
             background: rgba($color-gray, .5);
+        }
+    }
+
+    &__empty {
+        @include font(18px, 600, 15px, $color-white, null);
+        background: $color-blue-lite;
+        @include flex(center, center);
+        @include position(absolute, 50%, 50%, null, null);
+        transform: translate(-50%, -50%);
+        gap: 15px;
+        padding: 30px;
+
+        &-icon {
+            @include font(24px, 600);
+            transform: translateY(-1px);
+        }
+
+        &:hover {
+            background: $color-blue;
         }
     }
 }

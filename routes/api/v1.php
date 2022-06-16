@@ -3,6 +3,7 @@
     use Illuminate\Support\Facades\Route;
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
+        require 'components/rooms.php';
         require 'components/desks.php';
         require 'components/lists.php';
         require 'components/cards.php';
