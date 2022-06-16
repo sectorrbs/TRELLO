@@ -15,9 +15,9 @@
         {
             Schema::create('desks', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('user_id')
+                $table->foreignId('room_id')
                     ->references('id')
-                    ->on('users')
+                    ->on('rooms')
                     ->onDelete('cascade');
                 $table->string('name');
                 $table->foreignId('id_backgrounds_desks')

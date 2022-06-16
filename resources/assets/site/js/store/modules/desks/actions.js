@@ -46,9 +46,9 @@ export const actions = {
     },
 
     createDesk({commit, dispatch}, data) {
-        let user_id = localStorage.getItem('user_id')
+        console.log(data)
         axios.post(`/api/v1/desk/create`,
-            {_method: 'POST', name: data.name, id_backgrounds_desks: data.idBg, user_id})
+            {_method: 'POST', name: data.name, id_backgrounds_desks: data.idBg, room_id: data.room_id})
             .then(res => {
                 commit('setErrorMessage', null)
                 commit('setDesk', res.data.data)

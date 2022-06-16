@@ -33,6 +33,7 @@ export const actions = {
     },
 
     getRoomNotLoader({commit}, id) {
+
         axios.get(`/api/v1/desk/${id}`)
             .then(res => {
                 commit('setDesk', res.data.data)
@@ -44,18 +45,21 @@ export const actions = {
     },
 
     createRoom({commit, dispatch}, data) {
+        commit('changeLoader', true)
         let user_id = localStorage.getItem('user_id')
-        axios.post(`/api/v1/desk/create`,
-            {_method: 'POST', name: data.name, id_backgrounds_desks: data.idBg, user_id})
+        axios.post(`/api/v1/room/create`,
+            {_method: 'POST', name: data.name, description: data.description, user_id})
             .then(res => {
+                dispatch('getRooms')
                 commit('setErrorMessage', null)
-                commit('setDesk', res.data.data)
             })
             .catch(e => {
                 commit('setErrorMessage', e.response.data.errors.name[0])
             })
             .finally(() => {
-                dispatch('getDesks')
+                setTimeout(() => {
+                    commit('changeLoader', false)
+                }, 300)
             })
     },
     updateRoom({commit}, desk) {

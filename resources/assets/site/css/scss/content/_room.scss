@@ -1,4 +1,7 @@
 .room {
+    @include transition;
+    animation: fadeIn 0.2s;
+
     &__title {
         text-transform: uppercase;
         @include font(18px, 500, 1, $color-gray, null);
@@ -52,7 +55,7 @@
         @include flex(stretch, null, null);
         flex-direction: column;
         gap: 65px;
-        margin-top: 15px;
+        margin-top: 30px;
     }
 
     &__item {
@@ -86,9 +89,11 @@
         }
 
         &-logo {
-            @include size(30px, 30px);
+            @include flex(center, center);
+            @include size(40px, 40px);
             border-radius: 10px;
             background: rgba($color-gray, .5);
+            @include font(23px, 700, 1, $color-white, null);
         }
     }
 
@@ -109,5 +114,93 @@
         &:hover {
             background: $color-blue;
         }
+    }
+
+    &__modal {
+        &-wrapper {
+            @include flex(stretch);
+            flex-direction: column;
+            background: $color-white;
+            width: 1000px;
+            border-radius: 5px;
+        }
+
+        &-title {
+            @include font(20px, 700, 1, null, null);
+        }
+
+        &-text {
+            @include font(14px, null, rgba($color-gray, .7), null, null);
+            margin-top: 10px;
+        }
+
+        &-name {
+            margin-top: 40px;
+        }
+
+        &-subtext {
+            @include font(12px, null, 1, null, null);
+            display: block;
+            margin-top: 5px;
+        }
+
+        &-description {
+            margin-top: 40px;
+        }
+
+        &-content {
+            flex: 1;
+            height: 100%;
+            padding: 40px 560px 40px 40px;
+        }
+
+        &-close {
+            z-index: 1;
+        }
+
+        &-input {
+            @include transition(.2s);
+            background: #fafafa;
+            resize: none;
+
+            &:hover {
+                background: #f1f1f1;
+            }
+
+            &:focus {
+                background: $color-white;
+                border: 2px solid $color-blue-lite;
+            }
+        }
+
+        &-images {
+            @include flex(center, center);
+            @include position(absolute, null, 0, 0, null);
+            height: 100%;
+
+            .images-desks {
+                @include position(absolute, 0, 0, null, null);
+                @include position(absolute, 50%, 50%, null, null);
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .images-bg {
+            height: 100%;
+        }
+
+        .btn {
+            margin-top: 50px;
+        }
+    }
+}
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }

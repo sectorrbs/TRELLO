@@ -11,7 +11,7 @@
 
         </div>
         <div class="desks__create-list room__desks-form">
-            <DeskCreateForm :show="show" @showError="showError" @showClose="hideDeskAddForm"/>
+            <DeskCreateForm :roomId="roomId" :show="show" @showError="showError" @showClose="hideDeskAddForm"/>
         </div>
     </div>
 </template>
@@ -27,6 +27,7 @@ export default {
         error: false,
         errorMessage: ''
     }),
+    props: ['roomId'],
     mounted() {
         window.addEventListener('click', e => {
             if (!e.target.classList.contains('room__desks-add') &&

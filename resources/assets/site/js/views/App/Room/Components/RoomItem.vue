@@ -1,11 +1,11 @@
 <template>
     <div class="room__item">
-        <RoomActions/>
-        <PageLoad v-if="pageLoad" />
+        <RoomActions :name="room.name"/>
+        <PageLoad v-if="pageLoad"/>
         <div v-else class="desks">
-            <div class="desks__inner" v-if="desks">
-                <DeskItem v-for="desk in desks" :desk="desk" :key="desk.id"/>
-                <RoomDeskAdd/>
+            <div class="desks__inner" v-if="room.desks">
+                <DeskItem v-for="desk in room.desks" :desk="desk" :key="desk.id"/>
+                <RoomDeskAdd :roomId="room.id"/>
             </div>
             <PageLoad v-else/>
         </div>
@@ -22,7 +22,7 @@ import ModalLoad from "../../../Global/ModalLoad";
 
 export default {
     name: "RoomItem",
-    props: ['desks'],
+    props: ['room'],
     components: {ModalLoad, RoomActions, DeskItem, RoomDeskAdd},
     computed: {
         ...mapGetters(['pageLoad'])

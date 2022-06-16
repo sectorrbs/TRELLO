@@ -1,21 +1,25 @@
 <template>
-    <div class="room">
-        <button class="room__empty" v-if="rooms">
-            <Fa :type="'l'"
-                :name="'plus room__empty-icon'"/>
-            Добавить рабочее пространство
-        </button>
-        <div class="room__content" v-else>
-            <div class="room__title">
-                Ваши рабочие пространства
-            </div>
-            <div class="room__items">
-                <RoomItem v-for="room in rooms"
-                          :key="room.id"
-                          :desks="room.desks"/>
+    <Loader v-if="loader"/>
+    <div v-else>
+        <div class="room" v-if="rooms">
+            <button class="room__empty" v-if="rooms.length === 0" @click="show = !show">
+                <Fa :type="'l'"
+                    :name="'plus room__empty-icon'"/>
+                Добавить рабочее пространство
+            </button>
+            <div class="room__content" v-else>
+                <div class="room__title">
+                    Ваши рабочие пространства
+                </div>
+                <div class="room__items">
+                    <RoomItem v-for="room in rooms"
+                              :key="room.id"
+                              :room="room"/>
+                </div>
             </div>
         </div>
     </div>
+    <RoomCreateModal @show="show=false" :show="show"/>
 </template>
 
 <script>
@@ -24,8 +28,16 @@ import RoomItem from "./Components/RoomItem";
 
 export default {
     name: "Index",
+    data: () => ({
+        show: false
+    }),
     props: ['rooms'],
-    components: {RoomItem}
+    components: {RoomItem},
+    computed: {
+        loader() {
+            return this.$store.getters.loader
+        }
+    }
 }
 </script>
 

@@ -13,7 +13,7 @@ class RoomRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class RoomRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:rooms,name,' . $this->id,
+            'name' => 'required',
             'description' => '',
             'user_id' => 'required|exists:users,id'
         ];

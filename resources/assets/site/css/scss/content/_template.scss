@@ -339,8 +339,8 @@ main {
     @include position(fixed, 50%, 40%, null, null);
 
     &__icon {
-        @include font(50px, null, 15px, null, null);
-        animation: move 0.9s infinite linear;
+        @include font(50px, 300, 15px, $color-blue-lite, null);
+        animation: move 1s infinite linear;
     }
 }
 

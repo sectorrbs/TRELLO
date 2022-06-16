@@ -38,12 +38,12 @@ export default {
         idBg: 1,
         disabled: false
     }),
-    props: ['show'],
+    props: ['show', 'roomId'],
     emits: ['showClose', 'showError'],
     components: {DeskBackground},
     methods: {
         create() {
-            this.$store.dispatch('createDesk', {name: this.name, idBg: this.idBg})
+            this.$store.dispatch('createDesk', {name: this.name, room_id: this.roomId, idBg: this.idBg})
             this.$emit('showClose')
             setTimeout(() => {
                 if (this.errorMessage) {

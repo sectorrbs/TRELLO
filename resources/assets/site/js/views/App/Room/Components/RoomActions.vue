@@ -1,8 +1,10 @@
 <template>
     <div class="room__item-actions">
         <div class="room__item-name">
-            <div class="room__item-logo"></div>
-            Личная
+            <div class="room__item-logo">
+                {{name[0]}}
+            </div>
+            {{ name }}
         </div>
         <div class="room__item-btns">
             <div class="room__item-btn">
@@ -31,10 +33,7 @@
 
 <script>
 export default {
-    name: "RoomActions"
+    name: "RoomActions",
+    props: ['name']
 }
 </script>
-
-<style scoped>
-
-</style>

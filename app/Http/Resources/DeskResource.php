@@ -17,6 +17,7 @@
         {
             return [
                 'id' => $this->id,
+                'room_id' => $this->room_id,
                 'name' => $this->name,
                 'id_backgrounds_desks' => $this->id_backgrounds_desks,
                 'background' => new BackgroundDeskResource(BackgroundDesk::query()->where('id', $this->id_backgrounds_desks)->first()),
@@ -25,4 +26,4 @@
         }
     }
 
-//    'background' => new BackgroundDeskResource($this->background),
+    //    'background' => new BackgroundDeskResource($this->background),
