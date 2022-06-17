@@ -20786,6 +20786,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.taskItem.remove();
     },
     checkTask: function checkTask() {
+      console.log(121212);
       this.task.check = !this.task.check;
       this.$store.dispatch('updateTask', this.task);
     }
@@ -24480,7 +24481,6 @@ var actions = {
   createDesk: function createDesk(_ref5, data) {
     var commit = _ref5.commit,
         dispatch = _ref5.dispatch;
-    console.log(data);
     axios.post("/api/v1/desk/create", {
       _method: 'POST',
       name: data.name,
@@ -24492,35 +24492,36 @@ var actions = {
     })["catch"](function (e) {
       commit('setErrorMessage', e.response.data.errors.name[0]);
     })["finally"](function () {
-      dispatch('getDesks');
+      dispatch('getRooms');
     });
   },
   updateDesk: function updateDesk(_ref6, desk) {
     var commit = _ref6.commit;
-    var user_id = localStorage.getItem('user_id');
     axios.post("/api/v1/desk/".concat(desk.id, "/update"), {
       _method: 'PUT',
       name: desk.name,
       id_backgrounds_desks: desk.id_backgrounds_desks,
       id: desk.id,
-      user_id: user_id
+      room_id: desk.room_id
     })["catch"](function (e) {
       commit('setErrorMessage', e.response.data.errors.name[0]);
     });
   },
   deleteDesk: function deleteDesk(_ref7, desk) {
-    var commit = _ref7.commit;
-    commit('changePageLoad', true);
+    var commit = _ref7.commit,
+        dispatch = _ref7.dispatch;
+    commit('changeLoader', true);
     axios.post("/api/v1/desk/".concat(desk.id, "/delete"), {
       _method: 'DELETE',
       name: desk.name,
       id: desk.id
     }).then(function (res) {
-      commit('setDesks', res.data.data);
+      dispatch('getRooms');
+      setTimeout(function () {
+        commit('changeLoader', false);
+      }, 100);
     })["catch"](function (e) {
       commit('setErrorMessage', e.response.data.errors.name[0]);
-    })["finally"](function () {
-      return commit('changePageLoad', false);
     });
   },
   getBackgroundsDesks: function getBackgroundsDesks(_ref8) {
@@ -24911,7 +24912,6 @@ var actions = {
   getRooms: function getRooms(_ref) {
     var commit = _ref.commit;
     axios.get('/api/v1/rooms').then(function (res) {
-      console.log(res.data);
       commit('setRooms', res.data.data);
     })["catch"](function (e) {
       return commit('setErrorMessage', e.message);
@@ -24928,7 +24928,7 @@ var actions = {
   getRoom: function getRoom(_ref3, id) {
     var commit = _ref3.commit;
     commit('changeLoader', true);
-    axios.get("/api/v1/desk/".concat(id)).then(function (res) {
+    axios.get("/api/v1/room/".concat(id)).then(function (res) {
       if (res.data.data) {
         commit('setDesk', res.data.data);
       } else {

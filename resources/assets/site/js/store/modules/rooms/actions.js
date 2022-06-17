@@ -4,7 +4,6 @@ export const actions = {
     getRooms({commit}) {
         axios.get('/api/v1/rooms')
             .then(res => {
-                console.log(res.data)
                 commit('setRooms', res.data.data)
             })
             .catch(e => commit('setErrorMessage', e.message))
@@ -20,7 +19,7 @@ export const actions = {
 
     getRoom({commit}, id) {
         commit('changeLoader', true)
-        axios.get(`/api/v1/desk/${id}`)
+        axios.get(`/api/v1/room/${id}`)
             .then(res => {
                 if (res.data.data) {
                     commit('setDesk', res.data.data)
@@ -33,7 +32,6 @@ export const actions = {
     },
 
     getRoomNotLoader({commit}, id) {
-
         axios.get(`/api/v1/desk/${id}`)
             .then(res => {
                 commit('setDesk', res.data.data)

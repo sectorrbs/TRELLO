@@ -2604,7 +2604,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     DeskItem: _Desks_Components_DeskItem__WEBPACK_IMPORTED_MODULE_2__["default"],
     RoomDeskAdd: _RoomDeskAdd__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)(['pageLoad']))
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)(['loader']))
 });
 
 /***/ }),
@@ -2881,7 +2881,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_Error = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Error");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", {
+    onSubmit: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return $options.updateDesk && $options.updateDesk.apply($options, arguments);
+    }, ["prevent"])),
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
       show: $props.show
     }, "desks__item-rename"])
@@ -2915,8 +2918,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     key: 0,
     "class": "desks__item-error",
     error: 'Название не указано'
-  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2
-  /* CLASS */
+  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 34
+  /* CLASS, HYDRATE_EVENTS */
   );
 }
 
@@ -3205,7 +3208,7 @@ var _hoisted_3 = {
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_RoomActions = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("RoomActions");
 
-  var _component_PageLoad = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("PageLoad");
+  var _component_Loader = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Loader");
 
   var _component_DeskItem = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DeskItem");
 
@@ -3215,7 +3218,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     name: $props.room.name
   }, null, 8
   /* PROPS */
-  , ["name"]), _ctx.pageLoad ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_PageLoad, {
+  , ["name"]), _ctx.loader ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Loader, {
     key: 0
   })) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [$props.room.desks ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.room.desks, function (desk) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_DeskItem, {
@@ -3230,7 +3233,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     roomId: $props.room.id
   }, null, 8
   /* PROPS */
-  , ["roomId"])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_PageLoad, {
+  , ["roomId"])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Loader, {
     key: 1
   }))]))]);
 }

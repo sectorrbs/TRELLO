@@ -46,7 +46,6 @@ export const actions = {
     },
 
     createDesk({commit, dispatch}, data) {
-        console.log(data)
         axios.post(`/api/v1/desk/create`,
             {_method: 'POST', name: data.name, id_backgrounds_desks: data.idBg, room_id: data.room_id})
             .then(res => {
@@ -57,27 +56,34 @@ export const actions = {
                 commit('setErrorMessage', e.response.data.errors.name[0])
             })
             .finally(() => {
-                dispatch('getDesks')
+                dispatch('getRooms')
             })
     },
     updateDesk({commit}, desk) {
-        let user_id = localStorage.getItem('user_id')
         axios.post(`/api/v1/desk/${desk.id}/update`,
-            {_method: 'PUT', name: desk.name, id_backgrounds_desks: desk.id_backgrounds_desks, id: desk.id, user_id})
+            {
+                _method: 'PUT',
+                name: desk.name,
+                id_backgrounds_desks: desk.id_backgrounds_desks,
+                id: desk.id,
+                room_id: desk.room_id
+            })
             .catch(e => {
                 commit('setErrorMessage', e.response.data.errors.name[0])
             })
     },
-    deleteDesk({commit}, desk) {
-        commit('changePageLoad', true)
+    deleteDesk({commit, dispatch}, desk) {
+        commit('changeLoader', true)
         axios.post(`/api/v1/desk/${desk.id}/delete`, {_method: 'DELETE', name: desk.name, id: desk.id})
             .then(res => {
-                commit('setDesks', res.data.data)
+                dispatch('getRooms')
+                setTimeout(() => {
+                    commit('changeLoader', false)
+                }, 100)
             })
             .catch(e => {
                 commit('setErrorMessage', e.response.data.errors.name[0])
             })
-            .finally(() => commit('changePageLoad', false))
     },
     getBackgroundsDesks({commit}) {
 

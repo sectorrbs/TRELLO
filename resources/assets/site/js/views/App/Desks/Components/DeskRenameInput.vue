@@ -1,5 +1,5 @@
 <template>
-    <div :class="{show : show}" class="desks__item-rename">
+    <form @submit.prevent="updateDesk" :class="{show : show}" class="desks__item-rename">
         <div class="desks__item-btns">
             <Fa :type="'r'"
                 @click.prevent.stop
@@ -18,7 +18,7 @@
             @input="updateInput"
             @click.prevent>
         <Error v-if="v$.name.$error" class="desks__item-error" :error="'Название не указано'"/>
-    </div>
+    </form>
 </template>
 
 <script>

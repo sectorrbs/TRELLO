@@ -1,13 +1,13 @@
 <template>
     <div class="room__item">
         <RoomActions :name="room.name"/>
-        <PageLoad v-if="pageLoad"/>
+        <Loader v-if="loader"/>
         <div v-else class="desks">
             <div class="desks__inner" v-if="room.desks">
                 <DeskItem v-for="desk in room.desks" :desk="desk" :key="desk.id"/>
                 <RoomDeskAdd :roomId="room.id"/>
             </div>
-            <PageLoad v-else/>
+            <Loader v-else/>
         </div>
     </div>
 </template>
@@ -25,7 +25,7 @@ export default {
     props: ['room'],
     components: {ModalLoad, RoomActions, DeskItem, RoomDeskAdd},
     computed: {
-        ...mapGetters(['pageLoad'])
+        ...mapGetters(['loader'])
     }
 }
 </script>
