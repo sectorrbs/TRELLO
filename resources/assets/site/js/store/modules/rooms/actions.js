@@ -10,9 +10,9 @@ export const actions = {
     },
 
     getRoomsNotLoader({commit}) {
-        axios.get('/api/v1/desks')
+        axios.get('/api/v1/rooms')
             .then(res => {
-                commit('setDesks', res.data.data)
+                commit('setRooms', res.data.data)
             })
             .catch(e => commit('setErrorMessage', e.message))
     },

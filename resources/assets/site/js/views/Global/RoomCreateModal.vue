@@ -3,7 +3,7 @@
     <div class="room__modal modal" :class="{show}">
         <div class="room__modal-wrapper modal__wrapper">
             <Fa :type="'l'"
-                @click.prevent="this.$emit('show', false)"
+                @click.prevent="this.$store.dispatch('hideModalCreateRoom')"
                 :name="'times room__modal-close modal__close'"/>
             <div class="room__modal-content">
                 <div class="room__modal-title">
@@ -28,8 +28,13 @@
                     <span
                         class="room__modal-subtext">Опишите рабочее пространство <strong>(необязательно)</strong></span>
                 </div>
-                <button class="btn" @click="createRoom" :class="{disabled : disabled}">
+                <button ref="roomBtn" class="room__modal-btn btn" @click.stop="createRoom"
+                        :class="{disabled : disabled}">
+                    <Fa :type="'d'"
+                        :name="'spinner-third room__modal-icon'"/>
+                    <span>
                     Создать пространство
+                    </span>
                 </button>
             </div>
             <div class="room__modal-images images">
@@ -57,7 +62,7 @@ export default {
     mounted() {
         window.addEventListener('click', e => {
             if (e.target.classList.contains('modal')) {
-                this.$emit('show', false)
+                this.$store.dispatch('hideModalCreateRoom')
             }
         })
     },
@@ -71,9 +76,13 @@ export default {
         checkEmptyField(e) {
             this.disabled = e.target.value === '';
         },
-        createRoom() {
+        createRoom(e) {
             this.$store.dispatch('createRoom', {name: this.name, description: this.description})
-            this.$emit('show', false)
+            this.$refs.roomBtn.classList.add('load')
+            setTimeout(() => {
+                this.$store.dispatch('hideModalCreateRoom')
+                this.$refs.roomBtn.classList.remove('load')
+            }, 300)
         }
     },
 }

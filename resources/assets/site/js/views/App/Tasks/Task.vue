@@ -24,7 +24,7 @@
                     :name="'ellipsis-h tasks__item-settings-icon'"/>
             </div>
             <div class="tasks__item-modal">
-                <CardActionModal :show="show">
+                <ActionModal :show="show">
                     <template v-slot:modal_title>
                         Действия элемента
                     </template>
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                     </template>
-                </CardActionModal>
+                </ActionModal>
             </div>
         </div>
     </div>
@@ -43,7 +43,6 @@
 
 <script>
 
-import CardActionModal from '../Cards/Components/Actions/ActionModal'
 import TaskRenameField from './Components/TaskRenameField'
 
 export default {
@@ -53,7 +52,7 @@ export default {
         taskName: null
     }),
     props: ['task'],
-    components: {CardActionModal, TaskRenameField},
+    components: {TaskRenameField},
     mounted() {
         window.addEventListener('click', e => {
             if (!e.target.classList.contains('tasks__item-input') &&

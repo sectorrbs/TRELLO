@@ -5,9 +5,25 @@
         gap: 5px;
     }
 
+    &__add-room {
+        @include flex(center, center, nowrap);
+        background: rgba(46, 187, 46, .82);
+        gap: 8px;
+        color: $color-white !important;
+
+        .sidebar__link-icon {
+            @include font(17px);
+            transform: translate(-1px, -1px);
+        }
+
+        &:hover {
+            background: rgba(45, 171, 45, 0.82) !important;
+        }
+    }
+
     &__link {
         @include font(15px, 500, 1, $color, null);
-        @include flex(center);
+        @include flex(center, null, nowrap);
         text-decoration: none;
         gap: 10px;
         padding: 10px;

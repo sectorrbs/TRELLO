@@ -34,6 +34,16 @@
             @include transition(.2s);
             padding: 10px;
             cursor: pointer;
+            display: none;
+
+            &.show {
+                display: block;
+            }
+
+            &.disabled {
+                opacity: .3;
+                pointer-events: none;
+            }
 
             &:hover {
                 background: rgba($color-gray, .2);
@@ -41,11 +51,38 @@
         }
 
         &-alert {
-            @include flex(center, null, nowrap);
             font-size: 13px;
             font-weight: 600;
             padding: 8px 10px;
             gap: 19px;
+            display: none;
+
+            .btn {
+                margin-top: 10px;
+                width: 100%;
+                height: 30px;
+                line-height: 30px;
+                padding: 0 15px;
+                background: #2ebb2ea8;
+
+                &:hover {
+                    background: rgba(45, 171, 45, 0.82);
+                }
+            }
+
+            &.show {
+                @include flex(center, null, nowrap);
+            }
+        }
+
+        .desks__form-bg {
+            @include size(100%, 100%);
+            margin: 0;
+
+            span {
+                display: block;
+                margin-bottom: 5px;
+            }
         }
     }
 }

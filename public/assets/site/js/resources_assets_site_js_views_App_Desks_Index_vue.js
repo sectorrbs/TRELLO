@@ -2185,6 +2185,11 @@ __webpack_require__.r(__webpack_exports__);
     Swiper: swiper_vue__WEBPACK_IMPORTED_MODULE_1__.Swiper,
     SwiperSlide: swiper_vue__WEBPACK_IMPORTED_MODULE_1__.SwiperSlide
   },
+  props: {
+    bgId: {
+      "default": null
+    }
+  },
   setup: function setup() {
     return {
       modules: [swiper__WEBPACK_IMPORTED_MODULE_0__.Pagination, swiper__WEBPACK_IMPORTED_MODULE_0__.Navigation]
@@ -2194,7 +2199,7 @@ __webpack_require__.r(__webpack_exports__);
     bgSelection: function bgSelection(e, id) {
       if (e.currentTarget.classList.contains('select')) {
         e.currentTarget.classList.remove('select');
-        this.$emit('changeBgId', 1);
+        this.bgId ? this.$emit('changeBgId', this.bgId) : this.$emit('changeBgId', 1);
       } else {
         document.querySelectorAll('.swiper-slide').forEach(function (el) {
           el.classList.remove('select');
@@ -2416,12 +2421,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _Settings_Desks_DeleteDesk__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Settings/Desks/DeleteDesk */ "./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/DeleteDesk.vue");
+/* harmony import */ var _Settings_Desks_ReplaceBackground__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Settings/Desks/ReplaceBackground */ "./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "DeskSettings",
   props: ['desk'],
   components: {
-    DeleteDesk: _Settings_Desks_DeleteDesk__WEBPACK_IMPORTED_MODULE_0__["default"]
+    DeleteDesk: _Settings_Desks_DeleteDesk__WEBPACK_IMPORTED_MODULE_0__["default"],
+    ReplaceBackground: _Settings_Desks_ReplaceBackground__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  methods: {
+    closedTabs: function closedTabs() {
+      document.querySelectorAll('.settings__item-alert').forEach(function (el) {
+        return el.classList.remove('show');
+      });
+      document.querySelectorAll('.settings__item-btn').forEach(function (el) {
+        return el.classList.add('show');
+      });
+    },
+    showTab: function showTab(e) {
+      this.closedTabs();
+      var parent = e.target.closest('.settings__item'),
+          btn = parent.querySelector('.settings__item-btn'),
+          tab = parent.querySelector('.settings__item-alert');
+
+      if (btn.classList.contains('show')) {
+        btn.classList.remove('show');
+        tab.classList.add('show');
+      } else {
+        btn.classList.add('show');
+        tab.classList.remove('show');
+      }
+    }
   }
 });
 
@@ -2441,18 +2473,53 @@ __webpack_require__.r(__webpack_exports__);
   name: "DeleteList",
   data: function data() {
     return {
+      showDelete: false
+    };
+  },
+  props: ['desk']
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue?vue&type=script&lang=js":
+/*!******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue?vue&type=script&lang=js ***!
+  \******************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _DeskBackground__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../DeskBackground */ "./resources/assets/site/js/views/App/Desks/Components/DeskBackground.vue");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "ReplaceBackground",
+  components: {
+    DeskBackground: _DeskBackground__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
       showDelete: false,
-      show: false
+      disabled: true,
+      idBg: null
     };
   },
   props: ['desk'],
   methods: {
-    showDeleteWindow: function showDeleteWindow() {
-      this.showDelete = true;
-      this.show = true;
+    changeBgId: function changeBgId(id) {
+      if (id !== this.desk.id_backgrounds_desks) {
+        this.disabled = false;
+        this.idBg = id;
+      } else {
+        this.disabled = true;
+      }
     },
-    hiddenDeleteWindow: function hiddenDeleteWindow() {
-      this.showDelete = false;
+    updateBackgroundDesk: function updateBackgroundDesk() {
+      this.desk.id_backgrounds_desks = this.idBg;
+      this.$store.dispatch('updateDesk', this.desk);
+      this.$store.dispatch('getRoomsNotLoader');
+      this.$closed();
     }
   }
 });
@@ -2623,11 +2690,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Index",
-  data: function data() {
-    return {
-      show: false
-    };
-  },
   props: ['rooms'],
   components: {
     RoomItem: _Components_RoomItem__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -2661,7 +2723,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_swiper = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("swiper");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_swiper, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_swiper, {
     modules: $setup.modules,
     "space-between": 5,
     "slides-per-view": 5,
@@ -2672,15 +2734,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.backgrounds, function (background) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_swiper_slide, {
           key: background.id,
+          id: background.id,
           onClick: function onClick($event) {
             return $options.bgSelection($event, background.id);
           },
+          "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([background.id === $props.bgId ? 'select' : '']),
           style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
             background: background.image ? "url('/storage/backgrounds/thumb_55_40/".concat(background.image, "')") : background.color
           })
         }, null, 8
         /* PROPS */
-        , ["onClick", "style"]);
+        , ["id", "onClick", "class", "style"]);
       }), 128
       /* KEYED_FRAGMENT */
       ))];
@@ -2690,7 +2754,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["modules"])]);
+  , ["modules"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "btn")]);
 }
 
 /***/ }),
@@ -2938,26 +3002,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "settings"
+  "class": "settings__items"
 };
-
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "settings__title"
-}, " Действия с доской ", -1
-/* HOISTED */
-);
-
-var _hoisted_3 = {
+var _hoisted_2 = {
   "class": "settings__items"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _this = this;
+
   var _component_DeleteDesk = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DeleteDesk");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeleteDesk, {
+  var _component_ReplaceBackground = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ReplaceBackground");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+    "class": "settings",
+    onClick: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {}, ["prevent"]))
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "settings__title",
+    onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {}, ["prevent"]))
+  }, " Действия с доской "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeleteDesk, {
+    onOpen: $options.showTab,
+    onClosed: $options.closedTabs,
     desk: $props.desk
   }, null, 8
   /* PROPS */
-  , ["desk"])])]);
+  , ["onOpen", "onClosed", "desk"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ReplaceBackground, {
+    onOpen: $options.showTab,
+    onClick: _cache[1] || (_cache[1] = function ($event) {
+      return _this.$store.dispatch('getBackgroundsDesks');
+    }),
+    onClosed: $options.closedTabs,
+    desk: $props.desk
+  }, null, 8
+  /* PROPS */
+  , ["onOpen", "onClosed", "desk"])])]);
 }
 
 /***/ }),
@@ -2974,16 +3052,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = {
-  "class": "settings__item-btn"
-};
+
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Вы точно хотите удалить доску? ");
+
 var _hoisted_2 = {
-  "class": "settings__item-alert desks__item-alert"
-};
-
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Вы точно хотите удалить доску? ");
-
-var _hoisted_4 = {
   "class": "settings__item-btns"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -2993,12 +3065,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     "class": "settings__item",
-    onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
-      return $options.showDeleteWindow && $options.showDeleteWindow.apply($options, arguments);
+    onClick: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+      return _this.$emit('open', $event);
     }, ["prevent"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, " Удалить доску ", 512
-  /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, !_ctx.showDelete]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["settings__item-btn", {
+      show: !_ctx.showDelete
+    }])
+  }, " Удалить доску ", 2
+  /* CLASS */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["settings__item-alert desks__item-alert", {
+      show: _ctx.showDelete
+    }])
+  }, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'r',
     onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return _this.$store.dispatch('deleteDesk', $props.desk);
@@ -3006,13 +3086,83 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     name: 'check desks__item-confirm'
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'l',
-    onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($options.hiddenDeleteWindow, ["prevent", "stop"]),
+    onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+      return _this.$emit('closed');
+    }, ["prevent", "stop"])),
     name: 'times settings__cancel desks__item-cancel'
-  }, null, 8
+  })])], 2
+  /* CLASS */
+  )]);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue?vue&type=template&id=5953a238":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue?vue&type=template&id=5953a238 ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "settings__item-text"
+}, "Выберите новую обложку", -1
+/* HOISTED */
+);
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _this = this;
+
+  var _component_DeskBackground = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DeskBackground");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+    "class": "settings__item",
+    onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+      return _this.$emit('open', $event);
+    }, ["prevent"]))
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["settings__item-btn", {
+      show: !_ctx.showDelete
+    }])
+  }, " Изменить обложку ", 2
+  /* CLASS */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["settings__item-alert desks__item-alert", {
+      show: _ctx.showDelete
+    }])
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeskBackground, {
+    bgId: $props.desk.id_backgrounds_desks,
+    onChangeBgId: $options.changeBgId
+  }, {
+    btn: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["settings__item-btn btn", {
+          disabled: _ctx.disabled
+        }]),
+        onClick: _cache[0] || (_cache[0] = function () {
+          return $options.updateBackgroundDesk && $options.updateBackgroundDesk.apply($options, arguments);
+        })
+      }, " Обновить ", 2
+      /* CLASS */
+      )];
+    }),
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_1];
+    }),
+    _: 1
+    /* STABLE */
+
+  }, 8
   /* PROPS */
-  , ["onClick"])])], 512
-  /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, _ctx.showDelete]])]);
+  , ["bgId", "onChangeBgId"])], 2
+  /* CLASS */
+  )]);
 }
 
 /***/ }),
@@ -3277,21 +3427,21 @@ var _hoisted_6 = {
   "class": "room__items"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _this = this;
+
   var _component_Loader = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Loader");
 
   var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
 
   var _component_RoomItem = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("RoomItem");
 
-  var _component_RoomCreateModal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("RoomCreateModal");
-
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [$options.loader ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Loader, {
+  return $options.loader ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Loader, {
     key: 0
   })) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [$props.rooms ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [$props.rooms.length === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
     key: 0,
     "class": "room__empty",
     onClick: _cache[0] || (_cache[0] = function ($event) {
-      return _ctx.show = !_ctx.show;
+      return _this.$store.dispatch('openModalCreateRoom');
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'l',
@@ -3305,16 +3455,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     , ["room"]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))])]))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RoomCreateModal, {
-    onShow: _cache[1] || (_cache[1] = function ($event) {
-      return _ctx.show = false;
-    }),
-    show: _ctx.show
-  }, null, 8
-  /* PROPS */
-  , ["show"])], 64
-  /* STABLE_FRAGMENT */
-  );
+  ))])]))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]));
 }
 
 /***/ }),
@@ -3585,6 +3726,33 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue":
+/*!**************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue ***!
+  \**************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ReplaceBackground_vue_vue_type_template_id_5953a238__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ReplaceBackground.vue?vue&type=template&id=5953a238 */ "./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue?vue&type=template&id=5953a238");
+/* harmony import */ var _ReplaceBackground_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ReplaceBackground.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue?vue&type=script&lang=js");
+/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ReplaceBackground_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ReplaceBackground_vue_vue_type_template_id_5953a238__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/assets/site/js/views/App/Desks/Index.vue":
 /*!************************************************************!*\
   !*** ./resources/assets/site/js/views/App/Desks/Index.vue ***!
@@ -3810,6 +3978,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue?vue&type=script&lang=js":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue?vue&type=script&lang=js ***!
+  \**************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ReplaceBackground_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ReplaceBackground_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ReplaceBackground.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/assets/site/js/views/App/Desks/Index.vue?vue&type=script&lang=js":
 /*!************************************************************************************!*\
   !*** ./resources/assets/site/js/views/App/Desks/Index.vue?vue&type=script&lang=js ***!
@@ -3971,6 +4154,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeleteDesk_vue_vue_type_template_id_5836b072__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeleteDesk_vue_vue_type_template_id_5836b072__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./DeleteDesk.vue?vue&type=template&id=5836b072 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/DeleteDesk.vue?vue&type=template&id=5836b072");
+
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue?vue&type=template&id=5953a238":
+/*!********************************************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue?vue&type=template&id=5953a238 ***!
+  \********************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ReplaceBackground_vue_vue_type_template_id_5953a238__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ReplaceBackground_vue_vue_type_template_id_5953a238__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ReplaceBackground.vue?vue&type=template&id=5953a238 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue?vue&type=template&id=5953a238");
 
 
 /***/ }),

@@ -10,6 +10,7 @@ import AuthError from './AuthError'
 import Sidebar from './Sidebar'
 import GlobalModal from './GlobalModal'
 import RoomCreateModal from './RoomCreateModal'
+import ActionModal from './ActionModal'
 
 export default [
     Fa,
@@ -23,5 +24,6 @@ export default [
     PageLoad,
     GlobalModal,
     AuthError,
-    RoomCreateModal
+    RoomCreateModal,
+    ActionModal
 ]

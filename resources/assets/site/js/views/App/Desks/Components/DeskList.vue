@@ -28,6 +28,7 @@
             </div>
 
             <Cards :cards="list.cards"/>
+            <!--            <Cards :cards="items"/>-->
 
             <DeskListNewCard @addNewCard="reloadCards" :list="list"/>
 
@@ -67,7 +68,7 @@ export default {
             setTimeout(() => {
                 let list = this.$store.getters.desk.lists.find(el => el.id === data.desk_lists_id)
                 this.items = list.cards
-            }, 500)
+            }, 100)
         },
 
         showSettingsList() {

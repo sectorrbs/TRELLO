@@ -490,6 +490,12 @@
                 }
             }
 
+            &.tags {
+                .details__actions-modal {
+                    top: 38px;
+                }
+            }
+
             &.disabled {
                 opacity: .3;
                 pointer-events: none;
@@ -503,6 +509,13 @@
 
         &-icon {
             @include font(12px, 400, 1, null, null);
+        }
+
+        &-tags {
+            @include flex(stretch);
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 10px;
         }
 
         &-modal {
@@ -536,6 +549,11 @@
                 border-bottom: 1px solid rgba($color-gray, .3)
             }
 
+            &-back {
+                @include position(absolute, -8px, 50%, null, null);
+                transform: translateY(-50%);
+            }
+
             &-subtitle {
                 @include font(13px, 600, 1);
                 margin: 14px 0 3px;
@@ -543,6 +561,8 @@
 
             &-title {
                 @include font(15px, null, 1, null, null);
+                @include flex(stretch);
+                gap: 5px;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -614,6 +634,22 @@
                     background: rgba($color-gray, .1);
                 }
             }
+
+            &-label {
+                @include size(15px, 15px);
+                border-radius: 100%;
+            }
+        }
+
+        &-edit {
+            .details__actions-btn {
+                margin-top: 5px;
+            }
+        }
+
+        &-input {
+            height: 35px;
+            margin-top: 10px;
         }
     }
 

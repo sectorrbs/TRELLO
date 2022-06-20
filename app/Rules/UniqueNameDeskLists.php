@@ -6,7 +6,7 @@
     use Illuminate\Contracts\Validation\DataAwareRule;
     use Illuminate\Contracts\Validation\Rule;
 
-    class UniqueName implements Rule, DataAwareRule
+    class UniqueNameDeskLists implements Rule, DataAwareRule
     {
         protected $data = [];
         protected $id = [];

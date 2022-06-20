@@ -3,7 +3,7 @@
         <Fa :type="'r'"
             :name="'calendar-alt details__actions-icon'"/>
         Даты
-        <CardActionModal :show="show">
+        <ActionModal :show="show">
             <template v-slot:modal_title>
                 Даты
             </template>
@@ -21,13 +21,12 @@
                     Назначить срок
                 </button>
             </template>
-        </CardActionModal>
+        </ActionModal>
     </div>
 </template>
 
 <script>
 
-import CardActionModal from './ActionModal'
 import {cardMixin} from "../../../../../mixins/cardMixin";
 import {dateMixin} from "../../../../../mixins/dateMixin";
 import Datepicker from '@vuepic/vue-datepicker';
@@ -56,6 +55,6 @@ export default {
         }
     },
     mixins: [cardMixin, dateMixin],
-    components: {CardActionModal, Datepicker},
+    components: {Datepicker},
 }
 </script>

@@ -3,7 +3,7 @@
         <Fa :type="'r'"
             :name="'file-check details__actions-icon'"/>
         Чек-лист
-        <CardActionModal :show="show">
+        <ActionModal :show="show">
             <template v-slot:modal_title>
                 Добавление списка задач
             </template>
@@ -23,13 +23,12 @@
                     </div>
                 </form>
             </template>
-        </CardActionModal>
+        </ActionModal>
     </div>
 </template>
 
 <script>
 
-import CardActionModal from './ActionModal'
 import {cardMixin} from "../../../../../mixins/cardMixin";
 
 export default {
@@ -39,7 +38,7 @@ export default {
         checkListName: 'Чек-лист'
     }),
     mixins: [cardMixin],
-    components: {CardActionModal},
+    components: {},
     props: ['cardInfo'],
     methods: {
         checkListAdd() {
@@ -49,7 +48,3 @@ export default {
     },
 }
 </script>
-
-<style scoped>
-
-</style>

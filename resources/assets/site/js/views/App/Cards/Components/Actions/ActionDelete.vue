@@ -3,7 +3,7 @@
         <Fa :type="'r'"
             :name="'minus details__actions-icon'"/>
         Удалить
-        <CardActionModal :show="show">
+        <ActionModal :show="show">
             <template v-slot:modal_title>
                 Удалить карточку
             </template>
@@ -15,20 +15,17 @@
                     Удалить
                 </div>
             </template>
-        </CardActionModal>
+        </ActionModal>
     </div>
 </template>
 
 <script>
-
-import CardActionModal from './ActionModal'
 
 export default {
     name: "ActionDelete",
     data: () => ({
         show: false
     }),
-    components: {CardActionModal},
     props: ['cardInfo'],
     methods: {
         cardDelete() {

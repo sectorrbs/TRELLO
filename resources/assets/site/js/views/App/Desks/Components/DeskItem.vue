@@ -85,7 +85,6 @@ export default {
                     return `url("/storage/backgrounds/thumb_305_75/${image}")`
                 }
             }
-
         },
     }
 }

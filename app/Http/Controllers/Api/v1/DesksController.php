@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DeskRequest;
 use App\Http\Resources\DeskResource;
 use App\Models\Desk;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class DesksController extends Controller
@@ -23,8 +22,8 @@ class DesksController extends Controller
 
     public function createDesk(DeskRequest $request)
     {
-        Desk::create($request->validated());
-        return DeskResource::collection(Desk::orderBy('created_at', 'desc')->get());
+        $desk = Desk::create($request->validated());
+        return DeskResource::make($desk);
     }
 
     public function updateDesk(DeskRequest $request, Desk $desk)
@@ -38,4 +37,5 @@ class DesksController extends Controller
         $desk->delete();
         return DeskResource::collection(Desk::orderBy('created_at', 'desc')->get());
     }
+
 }

@@ -47,8 +47,17 @@ export const actions = {
 
     createDesk({commit, dispatch}, data) {
         axios.post(`/api/v1/desk/create`,
-            {_method: 'POST', name: data.name, id_backgrounds_desks: data.idBg, room_id: data.room_id})
+            {
+                _method: 'POST',
+                name: data.name,
+                id_backgrounds_desks: data.idBg,
+                room_id: data.room_id
+            })
             .then(res => {
+                axios.post(`/api/v1/desks-tags/create`, {
+                    _method: 'POST',
+                    id_desk: res.data.data.id
+                })
                 commit('setErrorMessage', null)
                 commit('setDesk', res.data.data)
             })
@@ -86,10 +95,12 @@ export const actions = {
             })
     },
     getBackgroundsDesks({commit}) {
-
         axios.get('/api/v1/backgrounds-desks')
             .then(res => {
                 commit('setBackgroundsDesks', res.data.data)
             })
+    },
+    updateBackgroundDesk() {
+
     }
 }

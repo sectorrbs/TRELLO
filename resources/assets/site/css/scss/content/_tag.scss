@@ -1,0 +1,91 @@
+.tag {
+    @include flex(center, null, nowrap);
+    gap: 10px;
+
+    &__wrapper {
+        @include flex(center, center);
+        @include font(16px, 500);
+        @include size(90%, 30px);
+        border-radius: 5px;
+
+        &.dark_green {
+            &:hover {
+                background: darken(#61bd4f, 10%) !important;
+            }
+        }
+
+        &.yellow {
+            &:hover {
+                background: darken(#f2d600, 10%) !important;
+            }
+        }
+
+        &.orange {
+            &:hover {
+                background: darken(#ff9f1a, 10%) !important;
+            }
+        }
+
+        &.red {
+            &:hover {
+                background: darken(#eb5a46, 10%) !important;
+            }
+        }
+
+        &.purple {
+            &:hover {
+                background: darken(#c377e0, 10%) !important;
+            }
+        }
+
+        &.dark_blue {
+            &:hover {
+                background: darken(#0079bf, 10%) !important;
+            }
+        }
+
+        &.light_blue {
+            &:hover {
+                background: darken(#00c2e0, 10%) !important;
+            }
+        }
+
+        &.light_green {
+            &:hover {
+                background: darken(#51e898, 10%) !important;
+            }
+        }
+
+        &.pink {
+            &:hover {
+                background: darken(#ff78cb, 10%) !important;
+            }
+        }
+
+        &.black {
+            &:hover {
+                background: darken(#344563, 10%) !important;
+            }
+        }
+
+        &.gray {
+            &:hover {
+                background: darken(#b3bac5, 10%) !important;
+            }
+        }
+    }
+
+    &__edit {
+        @include flex(center, center);
+        @include size(12%, 30px);
+
+        &-icon {
+            font-size: 12px;
+            padding: 10px;
+        }
+
+        &:hover {
+            background: rgba($color, .1);
+        }
+    }
+}

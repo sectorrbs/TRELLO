@@ -1,6 +1,6 @@
 <template>
     <div class="desks__form-bg">
-
+        <slot></slot>
         <swiper :modules="modules"
                 :space-between="5"
                 :slides-per-view="5"
@@ -8,7 +8,9 @@
                 :navigation="true">
             <swiper-slide v-for="background in backgrounds"
                           :key="background.id"
+                          :id="background.id"
                           @click="bgSelection($event,background.id)"
+                          :class="[background.id === bgId ? 'select' : '']"
                           :style="
                           {
                               background: background.image
@@ -16,7 +18,7 @@
                               : background.color
                           }"/>
         </swiper>
-
+        <slot name="btn"></slot>
     </div>
 </template>
 
@@ -34,6 +36,11 @@ export default {
         Swiper,
         SwiperSlide
     },
+    props: {
+        bgId: {
+            default: null,
+        }
+    },
     setup() {
         return {
             modules: [Pagination, Navigation]
@@ -43,7 +50,9 @@ export default {
         bgSelection(e, id) {
             if (e.currentTarget.classList.contains('select')) {
                 e.currentTarget.classList.remove('select')
-                this.$emit('changeBgId', 1)
+                this.bgId
+                    ? this.$emit('changeBgId', this.bgId)
+                    : this.$emit('changeBgId', 1)
             } else {
                 document.querySelectorAll('.swiper-slide').forEach(el => {
                     el.classList.remove('select')
@@ -56,7 +65,7 @@ export default {
     computed: {
         backgrounds() {
             return this.$store.getters.backgrounds
-        }
+        },
     }
 
 }

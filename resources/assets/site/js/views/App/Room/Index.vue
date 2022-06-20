@@ -2,7 +2,7 @@
     <Loader v-if="loader"/>
     <div v-else>
         <div class="room" v-if="rooms">
-            <button class="room__empty" v-if="rooms.length === 0" @click="show = !show">
+            <button class="room__empty" v-if="rooms.length === 0" @click="this.$store.dispatch('openModalCreateRoom')">
                 <Fa :type="'l'"
                     :name="'plus room__empty-icon'"/>
                 Добавить рабочее пространство
@@ -19,7 +19,6 @@
             </div>
         </div>
     </div>
-    <RoomCreateModal @show="show=false" :show="show"/>
 </template>
 
 <script>
@@ -28,9 +27,6 @@ import RoomItem from "./Components/RoomItem";
 
 export default {
     name: "Index",
-    data: () => ({
-        show: false
-    }),
     props: ['rooms'],
     components: {RoomItem},
     computed: {

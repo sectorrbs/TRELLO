@@ -4,6 +4,7 @@
         <Header :class="{transparent: headerClass}"/>
         <router-view></router-view>
         <Modal/>
+        <RoomCreateModal/>
     </component>
     <component :is="empty">
         <router-view></router-view>

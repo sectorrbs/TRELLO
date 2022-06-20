@@ -7,7 +7,7 @@
             <ActionCardBtn @click.stop="showDeleteModalCheckList" class="top">
                 Удалить
             </ActionCardBtn>
-            <CardActionModal :show="show">
+            <ActionModal :show="show">
                 <template v-slot:modal_title>
                     Удаление списка {{ checkList.name }}
                 </template>
@@ -20,7 +20,7 @@
                         Удаление списка задач
                     </div>
                 </template>
-            </CardActionModal>
+            </ActionModal>
         </div>
 
         <CheckListRenameField @hideField="renameCheckListHideField"
@@ -39,7 +39,6 @@
 <script>
 
 import ActionCardBtn from '../Cards/Components/Actions/ActionСardBtn'
-import CardActionModal from '../Cards/Components/Actions/ActionModal'
 import Tasks from '../Tasks/Index'
 import CheckListCreateField from './Components/CheckListCreateField'
 import CheckListRenameField from './Components/CheckListRenameField'
@@ -64,7 +63,6 @@ export default {
     },
     components: {
         ActionCardBtn,
-        CardActionModal,
         CheckListCreateField,
         Tasks,
         CardCreateTask,

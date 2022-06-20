@@ -32,6 +32,13 @@ export default {
                     !e.target.classList.contains('desks__list-input') &&
                     !e.target.classList.contains('desks__item-input') &&
                     !e.target.classList.contains('settings__item-btn') &&
+                    !e.target.classList.contains('settings__title') &&
+                    !e.target.classList.contains('swiper-slide') &&
+                    !e.target.classList.contains('settings') &&
+                    !e.target.classList.contains('swiper-button-next') &&
+                    !e.target.classList.contains('swiper-button-prev') &&
+                    !e.target.classList.contains('settings__item-text') &&
+                    !e.target.classList.contains('settings__item-alert') &&
                     !e.target.classList.contains('settings__cancel') &&
                     !e.target.classList.contains('tasks__item-settings') &&
                     !e.target.classList.contains('tasks__item-settings-icon') &&
@@ -66,12 +73,18 @@ export default {
                     .forEach(el => el.classList.remove('show'))
                 document.querySelectorAll('.tasks__item-settings')
                     .forEach(el => el.classList.remove('show'))
-                document.querySelectorAll('.details__window-checklist-form').forEach(el => {
-                    el.classList.remove('show')
-                })
-                document.querySelectorAll('.details__window-card-form').forEach(el => {
-                    el.classList.remove('show')
-                })
+                document.querySelectorAll('.details__window-checklist-form')
+                    .forEach(el => {
+                        el.classList.remove('show')
+                    })
+                document.querySelectorAll('.details__window-card-form')
+                    .forEach(el => {
+                        el.classList.remove('show')
+                    })
+                document.querySelectorAll('.settings__item-alert')
+                    .forEach(el => el.classList.remove('show'))
+                document.querySelectorAll('.settings__item-btn')
+                    .forEach(el => el.classList.add('show'))
             }
 
             function clearDeskLists() {
