@@ -1,8 +1,11 @@
 <template>
     <div class="details__actions-modal" ref="cardModal">
         <div class="details__actions-modal-top">
+            <div class="details__actions-modal-back">
+                <slot name="modal_back"></slot>
+            </div>
             <div class="details__actions-modal-title">
-               <slot name="modal_title"></slot>
+                <slot name="modal_title"></slot>
             </div>
             <div class="details__actions-modal-close">
                 <Fa :type="'l'"
@@ -35,7 +38,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -1,6 +1,7 @@
 export const cardMixin = {
     methods: {
         actionModal(e) {
+            console.log(e.target)
             if (!e.target.classList.contains('details__actions-modal-input') &&
                 !e.target.classList.contains('details__actions-modal-btn') &&
                 !e.target.classList.contains('details__actions-modal-top') &&
@@ -15,10 +16,12 @@ export const cardMixin = {
                 !e.target.classList.contains('dp__main') &&
                 !e.target.classList.contains('tag__edit') &&
                 !e.target.classList.contains('tag__wrapper') &&
+                !e.target.classList.contains('details__window-tags') &&
                 !e.target.classList.contains('details__actions-input') &&
                 !e.target.classList.contains('tag__edit-icon') &&
                 !e.target.classList.contains('details__actions-edit')
             ) {
+                console.log(1212)
                 this.show = !this.show
             }
         }

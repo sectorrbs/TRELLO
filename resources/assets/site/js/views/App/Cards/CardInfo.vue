@@ -22,6 +22,7 @@
         </div>
         <div class="details__window-bottom">
             <div class="details__window-bottom-left">
+                <CardTags v-if="cardInfo.tags.length" :tags="cardInfo.tags"/>
                 <CardTerms v-if="cardInfo.term" :card="cardInfo"/>
                 <CardParticipants/>
                 <CardDescription :card="cardInfo"/>
@@ -44,6 +45,7 @@ import CardDescription from './Components/CardDescription'
 import CardComment from './Components/CardComment'
 import CardActions from './Components/CardActions'
 import CardTerms from './Components/CardTerms'
+import CardTags from './Components/CardTags'
 import CheckLists from '../CheckLists/Index'
 
 export default {
@@ -77,9 +79,18 @@ export default {
             input.focus()
         },
     },
-    components: {CardParticipants, CardDescription, CardComment, CardActions, CheckLists, CardRenameField, CardTerms},
+    components: {
+        CardParticipants,
+        CardDescription,
+        CardComment,
+        CardActions,
+        CheckLists,
+        CardRenameField,
+        CardTerms,
+        CardTags
+    },
     computed: {
-        ...mapGetters(['modalLoad']) ,
+        ...mapGetters(['modalLoad']),
     }
 }
 </script>

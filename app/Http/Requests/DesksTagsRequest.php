@@ -25,6 +25,7 @@ class DesksTagsRequest extends FormRequest
     {
         return [
             'id_desk' => 'required|exists:desks,id',
+            'title' => 'max:50'
         ];
     }
 }

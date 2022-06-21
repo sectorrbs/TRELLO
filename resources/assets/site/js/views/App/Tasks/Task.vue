@@ -90,7 +90,6 @@ export default {
             this.$refs.taskItem.remove()
         },
         checkTask() {
-            console.log(121212)
             this.task.check = !this.task.check
             this.$store.dispatch('updateTask', this.task)
         }
