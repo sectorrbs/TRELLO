@@ -4,9 +4,13 @@
 
     &__wrapper {
         @include flex(center, center);
-        @include font(16px, 500);
+        @include font(14px, 500);
         @include size(90%, 30px);
         border-radius: 5px;
+
+        span {
+            transform: translateY(1.5px);
+        }
 
         &.dark_green {
             &:hover {

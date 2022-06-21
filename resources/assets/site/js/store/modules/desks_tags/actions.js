@@ -5,9 +5,8 @@ export const actions = {
         })
     },
     updateDeskTags({commit}, tag) {
-        console.log(tag)
         axios.post(`/api/v1/desk-tags/${tag.id}/update`,
-            {_method: 'PUT', id: tag.id, title: tag.title})
+            {_method: 'PUT', id: tag.id, id_desk: tag.id_desk, title: tag.title})
             .catch(e => {
                 commit('setErrorMessage', e.response.data.errors.name[0])
             })

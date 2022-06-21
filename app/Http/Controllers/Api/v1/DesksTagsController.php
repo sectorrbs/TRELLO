@@ -8,6 +8,7 @@ use App\Http\Resources\DesksTagsResource;
 use App\Models\DeskTag;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class DesksTagsController extends Controller
 {
@@ -24,13 +25,15 @@ class DesksTagsController extends Controller
             DeskTag::create([
                 'id_desk' => $desksTags['id_desk'],
                 'color' => $tag['color'],
+                'style' => $tag['style'],
             ]);
         }
     }
 
     public function updateDeskTag(DesksTagsRequest $request, DeskTag $tag)
     {
-        dd($tag);
+        $tag->update($request->validated());
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 
     public function deleteDesksTags($id)

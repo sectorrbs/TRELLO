@@ -22,4 +22,9 @@ class Card extends Model
     {
         return $this->hasMany(checkList::class);
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(CardTag::class, 'desks_tags', 'id', 'id_desk_tag');
+    }
 }

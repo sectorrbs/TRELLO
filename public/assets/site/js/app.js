@@ -20130,10 +20130,20 @@ __webpack_require__.r(__webpack_exports__);
     editName: function editName() {
       this.disabled = this.newTagName === this.oldTagName;
     },
-    updateTagName: function updateTagName(id) {
+    updateTagName: function updateTagName(tag) {
       this.$store.dispatch('updateDeskTags', {
-        id: id,
+        id: tag.id,
+        id_desk: tag.id_desk,
         title: this.newTagName
+      });
+      var tagWrapper = document.getElementById(tag.id);
+      tagWrapper.textContent = this.newTagName;
+      this.backModalFirst();
+    },
+    addTag: function addTag(tag) {
+      this.$store.dispatch('addTagToCard', {
+        id_desk_tag: tag.id,
+        id_card: this.$store.getters.cardInfo.id
       });
     }
   },
@@ -20785,7 +20795,6 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.taskItem.remove();
     },
     checkTask: function checkTask() {
-      console.log(121212);
       this.task.check = !this.task.check;
       this.$store.dispatch('updateTask', this.task);
     }
@@ -21740,25 +21749,26 @@ var _hoisted_3 = {
   key: 0,
   "class": "details__actions-tags"
 };
-var _hoisted_4 = ["onClick"];
-var _hoisted_5 = {
+var _hoisted_4 = ["id", "onClick"];
+var _hoisted_5 = ["onClick"];
+var _hoisted_6 = {
   "class": "details__actions-modal",
   ref: "cardModalSecond"
 };
-var _hoisted_6 = {
+var _hoisted_7 = {
   key: 0,
   "class": "details__actions-modal-top"
 };
-var _hoisted_7 = {
+var _hoisted_8 = {
   "class": "details__actions-modal-back"
 };
-var _hoisted_8 = {
+var _hoisted_9 = {
   "class": "details__actions-modal-title"
 };
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Метка ");
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Метка ");
 
-var _hoisted_10 = {
+var _hoisted_11 = {
   key: 1,
   "class": "details__actions-edit"
 };
@@ -21788,12 +21798,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           key: deskTag.id
         }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
           "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["tag__wrapper", [deskTag.style]]),
+          id: deskTag.id,
+          onClick: function onClick($event) {
+            return $options.addTag(deskTag);
+          },
           style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
             background: deskTag.color
           })
-        }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(deskTag.title), 7
-        /* TEXT, CLASS, STYLE */
-        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(deskTag.title), 1
+        /* TEXT */
+        )], 14
+        /* CLASS, STYLE, PROPS */
+        , _hoisted_4), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
           "class": "tag__edit",
           onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
             return $options.openWindowEditTag(deskTag);
@@ -21803,7 +21819,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           name: 'pen tag__edit-icon'
         })], 8
         /* PROPS */
-        , _hoisted_4)]);
+        , _hoisted_5)]);
       }), 128
       /* KEYED_FRAGMENT */
       ))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
@@ -21813,13 +21829,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["show"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_ctx.tag ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+  , ["show"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_ctx.tag ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'r',
     onClick: $options.backModalFirst,
     name: 'chevron-left tag__edit-icon'
   }, null, 8
   /* PROPS */
-  , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "details__actions-modal-label",
     style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
       background: _ctx.tag.color
@@ -21834,7 +21850,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'l',
     name: 'times'
-  })])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.tag ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  })])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.tag ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     ref: "detailsInput",
     "class": "form-input details__actions-input",
@@ -21852,7 +21868,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       disabled: _ctx.disabled
     }]),
     onClick: _cache[3] || (_cache[3] = function ($event) {
-      return $options.updateTagName(_ctx.tag.id);
+      return $options.updateTagName(_ctx.tag);
     })
   }, " Обновить ", 2
   /* CLASS */
@@ -23921,7 +23937,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _modules_rooms_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/rooms/index */ "./resources/assets/site/js/store/modules/rooms/index.js");
 /* harmony import */ var _modules_desks_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/desks/index */ "./resources/assets/site/js/store/modules/desks/index.js");
 /* harmony import */ var _modules_lists_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/lists/index */ "./resources/assets/site/js/store/modules/lists/index.js");
@@ -23932,6 +23948,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_tasks_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/tasks/index */ "./resources/assets/site/js/store/modules/tasks/index.js");
 /* harmony import */ var _modules_auth_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/auth/index */ "./resources/assets/site/js/store/modules/auth/index.js");
 /* harmony import */ var _modules_desks_tags_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/desks_tags/index */ "./resources/assets/site/js/store/modules/desks_tags/index.js");
+/* harmony import */ var _modules_cards_tags_index__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/cards_tags/index */ "./resources/assets/site/js/store/modules/cards_tags/index.js");
 
 
 
@@ -23943,7 +23960,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var store = (0,vuex__WEBPACK_IMPORTED_MODULE_10__.createStore)({
+
+var store = (0,vuex__WEBPACK_IMPORTED_MODULE_11__.createStore)({
   modules: {
     Rooms: _modules_rooms_index__WEBPACK_IMPORTED_MODULE_0__["default"],
     Desks: _modules_desks_index__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -23954,7 +23972,8 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_10__.createStore)({
     CheckLists: _modules_check_lists_index__WEBPACK_IMPORTED_MODULE_6__["default"],
     Tasks: _modules_tasks_index__WEBPACK_IMPORTED_MODULE_7__["default"],
     Auth: _modules_auth_index__WEBPACK_IMPORTED_MODULE_8__["default"],
-    DesksTags: _modules_desks_tags_index__WEBPACK_IMPORTED_MODULE_9__["default"]
+    DesksTags: _modules_desks_tags_index__WEBPACK_IMPORTED_MODULE_9__["default"],
+    CardsTags: _modules_cards_tags_index__WEBPACK_IMPORTED_MODULE_10__["default"]
   }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
@@ -24342,6 +24361,108 @@ var state = {
   cardInfo: null,
   cardId: null
 };
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/store/modules/cards_tags/actions.js":
+/*!**********************************************************************!*\
+  !*** ./resources/assets/site/js/store/modules/cards_tags/actions.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "actions": () => (/* binding */ actions)
+/* harmony export */ });
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
+var actions = {
+  addTagToCard: function addTagToCard(_ref, tag) {
+    _objectDestructuringEmpty(_ref);
+
+    axios.post("/api/v1/cards-tags/create", {
+      _method: 'POST',
+      'id_desk_tag': tag.id_desk_tag,
+      'id_card': tag.id_card
+    }).then(function (res) {
+      console.log(123);
+    });
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/store/modules/cards_tags/getters.js":
+/*!**********************************************************************!*\
+  !*** ./resources/assets/site/js/store/modules/cards_tags/getters.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getters": () => (/* binding */ getters)
+/* harmony export */ });
+var getters = {};
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/store/modules/cards_tags/index.js":
+/*!********************************************************************!*\
+  !*** ./resources/assets/site/js/store/modules/cards_tags/index.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./state */ "./resources/assets/site/js/store/modules/cards_tags/state.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mutations */ "./resources/assets/site/js/store/modules/cards_tags/mutations.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actions */ "./resources/assets/site/js/store/modules/cards_tags/actions.js");
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getters */ "./resources/assets/site/js/store/modules/cards_tags/getters.js");
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  state: _state__WEBPACK_IMPORTED_MODULE_0__.state,
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_1__.mutations,
+  actions: _actions__WEBPACK_IMPORTED_MODULE_2__.actions,
+  getters: _getters__WEBPACK_IMPORTED_MODULE_3__.getters
+});
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/store/modules/cards_tags/mutations.js":
+/*!************************************************************************!*\
+  !*** ./resources/assets/site/js/store/modules/cards_tags/mutations.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "mutations": () => (/* binding */ mutations)
+/* harmony export */ });
+var mutations = {};
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/store/modules/cards_tags/state.js":
+/*!********************************************************************!*\
+  !*** ./resources/assets/site/js/store/modules/cards_tags/state.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "state": () => (/* binding */ state)
+/* harmony export */ });
+var state = {};
 
 /***/ }),
 
@@ -24852,10 +24973,10 @@ var actions = {
   },
   updateDeskTags: function updateDeskTags(_ref2, tag) {
     var commit = _ref2.commit;
-    console.log(tag);
     axios.post("/api/v1/desk-tags/".concat(tag.id, "/update"), {
       _method: 'PUT',
       id: tag.id,
+      id_desk: tag.id_desk,
       title: tag.title
     })["catch"](function (e) {
       commit('setErrorMessage', e.response.data.errors.name[0]);

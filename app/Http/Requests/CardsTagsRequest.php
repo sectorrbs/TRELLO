@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DesksTagsRequest extends FormRequest
+class CardsTagsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class DesksTagsRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_desk' => 'required|exists:desks,id',
-            'title' => 'max:50'
+            'id_card' => 'required|exists:cards,id',
+            'id_desk_tag' => 'required|exists:desks_tags,id'
         ];
     }
 }

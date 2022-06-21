@@ -11,9 +11,13 @@
                 <div class="details__actions-tags" v-if="deskTags">
                     <div class="details__actions-tag tag" v-for="deskTag in deskTags" :key="deskTag.id">
                         <div class="tag__wrapper"
+                             :id="deskTag.id"
                              :class="[deskTag.style]"
+                             @click="addTag(deskTag)"
                              :style="{background: deskTag.color}">
+                            <span>
                             {{ deskTag.title }}
+                            </span>
                         </div>
                         <div class="tag__edit" @click.stop="openWindowEditTag(deskTag)">
                             <Fa :type="'r'"
@@ -46,7 +50,7 @@
                        @input="editName"
                        v-model="newTagName" placeholder="Введите название метки">
                 <button class="btn-date details__actions-btn"
-                        @click="updateTagName(tag.id)"
+                        @click="updateTagName(tag)"
                         :class="{disabled}">
                     Обновить
                 </button>
@@ -96,8 +100,14 @@ export default {
         editName() {
             this.disabled = this.newTagName === this.oldTagName;
         },
-        updateTagName(id) {
-            this.$store.dispatch('updateDeskTags', {id, title: this.newTagName})
+        updateTagName(tag) {
+            this.$store.dispatch('updateDeskTags', {id: tag.id, id_desk: tag.id_desk, title: this.newTagName})
+            let tagWrapper = document.getElementById(tag.id)
+            tagWrapper.textContent = this.newTagName
+            this.backModalFirst()
+        },
+        addTag(tag) {
+            this.$store.dispatch('addTagToCard', {id_desk_tag: tag.id, id_card: this.$store.getters.cardInfo.id})
         }
     },
     computed: {

@@ -12,5 +12,6 @@
         require 'components/user.php';
         require 'components/backgrounds-desks.php';
         require 'components/desks-tags.php';
+        require 'components/cards-tags.php';
     });
 
