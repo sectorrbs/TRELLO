@@ -26,6 +26,7 @@ export default {
             }
 
             window.addEventListener('click', e => {
+                console.log(e.target)
                 if (!e.target.classList.contains('desks__settings') &&
                     !e.target.classList.contains('desks__edit') &&
                     !e.target.classList.contains('desks__list-btn') &&
@@ -47,6 +48,9 @@ export default {
                     !e.target.classList.contains('details__window-card-rename') &&
                     !e.target.classList.contains('details__window-checklist-rename') &&
                     !e.target.classList.contains('details__window-checklist-btn') &&
+                    !e.target.classList.contains('details__actions-modal-title') &&
+                    !e.target.classList.contains('details__actions-modal-label') &&
+                    !e.target.classList.contains('details__actions-modal-top') &&
                     !e.target.classList.contains('details__window-checklist-title')
                 ) {
                     clearAll()

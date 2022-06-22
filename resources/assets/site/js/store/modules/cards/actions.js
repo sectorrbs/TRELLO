@@ -34,7 +34,7 @@ export const actions = {
         }).then(res => dispatch('getDeskNotLoader', data.deskList.desk_id))
     },
 
-    updateCardOverdue({commit},data){
+    updateCardOverdue({commit}, data) {
         axios.post(`/api/v1/card/${data.id}/update`, {
             _method: 'PUT',
             name: data.name,

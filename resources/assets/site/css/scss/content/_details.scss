@@ -431,6 +431,39 @@
             gap: 10px;
             margin-top: 30px;
         }
+
+        &-tags {
+            @include flex(center);
+            gap: 5px;
+            margin-top: 5px;
+            position: relative;
+
+            .details__actions-modal {
+                top: 40px;
+                right: 90px;
+            }
+        }
+
+        &-tag {
+            @include flex(center, center);
+            @include font(13px, 600, 15px, rgba($color-white, .9), null);
+            height: 30px;
+            min-width: 40px;
+            border-radius: 5px;
+            padding: 0 7px;
+
+            &.tag--edit {
+                @include transition(.2s);
+                cursor: pointer;
+                background: rgba(107, 107, 107, .1);
+                color: rgba($color, .8);
+                width: 30px;
+
+                &:hover {
+                    background: rgba(107, 107, 107, .2);
+                }
+            }
+        }
     }
 
     &__load {
@@ -552,6 +585,7 @@
             &-back {
                 @include position(absolute, -8px, 50%, null, null);
                 transform: translateY(-50%);
+                cursor: pointer;
             }
 
             &-subtitle {
