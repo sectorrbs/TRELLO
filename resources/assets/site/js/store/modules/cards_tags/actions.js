@@ -4,7 +4,7 @@ export const actions = {
             {_method: 'POST', desk_tag_id: data.id_desk_tag, card_id: data.id_card})
             .then(res => {
                 data.id = data.id_card
-                dispatch('getCardInfoNotLoader', data)
+               // dispatch('getCardInfoNotLoader', data)
             })
     },
     deleteTagToCard({dispatch}, data) {
@@ -12,7 +12,7 @@ export const actions = {
             {_method: 'POST', desk_tag_id: data.id_desk_tag, card_id: data.id_card})
             .then(res => {
                 data.id = data.id_card
-                dispatch('getCardInfoNotLoader', data)
+               // dispatch('getCardInfoNotLoader', data)
             })
     },
 }

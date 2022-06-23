@@ -9,12 +9,12 @@
                     <div class="tag__wrapper"
                          :data-id="deskTag.id"
                          :class="[deskTag.style, isActiveTag(deskTag.id) ? 'active' :'']"
-                         @click.stop.prevent="addTag($event,deskTag)"
+                         @click.stop.prevent="updateTags($event,deskTag)"
                          :style="{background: deskTag.color}">
-                            <span>
+                            <span @click.stop>
                             {{ deskTag.title }}
                             </span>
-                        <div v-if="isActiveTag(deskTag.id)" class="tag__wrapper-check">
+                        <div :style="[isActiveTag(deskTag.id) ? '' : 'display: none']" class="tag__wrapper-check">
                             <Fa :type="'r'"
                                 :name="'check tag__wrapper-check-icon'"/>
                         </div>

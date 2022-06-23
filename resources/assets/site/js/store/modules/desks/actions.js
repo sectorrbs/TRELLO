@@ -75,6 +75,7 @@ export const actions = {
                 name: desk.name,
                 id_backgrounds_desks: desk.id_backgrounds_desks,
                 id: desk.id,
+                is_tag_enlarged: desk.is_tag_enlarged,
                 room_id: desk.room_id
             })
             .catch(e => {

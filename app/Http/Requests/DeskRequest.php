@@ -27,7 +27,8 @@ class DeskRequest extends FormRequest
         return [
             'name' => ['required', new UniqueNameDesks($this->id)],
             'id_backgrounds_desks' => 'required|exists:backgrounds_desks,id',
-            'room_id' => 'required|exists:rooms,id'
+            'room_id' => 'required|exists:rooms,id',
+            'is_tag_enlarged' => ''
         ];
     }
 

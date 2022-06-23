@@ -19,6 +19,7 @@
                 'id' => $this->id,
                 'room_id' => $this->room_id,
                 'name' => $this->name,
+                'is_tag_enlarged' => $this->is_tag_enlarged,
                 'id_backgrounds_desks' => $this->id_backgrounds_desks,
                 'background' => new BackgroundDeskResource(BackgroundDesk::query()->where('id', $this->id_backgrounds_desks)->first()),
                 'lists' => DeskListResource::collection($this->lists->sortBy('num'))
