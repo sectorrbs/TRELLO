@@ -9,13 +9,13 @@ export const tagMixin = {
     }),
     methods: {
         openModal(e) {
-            this.$store.dispatch('getDeskTags', this.$store.getters.desk.id)
+            this.$store.dispatch('getDeskTags', {id_desk: this.$store.getters.desk.id})
             this.actionModal(e)
         },
         openWindowEditTag(deskTag, pos) {
+            this.disabled = true
             this.tag = deskTag
-            this.newTagName = this.oldTagName = deskTag.title
-
+            this.newTagName = this.oldTagName = document.querySelector(`[data-id="${deskTag.id}"] span`).textContent.trim()
             this.getParent(pos)
                 .querySelector('[data-first-modal]').classList.remove('show')
             this.getParent(pos)
@@ -46,16 +46,46 @@ export const tagMixin = {
                 title: this.newTagName,
                 id_card: this.$store.getters.cardInfo.id
             })
-            let tagWrappers = document.querySelectorAll(`[data-id="${tag.id}"]`)
+            document.querySelector(`[data-tag-id="${tag.id}"]`).textContent = this.newTagName
+            let tagWrappers = document.querySelectorAll(`[data-id="${tag.id}"] span`)
             tagWrappers.forEach(tagWrapper => tagWrapper.textContent = this.newTagName)
+            this.$store.dispatch('getDeskNotLoader', tag.id_desk)
             this.backModalFirst(pos)
+        },
+        updateTags(e, tag) {
+            e.target.classList.contains('active')
+                ? this.deleteTag(e, tag)
+                : this.addTag(e, tag)
+            this.$store.dispatch('getDeskNotLoader', tag.id_desk)
+        },
+        deleteTag(e, tag) {
+            let params = {id_desk_tag: tag.id, id_card: this.$store.getters.cardInfo.id}
+            document.querySelector(`[data-tag-id="${tag.id}"]`).remove()
+            document.querySelectorAll(`[data-id="${tag.id}"]`).forEach(el => {
+                el.classList.remove('active')
+                el.querySelector('.tag__wrapper-check').style.display = 'none'
+            })
+            this.$store.dispatch('deleteTagToCard', params)
+            if (!document.querySelectorAll('[data-tag-id]').length) {
+                document.querySelector('.details__window-participants-subtitle').style.display = 'none'
+            }
         },
         addTag(e, tag) {
             let params = {id_desk_tag: tag.id, id_card: this.$store.getters.cardInfo.id}
-            if (e.target.classList.contains('active')) {
-                this.$store.dispatch('deleteTagToCard', params)
+            document.querySelector('.details__window-participants-subtitle').style.display = 'block'
+            if (document.querySelector('.details__window-tag')) {
+                let wrap = document.querySelector('.details__window-wrapper')
+                let html = `<div class="details__window-tag" data-tag-id="${tag.id}" style="background: ${tag.color};">${tag.title || ''}</div>`
+                wrap.insertAdjacentHTML('beforeend', html)
+                document.querySelectorAll(`[data-id="${tag.id}"]`).forEach(el => {
+                    el.classList.add('active')
+                    el.querySelector('.tag__wrapper-check').style.display = 'flex'
+                })
+                this.$store.dispatch('addTagToCard', params)
             } else {
                 this.$store.dispatch('addTagToCard', params)
+                tag.id = this.$store.getters.cardInfo.id
+                this.$store.dispatch('getCardInfoNotLoader', tag)
             }
         },
         getParent(pos) {
@@ -66,7 +96,7 @@ export const tagMixin = {
             }
         },
         isActiveTag(id) {
-            return this.cardTags.find(el => +id === +el.id)
+            return document.querySelector(`[data-tag-id="${id}"]`)
         }
     },
     computed: {

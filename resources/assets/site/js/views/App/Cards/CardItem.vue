@@ -1,10 +1,11 @@
 <template>
-    <div class="desks__cards-item draggable"
+    <div v-if="card" class="desks__cards-item draggable"
          draggable="true"
          :class="{success: successAllTasks || status, overdue: status === 2}"
          :data-card-item="card.id"
          @dragstart="onDragStart($event, card)"
          @click="this.$store.dispatch('openModal', card)">
+        <CardMiniTags v-if="this.card.tags?.length" :tags="card.tags"/>
         {{ card.name }}
         <div class="desks__cards-labels">
             <div :class="{hidden: !term}" class="desks__cards-term">
@@ -20,10 +21,7 @@
                     class="count-notperformed">{{ countAllTasks }}</span>
                 </div>
             </div>
-            <div :class="{hidden: !description}" class="desks__cards-term desks__cards-description">
-                <Fa :type="'r'"
-                    :name="'line-columns icon'"/>
-            </div>
+            <CardMiniDescription :class="{hidden: !description}"  />
         </div>
     </div>
 </template>
@@ -31,10 +29,13 @@
 <script>
 
 import {dateMixin} from "../../../mixins/dateMixin";
+import CardMiniTags from './components/CardMiniTags'
+import CardMiniDescription from './components/CardMiniDescription'
 
 export default {
     name: "CardItem",
     props: ['card'],
+    components: {CardMiniTags, CardMiniDescription},
     computed: {
         countPerformTasks() {
             if (this.card.checkLists) {

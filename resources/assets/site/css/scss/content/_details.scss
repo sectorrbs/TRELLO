@@ -433,7 +433,7 @@
         }
 
         &-tags {
-            @include flex(center);
+            @include flex(flex-start, null, nowrap);
             gap: 5px;
             margin-top: 5px;
             position: relative;
@@ -463,6 +463,11 @@
                     background: rgba(107, 107, 107, .2);
                 }
             }
+        }
+
+        &-wrapper {
+            @include flex(stretch);
+            gap: 5px;
         }
     }
 
@@ -545,10 +550,16 @@
         }
 
         &-tags {
-            @include flex(stretch);
+            @include flex(stretch, null, nowrap);
+            overflow: auto;
             flex-direction: column;
             gap: 5px;
             margin-top: 10px;
+            height: 275px;
+
+            &::-webkit-scrollbar {
+                width: 2px;
+            }
         }
 
         &-modal {

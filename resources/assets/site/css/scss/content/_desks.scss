@@ -476,8 +476,25 @@
         }
 
         &-description {
+            @include transition(.2s);
             padding: 5px 10px !important;
-            margin-left: auto
+            margin-left: auto;
+
+            &-text {
+                display: none;
+            }
+
+            &.enlarged {
+                .desks__cards-description-text {
+                    @include size(auto, 20px);
+                    min-width: 38px;
+                    display: block;
+                }
+            }
+
+            &:hover {
+                background: $color-white;
+            }
         }
 
         &-term {
@@ -544,6 +561,46 @@
 
             &:hover {
                 background: #20a5aebf
+            }
+        }
+
+        &-tags {
+            @include transition(.2s);
+            @include flex(center);
+            gap: 4px;
+            margin-bottom: 15px;
+            background: #ffffffb5;
+            padding: 5px;
+            border-radius: 5px;
+            width: fit-content;
+
+            &.enlarged {
+                .desks__cards-tag {
+                    @include size(auto, 20px);
+                    min-width: 38px;
+
+                    span {
+                        display: block;
+                    }
+                }
+            }
+
+            &:hover {
+                background: $color-white
+            }
+        }
+
+        &-tag {
+            @include flex(center, center);
+            @include font(null, 500, 1, $color-white, null);
+            width: 38px;
+            height: 8px;
+            border-radius: 5px;
+            padding: 0 8px;
+
+            span {
+                transform: translateY(1px);
+                display: none;
             }
         }
 

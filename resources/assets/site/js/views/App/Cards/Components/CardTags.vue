@@ -2,8 +2,14 @@
     <div class="details__window-participants-subtitle">
         Метки
         <div class="details__window-tags" @click.prevent>
-            <div class="details__window-tag" v-for="tag in tags" :key="tag.id" :style="{background: tag.color}">
-                {{ tag.title }}
+            <div class="details__window-wrapper">
+                <div class="details__window-tag"
+                     v-for="tag in tags"
+                     :key="tag.id"
+                     :data-tag-id="tag.id"
+                     :style="{background: tag.color}">
+                    {{ tag.title }}
+                </div>
             </div>
             <div class="details__window-tag tag--edit"
                  @click.stop="openModal">

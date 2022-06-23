@@ -21,6 +21,7 @@ class CreateDesksTagsTable extends Migration
                 ->onDelete('cascade');
             $table->string('title')->nullable();
             $table->string('color');
+            $table->string('style');
             $table->timestamps();
         });
     }
