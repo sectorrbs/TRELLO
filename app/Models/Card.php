@@ -1,32 +1,30 @@
 <?php
 
-    namespace App\Models;
+namespace App\Models;
 
-    use Illuminate\Database\Eloquent\Factories\HasFactory;
-    use Illuminate\Database\Eloquent\Model;
-    use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-    class Card extends Model
+class Card extends Model
+{
+    use HasFactory;
+
+    public $guarded = false;
+
+
+    public function deskList()
     {
-        use HasFactory;
-
-        public $guarded = false;
-
-
-        public function deskList()
-        {
-            return $this->belongsTo(DeskList::class, 'desk_lists_id');
-        }
-
-        public function checkLists()
-        {
-            return $this->hasMany(checkList::class);
-        }
-
-        public function tags()
-        {
-            return $this->belongsToMany(
-                 DeskTag::class, 'cards_tags'
-            );
-        }
+        return $this->belongsTo(DeskList::class, 'desk_lists_id');
     }
+
+    public function checkLists()
+    {
+        return $this->hasMany(checkList::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(CardTag::class, 'desks_tags', 'id', 'id_desk_tag');
+    }
+}

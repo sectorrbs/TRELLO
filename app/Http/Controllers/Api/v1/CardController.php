@@ -14,6 +14,7 @@ class CardController extends Controller
 
     public function getCard(Card $card)
     {
+        dd($card->tags);
         return new CardResource($card);
     }
 

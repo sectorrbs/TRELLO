@@ -4,13 +4,9 @@ export const actions = {
             commit('setDeskTags', res.data.data)
         })
     },
-    updateDeskTags({commit, dispatch}, data) {
-        axios.post(`/api/v1/desk-tags/${data.id}/update`,
-            {_method: 'PUT', id: data.id, id_desk: data.id_desk, title: data.title})
-            .then(res => {
-                data.id = data.id_card
-                dispatch('getCardInfoNotLoader', data)
-            })
+    updateDeskTags({commit}, tag) {
+        axios.post(`/api/v1/desk-tags/${tag.id}/update`,
+            {_method: 'PUT', id: tag.id, id_desk: tag.id_desk, title: tag.title})
             .catch(e => {
                 commit('setErrorMessage', e.response.data.errors.name[0])
             })

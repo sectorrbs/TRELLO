@@ -31,6 +31,10 @@
             z-index: 0;
         }
 
+        span {
+            transform: translateY(1.5px);
+        }
+
         &.dark_green {
             &:hover {
                 background: darken(#61bd4f, 10%) !important;

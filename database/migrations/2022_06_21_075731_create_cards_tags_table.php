@@ -14,11 +14,11 @@ class CreateCardsTagsTable extends Migration
     public function up()
     {
         Schema::create('cards_tags', function (Blueprint $table) {
-            $table->foreignId('card_id')
+            $table->foreignId('id_card')
                 ->references('id')
                 ->on('cards')
                 ->onDelete('cascade');
-            $table->foreignId('desk_tag_id')
+            $table->foreignId('id_desk_tag')
                 ->references('id')
                 ->on('desks_tags')
                 ->onDelete('cascade');
