@@ -2303,7 +2303,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "CardMiniDescription"
+  name: "CardMiniDescription",
+  props: ['description'],
+  methods: {
+    updateViewDescription: function updateViewDescription() {
+      var desk = this.$store.getters.desk;
+      desk.is_descr_enlarged = !desk.is_descr_enlarged;
+      this.$store.dispatch('updateDesk', desk);
+    }
+  },
+  computed: {
+    enlarged: function enlarged() {
+      return this.$store.getters.desk.is_descr_enlarged;
+    }
+  }
 });
 
 /***/ }),
@@ -2944,12 +2957,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )])], 2
   /* CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CardMiniDescription, {
+    description: $options.description,
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
       hidden: !$options.description
     })
   }, null, 8
   /* PROPS */
-  , ["class"])])], 42
+  , ["description", "class"])])], 42
   /* CLASS, PROPS, HYDRATE_EVENTS */
   , _hoisted_1)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
 }
@@ -3055,20 +3069,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "desks__cards-term desks__cards-description"
-};
-var _hoisted_2 = {
   "class": "desks__cards-description-text"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["desks__cards-term desks__cards-description", [$options.enlarged ? 'enlarged' : '']]),
+    onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return $options.updateViewDescription && $options.updateViewDescription.apply($options, arguments);
+    }, ["prevent", "stop"]))
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'r',
     name: 'line-columns icon'
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.description), 1
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.description), 1
   /* TEXT */
-  )]);
+  )])], 2
+  /* CLASS */
+  );
 }
 
 /***/ }),

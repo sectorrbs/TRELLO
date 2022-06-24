@@ -10,10 +10,11 @@ import Tasks from './modules/tasks/index'
 import Auth from './modules/auth/index'
 import DesksTags from './modules/desks_tags/index'
 import CardsTags from './modules/cards_tags/index'
+import CardsAttachments from './modules/cards_attachments/index'
 
 const store = createStore({
     modules: {
-        Rooms, Desks, Error, Common, Lists, Cards, CheckLists, Tasks, Auth, DesksTags, CardsTags
+        Rooms, Desks, Error, Common, Lists, Cards, CheckLists, Tasks, Auth, DesksTags, CardsTags, CardsAttachments
     }
 })
 

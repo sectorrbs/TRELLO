@@ -21,6 +21,7 @@ class CreateDesksTable extends Migration
                 ->onDelete('cascade');
             $table->string('name');
             $table->boolean('is_tag_enlarged')->default(false);
+            $table->boolean('is_descr_enlarged')->default(false);
             $table->foreignId('id_backgrounds_desks')
                 ->references('id')
                 ->on('backgrounds_desks');

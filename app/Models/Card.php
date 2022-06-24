@@ -23,6 +23,11 @@
             return $this->hasMany(checkList::class);
         }
 
+        public function attachments()
+        {
+            return $this->hasMany(CardAttachment::class);
+        }
+
         public function tags()
         {
             return $this->belongsToMany(

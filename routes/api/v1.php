@@ -13,5 +13,6 @@
         require 'components/backgrounds-desks.php';
         require 'components/desks-tags.php';
         require 'components/cards-tags.php';
+        require 'components/cards_attachments.php';
     });
 

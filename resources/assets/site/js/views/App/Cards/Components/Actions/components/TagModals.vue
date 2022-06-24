@@ -49,7 +49,7 @@
                    class="form-input details__actions-input"
                    @input="editName"
                    v-model="newTagName" placeholder="Введите название метки">
-            <button class="btn-date details__actions-btn"
+            <button class="details__actions-btn tag__btn"
                     @click.stop="updateTagName(tag,pos)"
                     :class="{disabled}">
                 Обновить

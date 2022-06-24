@@ -21,7 +21,7 @@
                     class="count-notperformed">{{ countAllTasks }}</span>
                 </div>
             </div>
-            <CardMiniDescription :class="{hidden: !description}"  />
+            <CardMiniDescription :description="description" :class="{hidden: !description}"  />
         </div>
     </div>
 </template>
