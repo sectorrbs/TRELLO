@@ -23,6 +23,7 @@ class CardResource extends JsonResource
             'status' => $this->status,
             'deskList' => $this->deskList,
             'tags' => CardTagsResource::collection($this->tags),
+            'attachments' => CardAttachmentResource::collection($this->attachments),
             'checkLists' => CheckListResource::collection($this->checkLists),
         ];
     }

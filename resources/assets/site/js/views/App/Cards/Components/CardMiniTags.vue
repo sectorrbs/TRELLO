@@ -9,7 +9,6 @@
             <span>
                 {{ tag.title }}
             </span>
-
         </div>
     </div>
 </template>

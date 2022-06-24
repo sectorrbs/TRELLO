@@ -1,0 +1,96 @@
+.attachment {
+    &__items {
+        @include flex(stretch);
+        flex-direction: column;
+        margin: 10px -10px;
+    }
+
+    &__item {
+        width: 100%;
+        padding: 10px;
+
+        &:hover {
+            background: rgba(107, 107, 107, .1)
+        }
+    }
+
+    &__input {
+        margin: 0 0 10px;
+
+        &:focus {
+            border: 1px solid $color-blue-lite;
+        }
+    }
+
+    &__btn {
+        background: $color-blue-lite;
+        color: $color-white;
+        font-weight: 500;
+        justify-content: center;
+
+        &:hover {
+            background: $color-blue;
+        }
+    }
+
+    &__link {
+        border-top: 1px solid rgba(107, 107, 107, .3);
+    }
+
+    &__sections {
+        @include flex(stretch);
+        flex-direction: column;
+        gap: 20px;
+        padding-left: 35px;
+        margin-top: 10px;
+    }
+
+    &__section {
+        @include flex(null, null, nowrap);
+        gap: 10px;
+        padding: 5px;
+        cursor: pointer;
+
+        &-left {
+            @include size(115px, 80px);
+            background: rgba(107, 107, 107, .1)
+        }
+
+        &-right {
+            @include flex(stretch, null, nowrap);
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        &-img {
+            @include size(100%, 100%);
+        }
+
+        &-actions {
+            @include flex(flex-end);
+            gap: 5px;
+            height: 100%;
+        }
+
+        &-link {
+            @include font(15px, 300, 1, $color, null);
+        }
+
+        &-date {
+            @include font(15px, null, 1, null, null);
+        }
+
+        &-title {
+            @include font(15px, 700, 1, null, null);
+        }
+
+        &:hover {
+            background: rgba($color-gray, .1);
+        }
+
+    }
+
+    .details__actions-modal {
+        top: 40px;
+    }
+}

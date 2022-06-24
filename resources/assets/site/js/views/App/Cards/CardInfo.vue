@@ -25,6 +25,7 @@
                 <CardTags v-if="cardInfo.tags.length" :tags="cardInfo.tags"/>
                 <CardTerms v-if="cardInfo.term" :card="cardInfo"/>
                 <CardParticipants/>
+                <CardAttachments v-if="cardInfo.attachments.length" :attachments="cardInfo.attachments"/>
                 <CardDescription :card="cardInfo"/>
                 <CheckLists v-if="cardInfo.checkLists.length" :checkLists="cardInfo.checkLists"/>
                 <CardComment/>
@@ -43,6 +44,7 @@ import CardParticipants from './Components/CardParticipants'
 import CardRenameField from './Components/CardRenameField'
 import CardDescription from './Components/CardDescription'
 import CardComment from './Components/CardComment'
+import CardAttachments from './Components/CardAttachments'
 import CardActions from './Components/CardActions'
 import CardTerms from './Components/CardTerms'
 import CardTags from './Components/CardTags'
@@ -87,7 +89,8 @@ export default {
         CheckLists,
         CardRenameField,
         CardTerms,
-        CardTags
+        CardTags,
+        CardAttachments
     },
     computed: {
         ...mapGetters(['modalLoad']),

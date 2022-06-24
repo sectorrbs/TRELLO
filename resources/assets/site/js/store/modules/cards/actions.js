@@ -3,7 +3,6 @@ import axios from "axios";
 
 export const actions = {
     addCard({commit, dispatch}, data) {
-
         axios.post(`/api/v1/card/create`, {
             _method: 'POST',
             name: data.name,

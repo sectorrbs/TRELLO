@@ -7,7 +7,7 @@
             <div class="details__actions-modal-title">
                 <slot name="modal_title"></slot>
             </div>
-            <div class="details__actions-modal-close">
+            <div class="details__actions-modal-close" @click="showModalDelete">
                 <Fa :type="'l'"
                     :name="'times'"/>
             </div>
