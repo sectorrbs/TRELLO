@@ -5,23 +5,13 @@
          :data-card-item="card.id"
          @dragstart="onDragStart($event, card)"
          @click="this.$store.dispatch('openModal', card)">
+        <CardCover v-if="cover" :cover="cover.image"/>
         <CardMiniTags v-if="this.card.tags?.length" :tags="card.tags"/>
         {{ card.name }}
         <div class="desks__cards-labels">
-            <div :class="{hidden: !term}" class="desks__cards-term">
-                <Fa :type="'r'"
-                    :name="'clock icon'"/>
-                <span>{{ term }}</span>
-            </div>
-            <div :class="{hidden: !countAllTasks}" class="desks__cards-term desks__cards-count-tasks">
-                <Fa :type="'r'"
-                    :name="'check-square icon'"/>
-                <div class="count">
-                    <span class="count-performed">{{ countPerformTasks }}</span>/<span
-                    class="count-notperformed">{{ countAllTasks }}</span>
-                </div>
-            </div>
-            <CardMiniDescription :description="description" :class="{hidden: !description}"  />
+            <CardMiniTerms :term="term"/>
+            <CardCountTasks :countPerformTasks="countPerformTasks" :countAllTasks="countAllTasks"/>
+            <CardMiniDescription :description="description" :class="{hidden: !description}"/>
         </div>
     </div>
 </template>
@@ -30,13 +20,23 @@
 
 import {dateMixin} from "../../../mixins/dateMixin";
 import CardMiniTags from './components/CardMiniTags'
+import CardMiniTerms from './components/CardMiniTerms'
+import CardCountTasks from './components/CardCountTasks'
+import CardCover from './components/CardCover'
 import CardMiniDescription from './components/CardMiniDescription'
 
 export default {
     name: "CardItem",
     props: ['card'],
-    components: {CardMiniTags, CardMiniDescription},
+    components: {CardMiniTags, CardMiniDescription, CardMiniTerms, CardCountTasks, CardCover},
     computed: {
+        cover() {
+            let attachment = this.card.attachments || 0
+            if (attachment) {
+                return attachment.find(el => el.type === 'image' && el.cover)
+            }
+            return 0
+        },
         countPerformTasks() {
             if (this.card.checkLists) {
                 let count = 0

@@ -28,6 +28,7 @@ class CardAttachmentRequest extends FormRequest
             'type' => 'required',
             'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'link' => '',
+            'cover' => '',
         ];
     }
 }

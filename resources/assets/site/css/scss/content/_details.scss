@@ -469,6 +469,11 @@
             @include flex(stretch);
             gap: 5px;
         }
+
+        &-cover {
+            height: 250px;
+            background: #6b6b6b33;
+        }
     }
 
     &__load {

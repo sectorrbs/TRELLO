@@ -1,5 +1,10 @@
 <template>
     <div v-if="cardInfo" class="details__window" ref="cardInfo">
+        <div v-if="cover" class="details__window-cover">
+            <img class="attachment__section-img"
+                 :src="'/storage/cards_images/'+ cover.image"
+                 :alt="cover.image">
+        </div>
         <div class="details__window-top">
             <div class="details__window-content">
                 <div class="details__window-inner">
@@ -25,8 +30,9 @@
                 <CardTags v-if="cardInfo.tags.length" :tags="cardInfo.tags"/>
                 <CardTerms v-if="cardInfo.term" :card="cardInfo"/>
                 <CardParticipants/>
-                <CardAttachments v-if="cardInfo.attachments.length" :attachments="cardInfo.attachments"/>
                 <CardDescription :card="cardInfo"/>
+                <CardAttachmentsLoading v-if="attachmentLoad"/>
+                <CardAttachments v-if="cardInfo.attachments.length" :attachments="cardInfo.attachments"/>
                 <CheckLists v-if="cardInfo.checkLists.length" :checkLists="cardInfo.checkLists"/>
                 <CardComment/>
             </div>
@@ -45,6 +51,7 @@ import CardRenameField from './Components/CardRenameField'
 import CardDescription from './Components/CardDescription'
 import CardComment from './Components/CardComment'
 import CardAttachments from './Components/CardAttachments'
+import CardAttachmentsLoading from './Components/CardAttachmentsLoading'
 import CardActions from './Components/CardActions'
 import CardTerms from './Components/CardTerms'
 import CardTags from './Components/CardTags'
@@ -90,10 +97,18 @@ export default {
         CardRenameField,
         CardTerms,
         CardTags,
-        CardAttachments
+        CardAttachments,
+        CardAttachmentsLoading
     },
     computed: {
-        ...mapGetters(['modalLoad']),
+        ...mapGetters(['modalLoad', 'attachmentLoad']),
+        cover() {
+            let attachment = this.cardInfo.attachments || 0
+            if (attachment) {
+                return attachment.find(el => el.type === 'image' && el.cover)
+            }
+            return 0
+        }
     }
 }
 </script>

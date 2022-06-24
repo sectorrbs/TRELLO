@@ -19,7 +19,6 @@
                                    ref="upload"
                                    style="display:none">
                         </div>
-                        <img v-if="readyToUpload" class="films__view-img" :src="formData.fileData" alt="img">
                     </div>
                     <div class="attachment__link">
                         <div class="details__actions-modal-subtitle">
@@ -65,15 +64,11 @@ export default {
                 card_id: this.$store.getters.cardInfo.id,
                 type: 'image',
                 image: file,
-                link: null
+                link: null,
+                cover: false
             })
             this.img = file
         },
     },
-    computed: {
-        readyToUpload() {
-            return this.formData.fileName && this.formData.fileData
-        }
-    }
 }
 </script>

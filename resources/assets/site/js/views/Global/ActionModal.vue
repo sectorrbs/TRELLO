@@ -22,6 +22,7 @@ export default {
     props: ['show'],
     methods: {
         showModalDelete() {
+            this.$closed()
             let cardModalDelete = this.$refs.cardModal
             if (cardModalDelete.classList.contains('show')) {
                 cardModalDelete.classList.remove('show')

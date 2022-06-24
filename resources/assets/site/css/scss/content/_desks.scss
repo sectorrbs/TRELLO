@@ -328,12 +328,11 @@
         }
 
         &-wrapper {
-            @include flex;
+            @include flex(null, null, nowrap);
             @include transition(.2s);
             min-width: 300px;
-            max-height: 700px;
+            //max-height: 700px;
             flex-direction: column;
-            //border: 1px solid rgba(gray, .4);
             background: $color-white;
             text-decoration: none;
             position: relative;
@@ -630,6 +629,20 @@
 
             &.hidden {
                 display: none;
+            }
+        }
+
+        &-cover {
+            height: 150px;
+            background: #ffffffb5;
+            padding: 5px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+
+            &-img {
+                @include size(100%, 100%);
+                display: block;
+                object-fit: cover;
             }
         }
 

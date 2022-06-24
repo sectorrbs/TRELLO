@@ -48,8 +48,10 @@
     &__section {
         @include flex(null, null, nowrap);
         gap: 10px;
+        margin: 0 -5px;
         padding: 5px;
         cursor: pointer;
+        position: relative;
 
         &-left {
             @include size(115px, 80px);
@@ -64,16 +66,34 @@
 
         &-img {
             @include size(100%, 100%);
+            object-fit: contain;
         }
 
         &-actions {
-            @include flex(flex-end);
-            gap: 5px;
+            @include transition(.2s);
+            @include position(absolute, null, 0, 15px, null);
+            @include flex(center, center);
+            flex-direction: column;
+            gap: 7px;
             height: 100%;
+            opacity: 0;
+            visibility: hidden;
         }
 
         &-link {
-            @include font(15px, 300, 1, $color, null);
+            @include font(18px, 300, 1, $color, null);
+            @include flex(center, center);
+            text-decoration: none;
+
+            &.delete {
+                &:hover {
+                    color: rgba(219, 5, 61, .3)
+                }
+            }
+
+            &:hover {
+                color: $color-blue-lite;
+            }
         }
 
         &-date {
@@ -84,13 +104,104 @@
             @include font(15px, 700, 1, null, null);
         }
 
+        &-loading {
+            @include font(17px, 500, 1, $color-gray, null);
+            @include size(100%, 80px);
+            background: rgba($color-gray, .1);
+            @include flex(center, center);
+            gap: 10px;
+
+            &-icon {
+                @include transition;
+                @include font(20px, null, 1, $color-gray, null);
+                animation: upper 1s infinite linear;
+            }
+        }
+
+        &-cover {
+            @include font(13px, 500, 1, $color-white, null);
+            @include flex(center, center);
+            gap: 7px;
+            margin-top: auto;
+            width: max-content;
+
+            &-icon {
+                @include font(30px, null, 1, $color-white, null);
+                animation: move 1s infinite linear;
+            }
+
+            &-loading {
+                @include transition(.2s);
+                @include position(absolute, 0, 0, null, null);
+                @include size(100%, 100%);
+                @include flex(center, center);
+                opacity: 0;
+                visibility: hidden;
+                background: #6b6b6b80;
+            }
+
+            .cover-add {
+                @include flex(stretch);
+                gap: 7px;
+                padding: 5px 10px;
+                background: $color-blue-lite;
+
+                &.hidden {
+                    display: none;
+                }
+
+                &:hover {
+                    background: $color-blue;
+                }
+            }
+
+            .cover-delete {
+                display: none;
+                padding: 5px 10px;
+                background: rgba(219, 5, 61, .3);
+
+                &.active {
+                    @include flex(stretch);
+                    gap: 7px;
+                }
+
+                &:hover {
+                    background: rgba(219, 5, 61, .4);
+                }
+            }
+        }
+
+        &.show {
+            .attachment__section-cover-loading {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
         &:hover {
             background: rgba($color-gray, .1);
+
+            .attachment__section-actions {
+                opacity: 1;
+                visibility: visible;
+            }
         }
 
     }
 
     .details__actions-modal {
         top: 40px;
+    }
+}
+
+@keyframes upper {
+    0% {
+        transform: translateY(-10px);
+    }
+    50% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(10px);
     }
 }
