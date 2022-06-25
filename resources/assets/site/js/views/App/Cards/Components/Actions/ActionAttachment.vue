@@ -24,9 +24,16 @@
                         <div class="details__actions-modal-subtitle">
                             Введите ссылку
                         </div>
-                        <input type="text" class="details__actions-modal-input attachment__input"
+                        <input type="text"
+                               @input="changeLinkName"
+                               v-model="link"
+                               class="details__actions-modal-input attachment__input"
                                placeholder="Ввести любую ссылку...">
-                        <button class="attachment__btn details__actions-btn">Прикрепить</button>
+                        <button @click="addLink"
+                                :class="{disabled}"
+                                class="attachment__btn details__actions-btn">
+                            Прикрепить ссылку
+                        </button>
                     </div>
                 </div>
             </template>
@@ -39,6 +46,8 @@ export default {
     name: "ActionAttachment",
     data: () => ({
         show: false,
+        disabled: true,
+        link: null,
         img: null,
         formData: {
             fileName: null,
@@ -64,11 +73,22 @@ export default {
                 card_id: this.$store.getters.cardInfo.id,
                 type: 'image',
                 image: file,
-                link: null,
-                cover: false
+                image_name: file.name,
+                desk_id: this.$store.getters.desk.id,
             })
             this.img = file
         },
+        changeLinkName(e) {
+            this.disabled = !e.target.value;
+        },
+        addLink() {
+            this.$store.dispatch('addCardAttachmentLink', {
+                card_id: this.$store.getters.cardInfo.id,
+                type: 'link',
+                link: this.link,
+                desk_id: this.$store.getters.desk.id,
+            })
+        }
     },
 }
 </script>

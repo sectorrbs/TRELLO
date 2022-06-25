@@ -27,7 +27,8 @@ class CardAttachmentRequest extends FormRequest
             'card_id' => 'required|exists:cards,id',
             'type' => 'required',
             'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-            'link' => '',
+            'link' => 'max:255',
+            'image_name' => '',
             'cover' => '',
         ];
     }

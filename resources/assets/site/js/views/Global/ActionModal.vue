@@ -1,5 +1,5 @@
 <template>
-    <div class="details__actions-modal" ref="cardModal">
+    <div @click.stop class="details__actions-modal" ref="cardModal">
         <div class="details__actions-modal-top">
             <div class="details__actions-modal-back">
                 <slot name="modal_back"></slot>
@@ -22,7 +22,6 @@ export default {
     props: ['show'],
     methods: {
         showModalDelete() {
-            this.$closed()
             let cardModalDelete = this.$refs.cardModal
             if (cardModalDelete.classList.contains('show')) {
                 cardModalDelete.classList.remove('show')

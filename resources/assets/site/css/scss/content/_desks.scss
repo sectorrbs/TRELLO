@@ -467,7 +467,7 @@
 
         &-labels {
             @include flex(stretch);
-            gap: 0 10px;
+            gap: 0 5px;
 
             &.hidden {
                 display: none;
@@ -516,7 +516,7 @@
             margin-top: 5px;
 
             span {
-                transform: translateY(1px);
+                transform: translateY(2px);
             }
 
             .icon {

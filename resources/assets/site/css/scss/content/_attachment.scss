@@ -38,11 +38,19 @@
     }
 
     &__sections {
-        @include flex(stretch);
+        @include flex(stretch, null, nowrap);
         flex-direction: column;
         gap: 20px;
         padding-left: 35px;
         margin-top: 10px;
+        max-height: 435px;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 2px;
+            background: $color-blue-lite;
+        }
     }
 
     &__section {
@@ -53,15 +61,75 @@
         cursor: pointer;
         position: relative;
 
+        &-rename {
+            @include flex(center, null, nowrap);
+            @include size(85%,25px);
+
+            &.hidden {
+                display: none;
+            }
+        }
+
+        &-input {
+            @include size(100%,100%);
+            @include font(13px);
+            padding: 0 5px;
+
+            &::placeholder {
+                @include font(13px, null, 15px, rgba($color-gray, .8), null);
+                font-size: 13px;
+            }
+        }
+
+        &-btns {
+            @include flex(center,null, nowrap);
+            transform: translateY(1px);
+        }
+
+        &-btn {
+            @include size(25px, 25px);
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+
+            &.red {
+                background: rgba($color-red, .2);
+
+                &:hover {
+                    background: rgba($color-red, .3);
+                }
+            }
+
+            &.green {
+                background: rgba($color-green-lite, .3);
+
+                &.disabled {
+                    pointer-events: none;
+                    background: rgba($color-green-lite, .05);
+                }
+
+                &:hover {
+                    background: rgba($color-green-lite, .4);
+                }
+            }
+        }
+
+        &-bg {
+            @include flex(center, center);
+            @include font(25px, 500, 1, null, null);
+        }
+
         &-left {
             @include size(115px, 80px);
-            background: rgba(107, 107, 107, .1)
+            background: rgba(107, 107, 107, .1);
+            flex-shrink: 0;
         }
 
         &-right {
             @include flex(stretch, null, nowrap);
             flex-direction: column;
             gap: 5px;
+            width: 100%;
         }
 
         &-img {
@@ -84,6 +152,12 @@
             @include font(18px, 300, 1, $color, null);
             @include flex(center, center);
             text-decoration: none;
+            position: relative;
+
+            .details__actions-modal {
+                color: $color !important;
+                top: -140px;
+            }
 
             &.delete {
                 &:hover {
@@ -101,7 +175,17 @@
         }
 
         &-title {
-            @include font(15px, 700, 1, null, null);
+            @include font(15px, 700, 1, $color, null);
+
+            .link {
+                @include flex(center);
+                gap: 5px;
+                color: $color;
+            }
+
+            &.hidden {
+                display: none;
+            }
         }
 
         &-loading {

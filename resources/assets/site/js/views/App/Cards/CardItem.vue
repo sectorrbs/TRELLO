@@ -11,6 +11,7 @@
         <div class="desks__cards-labels">
             <CardMiniTerms :term="term"/>
             <CardCountTasks :countPerformTasks="countPerformTasks" :countAllTasks="countAllTasks"/>
+            <CardMiniAttachments :attachments="attachments" countPerformTasks="countPerformTasks" :countAllTasks="countAllTasks"/>
             <CardMiniDescription :description="description" :class="{hidden: !description}"/>
         </div>
     </div>
@@ -21,6 +22,7 @@
 import {dateMixin} from "../../../mixins/dateMixin";
 import CardMiniTags from './components/CardMiniTags'
 import CardMiniTerms from './components/CardMiniTerms'
+import CardMiniAttachments from './components/CardMiniAttachments'
 import CardCountTasks from './components/CardCountTasks'
 import CardCover from './components/CardCover'
 import CardMiniDescription from './components/CardMiniDescription'
@@ -28,7 +30,7 @@ import CardMiniDescription from './components/CardMiniDescription'
 export default {
     name: "CardItem",
     props: ['card'],
-    components: {CardMiniTags, CardMiniDescription, CardMiniTerms, CardCountTasks, CardCover},
+    components: {CardMiniTags, CardMiniDescription, CardMiniTerms, CardCountTasks, CardCover, CardMiniAttachments},
     computed: {
         cover() {
             let attachment = this.card.attachments || 0
@@ -36,6 +38,9 @@ export default {
                 return attachment.find(el => el.type === 'image' && el.cover)
             }
             return 0
+        },
+        attachments(){
+            return this.card.attachments;
         },
         countPerformTasks() {
             if (this.card.checkLists) {

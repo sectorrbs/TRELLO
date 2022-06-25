@@ -2,7 +2,7 @@
     <div v-if="cardInfo" class="details__window" ref="cardInfo">
         <div v-if="cover" class="details__window-cover">
             <img class="attachment__section-img"
-                 :src="'/storage/cards_images/'+ cover.image"
+                 :src="'/storage/cards_images/thumb_700_250/'+ cover.image"
                  :alt="cover.image">
         </div>
         <div class="details__window-top">
@@ -51,7 +51,7 @@ import CardRenameField from './Components/CardRenameField'
 import CardDescription from './Components/CardDescription'
 import CardComment from './Components/CardComment'
 import CardAttachments from './Components/CardAttachments'
-import CardAttachmentsLoading from './Components/CardAttachmentsLoading'
+import CardAttachmentsLoading from './Components/AttachmentsComponents/CardAttachmentsLoading'
 import CardActions from './Components/CardActions'
 import CardTerms from './Components/CardTerms'
 import CardTags from './Components/CardTags'

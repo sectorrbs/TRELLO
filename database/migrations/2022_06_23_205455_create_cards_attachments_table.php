@@ -22,6 +22,7 @@
                 $table->string('type');
                 $table->string('image')->nullable();
                 $table->string('link')->nullable();
+                $table->string('image_name')->nullable();
                 $table->boolean('cover')->default(false);
                 $table->timestamps();
             });

@@ -27,8 +27,8 @@ export const tagMixin = {
 
         },
         closeWindowEditTag(e) {
-            this.firstModal.classList.remove('show')
-            this.secondModal.classList.remove('show')
+            document.querySelectorAll('.details__actions-modal')
+                .forEach(el => el.classList.remove('show'))
         },
         backModalFirst(pos) {
             this.getParent(pos)
@@ -46,8 +46,14 @@ export const tagMixin = {
                 title: this.newTagName,
                 id_card: this.$store.getters.cardInfo.id
             })
-            document.querySelector(`[data-tag-id="${tag.id}"]`).textContent = this.newTagName
-            let tagWrappers = document.querySelectorAll(`[data-id="${tag.id}"] span`)
+
+            let visibleTag = document.querySelector(`[data-tag-id="${tag.id}"]`),
+                tagWrappers = document.querySelectorAll(`[data-id="${tag.id}"] span`)
+
+            if (visibleTag) {
+                visibleTag.textContent = this.newTagName
+            }
+
             tagWrappers.forEach(tagWrapper => tagWrapper.textContent = this.newTagName)
             this.$store.dispatch('getDeskNotLoader', tag.id_desk)
             this.backModalFirst(pos)

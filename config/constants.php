@@ -17,6 +17,15 @@ defined('PATH_SITE') or define('PATH_SITE', 'assets/site');
 
 defined('ACCESS_ADMIN') or define('ACCESS_ADMIN', 'admin');
 defined('ACCESS_USER') or define('ACCESS_USER', 'user');
+
+
+defined('CARD_IMAGES_THUMBNAILS') or define('CARD_IMAGES_THUMBNAILS',
+    [
+        ['thumb_width' => 115, 'thumb_height' => 80],
+        ['thumb_width' => 250, 'thumb_height' => 140],
+        ['thumb_width' => 700, 'thumb_height' => 250],
+    ]);
+
 /*
 |--------------------------------------------------------------------------
 | ADMIN-PANEL constants
