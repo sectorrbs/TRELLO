@@ -1,5 +1,10 @@
 <template>
     <div v-if="card" class="desks__cards-item draggable"
+         :style="  {
+                     background: card.id_backgrounds_cards
+                         ? `url('/storage/backgrounds_cards/thumb_280_36/${getCardBg(card.id_backgrounds_cards)}')`
+                         : '#0cc7d4bf'
+                          }"
          draggable="true"
          :class="{success: successAllTasks || status, overdue: status === 2}"
          :data-card-item="card.id"
@@ -11,7 +16,8 @@
         <div class="desks__cards-labels">
             <CardMiniTerms :term="term"/>
             <CardCountTasks :countPerformTasks="countPerformTasks" :countAllTasks="countAllTasks"/>
-            <CardMiniAttachments :attachments="attachments" countPerformTasks="countPerformTasks" :countAllTasks="countAllTasks"/>
+            <CardMiniAttachments :attachments="attachments" countPerformTasks="countPerformTasks"
+                                 :countAllTasks="countAllTasks"/>
             <CardMiniDescription :description="description" :class="{hidden: !description}"/>
         </div>
     </div>
@@ -39,7 +45,7 @@ export default {
             }
             return 0
         },
-        attachments(){
+        attachments() {
             return this.card.attachments;
         },
         countPerformTasks() {
@@ -88,9 +94,17 @@ export default {
         },
         successAllTasks() {
             return this.countPerformTasks === this.countAllTasks && this.countAllTasks > 0
-        }
+        },
     },
+
     methods: {
+        getCardBg(id) {
+            let bgs = this.$store.getters.backgrounds_cards
+            if (bgs) {
+                let a = this.$store.getters.backgrounds_cards.find(el => +el.id === +id)
+                return a.image
+            }
+        },
         onDragStart(e, card) {
             e.dataTransfer.dropEffect = 'move'
             e.dataTransfer.effectAllowed = 'move'
@@ -103,6 +117,7 @@ export default {
             e.dataTransfer.setData('description', JSON.stringify(card.description))
             e.dataTransfer.setData('term', JSON.stringify(card.term))
             e.dataTransfer.setData('status', JSON.stringify(card.status))
+            e.dataTransfer.setData('id_backgrounds_cards', JSON.stringify(card.id_backgrounds_cards))
         },
     },
     mixins: [dateMixin],

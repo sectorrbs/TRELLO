@@ -102,6 +102,7 @@ export default {
                 let description = e.dataTransfer.getData('description')
                 let term = e.dataTransfer.getData('term')
                 let status = e.dataTransfer.getData('status')
+                let id_backgrounds_cards = e.dataTransfer.getData('id_backgrounds_cards')
 
                 const newPositionCard = {
                     id,
@@ -110,16 +111,18 @@ export default {
                     num,
                     status,
                     description: JSON.parse(description),
+                    id_backgrounds_cards: JSON.parse(id_backgrounds_cards),
                     term: JSON.parse(term),
                     deskList: JSON.parse(deskList),
                     checkLists: JSON.parse(checkLists)
                 }
-                this.$store.dispatch('updateCard', newPositionCard)
-                this.$store.dispatch('updateSuccessionCards', {
-                    desk_id: this.$store.getters.desk.id,
-                    succession: this.getSuccessionCards(listId)
-                })
-                // this.$store.dispatch('getDeskNotLoader', this.list.desk_id)
+                setTimeout(() => {
+                    this.$store.dispatch('updateCard', newPositionCard)
+                    this.$store.dispatch('updateSuccessionCards', {
+                        desk_id: this.$store.getters.desk.id,
+                        succession: this.getSuccessionCards(listId)
+                    })
+                }, 50)
             } else {
                 this.$store.dispatch('updateSuccessionLists', {
                     desk_id: this.$store.getters.desk.id,

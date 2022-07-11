@@ -48,6 +48,7 @@ export default {
     components: {DeskList, DeskListCreateNewList, draggable},
     mounted() {
         this.getDesk(this.$route.params.id)
+        this.$store.dispatch('getBackgroundsCards')
     },
     methods: {
         ...mapActions(['getDesks', 'getDesk', 'updateDesk']),

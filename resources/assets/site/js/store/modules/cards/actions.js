@@ -22,7 +22,6 @@ export const actions = {
     },
 
     updateCard({commit, dispatch}, data) {
-
         axios.post(`/api/v1/card/${data.id}/update`, {
             _method: 'PUT',
             name: data.name,

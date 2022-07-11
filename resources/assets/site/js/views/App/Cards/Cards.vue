@@ -38,7 +38,8 @@ import draggable from 'vuedraggable'
 export default {
     name: "Cards",
     data: () => ({
-        empty: 'Карточек нет'
+        empty: 'Карточек нет' ,
+        backgroundsCards: null,
     }),
     props: ['cards'],
     components: {CardItem, draggable},

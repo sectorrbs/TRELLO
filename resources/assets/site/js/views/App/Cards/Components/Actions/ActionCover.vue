@@ -27,6 +27,7 @@
                           }"/>
                 </swiper>
                 <div class="attachment__btn details__actions-btn"
+                     @click="updateBackgroundCard"
                      :class="{disabled}">
                     Сменить обложку
                 </div>
@@ -81,17 +82,15 @@ export default {
         changeBgId(id) {
             if (id !== this.card.id_backgrounds_cards) {
                 this.disabled = false
-                console.log( this.disabled)
                 this.idBg = id
             } else {
                 this.disabled = true
             }
         },
-        updateBackgroundDesk() {
-            this.desk.id_backgrounds_cards = this.idBg
-            this.$store.dispatch('updateDesk', this.desk)
-            this.$store.dispatch('getRoomsNotLoader')
-            this.$closed()
+        updateBackgroundCard() {
+            this.card.id_backgrounds_cards = this.idBg
+            this.$store.dispatch('updateCard', this.card)
+            this.disabled = true
         },
     },
     computed: {
