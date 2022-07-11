@@ -51,6 +51,9 @@ export default {
                     !e.target.classList.contains('details__actions-modal-label') &&
                     !e.target.classList.contains('details__actions-modal-top') &&
                     !e.target.classList.contains('details__actions-input') &&
+                    !e.target.classList.contains('attachment__section-input') &&
+                    !e.target.classList.contains('details__window-icon') &&
+                    !e.target.classList.contains('attachment__section-btns') &&
                     !e.target.classList.contains('details__window-checklist-title')
                 ) {
                     clearAll()
@@ -89,6 +92,8 @@ export default {
                     .forEach(el => el.classList.remove('show'))
                 document.querySelectorAll('.settings__item-btn')
                     .forEach(el => el.classList.add('show'))
+                document.querySelectorAll('.attachment__section-right')
+                    .forEach(el => el.classList.remove('rename'))
             }
 
             function clearDeskLists() {

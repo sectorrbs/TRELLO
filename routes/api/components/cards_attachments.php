@@ -8,3 +8,4 @@
     Route::get('cards_attachments/{attachment}/add-cover', [CardsAttachmentsController::class, 'addCardAttachmentCover']);
     Route::get('cards_attachments/{attachment}/delete-cover', [CardsAttachmentsController::class, 'deleteCardAttachmentCover']);
     Route::get('cards_attachments/{attachment}/delete', [CardsAttachmentsController::class, 'deleteCardAttachment']);
+    Route::post('cards_attachments/{attachment}/update', [CardsAttachmentsController::class, 'updateCardAttachment']);

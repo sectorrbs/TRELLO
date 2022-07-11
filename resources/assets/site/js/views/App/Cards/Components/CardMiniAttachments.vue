@@ -1,5 +1,5 @@
 <template>
-    <div :class="{hidden: !attachments.length}" class="desks__cards-term">
+    <div v-if="attachments" :class="{hidden: !attachments.length}" class="desks__cards-term">
         <Fa :type="'r'"
             :name="'paperclip icon'"/>
         <span>{{ attachments.length }}</span>

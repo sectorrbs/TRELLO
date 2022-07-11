@@ -44,8 +44,8 @@
         padding-left: 35px;
         margin-top: 10px;
         max-height: 435px;
-        overflow-x: hidden;
-        overflow-y: auto;
+        //overflow-x: hidden;
+        //overflow-y: auto;
 
         &::-webkit-scrollbar {
             width: 2px;
@@ -63,15 +63,12 @@
 
         &-rename {
             @include flex(center, null, nowrap);
-            @include size(85%,25px);
-
-            &.hidden {
-                display: none;
-            }
+            @include size(85%, 25px);
+            display: none;
         }
 
         &-input {
-            @include size(100%,100%);
+            @include size(100%, 100%);
             @include font(13px);
             padding: 0 5px;
 
@@ -82,7 +79,7 @@
         }
 
         &-btns {
-            @include flex(center,null, nowrap);
+            @include flex(center, null, nowrap);
             transform: translateY(1px);
         }
 
@@ -123,6 +120,13 @@
             @include size(115px, 80px);
             background: rgba(107, 107, 107, .1);
             flex-shrink: 0;
+            position: relative;
+
+            &:hover {
+                .attachment__section-img-bg {
+                    opacity: 1;
+                }
+            }
         }
 
         &-right {
@@ -130,11 +134,36 @@
             flex-direction: column;
             gap: 5px;
             width: 100%;
+
+            &.rename {
+                .attachment__section-rename {
+                    display: flex;
+                }
+
+                .attachment__section-title {
+                    display: none;
+                }
+            }
         }
 
         &-img {
             @include size(100%, 100%);
             object-fit: contain;
+            cursor: pointer;
+
+            &-bg {
+                @include flex(center, center);
+                @include transition(.2s);
+                @include position(absolute, null, 2px, 2px, null);
+                @include size(30px, 30px);
+                border-radius: 50%;
+                background: rgba($color-white, .5);
+                opacity: 0;
+
+                .attachment__section-icon {
+                    @include font(17px, null, 1, $color, null);
+                }
+            }
         }
 
         &-actions {
@@ -175,7 +204,9 @@
         }
 
         &-title {
+            @include flex(center);
             @include font(15px, 700, 1, $color, null);
+            gap: 7px;
 
             .link {
                 @include flex(center);

@@ -21,6 +21,12 @@ export const actions = {
                 dispatch('getDeskNotLoader', data.desk_id)
                 commit('closeCardAttachmentLoader', 0)
             }, 2000)
+        }).catch(e => {
+            commit('setCardErrorMessage', e.response.data.errors.image[0])
+            setTimeout(() => {
+                commit('setCardErrorMessage', null)
+                commit('closeCardAttachmentLoader', 0)
+            }, 3000)
         })
     },
     addCardAttachmentsCover({dispatch}, data) {
@@ -48,6 +54,31 @@ export const actions = {
             data.id = data.card_id
             dispatch('getCardInfoNotLoader', data)
             dispatch('getDeskNotLoader', data.desk_id)
+        })
+    },
+    updateCardAttachmentLink({dispatch}, data) {
+        axios.post(`/api/v1/cards_attachments/${data.id}/update`,
+            {
+                _method: 'POST',
+                card_id: data.card_id,
+                type: data.type,
+                link: data.link,
+            }).then(() => {
+            data.id = data.card_id
+            dispatch('getCardInfoNotLoader', data)
+        })
+    },
+    updateCardAttachmentImage({dispatch}, data) {
+        axios.post(`/api/v1/cards_attachments/${data.id}/update`,
+            {
+                _method: 'POST',
+                card_id: data.card_id,
+                type: data.type,
+                image_name: data.image_name,
+                cover: data.cover,
+            }).then(() => {
+            data.id = data.card_id
+            dispatch('getCardInfoNotLoader', data)
         })
     },
     deleteCardAttachment({dispatch}, data) {

@@ -24,6 +24,10 @@ class CreateCardsTable extends Migration
             $table->integer('num')->default(1);
             $table->string('term')->nullable();
             $table->integer('status')->default(0);
+            $table->foreignId('id_backgrounds_cards')
+                ->nullable()
+                ->references('id')
+                ->on('backgrounds_cards');
             $table->timestamps();
         });
     }

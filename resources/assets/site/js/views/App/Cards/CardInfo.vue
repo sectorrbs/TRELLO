@@ -1,9 +1,14 @@
 <template>
     <div v-if="cardInfo" class="details__window" ref="cardInfo">
         <div v-if="cover" class="details__window-cover">
-            <img class="attachment__section-img"
-                 :src="'/storage/cards_images/thumb_700_250/'+ cover.image"
-                 :alt="cover.image">
+            <photo-provider>
+                <photo-consumer :intro="cover.image_name"
+                                :key="cover.image"
+                                :src="'/storage/cards_images/'+ cover.image">
+                    <img :src="'/storage/cards_images/thumb_700_250/'+ cover.image"
+                         class="attachment__section-img view-box">
+                </photo-consumer>
+            </photo-provider>
         </div>
         <div class="details__window-top">
             <div class="details__window-content">
@@ -44,6 +49,7 @@
 </template>
 
 <script>
+
 
 import {mapGetters} from 'vuex'
 import CardParticipants from './Components/CardParticipants'
@@ -112,3 +118,4 @@ export default {
     }
 }
 </script>
+

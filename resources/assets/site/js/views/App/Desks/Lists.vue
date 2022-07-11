@@ -78,7 +78,7 @@ export default {
                 if (color) {
                     return color
                 } else {
-                    return `url("/storage/backgrounds/${image}") no-repeat`
+                    return `url("/storage/backgrounds_desks/${image}") no-repeat`
                 }
             }
         },

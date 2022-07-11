@@ -20046,8 +20046,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.esm.js");
+/* harmony import */ var swiper_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swiper/vue */ "./node_modules/swiper/vue/swiper-vue.js");
+/* harmony import */ var swiper_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! swiper/css */ "./node_modules/swiper/swiper.min.css");
+/* harmony import */ var swiper_css_pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! swiper/css/pagination */ "./node_modules/swiper/modules/pagination/pagination.min.css");
+/* harmony import */ var swiper_css_navigation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! swiper/css/navigation */ "./node_modules/swiper/modules/navigation/navigation.min.css");
+
+
+
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "ActionCover"
+  name: "ActionCover",
+  data: function data() {
+    return {
+      show: false,
+      disabled: true,
+      idBg: null
+    };
+  },
+  components: {
+    Swiper: swiper_vue__WEBPACK_IMPORTED_MODULE_1__.Swiper,
+    SwiperSlide: swiper_vue__WEBPACK_IMPORTED_MODULE_1__.SwiperSlide
+  },
+  setup: function setup() {
+    return {
+      modules: [swiper__WEBPACK_IMPORTED_MODULE_0__.Pagination, swiper__WEBPACK_IMPORTED_MODULE_0__.Navigation]
+    };
+  },
+  methods: {
+    loadCovers: function loadCovers() {
+      this.$store.dispatch('getBackgroundsCards');
+      this.show = !this.show;
+    },
+    bgSelection: function bgSelection(e, id) {
+      if (e.currentTarget.classList.contains('select')) {
+        e.currentTarget.classList.remove('select');
+        this.bgId ? this.changeBgId(this.bgId) : this.changeBgId(1);
+      } else {
+        document.querySelectorAll('.swiper-slide').forEach(function (el) {
+          el.classList.remove('select');
+        });
+        e.currentTarget.classList.add('select');
+        this.changeBgId(id);
+      }
+    },
+    changeBgId: function changeBgId(id) {
+      if (id !== this.card.id_backgrounds_cards) {
+        this.disabled = false;
+        console.log(this.disabled);
+        this.idBg = id;
+      } else {
+        this.disabled = true;
+      }
+    },
+    updateBackgroundDesk: function updateBackgroundDesk() {
+      this.desk.id_backgrounds_cards = this.idBg;
+      this.$store.dispatch('updateDesk', this.desk);
+      this.$store.dispatch('getRoomsNotLoader');
+      this.$closed();
+    }
+  },
+  computed: {
+    backgrounds: function backgrounds() {
+      return this.$store.getters.backgrounds_cards;
+    },
+    card: function card() {
+      return this.$store.getters.cardInfo;
+    }
+  }
 });
 
 /***/ }),
@@ -20231,16 +20298,34 @@ __webpack_require__.r(__webpack_exports__);
   name: "CardAttachmentRenameSection",
   data: function data() {
     return {
+      disabled: true,
       newName: null
     };
   },
-  props: ['title'],
+  props: ['attachment', 'oldName'],
   methods: {
     renameAttachment: function renameAttachment(e) {
       this.newName = e.target.value;
+      this.disabled = !e.target.value || e.target.value === this.oldName;
     },
-    updateNameAttachment: function updateNameAttachment() {},
-    cancelRenameAttachment: function cancelRenameAttachment() {}
+    updateNameAttachment: function updateNameAttachment(e) {
+      switch (this.attachment.type) {
+        case 'link':
+          this.attachment.link = this.newName;
+          this.$store.dispatch('updateCardAttachmentLink', this.attachment);
+          break;
+
+        case 'image':
+          this.attachment.image_name = this.newName;
+          this.$store.dispatch('updateCardAttachmentImage', this.attachment);
+          break;
+      }
+    },
+    cancelRenameAttachment: function cancelRenameAttachment() {
+      document.querySelectorAll('.attachment__section-right').forEach(function (el) {
+        return el.classList.remove('rename');
+      });
+    }
   }
 });
 
@@ -20279,10 +20364,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     renameAttachmentTitle: function renameAttachmentTitle(e) {
       var attachment = e.target.closest('.attachment__section'),
-          rename = attachment.querySelector('.attachment__section-rename'),
-          title = attachment.querySelector('.attachment__section-title');
-      rename.classList.remove('hidden');
-      title.classList.add('hidden');
+          title = attachment.querySelector('.section-title').innerText,
+          input = attachment.querySelector('.attachment__section-input'),
+          newTitle = title.replace(/https:\/\//gi, '');
+      document.querySelectorAll('.attachment__section-right').forEach(function (el) {
+        return el.classList.remove('rename');
+      });
+      attachment.querySelector('.attachment__section-right').classList.add('rename');
+      input.value = newTitle;
+      input.focus();
     }
   }
 });
@@ -20307,6 +20397,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CardAttachmentsImage",
   props: ['attachment'],
+  data: function data() {
+    return {
+      name: this.attachment.image_name,
+      src: '/storage/cards_images/' + this.attachment.image,
+      thumbnail: '/storage/cards_images/thumb_115_80/' + this.attachment.image
+    };
+  },
   components: {
     CardAttachmentsActions: _CardAttachmentsActions__WEBPACK_IMPORTED_MODULE_0__["default"],
     CardAttachmentRenameSection: _CardAttachmentRenameSection__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -20376,7 +20473,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "CardAttachmentsLoading"
+  name: "CardAttachmentsLoading",
+  data: function data() {
+    return {
+      show: false
+    };
+  },
+  computed: {
+    errorCardMessage: function errorCardMessage() {
+      return this.$store.getters.errorCardMessage;
+    }
+  }
 });
 
 /***/ }),
@@ -21603,7 +21710,7 @@ var _hoisted_2 = {
   key: 0,
   "class": "details__window-cover"
 };
-var _hoisted_3 = ["src", "alt"];
+var _hoisted_3 = ["src"];
 var _hoisted_4 = {
   "class": "details__window-top"
 };
@@ -21632,6 +21739,10 @@ var _hoisted_12 = {
   "class": "details__window-bottom-right"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_photo_consumer = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("photo-consumer");
+
+  var _component_photo_provider = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("photo-provider");
+
   var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
 
   var _component_CardRenameField = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CardRenameField");
@@ -21654,13 +21765,32 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_CardActions = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CardActions");
 
-  return $props.cardInfo ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [$options.cover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    "class": "attachment__section-img",
-    src: '/storage/cards_images/thumb_700_250/' + $options.cover.image,
-    alt: $options.cover.image
-  }, null, 8
-  /* PROPS */
-  , _hoisted_3)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  return $props.cardInfo ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [$options.cover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_photo_provider, null, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_photo_consumer, {
+        intro: $options.cover.image_name,
+        key: $options.cover.image,
+        src: '/storage/cards_images/' + $options.cover.image
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+            src: '/storage/cards_images/thumb_700_250/' + $options.cover.image,
+            "class": "attachment__section-img view-box"
+          }, null, 8
+          /* PROPS */
+          , _hoisted_3)];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["intro", "src"]))];
+    }),
+    _: 1
+    /* STABLE */
+
+  })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "details__window-title",
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.renameCardShowField && $options.renameCardShowField.apply($options, arguments);
@@ -21917,19 +22047,80 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = {
-  "class": "details__actions-btn"
-};
+
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Обложка ");
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Обложка ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+  var _component_swiper_slide = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("swiper-slide");
+
+  var _component_swiper = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("swiper");
+
+  var _component_ActionModal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ActionModal");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+    "class": "details__actions-btn cover",
+    onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return $options.loadCovers && $options.loadCovers.apply($options, arguments);
+    }, ["stop"]))
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'r',
     name: 'blanket details__actions-icon'
-  }), _hoisted_2]);
+  }), _hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ActionModal, {
+    show: _ctx.show
+  }, {
+    modal_title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_2];
+    }),
+    modal_content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_swiper, {
+        modules: $setup.modules,
+        "space-between": 5,
+        "slides-per-view": 5,
+        "slides-per-group": 5,
+        navigation: true
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.backgrounds, function (background) {
+            return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_swiper_slide, {
+              key: background.id,
+              id: background.id,
+              onClick: function onClick($event) {
+                return $options.bgSelection($event, background.id);
+              },
+              "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([background.id === $options.card.id_backgrounds_cards ? 'select' : '']),
+              style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
+                background: background.image ? "url('/storage/backgrounds_cards/thumb_55_40/".concat(background.image, "')") : background.color
+              })
+            }, null, 8
+            /* PROPS */
+            , ["id", "onClick", "class", "style"]);
+          }), 128
+          /* KEYED_FRAGMENT */
+          ))];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["modules"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["attachment__btn details__actions-btn", {
+          disabled: _ctx.disabled
+        }])
+      }, " Сменить обложку ", 2
+      /* CLASS */
+      )];
+    }),
+    _: 3
+    /* FORWARDED */
+
+  }, 8
+  /* PROPS */
+  , ["show"])]);
 }
 
 /***/ }),
@@ -22328,7 +22519,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "attachment__section-rename hidden"
+  "class": "attachment__section-rename"
 };
 var _hoisted_2 = {
   "class": "attachment__section-btns"
@@ -22336,19 +22527,16 @@ var _hoisted_2 = {
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": "attachment__section-input",
     onInput: _cache[0] || (_cache[0] = function () {
       return $options.renameAttachment && $options.renameAttachment.apply($options, arguments);
     }),
-    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-      return $props.title = $event;
-    }),
-    placeholder: "название вложения"
-  }, null, 544
-  /* HYDRATE_EVENTS, NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.title]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+    placeholder: "Название вложения"
+  }, null, 32
+  /* HYDRATE_EVENTS */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'r',
     onClick: $options.cancelRenameAttachment,
     name: 'times attachment__section-btn red details__window-icon'
@@ -22357,10 +22545,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'r',
     onClick: $options.updateNameAttachment,
-    name: 'check attachment__section-btn disabled green details__window-icon'
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
+      disabled: _ctx.disabled
+    }),
+    name: 'check attachment__section-btn green details__window-icon'
   }, null, 8
   /* PROPS */
-  , ["onClick"])])]);
+  , ["onClick", "class"])])]);
 }
 
 /***/ }),
@@ -22457,47 +22648,79 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "attachment__section-left"
 };
-var _hoisted_2 = ["src", "alt"];
+var _hoisted_2 = ["src"];
 var _hoisted_3 = {
-  "class": "attachment__section-right"
+  "class": "attachment__section-img-bg"
 };
 var _hoisted_4 = {
-  "class": "attachment__section-title"
+  "class": "attachment__section-right"
 };
 var _hoisted_5 = {
-  "class": "attachment__section-date"
+  "class": "attachment__section-title"
 };
 var _hoisted_6 = {
+  "class": "section-title"
+};
+var _hoisted_7 = {
+  "class": "attachment__section-date"
+};
+var _hoisted_8 = {
   "class": "attachment__section-cover"
 };
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Сделать обложкой ");
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Сделать основным изображением ");
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Удалить обложку ");
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Убрать основное изображение ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_CardAttachmentRenameSection = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CardAttachmentRenameSection");
+  var _component_photo_consumer = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("photo-consumer");
+
+  var _component_photo_provider = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("photo-provider");
 
   var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
 
+  var _component_CardAttachmentRenameSection = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CardAttachmentRenameSection");
+
   var _component_CardAttachmentsActions = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CardAttachmentsActions");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [$props.attachment.image ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("img", {
-    key: 0,
-    "class": "attachment__section-img",
-    src: '/storage/cards_images/thumb_115_80/' + $props.attachment.image,
-    alt: $props.attachment.image_name
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_photo_provider, null, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_photo_consumer, {
+        intro: $data.name,
+        key: $data.src,
+        src: $data.src
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+            src: $data.thumbnail,
+            "class": "view-box"
+          }, null, 8
+          /* PROPS */
+          , _hoisted_2)];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["intro", "src"]))];
+    }),
+    _: 1
+    /* STABLE */
+
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+    type: 'r',
+    name: 'expand-alt attachment__section-icon'
+  })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.attachment.image_name), 1
+  /* TEXT */
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CardAttachmentRenameSection, {
+    attachment: $props.attachment,
+    oldName: $props.attachment.image_name
   }, null, 8
   /* PROPS */
-  , _hoisted_2)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.attachment.image_name), 1
+  , ["attachment", "oldName"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, " Добавлено " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.attachment.date), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CardAttachmentRenameSection, {
-    title: $props.attachment.image_name
-  }, null, 8
-  /* PROPS */
-  , ["title"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, " Добавлено " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.attachment.date), 1
-  /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([[$props.attachment.cover ? 'hidden' : ''], "cover-add"]),
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.addCardCover && $options.addCardCover.apply($options, arguments);
@@ -22505,7 +22728,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'r',
     name: 'blanket details__window-icon'
-  }), _hoisted_7], 2
+  }), _hoisted_9], 2
   /* CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([[$props.attachment.cover ? 'active' : ''], "cover-delete"]),
@@ -22515,7 +22738,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'r',
     name: 'blanket details__window-icon'
-  }), _hoisted_8], 2
+  }), _hoisted_10], 2
   /* CLASS */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CardAttachmentsActions, {
     attachment: $props.attachment
@@ -22568,21 +22791,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_CardAttachmentsActions = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CardAttachmentsActions");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    href: 'https://' + $props.attachment.link,
+    href: $props.attachment.link,
     target: "_blank",
-    "class": "link"
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.attachment.link) + " ", 1
-  /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+    "class": "link section-title"
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.attachment.link), 9
+  /* TEXT, PROPS */
+  , _hoisted_4), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 's',
     name: 'external-link-alt details__window-icon'
-  })], 8
-  /* PROPS */
-  , _hoisted_4)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CardAttachmentRenameSection, {
-    title: $props.attachment.link
+  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CardAttachmentRenameSection, {
+    oldName: $props.attachment.link,
+    attachment: $props.attachment
   }, null, 8
   /* PROPS */
-  , ["title"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, " Добавлено " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.attachment.date), 1
+  , ["oldName", "attachment"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, " Добавлено " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.attachment.date), 1
   /* TEXT */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CardAttachmentsActions, {
     attachment: $props.attachment
@@ -22615,18 +22837,29 @@ var _hoisted_2 = {
   "class": "attachment__sections"
 };
 var _hoisted_3 = {
+  key: 1,
   "class": "attachment__section-loading"
 };
 
 var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Обработка вложения ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_Error = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Error");
+
   var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [$options.errorCardMessage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
+    key: 0,
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
+      show: $options.errorCardMessage
+    }, ""]),
+    error: $options.errorCardMessage
+  }, null, 8
+  /* PROPS */
+  , ["class", "error"])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 's',
     name: 'download attachment__section-loading-icon'
-  })])])]);
+  })]))])]);
 }
 
 /***/ }),
@@ -24481,6 +24714,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./store/index */ "./resources/assets/site/js/store/index.js");
 /* harmony import */ var _views_Global__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./views/Global */ "./resources/assets/site/js/views/Global/index.js");
 /* harmony import */ var _utils_plugins__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./utils/plugins */ "./resources/assets/site/js/utils/plugins.js");
+/* harmony import */ var vue3_photo_preview__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue3-photo-preview */ "./node_modules/vue3-photo-preview/dist/vue3-photo-preview.esm.js");
+/* harmony import */ var vue3_photo_preview_dist_index_css__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vue3-photo-preview/dist/index.css */ "./node_modules/vue3-photo-preview/dist/index.css");
 
 
 
@@ -24511,8 +24746,7 @@ window.axios.interceptors.response.use({}, function (e) {
   }
 
   return Promise.reject(e);
-}); // window.axios.interceptors.response.eject();
-
+});
 swiper__WEBPACK_IMPORTED_MODULE_1__["default"].use([
   /* swiper modules... */
 ]);
@@ -24521,11 +24755,13 @@ var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)({
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.h)(_App_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
   }
 });
+
+
 app.component('app', (__webpack_require__(/*! ./App.vue */ "./resources/assets/site/js/App.vue")["default"]));
 _views_Global__WEBPACK_IMPORTED_MODULE_7__["default"].forEach(function (component) {
   app.component(component.name, component);
 });
-app.use(vue_awesome_swiper__WEBPACK_IMPORTED_MODULE_2__["default"]).use(_utils_plugins__WEBPACK_IMPORTED_MODULE_8__["default"]).use(_router__WEBPACK_IMPORTED_MODULE_5__["default"]).use(_store_index__WEBPACK_IMPORTED_MODULE_6__["default"]).mount('#app');
+app.use(vue_awesome_swiper__WEBPACK_IMPORTED_MODULE_2__["default"]).use(vue3_photo_preview__WEBPACK_IMPORTED_MODULE_9__["default"]).use(_utils_plugins__WEBPACK_IMPORTED_MODULE_8__["default"]).use(_router__WEBPACK_IMPORTED_MODULE_5__["default"]).use(_store_index__WEBPACK_IMPORTED_MODULE_6__["default"]).mount('#app');
 
 /***/ }),
 
@@ -25179,6 +25415,7 @@ var actions = {
       description: data.description,
       term: data.term,
       status: data.status,
+      id_backgrounds_cards: null,
       desk_lists_id: data.desk_lists_id
     }).then(function (res) {
       commit('setCardInfo', res.data.data);
@@ -25196,6 +25433,7 @@ var actions = {
       status: data.status,
       description: data.description || null,
       term: data.term || null,
+      id_backgrounds_cards: data.id_backgrounds_cards || null,
       desk_lists_id: data.desk_lists_id,
       id: data.id
     }).then(function (res) {
@@ -25210,6 +25448,7 @@ var actions = {
       num: data.num,
       status: data.status,
       description: data.description || null,
+      id_backgrounds_cards: data.id_backgrounds_cards || null,
       term: data.term || null,
       desk_lists_id: data.desk_lists_id,
       id: data.id
@@ -25274,6 +25513,12 @@ var actions = {
       setTimeout(function () {
         commit('changeLoader', false);
       }, 500);
+    });
+  },
+  getBackgroundsCards: function getBackgroundsCards(_ref10) {
+    var commit = _ref10.commit;
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/v1/backgrounds-cards').then(function (res) {
+      commit('setBackgroundsCards', res.data.data);
     });
   }
 };
@@ -25369,7 +25614,8 @@ __webpack_require__.r(__webpack_exports__);
 var state = {
   list: null,
   cardInfo: null,
-  cardId: null
+  cardId: null,
+  backgrounds_cards: null
 };
 
 /***/ }),
@@ -25409,6 +25655,12 @@ var actions = {
         dispatch('getDeskNotLoader', data.desk_id);
         commit('closeCardAttachmentLoader', 0);
       }, 2000);
+    })["catch"](function (e) {
+      commit('setCardErrorMessage', e.response.data.errors.image[0]);
+      setTimeout(function () {
+        commit('setCardErrorMessage', null);
+        commit('closeCardAttachmentLoader', 0);
+      }, 3000);
     });
   },
   addCardAttachmentsCover: function addCardAttachmentsCover(_ref2, data) {
@@ -25441,8 +25693,33 @@ var actions = {
       dispatch('getDeskNotLoader', data.desk_id);
     });
   },
-  deleteCardAttachment: function deleteCardAttachment(_ref5, data) {
+  updateCardAttachmentLink: function updateCardAttachmentLink(_ref5, data) {
     var dispatch = _ref5.dispatch;
+    axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/v1/cards_attachments/".concat(data.id, "/update"), {
+      _method: 'POST',
+      card_id: data.card_id,
+      type: data.type,
+      link: data.link
+    }).then(function () {
+      data.id = data.card_id;
+      dispatch('getCardInfoNotLoader', data);
+    });
+  },
+  updateCardAttachmentImage: function updateCardAttachmentImage(_ref6, data) {
+    var dispatch = _ref6.dispatch;
+    axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/v1/cards_attachments/".concat(data.id, "/update"), {
+      _method: 'POST',
+      card_id: data.card_id,
+      type: data.type,
+      image_name: data.image_name,
+      cover: data.cover
+    }).then(function () {
+      data.id = data.card_id;
+      dispatch('getCardInfoNotLoader', data);
+    });
+  },
+  deleteCardAttachment: function deleteCardAttachment(_ref7, data) {
+    var dispatch = _ref7.dispatch;
     axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/v1/cards_attachments/".concat(data.id, "/delete")).then(function (res) {
       data.id = data.card_id;
       dispatch('getCardInfoNotLoader', data);
@@ -25467,6 +25744,9 @@ __webpack_require__.r(__webpack_exports__);
 var getters = {
   attachmentLoad: function attachmentLoad(state) {
     return state.attachmentLoad;
+  },
+  backgrounds_cards: function backgrounds_cards(state) {
+    return state.backgrounds_cards;
   }
 };
 
@@ -25517,6 +25797,9 @@ var mutations = {
   },
   closeCardAttachmentLoader: function closeCardAttachmentLoader(state, status) {
     state.attachmentLoad = status;
+  },
+  setBackgroundsCards: function setBackgroundsCards(state, backgrounds_cards) {
+    state.backgrounds_cards = backgrounds_cards;
   }
 };
 
@@ -26034,8 +26317,7 @@ var actions = {
     axios.get('/api/v1/backgrounds-desks').then(function (res) {
       commit('setBackgroundsDesks', res.data.data);
     });
-  },
-  updateBackgroundDesk: function updateBackgroundDesk() {}
+  }
 };
 
 /***/ }),
@@ -26058,8 +26340,8 @@ var getters = {
   desk: function desk(state) {
     return state.desk;
   },
-  backgrounds: function backgrounds(state) {
-    return state.backgrounds;
+  backgrounds_desks: function backgrounds_desks(state) {
+    return state.backgrounds_desks;
   }
 };
 
@@ -26111,8 +26393,8 @@ var mutations = {
   setDesk: function setDesk(state, desk) {
     state.desk = desk;
   },
-  setBackgroundsDesks: function setBackgroundsDesks(state, backgrounds) {
-    state.backgrounds = backgrounds;
+  setBackgroundsDesks: function setBackgroundsDesks(state, backgrounds_desks) {
+    state.backgrounds_desks = backgrounds_desks;
   }
 };
 
@@ -26132,7 +26414,7 @@ __webpack_require__.r(__webpack_exports__);
 var state = {
   desks: null,
   desk: null,
-  backgrounds: null
+  backgrounds_desks: null
 };
 
 /***/ }),
@@ -26283,6 +26565,9 @@ var getters = {
   errorMessage: function errorMessage(state) {
     return state.errorMessage;
   },
+  errorCardMessage: function errorCardMessage(state) {
+    return state.errorCardMessage;
+  },
   authErrors: function authErrors(state) {
     return state.authErrors;
   }
@@ -26333,6 +26618,9 @@ var mutations = {
   setErrorMessage: function setErrorMessage(state, error) {
     state.errorMessage = error;
   },
+  setCardErrorMessage: function setCardErrorMessage(state, error) {
+    state.errorCardMessage = error;
+  },
   setAuthErrors: function setAuthErrors(state, errors) {
     state.authErrors.email = (errors === null || errors === void 0 ? void 0 : errors.email) || null;
     state.authErrors.password = (errors === null || errors === void 0 ? void 0 : errors.password) || null;
@@ -26354,6 +26642,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var state = {
   errorMessage: null,
+  errorCardMessage: null,
   authErrors: {
     email: null,
     password: null
@@ -26928,7 +27217,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       window.addEventListener('click', function (e) {
-        if (!e.target.classList.contains('desks__settings') && !e.target.classList.contains('desks__edit') && !e.target.classList.contains('desks__list-btn') && !e.target.classList.contains('desks__list-input') && !e.target.classList.contains('desks__item-input') && !e.target.classList.contains('settings__item-btn') && !e.target.classList.contains('settings__title') && !e.target.classList.contains('swiper-slide') && !e.target.classList.contains('settings') && !e.target.classList.contains('swiper-button-next') && !e.target.classList.contains('swiper-button-prev') && !e.target.classList.contains('settings__item-text') && !e.target.classList.contains('settings__item-alert') && !e.target.classList.contains('settings__cancel') && !e.target.classList.contains('tasks__item-settings') && !e.target.classList.contains('tasks__item-settings-icon') && !e.target.classList.contains('create-task-btn') && !e.target.classList.contains('details__window-title') && !e.target.classList.contains('details__window-card-rename') && !e.target.classList.contains('details__window-checklist-rename') && !e.target.classList.contains('details__window-checklist-btn') && !e.target.classList.contains('details__actions-modal-title') && !e.target.classList.contains('details__actions-modal-label') && !e.target.classList.contains('details__actions-modal-top') && !e.target.classList.contains('details__actions-input') && !e.target.classList.contains('details__window-checklist-title')) {
+        if (!e.target.classList.contains('desks__settings') && !e.target.classList.contains('desks__edit') && !e.target.classList.contains('desks__list-btn') && !e.target.classList.contains('desks__list-input') && !e.target.classList.contains('desks__item-input') && !e.target.classList.contains('settings__item-btn') && !e.target.classList.contains('settings__title') && !e.target.classList.contains('swiper-slide') && !e.target.classList.contains('settings') && !e.target.classList.contains('swiper-button-next') && !e.target.classList.contains('swiper-button-prev') && !e.target.classList.contains('settings__item-text') && !e.target.classList.contains('settings__item-alert') && !e.target.classList.contains('settings__cancel') && !e.target.classList.contains('tasks__item-settings') && !e.target.classList.contains('tasks__item-settings-icon') && !e.target.classList.contains('create-task-btn') && !e.target.classList.contains('details__window-title') && !e.target.classList.contains('details__window-card-rename') && !e.target.classList.contains('details__window-checklist-rename') && !e.target.classList.contains('details__window-checklist-btn') && !e.target.classList.contains('details__actions-modal-title') && !e.target.classList.contains('details__actions-modal-label') && !e.target.classList.contains('details__actions-modal-top') && !e.target.classList.contains('details__actions-input') && !e.target.classList.contains('attachment__section-input') && !e.target.classList.contains('details__window-icon') && !e.target.classList.contains('attachment__section-btns') && !e.target.classList.contains('details__window-checklist-title')) {
           clearAll();
         }
       });
@@ -26969,6 +27258,9 @@ __webpack_require__.r(__webpack_exports__);
         });
         document.querySelectorAll('.settings__item-btn').forEach(function (el) {
           return el.classList.add('show');
+        });
+        document.querySelectorAll('.attachment__section-right').forEach(function (el) {
+          return el.classList.remove('rename');
         });
       }
 
@@ -27075,6 +27367,54 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".dp__input_wrap{position:relative;widt
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/swiper/modules/navigation/navigation.min.css":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/swiper/modules/navigation/navigation.min.css ***!
+  \*****************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ":root{--swiper-navigation-size:44px}.swiper-button-next,.swiper-button-prev{position:absolute;top:50%;width:calc(var(--swiper-navigation-size)/ 44 * 27);height:var(--swiper-navigation-size);margin-top:calc(0px - (var(--swiper-navigation-size)/ 2));z-index:10;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--swiper-navigation-color,var(--swiper-theme-color))}.swiper-button-next.swiper-button-disabled,.swiper-button-prev.swiper-button-disabled{opacity:.35;cursor:auto;pointer-events:none}.swiper-button-next.swiper-button-hidden,.swiper-button-prev.swiper-button-hidden{opacity:0;cursor:auto;pointer-events:none}.swiper-navigation-disabled .swiper-button-next,.swiper-navigation-disabled .swiper-button-prev{display:none!important}.swiper-button-next:after,.swiper-button-prev:after{font-family:swiper-icons;font-size:var(--swiper-navigation-size);text-transform:none!important;letter-spacing:0;font-variant:initial;line-height:1}.swiper-button-prev,.swiper-rtl .swiper-button-next{left:10px;right:auto}.swiper-button-prev:after,.swiper-rtl .swiper-button-next:after{content:'prev'}.swiper-button-next,.swiper-rtl .swiper-button-prev{right:10px;left:auto}.swiper-button-next:after,.swiper-rtl .swiper-button-prev:after{content:'next'}.swiper-button-lock{display:none}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/swiper/modules/pagination/pagination.min.css":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/swiper/modules/pagination/pagination.min.css ***!
+  \*****************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".swiper-pagination{position:absolute;text-align:center;transition:.3s opacity;transform:translate3d(0,0,0);z-index:10}.swiper-pagination.swiper-pagination-hidden{opacity:0}.swiper-pagination-disabled>.swiper-pagination,.swiper-pagination.swiper-pagination-disabled{display:none!important}.swiper-horizontal>.swiper-pagination-bullets,.swiper-pagination-bullets.swiper-pagination-horizontal,.swiper-pagination-custom,.swiper-pagination-fraction{bottom:10px;left:0;width:100%}.swiper-pagination-bullets-dynamic{overflow:hidden;font-size:0}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet{transform:scale(.33);position:relative}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active{transform:scale(1)}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-main{transform:scale(1)}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev{transform:scale(.66)}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev-prev{transform:scale(.33)}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next{transform:scale(.66)}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next-next{transform:scale(.33)}.swiper-pagination-bullet{width:var(--swiper-pagination-bullet-width,var(--swiper-pagination-bullet-size,8px));height:var(--swiper-pagination-bullet-height,var(--swiper-pagination-bullet-size,8px));display:inline-block;border-radius:50%;background:var(--swiper-pagination-bullet-inactive-color,#000);opacity:var(--swiper-pagination-bullet-inactive-opacity, .2)}button.swiper-pagination-bullet{border:none;margin:0;padding:0;box-shadow:none;-webkit-appearance:none;-moz-appearance:none;appearance:none}.swiper-pagination-clickable .swiper-pagination-bullet{cursor:pointer}.swiper-pagination-bullet:only-child{display:none!important}.swiper-pagination-bullet-active{opacity:var(--swiper-pagination-bullet-opacity, 1);background:var(--swiper-pagination-color,var(--swiper-theme-color))}.swiper-pagination-vertical.swiper-pagination-bullets,.swiper-vertical>.swiper-pagination-bullets{right:10px;top:50%;transform:translate3d(0px,-50%,0)}.swiper-pagination-vertical.swiper-pagination-bullets .swiper-pagination-bullet,.swiper-vertical>.swiper-pagination-bullets .swiper-pagination-bullet{margin:var(--swiper-pagination-bullet-vertical-gap,6px) 0;display:block}.swiper-pagination-vertical.swiper-pagination-bullets.swiper-pagination-bullets-dynamic,.swiper-vertical>.swiper-pagination-bullets.swiper-pagination-bullets-dynamic{top:50%;transform:translateY(-50%);width:8px}.swiper-pagination-vertical.swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet,.swiper-vertical>.swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet{display:inline-block;transition:.2s transform,.2s top}.swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet,.swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet{margin:0 var(--swiper-pagination-bullet-horizontal-gap,4px)}.swiper-horizontal>.swiper-pagination-bullets.swiper-pagination-bullets-dynamic,.swiper-pagination-horizontal.swiper-pagination-bullets.swiper-pagination-bullets-dynamic{left:50%;transform:translateX(-50%);white-space:nowrap}.swiper-horizontal>.swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet,.swiper-pagination-horizontal.swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet{transition:.2s transform,.2s left}.swiper-horizontal.swiper-rtl>.swiper-pagination-bullets-dynamic .swiper-pagination-bullet{transition:.2s transform,.2s right}.swiper-pagination-progressbar{background:rgba(0,0,0,.25);position:absolute}.swiper-pagination-progressbar .swiper-pagination-progressbar-fill{background:var(--swiper-pagination-color,var(--swiper-theme-color));position:absolute;left:0;top:0;width:100%;height:100%;transform:scale(0);transform-origin:left top}.swiper-rtl .swiper-pagination-progressbar .swiper-pagination-progressbar-fill{transform-origin:right top}.swiper-horizontal>.swiper-pagination-progressbar,.swiper-pagination-progressbar.swiper-pagination-horizontal,.swiper-pagination-progressbar.swiper-pagination-vertical.swiper-pagination-progressbar-opposite,.swiper-vertical>.swiper-pagination-progressbar.swiper-pagination-progressbar-opposite{width:100%;height:4px;left:0;top:0}.swiper-horizontal>.swiper-pagination-progressbar.swiper-pagination-progressbar-opposite,.swiper-pagination-progressbar.swiper-pagination-horizontal.swiper-pagination-progressbar-opposite,.swiper-pagination-progressbar.swiper-pagination-vertical,.swiper-vertical>.swiper-pagination-progressbar{width:4px;height:100%;left:0;top:0}.swiper-pagination-lock{display:none}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/swiper/swiper.min.css":
 /*!******************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/swiper/swiper.min.css ***!
@@ -27093,6 +27433,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "/**\n * Swiper 8.2.4\n * Most modern mobile touch slider and framework with hardware accelerated transitions\n * https://swiperjs.com\n *\n * Copyright 2014-2022 Vladimir Kharlampidi\n *\n * Released under the MIT License\n *\n * Released on: June 13, 2022\n */\n\n@font-face{font-family:swiper-icons;src:url('data:application/font-woff;charset=utf-8;base64, d09GRgABAAAAAAZgABAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAAGRAAAABoAAAAci6qHkUdERUYAAAWgAAAAIwAAACQAYABXR1BPUwAABhQAAAAuAAAANuAY7+xHU1VCAAAFxAAAAFAAAABm2fPczU9TLzIAAAHcAAAASgAAAGBP9V5RY21hcAAAAkQAAACIAAABYt6F0cBjdnQgAAACzAAAAAQAAAAEABEBRGdhc3AAAAWYAAAACAAAAAj//wADZ2x5ZgAAAywAAADMAAAD2MHtryVoZWFkAAABbAAAADAAAAA2E2+eoWhoZWEAAAGcAAAAHwAAACQC9gDzaG10eAAAAigAAAAZAAAArgJkABFsb2NhAAAC0AAAAFoAAABaFQAUGG1heHAAAAG8AAAAHwAAACAAcABAbmFtZQAAA/gAAAE5AAACXvFdBwlwb3N0AAAFNAAAAGIAAACE5s74hXjaY2BkYGAAYpf5Hu/j+W2+MnAzMYDAzaX6QjD6/4//Bxj5GA8AuRwMYGkAPywL13jaY2BkYGA88P8Agx4j+/8fQDYfA1AEBWgDAIB2BOoAeNpjYGRgYNBh4GdgYgABEMnIABJzYNADCQAACWgAsQB42mNgYfzCOIGBlYGB0YcxjYGBwR1Kf2WQZGhhYGBiYGVmgAFGBiQQkOaawtDAoMBQxXjg/wEGPcYDDA4wNUA2CCgwsAAAO4EL6gAAeNpj2M0gyAACqxgGNWBkZ2D4/wMA+xkDdgAAAHjaY2BgYGaAYBkGRgYQiAHyGMF8FgYHIM3DwMHABGQrMOgyWDLEM1T9/w8UBfEMgLzE////P/5//f/V/xv+r4eaAAeMbAxwIUYmIMHEgKYAYjUcsDAwsLKxc3BycfPw8jEQA/gZBASFhEVExcQlJKWkZWTl5BUUlZRVVNXUNTQZBgMAAMR+E+gAEQFEAAAAKgAqACoANAA+AEgAUgBcAGYAcAB6AIQAjgCYAKIArAC2AMAAygDUAN4A6ADyAPwBBgEQARoBJAEuATgBQgFMAVYBYAFqAXQBfgGIAZIBnAGmAbIBzgHsAAB42u2NMQ6CUAyGW568x9AneYYgm4MJbhKFaExIOAVX8ApewSt4Bic4AfeAid3VOBixDxfPYEza5O+Xfi04YADggiUIULCuEJK8VhO4bSvpdnktHI5QCYtdi2sl8ZnXaHlqUrNKzdKcT8cjlq+rwZSvIVczNiezsfnP/uznmfPFBNODM2K7MTQ45YEAZqGP81AmGGcF3iPqOop0r1SPTaTbVkfUe4HXj97wYE+yNwWYxwWu4v1ugWHgo3S1XdZEVqWM7ET0cfnLGxWfkgR42o2PvWrDMBSFj/IHLaF0zKjRgdiVMwScNRAoWUoH78Y2icB/yIY09An6AH2Bdu/UB+yxopYshQiEvnvu0dURgDt8QeC8PDw7Fpji3fEA4z/PEJ6YOB5hKh4dj3EvXhxPqH/SKUY3rJ7srZ4FZnh1PMAtPhwP6fl2PMJMPDgeQ4rY8YT6Gzao0eAEA409DuggmTnFnOcSCiEiLMgxCiTI6Cq5DZUd3Qmp10vO0LaLTd2cjN4fOumlc7lUYbSQcZFkutRG7g6JKZKy0RmdLY680CDnEJ+UMkpFFe1RN7nxdVpXrC4aTtnaurOnYercZg2YVmLN/d/gczfEimrE/fs/bOuq29Zmn8tloORaXgZgGa78yO9/cnXm2BpaGvq25Dv9S4E9+5SIc9PqupJKhYFSSl47+Qcr1mYNAAAAeNptw0cKwkAAAMDZJA8Q7OUJvkLsPfZ6zFVERPy8qHh2YER+3i/BP83vIBLLySsoKimrqKqpa2hp6+jq6RsYGhmbmJqZSy0sraxtbO3sHRydnEMU4uR6yx7JJXveP7WrDycAAAAAAAH//wACeNpjYGRgYOABYhkgZgJCZgZNBkYGLQZtIJsFLMYAAAw3ALgAeNolizEKgDAQBCchRbC2sFER0YD6qVQiBCv/H9ezGI6Z5XBAw8CBK/m5iQQVauVbXLnOrMZv2oLdKFa8Pjuru2hJzGabmOSLzNMzvutpB3N42mNgZGBg4GKQYzBhYMxJLMlj4GBgAYow/P/PAJJhLM6sSoWKfWCAAwDAjgbRAAB42mNgYGBkAIIbCZo5IPrmUn0hGA0AO8EFTQAA');font-weight:400;font-style:normal}:root{--swiper-theme-color:#007aff}.swiper{margin-left:auto;margin-right:auto;position:relative;overflow:hidden;list-style:none;padding:0;z-index:1}.swiper-vertical>.swiper-wrapper{flex-direction:column}.swiper-wrapper{position:relative;width:100%;height:100%;z-index:1;display:flex;transition-property:transform;box-sizing:content-box}.swiper-android .swiper-slide,.swiper-wrapper{transform:translate3d(0px,0,0)}.swiper-pointer-events{touch-action:pan-y}.swiper-pointer-events.swiper-vertical{touch-action:pan-x}.swiper-slide{flex-shrink:0;width:100%;height:100%;position:relative;transition-property:transform}.swiper-slide-invisible-blank{visibility:hidden}.swiper-autoheight,.swiper-autoheight .swiper-slide{height:auto}.swiper-autoheight .swiper-wrapper{align-items:flex-start;transition-property:transform,height}.swiper-backface-hidden .swiper-slide{transform:translateZ(0);-webkit-backface-visibility:hidden;backface-visibility:hidden}.swiper-3d,.swiper-3d.swiper-css-mode .swiper-wrapper{perspective:1200px}.swiper-3d .swiper-cube-shadow,.swiper-3d .swiper-slide,.swiper-3d .swiper-slide-shadow,.swiper-3d .swiper-slide-shadow-bottom,.swiper-3d .swiper-slide-shadow-left,.swiper-3d .swiper-slide-shadow-right,.swiper-3d .swiper-slide-shadow-top,.swiper-3d .swiper-wrapper{transform-style:preserve-3d}.swiper-3d .swiper-slide-shadow,.swiper-3d .swiper-slide-shadow-bottom,.swiper-3d .swiper-slide-shadow-left,.swiper-3d .swiper-slide-shadow-right,.swiper-3d .swiper-slide-shadow-top{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:10}.swiper-3d .swiper-slide-shadow{background:rgba(0,0,0,.15)}.swiper-3d .swiper-slide-shadow-left{background-image:linear-gradient(to left,rgba(0,0,0,.5),rgba(0,0,0,0))}.swiper-3d .swiper-slide-shadow-right{background-image:linear-gradient(to right,rgba(0,0,0,.5),rgba(0,0,0,0))}.swiper-3d .swiper-slide-shadow-top{background-image:linear-gradient(to top,rgba(0,0,0,.5),rgba(0,0,0,0))}.swiper-3d .swiper-slide-shadow-bottom{background-image:linear-gradient(to bottom,rgba(0,0,0,.5),rgba(0,0,0,0))}.swiper-css-mode>.swiper-wrapper{overflow:auto;scrollbar-width:none;-ms-overflow-style:none}.swiper-css-mode>.swiper-wrapper::-webkit-scrollbar{display:none}.swiper-css-mode>.swiper-wrapper>.swiper-slide{scroll-snap-align:start start}.swiper-horizontal.swiper-css-mode>.swiper-wrapper{-ms-scroll-snap-type:x mandatory;scroll-snap-type:x mandatory}.swiper-vertical.swiper-css-mode>.swiper-wrapper{-ms-scroll-snap-type:y mandatory;scroll-snap-type:y mandatory}.swiper-centered>.swiper-wrapper::before{content:'';flex-shrink:0;order:9999}.swiper-centered.swiper-horizontal>.swiper-wrapper>.swiper-slide:first-child{-webkit-margin-start:var(--swiper-centered-offset-before);margin-inline-start:var(--swiper-centered-offset-before)}.swiper-centered.swiper-horizontal>.swiper-wrapper::before{height:100%;min-height:1px;width:var(--swiper-centered-offset-after)}.swiper-centered.swiper-vertical>.swiper-wrapper>.swiper-slide:first-child{-webkit-margin-before:var(--swiper-centered-offset-before);margin-block-start:var(--swiper-centered-offset-before)}.swiper-centered.swiper-vertical>.swiper-wrapper::before{width:100%;min-width:1px;height:var(--swiper-centered-offset-after)}.swiper-centered>.swiper-wrapper>.swiper-slide{scroll-snap-align:center center}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/vue3-photo-preview/dist/index.css":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/vue3-photo-preview/dist/index.css ***!
+  \******************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "@-webkit-keyframes PhotoView__rotate {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes PhotoView__rotate {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@-webkit-keyframes PhotoView__delayShow {\n  0%, 50% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n@keyframes PhotoView__delayShow {\n  0%, 50% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n.PhotoView__Spinner {\n  -webkit-animation: PhotoView__delayShow 0.4s linear both;\n          animation: PhotoView__delayShow 0.4s linear both;\n}\n.PhotoView__Spinner svg {\n  display: block;\n  -webkit-animation: PhotoView__rotate 0.6s linear infinite;\n          animation: PhotoView__rotate 0.6s linear infinite;\n}\n@-webkit-keyframes PhotoView__animateIn {\n  from {\n    opacity: 0.4;\n    transform: scale(0.2);\n  }\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n@keyframes PhotoView__animateIn {\n  from {\n    opacity: 0.4;\n    transform: scale(0.2);\n  }\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n@-webkit-keyframes PhotoView__animateOut {\n  from {\n    opacity: 1;\n    transform: scale(1);\n  }\n  to {\n    opacity: 0;\n    transform: scale(0.2);\n  }\n}\n@keyframes PhotoView__animateOut {\n  from {\n    opacity: 1;\n    transform: scale(1);\n  }\n  to {\n    opacity: 0;\n    transform: scale(0.2);\n  }\n}\n.PhotoView__PhotoWrap {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.PhotoView__PhotoWrap .PhotoView__PhotoBox {\n  width: 0;\n  height: 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.PhotoView__PhotoWrap .PhotoView__PhotoBox.PhotoView__animateIn {\n  opacity: 0.4;\n  -webkit-animation: PhotoView__animateIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) both;\n          animation: PhotoView__animateIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) both;\n}\n.PhotoView__PhotoWrap .PhotoView__PhotoBox.PhotoView__animateOut {\n  opacity: 1;\n  -webkit-animation: PhotoView__animateOut 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) both;\n          animation: PhotoView__animateOut 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) both;\n}\n.PhotoView__PhotoWrap .PhotoView__PhotoBox .PhotoView__Photo {\n  touch-action: none;\n  cursor: -webkit-grab;\n  cursor: grab;\n}\n.PhotoView__PhotoWrap .PhotoView__PhotoBox .PhotoView__Photo:active {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n@-webkit-keyframes PhotoView__fade {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@keyframes PhotoView__fade {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.PhotoSlider__Wrapper.PhotoSlider__Clean .PhotoSlider__BannerWrap,\n.PhotoSlider__Wrapper.PhotoSlider__Clean .PhotoSlider__ArrowLeft,\n.PhotoSlider__Wrapper.PhotoSlider__Clean .PhotoSlider__ArrowRight,\n.PhotoSlider__Wrapper.PhotoSlider__Clean .PhotoSlider__FooterWrap {\n  opacity: 0;\n}\n@media (any-hover: hover) {\n  .PhotoSlider__Wrapper.PhotoSlider__Clean .PhotoSlider__BannerWrap:hover,\n.PhotoSlider__Wrapper.PhotoSlider__Clean .PhotoSlider__ArrowLeft:hover,\n.PhotoSlider__Wrapper.PhotoSlider__Clean .PhotoSlider__ArrowRight:hover,\n.PhotoSlider__Wrapper.PhotoSlider__Clean .PhotoSlider__FooterWrap:hover {\n    opacity: 0;\n  }\n}\n\n.PhotoSlider__Wrapper.PhotoSlider__Hide .PhotoSlider__BannerWrap,\n.PhotoSlider__Wrapper.PhotoSlider__Hide .PhotoSlider__ArrowLeft,\n.PhotoSlider__Wrapper.PhotoSlider__Hide .PhotoSlider__ArrowRight,\n.PhotoSlider__Wrapper.PhotoSlider__Hide .PhotoSlider__FooterWrap {\n  opacity: 0;\n}\n\n.PhotoSlider__Wrapper {\n  position: fixed;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  z-index: 2000;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.PhotoSlider__Wrapper .PhotoSlider__Backdrop {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: -1;\n}\n.PhotoSlider__Wrapper .PhotoSlider__Backdrop.PhotoSlider__fadeIn {\n  opacity: 0;\n  -webkit-animation: PhotoView__fade 0.4s linear both;\n          animation: PhotoView__fade 0.4s linear both;\n}\n.PhotoSlider__Wrapper .PhotoSlider__Backdrop.PhotoSlider__fadeOut {\n  opacity: 1;\n  animation: PhotoView__fade 0.4s linear both reverse;\n}\n.PhotoSlider__Wrapper .PhotoSlider__BannerWrap {\n  position: absolute;\n  left: 0;\n  top: 0;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  width: 100%;\n  height: 44px;\n  color: white;\n  background-color: rgba(0, 0, 0, 0.5);\n  transition: opacity 0.2s ease-out;\n  z-index: 20;\n}\n@media (any-hover: hover) {\n  .PhotoSlider__Wrapper .PhotoSlider__BannerWrap:hover {\n    opacity: 1;\n  }\n}\n.PhotoSlider__Wrapper .PhotoSlider__BannerWrap .PhotoSlider__Counter {\n  padding: 0 10px;\n  font-size: 14px;\n  opacity: 0.75;\n}\n.PhotoSlider__Wrapper .PhotoSlider__BannerWrap .PhotoSlider__BannerRight {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100%;\n}\n.PhotoSlider__Wrapper .PhotoSlider__BannerWrap .PhotoSlider__BannerRight .PhotoSlider__BannerIcon {\n  vertical-align: top;\n  box-sizing: border-box;\n  padding: 10px;\n  opacity: 0.75;\n  cursor: pointer;\n  transition: all 0.2s linear;\n}\n@media (any-hover: hover) {\n  .PhotoSlider__Wrapper .PhotoSlider__BannerWrap .PhotoSlider__BannerRight .PhotoSlider__BannerIcon:hover {\n    opacity: 1;\n  }\n}\n.PhotoSlider__Wrapper .PhotoSlider__PhotoBox {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  z-index: 10;\n  overflow: hidden;\n}\n.PhotoSlider__Wrapper .PhotoSlider__ArrowLeft {\n  left: 0;\n}\n.PhotoSlider__Wrapper .PhotoSlider__ArrowRight {\n  right: 0;\n}\n.PhotoSlider__Wrapper .PhotoSlider__ArrowLeft,\n.PhotoSlider__Wrapper .PhotoSlider__ArrowRight {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  margin: auto 0 auto 0;\n  width: 70px;\n  height: 100px;\n  opacity: 0.7;\n  z-index: 20;\n  cursor: pointer;\n  transition: opacity 0.2s linear;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n@media (any-hover: hover) {\n  .PhotoSlider__Wrapper .PhotoSlider__ArrowLeft:hover,\n.PhotoSlider__Wrapper .PhotoSlider__ArrowRight:hover {\n    opacity: 1;\n  }\n}\n.PhotoSlider__Wrapper .PhotoSlider__ArrowLeft svg,\n.PhotoSlider__Wrapper .PhotoSlider__ArrowRight svg {\n  box-sizing: content-box;\n  padding: 10px;\n  width: 24px;\n  height: 24px;\n  fill: white;\n  background: rgba(0, 0, 0, 0.3);\n}\n.PhotoSlider__Wrapper .PhotoSlider__FooterWrap {\n  position: absolute;\n  left: 0;\n  bottom: 0;\n  box-sizing: border-box;\n  width: 100%;\n  min-height: 44px;\n  padding: 10px;\n  line-height: 1.5;\n  font-size: 14px;\n  text-align: justify;\n  color: #ccc;\n  background-color: rgba(0, 0, 0, 0.5);\n  transition: opacity 0.2s ease-out;\n  z-index: 20;\n}\n@media (any-hover: hover) {\n  .PhotoSlider__Wrapper .PhotoSlider__FooterWrap:hover {\n    opacity: 1;\n  }\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -34675,6 +35039,66 @@ var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMP
 
 /***/ }),
 
+/***/ "./node_modules/swiper/modules/navigation/navigation.min.css":
+/*!*******************************************************************!*\
+  !*** ./node_modules/swiper/modules/navigation/navigation.min.css ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _css_loader_dist_cjs_js_clonedRuleSet_10_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_10_use_2_navigation_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!../../../postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./navigation.min.css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/swiper/modules/navigation/navigation.min.css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_clonedRuleSet_10_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_10_use_2_navigation_min_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_10_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_10_use_2_navigation_min_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/swiper/modules/pagination/pagination.min.css":
+/*!*******************************************************************!*\
+  !*** ./node_modules/swiper/modules/pagination/pagination.min.css ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _css_loader_dist_cjs_js_clonedRuleSet_10_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_10_use_2_pagination_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!../../../postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./pagination.min.css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/swiper/modules/pagination/pagination.min.css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_clonedRuleSet_10_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_10_use_2_pagination_min_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_10_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_10_use_2_pagination_min_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/swiper/swiper.min.css":
 /*!********************************************!*\
   !*** ./node_modules/swiper/swiper.min.css ***!
@@ -34702,6 +35126,36 @@ var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMP
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_10_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_10_use_2_swiper_min_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/vue3-photo-preview/dist/index.css":
+/*!********************************************************!*\
+  !*** ./node_modules/vue3-photo-preview/dist/index.css ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _css_loader_dist_cjs_js_clonedRuleSet_10_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_10_use_2_index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!../../postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./index.css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/vue3-photo-preview/dist/index.css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_clonedRuleSet_10_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_10_use_2_index_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_10_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_10_use_2_index_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -41437,6 +41891,2376 @@ function useRoute() {
 }
 
 
+
+
+/***/ }),
+
+/***/ "./node_modules/vue3-photo-preview/dist/vue3-photo-preview.esm.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/vue3-photo-preview/dist/vue3-photo-preview.esm.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "EdgeTypeEnum": () => (/* binding */ EdgeTypeEnum),
+/* harmony export */   "PhotoConsumer": () => (/* binding */ script),
+/* harmony export */   "PhotoProvider": () => (/* binding */ script$1),
+/* harmony export */   "PhotoSlider": () => (/* binding */ script$2),
+/* harmony export */   "ShowAnimateEnum": () => (/* binding */ ShowAnimateEnum),
+/* harmony export */   "TouchTypeEnum": () => (/* binding */ TouchTypeEnum),
+/* harmony export */   "default": () => (/* binding */ index)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+var updateItemKey = Symbol();
+var removeItemKey = Symbol();
+var handleShowKey = Symbol();
+
+function useItems(index) {
+    var items = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
+    var getElementIndex = function (children, child) {
+        return child ? Array.prototype.indexOf.call(children, child) : -1;
+    };
+    var sortItems = function (items) {
+        var _a, _b;
+        var children = (_b = (_a = items[0].originRef) === null || _a === void 0 ? void 0 : _a.parentNode) === null || _b === void 0 ? void 0 : _b.children;
+        if (children && children.length) {
+            items.sort(function (cur, next) { return getElementIndex(children, cur.originRef) - getElementIndex(children, next.originRef); });
+        }
+    };
+    var updateItem = function (item) {
+        var index = items.value.findIndex(function (_a) {
+            var key = _a.key;
+            return item.key === key;
+        });
+        if (index > -1) {
+            items.value.splice(index, 1, item);
+        }
+        else {
+            items.value.push(item);
+            sortItems(items.value);
+        }
+    };
+    var removeItem = function (key) {
+        var nextItems = items.value.filter(function (item) { return item.key !== key; });
+        var nextEndIndex = nextItems.length - 1;
+        items.value = nextItems;
+        index.value = Math.max(Math.min(index.value, nextEndIndex), 0);
+    };
+    return {
+        items: items,
+        updateItem: updateItem,
+        removeItem: removeItem,
+    };
+}
+
+function useVisible(items, index, onVisibleChange) {
+    var visible = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
+    var handleHide = function () {
+        visible.value = false;
+        onVisibleChange();
+    };
+    var handleShow = function (key) {
+        var itemIndex = items.value.findIndex(function (item) { return item.key === key; });
+        if (itemIndex > -1) {
+            index.value = itemIndex;
+            visible.value = true;
+            onVisibleChange();
+        }
+    };
+    return {
+        visible: visible,
+        handleHide: handleHide,
+        handleShow: handleShow,
+    };
+}
+
+function useIndex(onIndexChange) {
+    var index = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
+    var updateIndex = function (newIndex) {
+        index.value = newIndex;
+        onIndexChange();
+    };
+    return {
+        index: index,
+        updateIndex: updateIndex,
+    };
+}
+
+var script$c = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({});
+
+const _hoisted_1$a = { class: "PhotoView__Spinner" };
+const _hoisted_2$9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 32 32",
+  width: "36",
+  height: "36",
+  fill: "white"
+}, [
+  /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+    opacity: ".25",
+    d: "M16 0 A16 16 0 0 0 16 32 A16 16 0 0 0 16 0 M16 4 A12 12 0 0 1 16 28 A12 12 0 0 1 16 4"
+  }),
+  /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", { d: "M16 0 A16 16 0 0 1 32 16 L28 16 A12 12 0 0 0 16 4z" })
+], -1 /* HOISTED */);
+const _hoisted_3$9 = [
+  _hoisted_2$9
+];
+
+function render$c(_ctx, _cache, $props, $setup, $data, $options) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1$a, _hoisted_3$9))
+}
+
+script$c.render = render$c;
+script$c.__file = "src/PhotoView/Spinner.vue";
+
+function getSuitableImageSize(naturalWidth, naturalHeight, rotate) {
+    var _a;
+    var innerWidth = window.innerWidth, innerHeight = window.innerHeight;
+    // 如果图片不是水平，则调换宽高
+    var isVertical = rotate % 180 !== 0;
+    if (isVertical) {
+        _a = [innerHeight, innerWidth], innerWidth = _a[0], innerHeight = _a[1];
+    }
+    var width;
+    var height;
+    // 缩放到和窗口一样所需要的比例
+    var scaleWidth = innerWidth / naturalWidth;
+    var scaleHeight = innerHeight / naturalHeight;
+    if (naturalWidth < innerWidth && naturalHeight < innerHeight) {
+        // 如果图片原始宽度未超过容器尺寸，则使用原始尺寸
+        width = naturalWidth;
+        height = naturalHeight;
+    }
+    else {
+        // 否则缩放图片使之恰好放入
+        if (scaleWidth < scaleHeight) {
+            width = innerWidth;
+            height = innerWidth * (naturalHeight / naturalWidth);
+        }
+        else {
+            width = innerHeight * (naturalWidth / naturalHeight);
+            height = innerHeight;
+        }
+    }
+    return {
+        width: width,
+        height: height
+    };
+}
+
+function useLoadImage(src) {
+    var naturalWidth = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
+    var naturalHeight = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
+    var width = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
+    var height = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
+    var loaded = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
+    function setSuitableImageSize(actualWidth, actualHeight, rotate) {
+        var imageSize = getSuitableImageSize(actualWidth, actualHeight, rotate);
+        width.value = imageSize.width;
+        height.value = imageSize.height;
+    }
+    var loadImage = function (src) {
+        loaded.value = false;
+        var img = new Image();
+        img.onload = function () {
+            naturalWidth.value = img.naturalWidth;
+            naturalHeight.value = img.naturalHeight;
+            setSuitableImageSize(naturalWidth.value, naturalHeight.value, 0);
+            loaded.value = true;
+        };
+        img.src = src;
+    };
+    loadImage(src.value);
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(src, function () {
+        loadImage(src.value);
+    });
+    return {
+        width: width,
+        height: height,
+        loaded: loaded,
+        naturalWidth: naturalWidth,
+        naturalHeight: naturalHeight,
+        setSuitableImageSize: setSuitableImageSize
+    };
+}
+
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = typeof value;
+  return value != null && (type == 'object' || type == 'function');
+}
+
+/** Detect free variable `global` from Node.js. */
+var freeGlobal = typeof __webpack_require__.g == 'object' && __webpack_require__.g && __webpack_require__.g.Object === Object && __webpack_require__.g;
+
+var freeGlobal$1 = freeGlobal;
+
+/** Detect free variable `self`. */
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+/** Used as a reference to the global object. */
+var root = freeGlobal$1 || freeSelf || Function('return this')();
+
+var root$1 = root;
+
+/**
+ * Gets the timestamp of the number of milliseconds that have elapsed since
+ * the Unix epoch (1 January 1970 00:00:00 UTC).
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Date
+ * @returns {number} Returns the timestamp.
+ * @example
+ *
+ * _.defer(function(stamp) {
+ *   console.log(_.now() - stamp);
+ * }, _.now());
+ * // => Logs the number of milliseconds it took for the deferred invocation.
+ */
+var now = function() {
+  return root$1.Date.now();
+};
+
+var now$1 = now;
+
+/** Used to match a single whitespace character. */
+var reWhitespace = /\s/;
+
+/**
+ * Used by `_.trim` and `_.trimEnd` to get the index of the last non-whitespace
+ * character of `string`.
+ *
+ * @private
+ * @param {string} string The string to inspect.
+ * @returns {number} Returns the index of the last non-whitespace character.
+ */
+function trimmedEndIndex(string) {
+  var index = string.length;
+
+  while (index-- && reWhitespace.test(string.charAt(index))) {}
+  return index;
+}
+
+/** Used to match leading whitespace. */
+var reTrimStart = /^\s+/;
+
+/**
+ * The base implementation of `_.trim`.
+ *
+ * @private
+ * @param {string} string The string to trim.
+ * @returns {string} Returns the trimmed string.
+ */
+function baseTrim(string) {
+  return string
+    ? string.slice(0, trimmedEndIndex(string) + 1).replace(reTrimStart, '')
+    : string;
+}
+
+/** Built-in value references. */
+var Symbol$1 = root$1.Symbol;
+
+var Symbol$2 = Symbol$1;
+
+/** Used for built-in method references. */
+var objectProto$1 = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto$1.hasOwnProperty;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString$1 = objectProto$1.toString;
+
+/** Built-in value references. */
+var symToStringTag$1 = Symbol$2 ? Symbol$2.toStringTag : undefined;
+
+/**
+ * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the raw `toStringTag`.
+ */
+function getRawTag(value) {
+  var isOwn = hasOwnProperty.call(value, symToStringTag$1),
+      tag = value[symToStringTag$1];
+
+  try {
+    value[symToStringTag$1] = undefined;
+    var unmasked = true;
+  } catch (e) {}
+
+  var result = nativeObjectToString$1.call(value);
+  if (unmasked) {
+    if (isOwn) {
+      value[symToStringTag$1] = tag;
+    } else {
+      delete value[symToStringTag$1];
+    }
+  }
+  return result;
+}
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString = objectProto.toString;
+
+/**
+ * Converts `value` to a string using `Object.prototype.toString`.
+ *
+ * @private
+ * @param {*} value The value to convert.
+ * @returns {string} Returns the converted string.
+ */
+function objectToString(value) {
+  return nativeObjectToString.call(value);
+}
+
+/** `Object#toString` result references. */
+var nullTag = '[object Null]',
+    undefinedTag = '[object Undefined]';
+
+/** Built-in value references. */
+var symToStringTag = Symbol$2 ? Symbol$2.toStringTag : undefined;
+
+/**
+ * The base implementation of `getTag` without fallbacks for buggy environments.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+function baseGetTag(value) {
+  if (value == null) {
+    return value === undefined ? undefinedTag : nullTag;
+  }
+  return (symToStringTag && symToStringTag in Object(value))
+    ? getRawTag(value)
+    : objectToString(value);
+}
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return value != null && typeof value == 'object';
+}
+
+/** `Object#toString` result references. */
+var symbolTag = '[object Symbol]';
+
+/**
+ * Checks if `value` is classified as a `Symbol` primitive or object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+ * @example
+ *
+ * _.isSymbol(Symbol.iterator);
+ * // => true
+ *
+ * _.isSymbol('abc');
+ * // => false
+ */
+function isSymbol(value) {
+  return typeof value == 'symbol' ||
+    (isObjectLike(value) && baseGetTag(value) == symbolTag);
+}
+
+/** Used as references for various `Number` constants. */
+var NAN = 0 / 0;
+
+/** Used to detect bad signed hexadecimal string values. */
+var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+
+/** Used to detect binary string values. */
+var reIsBinary = /^0b[01]+$/i;
+
+/** Used to detect octal string values. */
+var reIsOctal = /^0o[0-7]+$/i;
+
+/** Built-in method references without a dependency on `root`. */
+var freeParseInt = parseInt;
+
+/**
+ * Converts `value` to a number.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to process.
+ * @returns {number} Returns the number.
+ * @example
+ *
+ * _.toNumber(3.2);
+ * // => 3.2
+ *
+ * _.toNumber(Number.MIN_VALUE);
+ * // => 5e-324
+ *
+ * _.toNumber(Infinity);
+ * // => Infinity
+ *
+ * _.toNumber('3.2');
+ * // => 3.2
+ */
+function toNumber(value) {
+  if (typeof value == 'number') {
+    return value;
+  }
+  if (isSymbol(value)) {
+    return NAN;
+  }
+  if (isObject(value)) {
+    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+    value = isObject(other) ? (other + '') : other;
+  }
+  if (typeof value != 'string') {
+    return value === 0 ? value : +value;
+  }
+  value = baseTrim(value);
+  var isBinary = reIsBinary.test(value);
+  return (isBinary || reIsOctal.test(value))
+    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
+    : (reIsBadHex.test(value) ? NAN : +value);
+}
+
+/** Error message constants. */
+var FUNC_ERROR_TEXT$1 = 'Expected a function';
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max,
+    nativeMin = Math.min;
+
+/**
+ * Creates a debounced function that delays invoking `func` until after `wait`
+ * milliseconds have elapsed since the last time the debounced function was
+ * invoked. The debounced function comes with a `cancel` method to cancel
+ * delayed `func` invocations and a `flush` method to immediately invoke them.
+ * Provide `options` to indicate whether `func` should be invoked on the
+ * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
+ * with the last arguments provided to the debounced function. Subsequent
+ * calls to the debounced function return the result of the last `func`
+ * invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is
+ * invoked on the trailing edge of the timeout only if the debounced function
+ * is invoked more than once during the `wait` timeout.
+ *
+ * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+ * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+ *
+ * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+ * for details over the differences between `_.debounce` and `_.throttle`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to debounce.
+ * @param {number} [wait=0] The number of milliseconds to delay.
+ * @param {Object} [options={}] The options object.
+ * @param {boolean} [options.leading=false]
+ *  Specify invoking on the leading edge of the timeout.
+ * @param {number} [options.maxWait]
+ *  The maximum time `func` is allowed to be delayed before it's invoked.
+ * @param {boolean} [options.trailing=true]
+ *  Specify invoking on the trailing edge of the timeout.
+ * @returns {Function} Returns the new debounced function.
+ * @example
+ *
+ * // Avoid costly calculations while the window size is in flux.
+ * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
+ *
+ * // Invoke `sendMail` when clicked, debouncing subsequent calls.
+ * jQuery(element).on('click', _.debounce(sendMail, 300, {
+ *   'leading': true,
+ *   'trailing': false
+ * }));
+ *
+ * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
+ * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
+ * var source = new EventSource('/stream');
+ * jQuery(source).on('message', debounced);
+ *
+ * // Cancel the trailing debounced invocation.
+ * jQuery(window).on('popstate', debounced.cancel);
+ */
+function debounce(func, wait, options) {
+  var lastArgs,
+      lastThis,
+      maxWait,
+      result,
+      timerId,
+      lastCallTime,
+      lastInvokeTime = 0,
+      leading = false,
+      maxing = false,
+      trailing = true;
+
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT$1);
+  }
+  wait = toNumber(wait) || 0;
+  if (isObject(options)) {
+    leading = !!options.leading;
+    maxing = 'maxWait' in options;
+    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+
+  function invokeFunc(time) {
+    var args = lastArgs,
+        thisArg = lastThis;
+
+    lastArgs = lastThis = undefined;
+    lastInvokeTime = time;
+    result = func.apply(thisArg, args);
+    return result;
+  }
+
+  function leadingEdge(time) {
+    // Reset any `maxWait` timer.
+    lastInvokeTime = time;
+    // Start the timer for the trailing edge.
+    timerId = setTimeout(timerExpired, wait);
+    // Invoke the leading edge.
+    return leading ? invokeFunc(time) : result;
+  }
+
+  function remainingWait(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime,
+        timeWaiting = wait - timeSinceLastCall;
+
+    return maxing
+      ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke)
+      : timeWaiting;
+  }
+
+  function shouldInvoke(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime;
+
+    // Either this is the first call, activity has stopped and we're at the
+    // trailing edge, the system time has gone backwards and we're treating
+    // it as the trailing edge, or we've hit the `maxWait` limit.
+    return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
+      (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
+  }
+
+  function timerExpired() {
+    var time = now$1();
+    if (shouldInvoke(time)) {
+      return trailingEdge(time);
+    }
+    // Restart the timer.
+    timerId = setTimeout(timerExpired, remainingWait(time));
+  }
+
+  function trailingEdge(time) {
+    timerId = undefined;
+
+    // Only invoke if we have `lastArgs` which means `func` has been
+    // debounced at least once.
+    if (trailing && lastArgs) {
+      return invokeFunc(time);
+    }
+    lastArgs = lastThis = undefined;
+    return result;
+  }
+
+  function cancel() {
+    if (timerId !== undefined) {
+      clearTimeout(timerId);
+    }
+    lastInvokeTime = 0;
+    lastArgs = lastCallTime = lastThis = timerId = undefined;
+  }
+
+  function flush() {
+    return timerId === undefined ? result : trailingEdge(now$1());
+  }
+
+  function debounced() {
+    var time = now$1(),
+        isInvoking = shouldInvoke(time);
+
+    lastArgs = arguments;
+    lastThis = this;
+    lastCallTime = time;
+
+    if (isInvoking) {
+      if (timerId === undefined) {
+        return leadingEdge(lastCallTime);
+      }
+      if (maxing) {
+        // Handle invocations in a tight loop.
+        clearTimeout(timerId);
+        timerId = setTimeout(timerExpired, wait);
+        return invokeFunc(lastCallTime);
+      }
+    }
+    if (timerId === undefined) {
+      timerId = setTimeout(timerExpired, wait);
+    }
+    return result;
+  }
+  debounced.cancel = cancel;
+  debounced.flush = flush;
+  return debounced;
+}
+
+/** Error message constants. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+
+/**
+ * Creates a throttled function that only invokes `func` at most once per
+ * every `wait` milliseconds. The throttled function comes with a `cancel`
+ * method to cancel delayed `func` invocations and a `flush` method to
+ * immediately invoke them. Provide `options` to indicate whether `func`
+ * should be invoked on the leading and/or trailing edge of the `wait`
+ * timeout. The `func` is invoked with the last arguments provided to the
+ * throttled function. Subsequent calls to the throttled function return the
+ * result of the last `func` invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is
+ * invoked on the trailing edge of the timeout only if the throttled function
+ * is invoked more than once during the `wait` timeout.
+ *
+ * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+ * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+ *
+ * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+ * for details over the differences between `_.throttle` and `_.debounce`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to throttle.
+ * @param {number} [wait=0] The number of milliseconds to throttle invocations to.
+ * @param {Object} [options={}] The options object.
+ * @param {boolean} [options.leading=true]
+ *  Specify invoking on the leading edge of the timeout.
+ * @param {boolean} [options.trailing=true]
+ *  Specify invoking on the trailing edge of the timeout.
+ * @returns {Function} Returns the new throttled function.
+ * @example
+ *
+ * // Avoid excessively updating the position while scrolling.
+ * jQuery(window).on('scroll', _.throttle(updatePosition, 100));
+ *
+ * // Invoke `renewToken` when the click event is fired, but not more than once every 5 minutes.
+ * var throttled = _.throttle(renewToken, 300000, { 'trailing': false });
+ * jQuery(element).on('click', throttled);
+ *
+ * // Cancel the trailing throttled invocation.
+ * jQuery(window).on('popstate', throttled.cancel);
+ */
+function throttle(func, wait, options) {
+  var leading = true,
+      trailing = true;
+
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  if (isObject(options)) {
+    leading = 'leading' in options ? !!options.leading : leading;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+  return debounce(func, wait, {
+    'leading': leading,
+    'maxWait': wait,
+    'trailing': trailing
+  });
+}
+
+function useWindowResize(naturalWidth, naturalHeight, rotate, setSuitableImageSize) {
+    var handleResize = throttle(function () {
+        setSuitableImageSize(naturalWidth.value, naturalHeight.value, rotate.value);
+    }, 8);
+    window.addEventListener('resize', handleResize);
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onBeforeUnmount)(function () {
+        window.removeEventListener('resize', handleResize);
+    });
+}
+
+// 动画类型
+var ShowAnimateEnum;
+(function (ShowAnimateEnum) {
+    ShowAnimateEnum[ShowAnimateEnum["None"] = 0] = "None";
+    ShowAnimateEnum[ShowAnimateEnum["In"] = 1] = "In";
+    ShowAnimateEnum[ShowAnimateEnum["Out"] = 2] = "Out";
+})(ShowAnimateEnum || (ShowAnimateEnum = {}));
+// 触摸状态
+var TouchTypeEnum;
+(function (TouchTypeEnum) {
+    TouchTypeEnum[TouchTypeEnum["Normal"] = 0] = "Normal";
+    TouchTypeEnum[TouchTypeEnum["X"] = 1] = "X";
+    TouchTypeEnum[TouchTypeEnum["Y"] = 2] = "Y";
+    TouchTypeEnum[TouchTypeEnum["Scale"] = 3] = "Scale";
+})(TouchTypeEnum || (TouchTypeEnum = {}));
+// 边缘状态
+var EdgeTypeEnum;
+(function (EdgeTypeEnum) {
+    EdgeTypeEnum[EdgeTypeEnum["Left"] = 0] = "Left";
+    EdgeTypeEnum[EdgeTypeEnum["Right"] = 1] = "Right";
+    EdgeTypeEnum[EdgeTypeEnum["Top"] = 2] = "Top";
+    EdgeTypeEnum[EdgeTypeEnum["Bottom"] = 3] = "Bottom";
+})(EdgeTypeEnum || (EdgeTypeEnum = {}));
+
+function getAnimateOrigin(originRect) {
+    if (originRect) {
+        var innerWidth_1 = window.innerWidth, innerHeight_1 = window.innerHeight;
+        // 动画的元素宽高为 0，计算触发的点的中心到中点的距离即是 AnimateOrigin（粗略计算）
+        var xOrigin = originRect.left + originRect.width / 2 - innerWidth_1 / 2;
+        var yOrigin = originRect.top + originRect.height / 2 - innerHeight_1 / 2;
+        return "".concat(xOrigin, "px ").concat(yOrigin, "px");
+    }
+    return null;
+}
+
+/**
+ * 当前设备是否支持触摸事件
+ */
+var isTouchDevice = typeof document !== 'undefined' && 'ontouchstart' in document.documentElement;
+
+/**
+ * 图片间隔
+ */
+var horizontalOffset = 20;
+/**
+ * 最小初始响应距离
+ */
+var minStartTouchOffset = 10;
+/**
+ * 最小切换图片距离
+ */
+var minSwitchImageOffset = 40;
+/**
+ * 最大缩放度（若图片足够大，则会超出该值）
+ */
+var maxScale = 6;
+
+function withContinuousTap(singleTap, doubleTap) {
+    // 当前连续点击次数
+    var continuousCount = 0;
+    var withSingleTap = debounce(function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        continuousCount = 0;
+        singleTap.apply(void 0, args);
+    }, 300);
+    return function invokeTap() {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        continuousCount += 1;
+        withSingleTap.apply(void 0, args);
+        if (continuousCount >= 2) {
+            withSingleTap.cancel();
+            continuousCount = 0;
+            doubleTap.apply(void 0, args);
+        }
+    };
+}
+
+/**
+ * 获取移动或缩放之后的中心点
+ */
+function getPositionOnMoveOrScale(_a) {
+    var x = _a.x, y = _a.y, clientX = _a.clientX, clientY = _a.clientY, fromScale = _a.fromScale, toScale = _a.toScale;
+    var innerWidth = window.innerWidth, innerHeight = window.innerHeight;
+    // 缩放前的图片的中心坐标
+    var imageCenterClientX = innerWidth / 2 + x;
+    var imageCenterClientY = innerHeight / 2 + y;
+    // 放大偏移量
+    var offsetScale = toScale / fromScale;
+    // 缩放后的偏移量(为保证点击的点相对于视图位置不变，需要将缩放多出来的尺寸通过 translate 平衡掉)
+    var originX = -(clientX - imageCenterClientX) * (offsetScale - 1);
+    var originY = -(clientY - imageCenterClientY) * (offsetScale - 1);
+    return {
+        x: originX + x,
+        y: originY + y,
+        scale: toScale,
+    };
+}
+
+/**
+ * 获取图片拖拽到边缘需要的值
+ */
+function getEdgeInfo(_a) {
+    var _b;
+    var width = _a.width, height = _a.height, scale = _a.scale, rotate = _a.rotate;
+    // 如果图片不是水平，则调换宽高
+    var isVertical = rotate % 180 !== 0;
+    if (isVertical) {
+        _b = [height, width], width = _b[0], height = _b[1];
+    }
+    var innerWidth = window.innerWidth, innerHeight = window.innerHeight;
+    var currentWidth = width * scale;
+    var currentHeight = height * scale;
+    var edgeLeft, edgeRight, edgeTop, edgeBottom;
+    if (currentWidth > innerWidth) {
+        edgeLeft = (currentWidth - innerWidth) / 2;
+        edgeRight = -(currentWidth - innerWidth) / 2;
+    }
+    else {
+        edgeLeft = 0;
+        edgeRight = 0;
+    }
+    if (currentHeight > innerHeight) {
+        edgeTop = (currentHeight - innerHeight) / 2;
+        edgeBottom = -(currentHeight - innerHeight) / 2;
+    }
+    else {
+        edgeTop = 0;
+        edgeBottom = 0;
+    }
+    return {
+        edgeLeft: edgeLeft,
+        edgeRight: edgeRight,
+        edgeTop: edgeTop,
+        edgeBottom: edgeBottom,
+    };
+}
+/**
+ * 获取边缘类型
+ */
+function getEdgeTypes(_a) {
+    var width = _a.width, height = _a.height, scale = _a.scale, rotate = _a.rotate, x = _a.x, y = _a.y;
+    var position = getEdgeInfo({ width: width, height: height, scale: scale, rotate: rotate });
+    var edgeTypes = [];
+    if (x === position.edgeLeft) {
+        edgeTypes.push(EdgeTypeEnum.Left);
+    }
+    if (x === position.edgeRight) {
+        edgeTypes.push(EdgeTypeEnum.Right);
+    }
+    if (y === position.edgeTop) {
+        edgeTypes.push(EdgeTypeEnum.Top);
+    }
+    if (y === position.edgeBottom) {
+        edgeTypes.push(EdgeTypeEnum.Bottom);
+    }
+    return edgeTypes;
+}
+/**
+ * 获取标准值
+ */
+function getStandardPosition(_a) {
+    var width = _a.width, height = _a.height, scale = _a.scale, rotate = _a.rotate, x = _a.x, y = _a.y;
+    var _b = getEdgeInfo({ width: width, height: height, scale: scale, rotate: rotate }), edgeLeft = _b.edgeLeft, edgeRight = _b.edgeRight, edgeTop = _b.edgeTop, edgeBottom = _b.edgeBottom;
+    if (x > edgeLeft) {
+        x = edgeLeft;
+    }
+    if (x < edgeRight) {
+        x = edgeRight;
+    }
+    if (y > edgeTop) {
+        y = edgeTop;
+    }
+    if (y < edgeBottom) {
+        y = edgeBottom;
+    }
+    return { x: x, y: y, scale: scale };
+}
+
+/**
+ * 从 Touch 事件中获取两个触控中心的位置
+ * @param e TouchEvent
+ */
+function getMultipleTouchPosition(e) {
+    var _a = e.touches[0], clientX = _a.clientX, clientY = _a.clientY;
+    if (e.touches.length >= 2) {
+        var _b = e.touches[1], nextClientX = _b.clientX, nextClientY = _b.clientY;
+        return {
+            clientX: (clientX + nextClientX) / 2,
+            clientY: (clientY + nextClientY) / 2,
+            touchLength: Math.sqrt(Math.pow(nextClientX - clientX, 2) + Math.pow(nextClientY - clientY, 2)),
+        };
+    }
+    return { clientX: clientX, clientY: clientY, touchLength: 0 };
+}
+
+function useMoveImage(width, height, naturalWidth, naturalHeight, setSuitableImageSize, onTouchStart, onTouchMove, onTouchEnd, onSingleTap) {
+    // 图片 x 偏移量
+    var x = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
+    // 图片 y 偏移量
+    var y = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
+    // 图片缩放程度
+    var scale = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(1);
+    // 图片旋转角度
+    var rotate = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
+    // 图片是否处于触摸状态
+    var touched = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
+    // 触摸开始时 x 的坐标
+    var clientX = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
+    // 触摸开始时 y 的坐标
+    var clientY = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
+    // 初始触摸状态
+    var touchType = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(TouchTypeEnum.Normal);
+    // 上一次图片的 x 偏移量
+    var lastX = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
+    // 上一次图片的 y 偏移量
+    var lastY = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
+    // 上一次 touch 的长度
+    var lastTouchLength = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
+    // 边缘状态(用于缩放图片判断)
+    var edgeTypes = [];
+    var handleMouseDown = function (e) {
+        if (isTouchDevice)
+            return;
+        handleDown(e.clientX, e.clientY, 0);
+        window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('mouseup', handleMouseUp);
+    };
+    var handleTouchStart = function (e) {
+        if (!isTouchDevice)
+            return;
+        var touch = getMultipleTouchPosition(e);
+        handleDown(touch.clientX, touch.clientY, touch.touchLength);
+        window.addEventListener('touchmove', handleTouchMove);
+        window.addEventListener('touchend', handleTouchEnd);
+    };
+    var handleDown = function (newClientX, newClientY, touchLength) {
+        touched.value = true;
+        clientX.value = newClientX;
+        clientY.value = newClientY;
+        lastTouchLength.value = touchLength;
+        edgeTypes = getEdgeTypes({
+            width: width.value,
+            height: height.value,
+            scale: scale.value,
+            rotate: rotate.value,
+            x: lastX.value,
+            y: lastY.value
+        });
+        onTouchStart(newClientX, newClientY);
+    };
+    var handleMouseMove = function (e) {
+        if (isTouchDevice || !touched.value)
+            return;
+        handleMove(e.clientX, e.clientY, 0);
+    };
+    var handleTouchMove = function (e) {
+        if (!isTouchDevice || !touched.value)
+            return;
+        var touch = getMultipleTouchPosition(e);
+        handleMove(touch.clientX, touch.clientY, touch.touchLength);
+    };
+    var handleMove = throttle(function (newClientX, newClientY, touchLength) {
+        // 初始化触摸状态
+        if (touchType.value === TouchTypeEnum.Normal) {
+            if (scale.value !== 1 || touchLength) {
+                touchType.value = TouchTypeEnum.Scale;
+            }
+            else {
+                var isMoveX = Math.abs(newClientX - clientX.value) > minStartTouchOffset;
+                var isMoveY = Math.abs(newClientY - clientY.value) > minStartTouchOffset;
+                if (!isMoveX && !isMoveY)
+                    return;
+                // 水平方向优先
+                touchType.value = isMoveX ? TouchTypeEnum.X : TouchTypeEnum.Y;
+            }
+        }
+        onTouchMove(touchType.value, newClientX, newClientY, edgeTypes);
+        var newX = newClientX - clientX.value;
+        var newY = newClientY - clientY.value;
+        if (touchType.value === TouchTypeEnum.Y) {
+            x.value = newX + lastX.value;
+            y.value = newY + lastY.value;
+        }
+        if (touchType.value === TouchTypeEnum.Scale) {
+            if (touchLength) {
+                var endScale = scale.value + ((touchLength - lastTouchLength.value) / 100 / 2) * scale.value;
+                var toScale = Math.max(Math.min(endScale, Math.max(maxScale, naturalWidth.value / width.value)), 1);
+                handleToScale(toScale, newClientX, newClientY);
+                lastTouchLength.value = touchLength;
+            }
+            else {
+                // 处于左边缘情况，右划交给父级处理，处于右边缘情况，左划交给父级处理
+                if (!(newX > 0 && edgeTypes.includes(EdgeTypeEnum.Left)) &&
+                    !(newX < 0 && edgeTypes.includes(EdgeTypeEnum.Right))) {
+                    x.value = newX + lastX.value;
+                }
+                y.value = newY + lastY.value;
+            }
+        }
+    }, 8, { trailing: false });
+    var handleMouseUp = function (e) {
+        if (isTouchDevice)
+            return;
+        handleUp(e.clientX, e.clientY, e);
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mouseup', handleMouseUp);
+    };
+    var handleTouchEnd = function (e) {
+        if (!isTouchDevice)
+            return;
+        var touch = e.changedTouches[0];
+        handleUp(touch.clientX, touch.clientY, e);
+        window.removeEventListener('touchmove', handleTouchMove);
+        window.removeEventListener('touchend', handleTouchEnd);
+    };
+    var onDoubleTap = function (newClientX, newClientY) {
+        if (touchType.value !== TouchTypeEnum.Normal)
+            return;
+        if (scale.value === 1) {
+            var toScale = Math.max(2, naturalWidth.value / width.value);
+            var position = getPositionOnMoveOrScale({
+                x: x.value,
+                y: y.value,
+                clientX: newClientX,
+                clientY: newClientY,
+                fromScale: scale.value,
+                toScale: toScale,
+            });
+            x.value = position.x;
+            y.value = position.y;
+            scale.value = position.scale;
+        }
+        else {
+            x.value = 0;
+            y.value = 0;
+            scale.value = 1;
+        }
+    };
+    var onTap = withContinuousTap(onSingleTap, onDoubleTap);
+    var handleUp = function (newClientX, newClientY, e) {
+        if (clientX.value === newClientX && clientY.value === newClientY) {
+            onTap(newClientX, newClientY, e);
+        }
+        onTouchEnd(touchType.value, newClientX, newClientY, edgeTypes);
+        if (touchType.value === TouchTypeEnum.Y) {
+            x.value = 0;
+            y.value = 0;
+        }
+        if (touchType.value === TouchTypeEnum.Scale) {
+            setStandardPosition({
+                width: width.value,
+                height: height.value,
+                scale: scale.value,
+                rotate: rotate.value,
+                x: x.value,
+                y: y.value
+            });
+        }
+        touched.value = false;
+        touchType.value = TouchTypeEnum.Normal;
+        clientX.value = 0;
+        clientY.value = 0;
+        lastX.value = x.value;
+        lastY.value = y.value;
+    };
+    var handleWheel = function (e) {
+        var endScale = scale.value - e.deltaY / 100 / 2;
+        var toScale = Math.max(Math.min(endScale, Math.max(maxScale, naturalWidth.value / width.value)), 1);
+        handleToScale(toScale, e.clientX, e.clientY);
+    };
+    var handleToScale = function (newScale, newClientX, newClientY) {
+        var position = getPositionOnMoveOrScale({
+            x: x.value,
+            y: y.value,
+            clientX: newClientX,
+            clientY: newClientY,
+            fromScale: scale.value,
+            toScale: newScale,
+        });
+        setStandardPosition({
+            width: width.value,
+            height: height.value,
+            scale: position.scale,
+            rotate: rotate.value,
+            x: position.x,
+            y: position.y
+        });
+    };
+    var setStandardPosition = function (position) {
+        var standardPosition = getStandardPosition(position);
+        x.value = standardPosition.x;
+        y.value = standardPosition.y;
+        lastX.value = standardPosition.x;
+        lastY.value = standardPosition.y;
+        scale.value = standardPosition.scale;
+    };
+    var handleRotateLeft = function () {
+        rotate.value = rotate.value - 90;
+        setSuitableImageSize(naturalWidth.value, naturalHeight.value, rotate.value);
+        setStandardPosition({
+            width: width.value,
+            height: height.value,
+            scale: scale.value,
+            rotate: rotate.value,
+            x: x.value,
+            y: y.value
+        });
+    };
+    var handleRotateRight = function () {
+        rotate.value = rotate.value + 90;
+        setSuitableImageSize(naturalWidth.value, naturalHeight.value, rotate.value);
+        setStandardPosition({
+            width: width.value,
+            height: height.value,
+            scale: scale.value,
+            rotate: rotate.value,
+            x: x.value,
+            y: y.value
+        });
+    };
+    return {
+        x: x,
+        y: y,
+        scale: scale,
+        touched: touched,
+        handleMouseDown: handleMouseDown,
+        handleTouchStart: handleTouchStart,
+        handleWheel: handleWheel,
+        rotate: rotate,
+        handleRotateLeft: handleRotateLeft,
+        handleRotateRight: handleRotateRight
+    };
+}
+
+var script$b = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
+    name: 'PhotoView',
+    components: {
+        Spinner: script$c
+    },
+    props: {
+        /**
+         * 图片地址
+         */
+        src: {
+            type: String,
+            required: true,
+        },
+        /**
+         * 触发打开模态框的位置信息
+         */
+        originRect: {
+            type: Object,
+            default: null,
+        },
+        /**
+         * 动画类型
+         */
+        showAnimateType: {
+            type: Number,
+            default: null,
+        }
+    },
+    emits: ['touchStart', 'touchMove', 'touchEnd', 'singleTap'],
+    setup: function (props, _a) {
+        var emit = _a.emit;
+        var src = (0,vue__WEBPACK_IMPORTED_MODULE_0__.toRefs)(props).src;
+        var _b = useLoadImage(src), width = _b.width, height = _b.height, loaded = _b.loaded, naturalWidth = _b.naturalWidth, naturalHeight = _b.naturalHeight, setSuitableImageSize = _b.setSuitableImageSize;
+        var onTouchStart = function (clientX, clientY) {
+            emit('touchStart', clientX, clientY);
+        };
+        var onTouchMove = function (touchType, clientX, clientY, edgeTypes) {
+            emit('touchMove', touchType, clientX, clientY, edgeTypes);
+        };
+        var onTouchEnd = function (touchType, clientX, clientY, edgeTypes) {
+            emit('touchEnd', touchType, clientX, clientY, edgeTypes);
+        };
+        var onSingleTap = function (clientX, clientY, e) {
+            emit('singleTap', clientX, clientY, e);
+        };
+        var _c = useMoveImage(width, height, naturalWidth, naturalHeight, setSuitableImageSize, onTouchStart, onTouchMove, onTouchEnd, onSingleTap), x = _c.x, y = _c.y, scale = _c.scale, rotate = _c.rotate, touched = _c.touched, handleMouseDown = _c.handleMouseDown, handleTouchStart = _c.handleTouchStart, handleWheel = _c.handleWheel, handleRotateLeft = _c.handleRotateLeft, handleRotateRight = _c.handleRotateRight;
+        useWindowResize(naturalWidth, naturalHeight, rotate, setSuitableImageSize);
+        return {
+            width: width,
+            height: height,
+            loaded: loaded,
+            x: x,
+            y: y,
+            scale: scale,
+            touched: touched,
+            handleMouseDown: handleMouseDown,
+            handleTouchStart: handleTouchStart,
+            handleWheel: handleWheel,
+            rotate: rotate,
+            handleRotateLeft: handleRotateLeft,
+            handleRotateRight: handleRotateRight
+        };
+    },
+    data: function () {
+        return {
+            ShowAnimateEnum: ShowAnimateEnum,
+            // 翻转
+            isFlipHorizontal: false,
+            isFlipVertical: false,
+        };
+    },
+    methods: {
+        getAnimateOrigin: getAnimateOrigin,
+        toggleFlipHorizontal: function () {
+            this.isFlipHorizontal = !this.isFlipHorizontal;
+        },
+        toggleFlipVertical: function () {
+            this.isFlipVertical = !this.isFlipVertical;
+        },
+        getTransform: function () {
+            var scaleX = "".concat(this.isFlipHorizontal ? '-' : '').concat(this.scale);
+            var scaleY = "".concat(this.isFlipVertical ? '-' : '').concat(this.scale);
+            var transform = {
+                matrix: "".concat(scaleX, ", 0, 0, ").concat(scaleY, ", ").concat(this.x, ", ").concat(this.y),
+            };
+            if (this.rotate) {
+                transform.rotate = "".concat(this.rotate, "deg");
+            }
+            var str = '';
+            Object.keys(transform).forEach(function (name) {
+                str += "".concat(name, "(").concat(transform[name], ")");
+            });
+            return str;
+        }
+    }
+});
+
+const _hoisted_1$9 = ["width", "height", "src"];
+
+function render$b(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_spinner = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("spinner");
+
+  return (_ctx.loaded)
+    ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+        key: 0,
+        class: "PhotoView__PhotoWrap",
+        style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
+      width: `${_ctx.width}px`,
+      height: `${_ctx.height}px`
+    })
+      }, [
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+          class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["PhotoView__PhotoBox", {
+        'PhotoView__animateIn': _ctx.showAnimateType === _ctx.ShowAnimateEnum.In,
+        'PhotoView__animateOut': _ctx.showAnimateType === _ctx.ShowAnimateEnum.Out,
+      }]),
+          style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
+        transformOrigin: _ctx.getAnimateOrigin(_ctx.originRect)
+      })
+        }, [
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+            class: "PhotoView__Photo",
+            width: _ctx.width,
+            height: _ctx.height,
+            src: _ctx.src,
+            style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
+          transform: _ctx.getTransform(),
+          transition: _ctx.touched ? undefined : 'transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1)',
+        }),
+            onMousedown: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)((...args) => (_ctx.handleMouseDown && _ctx.handleMouseDown(...args)), ["prevent"])),
+            onTouchstart: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)((...args) => (_ctx.handleTouchStart && _ctx.handleTouchStart(...args)), ["prevent"])),
+            onWheel: _cache[2] || (_cache[2] = (...args) => (_ctx.handleWheel && _ctx.handleWheel(...args)))
+          }, null, 44 /* STYLE, PROPS, HYDRATE_EVENTS */, _hoisted_1$9)
+        ], 6 /* CLASS, STYLE */)
+      ], 4 /* STYLE */))
+    : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_spinner, { key: 1 }))
+}
+
+script$b.render = render$b;
+script$b.__file = "src/PhotoView/index.vue";
+
+function useBodyEffect(visible) {
+    var style = document.body.style;
+    var originalOverflow = style.overflow;
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(visible, function () {
+        if (visible.value) {
+            style.overflow = 'hidden';
+        }
+        else {
+            style.overflow = originalOverflow;
+        }
+    });
+}
+
+function useInnerWidth() {
+    var innerWidth = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(window.innerWidth);
+    var handleResize = throttle(function () {
+        innerWidth.value = window.innerWidth;
+    }, 8);
+    window.addEventListener('resize', handleResize);
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onBeforeUnmount)(function () {
+        window.removeEventListener('resize', handleResize);
+    });
+    return {
+        innerWidth: innerWidth
+    };
+}
+
+var script$a = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({});
+
+const _hoisted_1$8 = {
+  version: "1.1",
+  xmlns: "http://www.w3.org/2000/svg",
+  width: "44",
+  height: "44",
+  viewBox: "0 0 768 768"
+};
+const _hoisted_2$8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  fill: "#FFF",
+  d: "M607.5 205.5l-178.5 178.5 178.5 178.5-45 45-178.5-178.5-178.5 178.5-45-45 178.5-178.5-178.5-178.5 45-45 178.5 178.5 178.5-178.5z"
+}, null, -1 /* HOISTED */);
+const _hoisted_3$8 = [
+  _hoisted_2$8
+];
+
+function render$a(_ctx, _cache, $props, $setup, $data, $options) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_1$8, _hoisted_3$8))
+}
+
+script$a.render = render$a;
+script$a.__file = "src/PhotoSlider/Close.vue";
+
+var script$9 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({});
+
+const _hoisted_1$7 = {
+  version: "1.1",
+  xmlns: "http://www.w3.org/2000/svg",
+  width: "44",
+  height: "44",
+  viewBox: "0 0 768 768"
+};
+const _hoisted_2$7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", { d: "M640.5 352.5v63h-390l178.5 180-45 45-256.5-256.5 256.5-256.5 45 45-178.5 180h390z" }, null, -1 /* HOISTED */);
+const _hoisted_3$7 = [
+  _hoisted_2$7
+];
+
+function render$9(_ctx, _cache, $props, $setup, $data, $options) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_1$7, _hoisted_3$7))
+}
+
+script$9.render = render$9;
+script$9.__file = "src/PhotoSlider/ArrowLeft.vue";
+
+var script$8 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({});
+
+const _hoisted_1$6 = {
+  version: "1.1",
+  xmlns: "http://www.w3.org/2000/svg",
+  width: "44",
+  height: "44",
+  viewBox: "0 0 768 768"
+};
+const _hoisted_2$6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", { d: "M384 127.5l256.5 256.5-256.5 256.5-45-45 178.5-180h-390v-63h390l-178.5-180z" }, null, -1 /* HOISTED */);
+const _hoisted_3$6 = [
+  _hoisted_2$6
+];
+
+function render$8(_ctx, _cache, $props, $setup, $data, $options) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_1$6, _hoisted_3$6))
+}
+
+script$8.render = render$8;
+script$8.__file = "src/PhotoSlider/ArrowRight.vue";
+
+var script$7 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({});
+
+const _hoisted_1$5 = {
+  viewBox: "0 0 1024 1024",
+  version: "1.1",
+  xmlns: "http://www.w3.org/2000/svg",
+  width: "44",
+  height: "44"
+};
+const _hoisted_2$5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  fill: "#FFF",
+  d: "M744.81 959.5c99.37-180.1 116.14-454.76-274.34-445.6v221.85L134.82 400.12 470.46 64.5v217.1c467.59-12.2 519.68 412.74 274.35 677.9z"
+}, null, -1 /* HOISTED */);
+const _hoisted_3$5 = [
+  _hoisted_2$5
+];
+
+function render$7(_ctx, _cache, $props, $setup, $data, $options) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_1$5, _hoisted_3$5))
+}
+
+script$7.render = render$7;
+script$7.__file = "src/PhotoSlider/RotateLeft.vue";
+
+var script$6 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({});
+
+const _hoisted_1$4 = {
+  viewBox: "0 0 1000 1000",
+  version: "1.1",
+  xmlns: "http://www.w3.org/2000/svg",
+  width: "44",
+  height: "44"
+};
+const _hoisted_2$4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  fill: "#FFF",
+  d: "M555.668 258.9754V47.24496791175579l327.3385 327.3241L555.668 701.8941V485.52881146582615c-380.8294-8.9369-364.4728 258.9334-267.5596 434.5814C48.8389 661.5105 99.6385 247.0815 555.668 258.9754z"
+}, null, -1 /* HOISTED */);
+const _hoisted_3$4 = [
+  _hoisted_2$4
+];
+
+function render$6(_ctx, _cache, $props, $setup, $data, $options) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_1$4, _hoisted_3$4))
+}
+
+script$6.render = render$6;
+script$6.__file = "src/PhotoSlider/RotateRight.vue";
+
+var script$5 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({});
+
+const _hoisted_1$3 = {
+  viewBox: "0 0 1024 1024",
+  version: "1.1",
+  xmlns: "http://www.w3.org/2000/svg",
+  width: "44",
+  height: "44"
+};
+const _hoisted_2$3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  fill: "#FFF",
+  d: "M978.432 492.832l-153.696-116.896c-17.504-13.312-31.968-6.208-32.096 15.776L792.032 480H231.968l-0.608-88.288c-0.16-22.016-14.592-29.088-32.096-15.776l-153.696 116.896c-17.504 13.312-17.12 34.592 0.864 47.264l154.144 108.608c17.984 12.672 32.576 5.056 32.416-16.96L232.384 544h559.2l-0.576 87.712c-0.16 22.016 14.432 29.632 32.416 16.96l154.144-108.608c17.984-12.672 18.4-33.92 0.864-47.232z"
+}, null, -1 /* HOISTED */);
+const _hoisted_3$3 = [
+  _hoisted_2$3
+];
+
+function render$5(_ctx, _cache, $props, $setup, $data, $options) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_1$3, _hoisted_3$3))
+}
+
+script$5.render = render$5;
+script$5.__file = "src/PhotoSlider/FlipHorizontal.vue";
+
+var script$4 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({});
+
+const _hoisted_1$2 = {
+  viewBox: "0 0 1024 1024",
+  version: "1.1",
+  xmlns: "http://www.w3.org/2000/svg",
+  width: "44",
+  height: "44"
+};
+const _hoisted_2$2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  fill: "#FFF",
+  d: "M494.03 74.72l-109.59 144.09c-12.48 16.41-5.82 29.97 14.79000001 30.09L482 249.47 482 774.53l-82.77 0.54c-20.64 0.15-27.27 13.68-14.79 30.09l109.59 144.09c12.48 16.41 32.43 16.05 44.31000001-0.81l101.81999999-144.51c11.88-16.86 4.74-30.54-15.9-30.39L542.00000001 774.14l-1e-8-524.25 82.23 0.54c20.64 0.15 27.78-13.53 15.9-30.39l-101.82-144.51c-11.88-16.86-31.8-17.25-44.28-0.81z"
+}, null, -1 /* HOISTED */);
+const _hoisted_3$2 = [
+  _hoisted_2$2
+];
+
+function render$4(_ctx, _cache, $props, $setup, $data, $options) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_1$2, _hoisted_3$2))
+}
+
+script$4.render = render$4;
+script$4.__file = "src/PhotoSlider/FilpVertical.vue";
+
+var script$3 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({});
+
+const _hoisted_1$1 = {
+  viewBox: "0 0 1068 1024",
+  version: "1.1",
+  xmlns: "http://www.w3.org/2000/svg",
+  "p-id": "2740",
+  width: "44",
+  height: "44"
+};
+const _hoisted_2$1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M252.622237 809.004596a252.614304 252.614304 0 0 1-31.486765-503.2587v-4.352863a301.406611 301.406611 0 0 1 594.880633-68.660847 288.877568 288.877568 0 0 1-36.146765 575.488683 31.529129 31.529129 0 0 1 0-63.047667 225.819311 225.819311 0 0 0 8.472726-451.479758l-26.244267-0.974363-3.812726-25.990085a238.358944 238.358944 0 0 0-474.176071 34.664037 243.040125 243.040125 0 0 0 1.874591 30.035812l4.501135 35.786673-37.163491-0.3495h-0.730773c-104.521657 0-189.577228 85.034389-189.577228 189.577228s85.034389 189.577228 189.577228 189.577228a31.529129 31.529129 0 0 1 0 63.047667z",
+  fill: "#FFF"
+}, null, -1 /* HOISTED */);
+const _hoisted_3$1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M500.417679 442.421546m10.590906 0l46.599989 0q10.590907 0 10.590907 10.590906l0 528.878103q0 10.590907-10.590907 10.590907l-46.599989 0q-10.590907 0-10.590906-10.590907l0-528.878103q0-10.590907 10.590906-10.590906Z",
+  fill: "#FFF"
+}, null, -1 /* HOISTED */);
+const _hoisted_4$1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M487.406543 980.472843m7.488902-7.488902l171.982631-171.982631q7.488902-7.488902 14.977804 0l32.951168 32.951168q7.488902 7.488902 0 14.977804l-171.982631 171.982631q-7.488902 7.488902-14.977804 0l-32.951168-32.951168q-7.488902-7.488902 0-14.977804Z",
+  fill: "#FFF"
+}, null, -1 /* HOISTED */);
+const _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M344.966294 837.223674m7.488902-7.488902l32.951168-32.951168q7.488902-7.488902 14.977804 0l176.198883 176.198883q7.488902 7.488902 0 14.977804l-32.951168 32.951168q-7.488902 7.488902-14.977804 0l-176.198883-176.198883q-7.488902-7.488902 0-14.977804Z",
+  fill: "#FFF"
+}, null, -1 /* HOISTED */);
+const _hoisted_6 = [
+  _hoisted_2$1,
+  _hoisted_3$1,
+  _hoisted_4$1,
+  _hoisted_5
+];
+
+function render$3(_ctx, _cache, $props, $setup, $data, $options) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_1$1, _hoisted_6))
+}
+
+script$3.render = render$3;
+script$3.__file = "src/PhotoSlider/Download.vue";
+
+function useAnimationHandle(visible, currentItem) {
+    var photoVisible = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(visible.value);
+    var showAnimateType = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(ShowAnimateEnum.None);
+    var originRect = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(visible, function () {
+        var originRef = currentItem.value.originRef;
+        // 点击打开按钮和关闭时收集位置信息，用于过渡动画
+        if (originRef && originRef.nodeType === 1 && originRef.children.length > 0) {
+            var _a = originRef.getBoundingClientRect(), top_1 = _a.top, left = _a.left, width = _a.width, height = _a.height;
+            originRect.value = {
+                left: left,
+                top: top_1,
+                width: width,
+                height: height
+            };
+        }
+        else {
+            originRect.value = null;
+        }
+        if (visible.value) {
+            // 设置动画类型
+            showAnimateType.value = ShowAnimateEnum.In;
+            // 显示图片
+            photoVisible.value = true;
+        }
+        else {
+            // 设置动画类型
+            showAnimateType.value = ShowAnimateEnum.Out;
+        }
+    });
+    // 动画结束的回调
+    var onShowAnimateEnd = function () {
+        // 动画完成才关闭弹窗
+        if (showAnimateType.value === ShowAnimateEnum.Out) {
+            photoVisible.value = false;
+        }
+        showAnimateType.value = ShowAnimateEnum.None;
+    };
+    return {
+        photoVisible: photoVisible,
+        showAnimateType: showAnimateType,
+        originRect: originRect,
+        onShowAnimateEnd: onShowAnimateEnd
+    };
+}
+
+var script$2 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
+    name: 'PhotoSlider',
+    components: {
+        PhotoView: script$b,
+        Close: script$a,
+        ArrowLeft: script$9,
+        ArrowRight: script$8,
+        RotateLeft: script$7,
+        RotateRight: script$6,
+        FlipHorizontal: script$5,
+        FilpVertical: script$4,
+        Download: script$3,
+    },
+    props: {
+        /**
+         * 图片列表
+         */
+        items: {
+            type: Array,
+            required: true,
+        },
+        /**
+         * 图片当前索引
+         */
+        index: {
+            type: Number,
+            required: true,
+        },
+        /**
+         * 是否显示模态框
+         */
+        visible: {
+            type: Boolean,
+            required: true,
+        },
+        /**
+         * 箭头切换是否需要过渡
+         */
+        shouldTransition: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * 是否切换显隐覆盖物
+         */
+        toggleOverlay: {
+            type: Boolean,
+            default: true,
+        },
+        /**
+         * 默认背景透明度
+         */
+        defaultBackdropOpacity: {
+            type: Number,
+            default: 1,
+        },
+        /**
+         * 是否循环显示预览图
+         */
+        loop: {
+            type: Boolean,
+            default: false,
+        }
+    },
+    emits: ['clickPhoto', 'clickMask', 'changeIndex', 'closeModal'],
+    setup: function (props) {
+        var _a = (0,vue__WEBPACK_IMPORTED_MODULE_0__.toRefs)(props), items = _a.items, index = _a.index, visible = _a.visible;
+        var currentItem = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+            return items.value[index.value] || {};
+        });
+        useBodyEffect(visible);
+        var _b = useAnimationHandle(visible, currentItem), photoVisible = _b.photoVisible, showAnimateType = _b.showAnimateType, originRect = _b.originRect, onShowAnimateEnd = _b.onShowAnimateEnd;
+        var innerWidth = useInnerWidth().innerWidth;
+        return {
+            innerWidth: innerWidth,
+            currentItem: currentItem,
+            photoVisible: photoVisible,
+            showAnimateType: showAnimateType,
+            originRect: originRect,
+            onShowAnimateEnd: onShowAnimateEnd,
+        };
+    },
+    data: function () {
+        return {
+            // 常量
+            horizontalOffset: horizontalOffset,
+            ShowAnimateEnum: ShowAnimateEnum,
+            isTouchDevice: isTouchDevice,
+            // 触摸相关
+            touched: false,
+            hasMove: false,
+            needTransition: false,
+            clientX: 0,
+            clientY: 0,
+            touchMoveX: 0,
+            backdropOpacity: this.defaultBackdropOpacity,
+            // 是否显示覆盖物
+            overlayVisible: true,
+            // 虚拟下标，用于循环预览
+            virtualIndex: 0,
+            // photo-view 子组件
+            photoViewRefs: {},
+        };
+    },
+    computed: {
+        // 当前显示的图片列表
+        showItems: function () {
+            var len = this.items.length;
+            if (this.loop) {
+                var connect = this.items.concat(this.items).concat(this.items);
+                return connect.slice(len + this.index - 1, len + this.index + 2);
+            }
+            return this.items.slice(Math.max(this.index - 1, 0), Math.min(this.index + 2, len));
+        }
+    },
+    created: function () {
+        window.addEventListener('keydown', this.handleKeyDown);
+    },
+    beforeUnmount: function () {
+        window.removeEventListener('keydown', this.handleKeyDown);
+    },
+    beforeUpdate: function () {
+        this.photoViewRefs = {};
+    },
+    methods: {
+        handleDownload: function () {
+            var item = this.items[this.index];
+            if (item) {
+                var a = document.createElement('a');
+                var paths = item.src.split('.')[0].split('/');
+                var name_1 = paths[paths.length - 1];
+                a.download = item.downloadName || name_1;
+                a.href = item.src;
+                a.dispatchEvent(new MouseEvent('click'));
+            }
+        },
+        toggleFlipHorizontal: function () {
+            var _a;
+            (_a = this.photoViewRefs[this.currentItem.key]) === null || _a === void 0 ? void 0 : _a.toggleFlipHorizontal();
+        },
+        toggleFlipVertical: function () {
+            var _a;
+            (_a = this.photoViewRefs[this.currentItem.key]) === null || _a === void 0 ? void 0 : _a.toggleFlipVertical();
+        },
+        handleRotateLeft: function () {
+            var _a;
+            (_a = this.photoViewRefs[this.currentItem.key]) === null || _a === void 0 ? void 0 : _a.handleRotateLeft();
+        },
+        handleRotateRight: function () {
+            var _a;
+            (_a = this.photoViewRefs[this.currentItem.key]) === null || _a === void 0 ? void 0 : _a.handleRotateRight();
+        },
+        setPhotoViewRef: function (key, ref) {
+            this.photoViewRefs[key] = ref;
+        },
+        handleKeyDown: function (e) {
+            if (this.visible) {
+                switch (e.code) {
+                    case 'ArrowLeft':
+                        this.handlePrevious();
+                        break;
+                    case 'ArrowRight':
+                        this.handleNext();
+                        break;
+                    case 'Escape':
+                        this.handleClickClose();
+                        break;
+                }
+            }
+        },
+        handleSingleTap: function (_clientX, _clientY, e) {
+            if (this.toggleOverlay) {
+                this.overlayVisible = !this.overlayVisible;
+            }
+            this.$emit('clickPhoto', e);
+        },
+        handleTouchStart: function (clientX, clientY) {
+            this.touched = true;
+            this.needTransition = false;
+            this.clientX = clientX;
+            this.clientY = clientY;
+        },
+        handleTouchMove: function (touchType, clientX, clientY, edgeTypes) {
+            if (touchType === TouchTypeEnum.Scale) {
+                this.handleTouchScaleMove(clientX, edgeTypes);
+            }
+            if (touchType === TouchTypeEnum.X) {
+                this.handleTouchHorizontalMove(clientX);
+            }
+            if (touchType === TouchTypeEnum.Y) {
+                this.handleTouchVerticalMove(clientX, clientY);
+            }
+        },
+        handleTouchScaleMove: function (clientX, edgeTypes) {
+            var touchMoveX = clientX - this.clientX;
+            if ((touchMoveX > 0 && edgeTypes.includes(EdgeTypeEnum.Left)) ||
+                (touchMoveX < 0 && edgeTypes.includes(EdgeTypeEnum.Right))) {
+                this.handleTouchHorizontalMove(clientX);
+            }
+        },
+        handleTouchHorizontalMove: function (clientX) {
+            var touchMoveX = clientX - this.clientX;
+            // 非循环模式下，第一张和最后一张超出时拖拽距离减半
+            if (!this.loop &&
+                ((this.index === 0 && touchMoveX > 0) || (this.index === this.items.length - 1 && touchMoveX < 0))) {
+                touchMoveX = touchMoveX / 2;
+            }
+            this.hasMove = clientX !== this.clientX;
+            this.touchMoveX = touchMoveX;
+        },
+        handleTouchVerticalMove: function (clientX, clientY) {
+            var touchMoveY = Math.abs(clientY - this.clientY);
+            var opacity = Math.max(Math.min(this.defaultBackdropOpacity, this.defaultBackdropOpacity - touchMoveY / 100 / 4), 0);
+            this.hasMove = clientX !== this.clientX || clientY !== this.clientY;
+            this.backdropOpacity = opacity;
+        },
+        handleTouchEnd: function (touchType, clientX, clientY, edgeTypes) {
+            if (touchType === TouchTypeEnum.Scale) {
+                this.handleTouchScaleEnd(clientX, edgeTypes);
+            }
+            if (touchType === TouchTypeEnum.X) {
+                this.handleTouchHorizontalEnd(clientX);
+            }
+            if (touchType === TouchTypeEnum.Y) {
+                this.handleTouchVerticalEnd(clientY);
+            }
+            // 只要移动过，则需要动画过渡
+            if (this.hasMove) {
+                this.needTransition = true;
+            }
+            this.touched = false;
+            this.hasMove = false;
+            this.clientX = 0;
+            this.clientY = 0;
+            this.touchMoveX = 0;
+        },
+        handleTouchScaleEnd: function (clientX, edgeTypes) {
+            var offsetX = clientX - this.clientX;
+            // 下一张
+            if (offsetX < -minSwitchImageOffset && edgeTypes.includes(EdgeTypeEnum.Right)) {
+                this.handleNext();
+            }
+            // 上一张
+            if (offsetX > minSwitchImageOffset && edgeTypes.includes(EdgeTypeEnum.Left)) {
+                this.handlePrevious();
+            }
+        },
+        handleTouchHorizontalEnd: function (clientX) {
+            var offsetX = clientX - this.clientX;
+            // 下一张
+            if (offsetX < -minSwitchImageOffset) {
+                this.handleNext();
+            }
+            // 上一张
+            if (offsetX > minSwitchImageOffset) {
+                this.handlePrevious();
+            }
+        },
+        handleTouchVerticalEnd: function (clientY) {
+            var offsetY = clientY - this.clientY;
+            if (Math.abs(offsetY) > window.innerHeight * 0.14) {
+                this.$emit('closeModal');
+            }
+            else {
+                this.resetBackdropOpacity();
+            }
+        },
+        resetBackdropOpacity: function () {
+            this.backdropOpacity = this.defaultBackdropOpacity;
+        },
+        resetNeedTransition: function () {
+            this.needTransition = false;
+        },
+        handlePrevious: function () {
+            var len = this.items.length;
+            if (!this.loop && this.index === 0)
+                return;
+            this.$emit('changeIndex', (this.index + len - 1) % len);
+            this.virtualIndex -= 1;
+        },
+        handleNext: function () {
+            var len = this.items.length;
+            if (!this.loop && this.index === len - 1)
+                return;
+            this.$emit('changeIndex', (this.index + 1) % len);
+            this.virtualIndex += 1;
+        },
+        handleClickMask: function (e) {
+            this.$emit('clickMask', e);
+        },
+        handleClickClose: function () {
+            this.$emit('closeModal');
+        },
+        // 当预览下一张时，currentIndex 会从 1 变成 0，相当于左移一个单位，所以此时只需要右移一个单位的来平衡 transform 的左移即可
+        getItemLeft: function (currentIndex) {
+            var index = this.virtualIndex + currentIndex;
+            // 非循环模式的第一张图片不需要左移，因为只有两张图片，左侧没有图片
+            if (this.loop || this.index !== 0) {
+                index -= 1;
+            }
+            return "".concat((this.innerWidth + this.horizontalOffset) * index, "px");
+        },
+        getItemTransition: function () {
+            var transition = 'transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1)';
+            if (this.needTransition) {
+                return transition;
+            }
+            if (this.hasMove) {
+                return undefined;
+            }
+            return this.shouldTransition ? transition : undefined;
+        },
+        getItemTransform: function () {
+            return "translate3d(".concat(-(this.innerWidth + this.horizontalOffset) * this.virtualIndex + this.touchMoveX, "px, 0px, 0px)");
+        }
+    }
+});
+
+const _hoisted_1 = { class: "PhotoSlider__BannerWrap" };
+const _hoisted_2 = { class: "PhotoSlider__Counter" };
+const _hoisted_3 = { class: "PhotoSlider__BannerRight" };
+const _hoisted_4 = {
+  key: 1,
+  class: "PhotoSlider__FooterWrap"
+};
+
+function render$2(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_download = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("download");
+  const _component_rotate_left = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("rotate-left");
+  const _component_rotate_right = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("rotate-right");
+  const _component_flip_horizontal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("flip-horizontal");
+  const _component_filp_vertical = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("filp-vertical");
+  const _component_close = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("close");
+  const _component_photo_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("photo-view");
+  const _component_arrow_left = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("arrow-left");
+  const _component_arrow_right = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("arrow-right");
+
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Teleport, { to: "body" }, [
+    (_ctx.photoVisible)
+      ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+          key: 0,
+          class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["PhotoSlider__Wrapper", {
+        'PhotoSlider__Clean': _ctx.showAnimateType !== _ctx.ShowAnimateEnum.None ,
+        'PhotoSlider__Hide': !_ctx.overlayVisible,
+      }])
+        }, [
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+            class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["PhotoSlider__Backdrop", {
+          'PhotoSlider__fadeIn': _ctx.showAnimateType === _ctx.ShowAnimateEnum.In,
+          'PhotoSlider__fadeOut': _ctx.showAnimateType === _ctx.ShowAnimateEnum.Out
+        }]),
+            style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
+          background: `rgba(0, 0, 0, ${_ctx.backdropOpacity})`,
+        }),
+            onAnimationend: _cache[0] || (_cache[0] = $event => (_ctx.onShowAnimateEnd(), _ctx.resetBackdropOpacity()))
+          }, null, 38 /* CLASS, STYLE, HYDRATE_EVENTS */),
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.index + 1) + " / " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.items.length), 1 /* TEXT */),
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_download, {
+                class: "PhotoSlider__BannerIcon",
+                onClick: _ctx.handleDownload
+              }, null, 8 /* PROPS */, ["onClick"]),
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_rotate_left, {
+                class: "PhotoSlider__BannerIcon",
+                onClick: _ctx.handleRotateLeft
+              }, null, 8 /* PROPS */, ["onClick"]),
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_rotate_right, {
+                class: "PhotoSlider__BannerIcon",
+                onClick: _ctx.handleRotateRight
+              }, null, 8 /* PROPS */, ["onClick"]),
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_flip_horizontal, {
+                class: "PhotoSlider__BannerIcon",
+                onClick: _ctx.toggleFlipHorizontal
+              }, null, 8 /* PROPS */, ["onClick"]),
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_filp_vertical, {
+                class: "PhotoSlider__BannerIcon",
+                onClick: _ctx.toggleFlipVertical
+              }, null, 8 /* PROPS */, ["onClick"]),
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_close, {
+                class: "PhotoSlider__BannerIcon",
+                onClick: _ctx.handleClickClose
+              }, null, 8 /* PROPS */, ["onClick"])
+            ])
+          ]),
+          ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.showItems, (item, currentIndex) => {
+            return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+              key: item.key,
+              class: "PhotoSlider__PhotoBox",
+              style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
+          left: _ctx.getItemLeft(currentIndex),
+          transition: _ctx.getItemTransition(),
+          transform: _ctx.getItemTransform()
+        }),
+              onTransitionend: _cache[2] || (_cache[2] = (...args) => (_ctx.resetNeedTransition && _ctx.resetNeedTransition(...args))),
+              onClick: _cache[3] || (_cache[3] = (...args) => (_ctx.handleClickMask && _ctx.handleClickMask(...args)))
+            }, [
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_photo_view, {
+                ref: (val) => _ctx.setPhotoViewRef(item.key, val),
+                "origin-rect": _ctx.originRect,
+                "show-animate-type": _ctx.showAnimateType,
+                src: item.src,
+                onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(() => {}, ["stop"])),
+                onTouchStart: _ctx.handleTouchStart,
+                onTouchMove: _ctx.handleTouchMove,
+                onTouchEnd: _ctx.handleTouchEnd,
+                onSingleTap: _ctx.handleSingleTap
+              }, null, 8 /* PROPS */, ["origin-rect", "show-animate-type", "src", "onTouchStart", "onTouchMove", "onTouchEnd", "onSingleTap"])
+            ], 36 /* STYLE, HYDRATE_EVENTS */))
+          }), 128 /* KEYED_FRAGMENT */)),
+          (!_ctx.isTouchDevice)
+            ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, { key: 0 }, [
+                (_ctx.loop || _ctx.index > 0)
+                  ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+                      key: 0,
+                      class: "PhotoSlider__ArrowLeft",
+                      onClick: _cache[4] || (_cache[4] = (...args) => (_ctx.handlePrevious && _ctx.handlePrevious(...args)))
+                    }, [
+                      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_arrow_left)
+                    ]))
+                  : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true),
+                (_ctx.loop || _ctx.index < _ctx.items.length - 1)
+                  ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+                      key: 1,
+                      class: "PhotoSlider__ArrowRight",
+                      onClick: _cache[5] || (_cache[5] = (...args) => (_ctx.handleNext && _ctx.handleNext(...args)))
+                    }, [
+                      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_arrow_right)
+                    ]))
+                  : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)
+              ], 64 /* STABLE_FRAGMENT */))
+            : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true),
+          (_ctx.currentItem.intro)
+            ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.currentItem.intro), 1 /* TEXT */))
+            : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)
+        ], 2 /* CLASS */))
+      : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)
+  ]))
+}
+
+script$2.render = render$2;
+script$2.__file = "src/PhotoSlider/index.vue";
+
+var script$1 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
+    name: 'PhotoProvider',
+    components: {
+        PhotoSlider: script$2
+    },
+    props: {
+        photoClosable: {
+            type: Boolean,
+            default: false,
+        },
+        maskClosable: {
+            type: Boolean,
+            default: true,
+        },
+        shouldTransition: {
+            type: Boolean,
+            default: false,
+        },
+        defaultBackdropOpacity: {
+            type: Number,
+            default: 1,
+        },
+        loop: {
+            type: Boolean,
+            default: false,
+        }
+    },
+    emits: ['indexChange', 'visibleChange'],
+    setup: function (_props, _a) {
+        var emit = _a.emit;
+        var onIndexChange = function () {
+            emit('indexChange', { index: index, items: items, visible: visible });
+        };
+        var onVisibleChange = function () {
+            emit('visibleChange', { index: index, items: items, visible: visible });
+        };
+        var _b = useIndex(onIndexChange), index = _b.index, updateIndex = _b.updateIndex;
+        var _c = useItems(index), items = _c.items, updateItem = _c.updateItem, removeItem = _c.removeItem;
+        var _d = useVisible(items, index, onVisibleChange), visible = _d.visible, handleHide = _d.handleHide, handleShow = _d.handleShow;
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.provide)(updateItemKey, updateItem);
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.provide)(removeItemKey, removeItem);
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.provide)(handleShowKey, handleShow);
+        return {
+            items: items,
+            updateItem: updateItem,
+            removeItem: removeItem,
+            visible: visible,
+            handleHide: handleHide,
+            handleShow: handleShow,
+            index: index,
+            updateIndex: updateIndex,
+        };
+    },
+    methods: {
+        handleClickPhoto: function () {
+            if (this.photoClosable) {
+                this.handleHide();
+            }
+        },
+        handleClickMask: function () {
+            if (this.maskClosable) {
+                this.handleHide();
+            }
+        }
+    }
+});
+
+function render$1(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_photo_slider = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("photo-slider");
+
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" @slot 默认插槽 "),
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default"),
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_photo_slider, {
+      visible: _ctx.visible,
+      index: _ctx.index,
+      "should-transition": _ctx.shouldTransition,
+      "toggle-overlay": !_ctx.photoClosable,
+      "default-backdrop-opacity": _ctx.defaultBackdropOpacity,
+      items: _ctx.items,
+      loop: _ctx.loop,
+      onClickPhoto: _ctx.handleClickPhoto,
+      onClickMask: _ctx.handleClickMask,
+      onChangeIndex: _ctx.updateIndex,
+      onCloseModal: _ctx.handleHide
+    }, null, 8 /* PROPS */, ["visible", "index", "should-transition", "toggle-overlay", "default-backdrop-opacity", "items", "loop", "onClickPhoto", "onClickMask", "onChangeIndex", "onCloseModal"])
+  ], 64 /* STABLE_FRAGMENT */))
+}
+
+script$1.render = render$1;
+script$1.__file = "src/PhotoProvider/index.vue";
+
+/**
+ * A specialized version of `_.map` for arrays without support for iteratee
+ * shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
+ */
+function arrayMap(array, iteratee) {
+  var index = -1,
+      length = array == null ? 0 : array.length,
+      result = Array(length);
+
+  while (++index < length) {
+    result[index] = iteratee(array[index], index, array);
+  }
+  return result;
+}
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+
+var isArray$1 = isArray;
+
+/** Used as references for various `Number` constants. */
+var INFINITY = 1 / 0;
+
+/** Used to convert symbols to primitives and strings. */
+var symbolProto = Symbol$2 ? Symbol$2.prototype : undefined,
+    symbolToString = symbolProto ? symbolProto.toString : undefined;
+
+/**
+ * The base implementation of `_.toString` which doesn't convert nullish
+ * values to empty strings.
+ *
+ * @private
+ * @param {*} value The value to process.
+ * @returns {string} Returns the string.
+ */
+function baseToString(value) {
+  // Exit early for strings to avoid a performance hit in some environments.
+  if (typeof value == 'string') {
+    return value;
+  }
+  if (isArray$1(value)) {
+    // Recursively convert values (susceptible to call stack limits).
+    return arrayMap(value, baseToString) + '';
+  }
+  if (isSymbol(value)) {
+    return symbolToString ? symbolToString.call(value) : '';
+  }
+  var result = (value + '');
+  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
+}
+
+/**
+ * Converts `value` to a string. An empty string is returned for `null`
+ * and `undefined` values. The sign of `-0` is preserved.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to convert.
+ * @returns {string} Returns the converted string.
+ * @example
+ *
+ * _.toString(null);
+ * // => ''
+ *
+ * _.toString(-0);
+ * // => '-0'
+ *
+ * _.toString([1, 2, 3]);
+ * // => '1,2,3'
+ */
+function toString(value) {
+  return value == null ? '' : baseToString(value);
+}
+
+/** Used to generate unique IDs. */
+var idCounter = 0;
+
+/**
+ * Generates a unique ID. If `prefix` is given, the ID is appended to it.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Util
+ * @param {string} [prefix=''] The value to prefix the ID with.
+ * @returns {string} Returns the unique ID.
+ * @example
+ *
+ * _.uniqueId('contact_');
+ * // => 'contact_104'
+ *
+ * _.uniqueId();
+ * // => '105'
+ */
+function uniqueId(prefix) {
+  var id = ++idCounter;
+  return toString(prefix) + id;
+}
+
+var script = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
+    name: 'PhotoConsumer',
+    props: {
+        /**
+         * 图片地址
+         */
+        src: {
+            type: String,
+            required: true,
+        },
+        /**
+         * 图片介绍
+         */
+        intro: {
+            type: String,
+            default: null
+        },
+        /**
+         * 图片下载名称，默认图片名称
+         */
+        downloadName: {
+            type: String,
+            default: null
+        }
+    },
+    setup: function (props) {
+        var updateItem = (0,vue__WEBPACK_IMPORTED_MODULE_0__.inject)(updateItemKey);
+        var removeItem = (0,vue__WEBPACK_IMPORTED_MODULE_0__.inject)(removeItemKey);
+        var handleShow = (0,vue__WEBPACK_IMPORTED_MODULE_0__.inject)(handleShowKey);
+        var root = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
+        var key = uniqueId();
+        var _a = (0,vue__WEBPACK_IMPORTED_MODULE_0__.toRefs)(props), src = _a.src, intro = _a.intro, downloadName = _a.downloadName;
+        var handleClick = function () {
+            handleShow === null || handleShow === void 0 ? void 0 : handleShow(key);
+        };
+        var getItem = function () { return ({
+            key: key,
+            src: src.value,
+            originRef: root.value,
+            intro: intro.value,
+            downloadName: downloadName.value
+        }); };
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)([src, intro, downloadName], function () {
+            updateItem === null || updateItem === void 0 ? void 0 : updateItem(getItem());
+        });
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
+            updateItem === null || updateItem === void 0 ? void 0 : updateItem(getItem());
+        });
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.onUnmounted)(function () {
+            removeItem === null || removeItem === void 0 ? void 0 : removeItem(key);
+        });
+        return {
+            root: root,
+            handleClick: handleClick
+        };
+    },
+});
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (_ctx.$slots.default())
+    ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", {
+        key: 0,
+        ref: "root",
+        style: {"display":"inline-block"},
+        class: "PhotoConsumer",
+        onClick: _cache[0] || (_cache[0] = (...args) => (_ctx.handleClick && _ctx.handleClick(...args)))
+      }, [
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" @slot 默认插槽 "),
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default")
+      ], 512 /* NEED_PATCH */))
+    : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)
+}
+
+script.render = render;
+script.__file = "src/PhotoConsumer/index.vue";
+
+var components = [
+    script$1,
+    script,
+    script$2
+];
+var install = function (app) {
+    components.forEach(function (component) {
+        app.component(component.name, component);
+    });
+};
+var index = { install: install };
+
+
+//# sourceMappingURL=vue3-photo-preview.esm.js.map
 
 
 /***/ }),

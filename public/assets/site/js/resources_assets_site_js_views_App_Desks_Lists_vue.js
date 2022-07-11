@@ -2954,7 +2954,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (color) {
           return color;
         } else {
-          return "url(\"/storage/backgrounds/".concat(image, "\") no-repeat");
+          return "url(\"/storage/backgrounds_desks/".concat(image, "\") no-repeat");
         }
       }
     }
@@ -3234,7 +3234,8 @@ __webpack_require__.r(__webpack_exports__);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+  return $props.attachments ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+    key: 0,
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
       hidden: !$props.attachments.length
     }, "desks__cards-term"])
@@ -3245,7 +3246,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* TEXT */
   )], 2
   /* CLASS */
-  );
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
 }
 
 /***/ }),

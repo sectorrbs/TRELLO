@@ -32,4 +32,11 @@ class CardAttachmentRequest extends FormRequest
             'cover' => '',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'image.image' => 'Неверный тип изображения',
+        ];
+    }
 }

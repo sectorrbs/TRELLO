@@ -5,7 +5,7 @@ export const mutations = {
     setDesk(state, desk) {
         state.desk = desk
     },
-    setBackgroundsDesks(state, backgrounds) {
-        state.backgrounds = backgrounds
+    setBackgroundsDesks(state, backgrounds_desks) {
+        state.backgrounds_desks = backgrounds_desks
     }
 }

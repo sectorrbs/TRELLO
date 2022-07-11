@@ -82,7 +82,7 @@ export default {
                 if (color) {
                     return color
                 } else {
-                    return `url("/storage/backgrounds/thumb_305_75/${image}")`
+                    return `url("/storage/backgrounds_desks/thumb_305_75/${image}")`
                 }
             }
         },

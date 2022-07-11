@@ -6,15 +6,15 @@
     </div>
     <div class="attachment__section-right">
         <div class="attachment__section-title">
-            <a :href="'https://' + attachment.link"
+            <a :href="attachment.link"
                target="_blank"
-               class="link">
+               class="link section-title">
                 {{ attachment.link }}
-                <Fa :type="'s'"
-                    :name="'external-link-alt details__window-icon'"/>
             </a>
+            <Fa :type="'s'"
+                :name="'external-link-alt details__window-icon'"/>
         </div>
-        <CardAttachmentRenameSection :title="attachment.link"/>
+        <CardAttachmentRenameSection :oldName="attachment.link" :attachment="attachment"/>
         <div class="attachment__section-date">
             Добавлено {{ attachment.date }}
         </div>

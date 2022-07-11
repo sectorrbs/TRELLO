@@ -1,15 +1,22 @@
 <template>
     <div class="attachment__section-left">
-        <img v-if="attachment.image"
-             class="attachment__section-img"
-             :src="'/storage/cards_images/thumb_115_80/'+ attachment.image"
-             :alt="attachment.image_name">
+        <photo-provider>
+            <photo-consumer :intro="name" :key="src" :src="src">
+                <img :src="thumbnail" class="view-box">
+            </photo-consumer>
+        </photo-provider>
+        <div class="attachment__section-img-bg">
+            <Fa :type="'r'"
+                :name="'expand-alt attachment__section-icon'"/>
+        </div>
     </div>
     <div class="attachment__section-right">
         <div class="attachment__section-title">
+            <span class="section-title">
             {{ attachment.image_name }}
+            </span>
         </div>
-        <CardAttachmentRenameSection :title="attachment.image_name" />
+        <CardAttachmentRenameSection :attachment="attachment" :oldName="attachment.image_name"/>
         <div class="attachment__section-date">
             Добавлено {{ attachment.date }}
         </div>
@@ -18,13 +25,13 @@
                  @click="addCardCover">
                 <Fa :type="'r'"
                     :name="'blanket details__window-icon'"/>
-                Сделать обложкой
+                Сделать основным изображением
             </div>
             <div :class="[attachment.cover ? 'active' : '' ]" class="cover-delete"
                  @click="deleteCardCover">
                 <Fa :type="'r'"
                     :name="'blanket details__window-icon'"/>
-                Удалить обложку
+                Убрать основное изображение
             </div>
         </div>
         <CardAttachmentsActions :attachment="attachment"/>
@@ -39,6 +46,13 @@ import CardAttachmentRenameSection from './CardAttachmentRenameSection'
 export default {
     name: "CardAttachmentsImage",
     props: ['attachment'],
+    data() {
+        return {
+            name: this.attachment.image_name,
+            src: '/storage/cards_images/' + this.attachment.image,
+            thumbnail: '/storage/cards_images/thumb_115_80/' + this.attachment.image,
+        };
+    },
     components: {CardAttachmentsActions, CardAttachmentRenameSection},
     methods: {
         addCardCover(e) {

@@ -1,14 +1,10 @@
 <template>
     <div class="room__desks-create">
         <div class="room__desks-add" @click="showDeskAddForm">
-
             <Fa :type="'r'"
                 :name="'plus desks__add-icon'"/>
-
             Добавить доску
-
             <Error :class="{show: error}" class="room__desks-error" :error="errorMessage"/>
-
         </div>
         <div class="desks__create-list room__desks-form">
             <DeskCreateForm :roomId="roomId" :show="show" @showError="showError" @showClose="hideDeskAddForm"/>

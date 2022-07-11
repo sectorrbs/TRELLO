@@ -102,7 +102,4 @@ export const actions = {
                 commit('setBackgroundsDesks', res.data.data)
             })
     },
-    updateBackgroundDesk() {
-
-    }
 }

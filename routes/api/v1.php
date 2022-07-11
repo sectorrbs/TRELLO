@@ -11,6 +11,7 @@
         require 'components/tasks.php';
         require 'components/user.php';
         require 'components/backgrounds-desks.php';
+        require 'components/backgrounds-cards.php';
         require 'components/desks-tags.php';
         require 'components/cards-tags.php';
         require 'components/cards_attachments.php';

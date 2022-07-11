@@ -27,6 +27,14 @@
         height: 100%;
         background: #f4f5f7;
 
+        &-attachment {
+            .error {
+                @include flex(center, center);
+                @include size(100%, 80px);
+                background: $color-error;
+            }
+        }
+
         &-term {
             @include flex(center);
             margin-top: 5px;
@@ -514,6 +522,19 @@
             width: 100%;
             background: rgba($color-gray, .1);
 
+            &.cover {
+                .details__actions-btn {
+                    margin-top: 10px;
+                }
+
+                .details__actions-modal {
+                    top: -145px;
+                }
+
+                .swiper {
+                    margin-top: 10px;
+                }
+            }
 
             &.delete {
                 background: rgba($color-red, .3);

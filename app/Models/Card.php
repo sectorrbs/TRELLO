@@ -34,4 +34,9 @@
                  DeskTag::class, 'cards_tags'
             );
         }
+        public function backgrounds()
+        {
+            return $this->belongsTo(BackgroundDesk::class, 'id');
+        }
+
     }

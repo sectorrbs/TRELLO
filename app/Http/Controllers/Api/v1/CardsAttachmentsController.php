@@ -34,6 +34,11 @@ class CardsAttachmentsController extends Controller
         $attachment->update(['cover' => 1]);
     }
 
+    public function updateCardAttachment(CardAttachmentRequest $request, CardAttachment $attachment)
+    {
+        $attachment->update($request->validated());
+    }
+
     public function deleteCardAttachmentCover(CardAttachment $attachment)
     {
         CardAttachment::where('cover', 1)

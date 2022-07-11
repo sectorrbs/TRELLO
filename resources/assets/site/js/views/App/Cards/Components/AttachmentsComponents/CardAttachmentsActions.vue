@@ -49,11 +49,16 @@ export default {
         },
         renameAttachmentTitle(e) {
             let attachment = e.target.closest('.attachment__section'),
-                rename = attachment.querySelector('.attachment__section-rename'),
-                title = attachment.querySelector('.attachment__section-title')
+                title = attachment.querySelector('.section-title').innerText,
+                input = attachment.querySelector('.attachment__section-input'),
+                newTitle = title.replace(/https:\/\//gi, '');
 
-            rename.classList.remove('hidden')
-            title.classList.add('hidden')
+            document.querySelectorAll('.attachment__section-right')
+                .forEach(el => el.classList.remove('rename'))
+            attachment.querySelector('.attachment__section-right').classList.add('rename')
+
+            input.value = newTitle
+            input.focus()
         }
     }
 }

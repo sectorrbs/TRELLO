@@ -10,6 +10,7 @@ export const actions = {
             description: data.description,
             term: data.term,
             status: data.status,
+            id_backgrounds_cards: null,
             desk_lists_id: data.desk_lists_id
         })
             .then(res => {
@@ -21,6 +22,7 @@ export const actions = {
     },
 
     updateCard({commit, dispatch}, data) {
+
         axios.post(`/api/v1/card/${data.id}/update`, {
             _method: 'PUT',
             name: data.name,
@@ -28,6 +30,7 @@ export const actions = {
             status: data.status,
             description: data.description || null,
             term: data.term || null,
+            id_backgrounds_cards: data.id_backgrounds_cards || null,
             desk_lists_id: data.desk_lists_id,
             id: data.id,
         }).then(res => dispatch('getDeskNotLoader', data.deskList.desk_id))
@@ -40,6 +43,7 @@ export const actions = {
             num: data.num,
             status: data.status,
             description: data.description || null,
+            id_backgrounds_cards: data.id_backgrounds_cards || null,
             term: data.term || null,
             desk_lists_id: data.desk_lists_id,
             id: data.id,
@@ -90,7 +94,6 @@ export const actions = {
     },
 
     deleteCard({commit, dispatch}, data) {
-
         commit('changeLoader', true)
         axios.post(`/api/v1/card/${data.id}/delete`, {_method: 'DELETE', name: data.name, id: data.id})
             .catch(e => {
@@ -102,5 +105,11 @@ export const actions = {
                     commit('changeLoader', false)
                 }, 500)
             })
-    }
+    },
+    getBackgroundsCards({commit}) {
+        axios.get('/api/v1/backgrounds-cards')
+            .then(res => {
+                commit('setBackgroundsCards', res.data.data)
+            })
+    },
 }

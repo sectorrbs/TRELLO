@@ -11,5 +11,5 @@ export const actions = {
     },
     hideModalCreateRoom({}) {
         document.querySelector('.room__modal.modal').classList.remove('show')
-    }
+    },
 }

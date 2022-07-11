@@ -29,6 +29,7 @@ class CardRequest extends FormRequest
             'num' => 'required',
             'description' => '',
             'term' => '',
+            'id_backgrounds_cards' => 'nullable|exists:backgrounds_cards,id',
             'status' => 'required|integer',
         ];
     }

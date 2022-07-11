@@ -494,7 +494,7 @@
                 width: 100%;
 
                 .desks__cards-description-text {
-                    @include flex(center, center);
+                    @include flex(center, flex-start);
                     @include size(auto, 20px);
                     min-width: 38px;
                     height: auto;

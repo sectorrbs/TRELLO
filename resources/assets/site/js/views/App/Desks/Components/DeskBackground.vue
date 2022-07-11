@@ -14,7 +14,7 @@
                           :style="
                           {
                               background: background.image
-                              ? `url('/storage/backgrounds/thumb_55_40/${background.image}')`
+                              ? `url('/storage/backgrounds_desks/thumb_55_40/${background.image}')`
                               : background.color
                           }"/>
         </swiper>
@@ -64,7 +64,7 @@ export default {
     },
     computed: {
         backgrounds() {
-            return this.$store.getters.backgrounds
+            return this.$store.getters.backgrounds_desks
         },
     }
 
