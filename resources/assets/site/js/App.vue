@@ -5,6 +5,7 @@
         <router-view></router-view>
         <Modal/>
         <RoomCreateModal/>
+        <PartyCreateModal/>
     </component>
     <component :is="empty">
         <router-view></router-view>

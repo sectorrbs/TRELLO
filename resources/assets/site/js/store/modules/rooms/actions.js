@@ -22,7 +22,7 @@ export const actions = {
         axios.get(`/api/v1/room/${id}`)
             .then(res => {
                 if (res.data.data) {
-                    commit('setDesk', res.data.data)
+                    commit('setRoom', res.data.data)
                 } else {
                     router.push('/desks')
                 }

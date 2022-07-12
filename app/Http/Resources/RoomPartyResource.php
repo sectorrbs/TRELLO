@@ -19,8 +19,8 @@ class RoomPartyResource extends JsonResource
         return [
             'id' => $this->id,
             'room_id' => $this->room_id,
-            'user' => User::find($this->user_id),
-            'role' => Role::find($this->role_id),
+            'user' => new UserResource($this->user),
+            'role' => new RoleResource($this->role),
         ];
     }
 }

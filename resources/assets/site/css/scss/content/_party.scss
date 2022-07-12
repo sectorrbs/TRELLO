@@ -1,3 +1,228 @@
 .party {
+    height: 100%;
 
+    &__top {
+        padding-right: 175px;
+        position: relative;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba($color-gray, .5)
+    }
+
+    &__wrapper {
+        @include flex(stretch);
+        flex-direction: column;
+        height: 100%;
+    }
+
+    &__info {
+        @include position(absolute, null, 0, 0, null);
+        @include flex(center);
+        gap: 10px;
+
+        &-count {
+            @include flex(center);
+            @include font(18px, 500, 1, rgba($color-gray, .8), null);
+            gap: 2px;
+        }
+
+        &-icon {
+            transform: translateY(-2px);
+        }
+    }
+
+    &__logo {
+
+        @include size(50px, 50px);
+        font-size: 27px;
+
+        span {
+            display: block;
+            transform: translateY(1px);
+        }
+    }
+
+    &__subtitle {
+        @include font(14px, 300, 15px, null, null);
+        margin-top: 5px;
+    }
+
+    &__items {
+        @include flex(stretch);
+        flex-direction: column;
+        gap: 7px;
+        margin-top: 25px;
+    }
+
+    &__btns {
+        @include flex(self-end, space-between);
+        flex: 1;
+
+        &-back {
+            @include font(45px, null, 1, rgba($color-gray, .3), null);
+
+            &:hover {
+                color: rgba($color-gray, .5);
+            }
+        }
+
+        &-add {
+            background: rgba(46, 187, 46, .82);
+
+            &:hover {
+                background: rgba(46, 187, 46, .92);
+            }
+        }
+    }
+
+    &__btn {
+        &-delete {
+            @include position(absolute, null, 0, 0, null);
+            @include flex(center, center);
+            @include size(50px, 100%);
+            @include transition(.2s);
+            background: rgba(219, 5, 61, .3);
+            cursor: pointer;
+
+            &:hover {
+                background: rgba(219, 5, 61, .4);
+            }
+        }
+    }
+
+    &__item {
+        @include flex(center,);
+        padding: 8px 10px;
+        background: #f6f6f691;
+        position: relative;
+
+        &.admin {
+            background: #2ebb2e26;
+        }
+
+        &-status {
+            @include font(14px, 500);
+            @include flex(center, center);
+            gap: 3px;
+            margin-left: auto;
+        }
+
+        &-logo {
+            @include size(35px, 35px);
+            background: $color-white;
+            border-radius: 50%;
+            margin-right: 15px;
+            @include flex(center, center);
+            border: 2px solid rgba($color, .6)
+        }
+
+        &-icon {
+            color: rgba($color, .6)
+        }
+
+        &-star {
+            transform: translateY(-1px)
+        }
+
+        &-name {
+            @include font(16px, 500);
+            @include flex(stretch);
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        &-nick {
+            @include font(13px, 400);
+        }
+    }
+
+    &__modal {
+
+        &-user {
+            @include flex(stretch);
+            @include transition(.1s);
+            cursor: pointer;
+            padding: 7px;
+
+            &:hover {
+                background: rgba($color-gray, .1);
+            }
+        }
+
+        &-spinner {
+            top: 35%;
+            position: absolute !important;
+            @include font(20px, 300, 15px, $color-blue-lite, null);
+            animation: move 1s infinite linear;
+            text-align: center;
+        }
+
+        &-result {
+            @include transition(.1s);
+            text-align: center;
+            opacity: 1;
+            visibility: visible;
+
+            &.hide {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        &-input {
+            margin-top: 30px;
+
+            &::placeholder {
+                color: $color-gray;
+                font-weight: 500;
+            }
+        }
+
+        &-content {
+            padding: 25px 25px 40px 25px;
+            height: 100%;
+        }
+
+        &-search {
+            position: relative;
+        }
+
+        &-window {
+            @include position(absolute, null, null, 0);
+            background: $color-white;
+            padding: 5px 0;
+            width: 100%;
+            margin-top: 5px;
+            box-shadow: 0 4px 8px 0 rgba(34, 60, 80, 0.19);
+            opacity: 0;
+            visibility: hidden;
+            min-height: 65px;
+
+            &-text {
+                @include position(absolute, 50%, 50%, null, null);
+                transform: translate(-50%, -50%);
+                @include transition(.1s);
+                @include font(13px, 500, 15px, rgba($color-gray, .6), null);
+                text-align: center;
+                opacity: 1;
+                visibility: visible;
+                width: 100%;
+
+                &.hide {
+                    opacity: 0;
+                    visibility: hidden;
+                }
+            }
+
+            &.show {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        &-wrapper {
+            min-height: 200px;
+            width: 600px;
+
+        }
+    }
 }

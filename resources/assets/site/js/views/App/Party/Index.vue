@@ -4,10 +4,51 @@
             <div class="page__content-left">
                 <Sidebar/>
             </div>
-            <Loader v-if="loader"/>
-            <div v-else class="page__content-right party">
-                <div class="room__title">
-                    Участники рабосего пространства
+            <div class="page__content-right">
+                <Loader v-if="loader"/>
+                <div v-else class="party">
+                    <div v-if="room" class="party__wrapper">
+                        <div class="party__top">
+                            <div class="room__title">
+                                Участники рабочего пространства "{{ room.name }}"
+                            </div>
+                            <div class="party__subtitle">
+                                Участники рабочего пространства могут просматривать доски для рабочего пространства и
+                                присоединяться к ним, а также создавать новые доски в этом пространстве.
+                            </div>
+                            <div class="party__info">
+                                <div class="party__info-count">
+                                    <Fa :type="'s'"
+                                        :name="'user-alt party__info-icon'"/>
+                                    <span>
+                                        {{ room.participants.length }}
+                                    </span>
+                                </div>
+                                <div class="party__logo room__item-logo">
+                                    <span>
+                                    {{ room.name[0] }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="party__items">
+                            <Participants v-for="participant in room.participants"
+                                          :key="participant.id"
+                                          :participant="participant"/>
+                        </div>
+                        <div class="party__btns">
+                            <router-link :to="{name: 'desks_index'}">
+                                <Fa :type="'s'"
+                                    :name="'chevron-left party__btns-back'"/>
+                            </router-link>
+                            <div class="btn party__btns-add sidebar__link sidebar__add-room"
+                                 @click="this.$store.dispatch('openModalCreateParty')">
+                                <Fa :type="'s'"
+                                    :name="'user-plus party__btns-icon'"/>
+                                Пригласить в рабочее пространство
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -15,11 +56,18 @@
 </template>
 
 <script>
+
+import Participants from './Components/Participants'
+
 export default {
     name: "Index",
+    components: {Participants},
     computed: {
         loader() {
             return this.$store.getters.loader
+        },
+        room() {
+            return this.$store.getters.room
         }
     },
     mounted() {

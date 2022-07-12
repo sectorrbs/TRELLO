@@ -10,6 +10,7 @@ import AuthError from './AuthError'
 import Sidebar from './Sidebar'
 import GlobalModal from './GlobalModal'
 import RoomCreateModal from './RoomCreateModal'
+import PartyCreateModal from './PartyCreateModal'
 import ActionModal from './ActionModal'
 import Alert from './Alert'
 
@@ -26,6 +27,7 @@ export default [
     GlobalModal,
     AuthError,
     RoomCreateModal,
+    PartyCreateModal,
     ActionModal,
     Alert
 ]

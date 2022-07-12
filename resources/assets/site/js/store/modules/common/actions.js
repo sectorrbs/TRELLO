@@ -12,4 +12,10 @@ export const actions = {
     hideModalCreateRoom({}) {
         document.querySelector('.room__modal.modal').classList.remove('show')
     },
+    openModalCreateParty({}) {
+        document.querySelector('.party__modal.modal').classList.add('show')
+    },
+    hideModalCreateParty({}) {
+        document.querySelector('.party__modal.modal').classList.remove('show')
+    },
 }

@@ -4,7 +4,6 @@
         <Loader v-if="loader"/>
         <div v-else class="desks">
             <div class="desks__inner" v-if="room.desks">
-                {{room}}
                 <DeskItem v-for="desk in room.desks" :desk="desk" :key="desk.id"/>
                 <RoomDeskAdd :roomId="room.id"/>
             </div>

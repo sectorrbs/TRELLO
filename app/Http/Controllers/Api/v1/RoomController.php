@@ -6,7 +6,7 @@ use App\Http\Requests\RoomRequest;
 use App\Http\Resources\RoomResource;
 use App\Models\Room;
 use App\Http\Controllers\Controller;
-use App\Models\RoomRole;
+use App\Models\RoomParty;
 use App\Services\RoleService;
 
 class RoomController extends Controller
@@ -25,7 +25,7 @@ class RoomController extends Controller
     public function createRoom(RoomRequest $request, RoleService $role)
     {
         $room = Room::create($request->validated());
-        RoomRole::create([
+        RoomParty::create([
             'room_id' => $room['id'],
             'user_id' => $room['user_id'],
             'role_id' => $role->getRoleAdminById(),

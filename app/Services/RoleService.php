@@ -9,6 +9,6 @@ class RoleService
 {
     public function getRoleAdminById()
     {
-        return Role::where('role', 'admin')->pluck('id')->first();
+        return Role::where('status', 'admin')->pluck('id')->first();
     }
 }
