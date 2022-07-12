@@ -2,9 +2,9 @@
     <div class="room__item-actions">
         <div class="room__item-name">
             <div class="room__item-logo">
-                {{name[0]}}
+                {{ room.name[0] }}
             </div>
-            {{ name }}
+            {{ room.name }}
         </div>
         <div class="room__item-btns">
             <div class="room__item-btn">
@@ -17,11 +17,11 @@
                     :name="'window-frame room__icon'"/>
                 Представления
             </div>
-            <div class="room__item-btn">
+            <router-link :to="{name: 'party', params: { id: room.id }}" class="room__item-btn">
                 <Fa :type="'r'"
                     :name="'user-alt room__icon'"/>
-                Участники (1)
-            </div>
+                Участники ({{ room.participants.length }})
+            </router-link>
             <div class="room__item-btn">
                 <Fa :type="'r'"
                     :name="'cog room__icon'"/>
@@ -34,6 +34,6 @@
 <script>
 export default {
     name: "RoomActions",
-    props: ['name']
+    props: ['room']
 }
 </script>

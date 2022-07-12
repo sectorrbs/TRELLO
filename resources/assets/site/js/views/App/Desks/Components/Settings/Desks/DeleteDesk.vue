@@ -3,17 +3,21 @@
         <div class="settings__item-btn" :class="{show: !showDelete}">
             Удалить доску
         </div>
-        <div class="settings__item-alert desks__item-alert" :class="{show: showDelete}">
-            Вы точно хотите удалить доску?
-            <div class="settings__item-btns">
+        <Alert class="desks__item-alert" :class="{show: showDelete}">
+            <template v-slot:alert_title>
+                Вы точно хотите удалить доску?
+            </template>
+            <template v-slot:alert_confirm>
                 <Fa :type="'r'"
                     @click.prevent="this.$store.dispatch('deleteDesk', desk)"
                     :name="'check desks__item-confirm'"/>
+            </template>
+            <template v-slot:alert_cancel>
                 <Fa :type="'l'"
                     @click.prevent.stop="this.$emit('closed')"
                     :name="'times settings__cancel desks__item-cancel'"/>
-            </div>
-        </div>
+            </template>
+        </Alert>
     </div>
 </template>
 

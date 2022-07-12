@@ -30,6 +30,12 @@ const routes = [
         component: () => import(`${appPath}Desks/Index`)
     },
     {
+        path: '/party/:id',
+        name: 'party',
+        meta: {page_title: 'Участники', layout: 'main'},
+        component: () => import(`${appPath}Party/Index`)
+    },
+    {
         path: '/desks/:id',
         name: 'lists',
         meta: {layout: 'main', header: 'transparent'},

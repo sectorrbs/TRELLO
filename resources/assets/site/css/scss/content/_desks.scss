@@ -439,6 +439,10 @@
                 color: $color-gray;
             }
 
+            .desks__cards-items {
+                opacity: .2;
+            }
+
             .desks__cards-item, .desks__list-btn {
                 background: rgba($color, .1);
                 color: $color-gray
@@ -465,9 +469,25 @@
         position: relative;
         flex: 1;
 
+        &-text {
+            width: fit-content;
+            background: #ffffffb5;
+            padding: 5px;
+            border-radius: 5px;
+            position: relative;
+            z-index: 2;
+
+            span {
+                display: block;
+                transform: translateY(1px);
+            }
+        }
+
         &-labels {
             @include flex(stretch);
             gap: 0 5px;
+            position: relative;
+            z-index: 2;
 
             &.hidden {
                 display: none;
@@ -492,6 +512,7 @@
                 @include flex(flex-start, null, nowrap);
                 gap: 10px;
                 width: 100%;
+                padding: 5px !important;
 
                 .desks__cards-description-text {
                     @include flex(center, flex-start);
@@ -551,6 +572,7 @@
             position: relative;
             @include flex(stretch);
             flex-direction: column;
+            background-size: cover;
 
             &.success {
                 background: rgba($color-green-lite, .2);
@@ -568,8 +590,19 @@
                 }
             }
 
+            &::before {
+                content: '';
+                @include transition(.2s);
+                @include position(absolute, 0, 0, null, null, 1);
+                @include size(100%, 100%);
+                visibility: hidden;
+            }
+
             &:hover {
-                background: #20a5aebf
+                &::before {
+                    background: rgba($color, .1);
+                    visibility: visible;
+                }
             }
         }
 
@@ -582,6 +615,8 @@
             padding: 5px;
             border-radius: 5px;
             width: fit-content;
+            position: relative;
+            z-index: 2;
 
             &.enlarged {
                 .desks__cards-tag {

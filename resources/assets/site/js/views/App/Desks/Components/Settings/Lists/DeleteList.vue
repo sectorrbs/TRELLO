@@ -1,9 +1,9 @@
 <template>
     <div class="settings__item" @click.prevent="showDeleteWindow">
-        <div class="settings__item-btn" v-show="!showDelete">
+        <div class="settings__item-btn" :class="{show: !showDelete}">
             Удалить список
         </div>
-        <div class="settings__item-alert" v-show="showDelete">
+        <div class="settings__item-alert" :class="{show: showDelete}">
             Вы точно хотите удалить список?
             <div class="settings__item-btns">
                 <Fa :type="'r'"

@@ -1,8 +1,9 @@
 <template>
     <div v-if="card" class="desks__cards-item draggable"
+         style="background-size: cover"
          :style="  {
                      background: card.id_backgrounds_cards
-                         ? `url('/storage/backgrounds_cards/thumb_280_36/${getCardBg(card.id_backgrounds_cards)}')`
+                         ? `url('/storage/backgrounds_cards/thumb_380_380/${getCardBg(card.id_backgrounds_cards)}')`
                          : '#0cc7d4bf'
                           }"
          draggable="true"
@@ -12,7 +13,11 @@
          @click="this.$store.dispatch('openModal', card)">
         <CardCover v-if="cover" :cover="cover.image"/>
         <CardMiniTags v-if="this.card.tags?.length" :tags="card.tags"/>
-        {{ card.name }}
+        <div class="desks__cards-text">
+            <span>
+            {{ card.name }}
+            </span>
+        </div>
         <div class="desks__cards-labels">
             <CardMiniTerms :term="term"/>
             <CardCountTasks :countPerformTasks="countPerformTasks" :countAllTasks="countAllTasks"/>
@@ -101,8 +106,8 @@ export default {
         getCardBg(id) {
             let bgs = this.$store.getters.backgrounds_cards
             if (bgs) {
-                let a = this.$store.getters.backgrounds_cards.find(el => +el.id === +id)
-                return a.image
+                let bg = bgs.find(el => +el.id === +id)
+                return bg.image
             }
         },
         onDragStart(e, card) {

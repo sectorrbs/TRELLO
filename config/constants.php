@@ -25,7 +25,6 @@ defined('CARD_IMAGES_THUMBNAILS') or define('CARD_IMAGES_THUMBNAILS',
         ['thumb_width' => 250, 'thumb_height' => 140],
         ['thumb_width' => 700, 'thumb_height' => 250],
     ]);
-
 /*
 |--------------------------------------------------------------------------
 | ADMIN-PANEL constants

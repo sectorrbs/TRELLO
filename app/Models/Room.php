@@ -15,4 +15,9 @@ class Room extends Model
     {
         return $this->hasMany(Desk::class);
     }
+
+    public function participants()
+    {
+        return $this->hasMany(RoomParty::class);
+    }
 }

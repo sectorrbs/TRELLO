@@ -1,9 +1,10 @@
 <template>
     <div class="room__item">
-        <RoomActions :name="room.name"/>
+        <RoomActions :room="room"/>
         <Loader v-if="loader"/>
         <div v-else class="desks">
             <div class="desks__inner" v-if="room.desks">
+                {{room}}
                 <DeskItem v-for="desk in room.desks" :desk="desk" :key="desk.id"/>
                 <RoomDeskAdd :roomId="room.id"/>
             </div>

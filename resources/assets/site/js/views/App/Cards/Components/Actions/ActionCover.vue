@@ -14,6 +14,12 @@
                         :slides-per-view="5"
                         :slides-per-group="5"
                         :navigation="true">
+                    <swiper-slide @click="bgSelection($event)"
+                                  class="cover__notbg"
+                                  :class="[!card.id_backgrounds_cards  ? 'select' : '']">
+                        <Fa :type="'r'"
+                            :name="'times details__window-icon'"/>
+                    </swiper-slide>
                     <swiper-slide v-for="background in backgrounds"
                                   :key="background.id"
                                   :id="background.id"
@@ -29,7 +35,7 @@
                 <div class="attachment__btn details__actions-btn"
                      @click="updateBackgroundCard"
                      :class="{disabled}">
-                    Сменить обложку
+                    Обновить
                 </div>
             </template>
         </ActionModal>

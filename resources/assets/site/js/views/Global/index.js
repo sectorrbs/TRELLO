@@ -11,6 +11,7 @@ import Sidebar from './Sidebar'
 import GlobalModal from './GlobalModal'
 import RoomCreateModal from './RoomCreateModal'
 import ActionModal from './ActionModal'
+import Alert from './Alert'
 
 export default [
     Fa,
@@ -26,4 +27,5 @@ export default [
     AuthError,
     RoomCreateModal,
     ActionModal,
+    Alert
 ]

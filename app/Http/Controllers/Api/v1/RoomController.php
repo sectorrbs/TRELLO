@@ -6,7 +6,8 @@ use App\Http\Requests\RoomRequest;
 use App\Http\Resources\RoomResource;
 use App\Models\Room;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use App\Models\RoomRole;
+use App\Services\RoleService;
 
 class RoomController extends Controller
 {
@@ -18,12 +19,17 @@ class RoomController extends Controller
 
     public function getRoom(Room $room)
     {
-
+        return new RoomResource($room);
     }
 
-    public function createRoom(RoomRequest $request)
+    public function createRoom(RoomRequest $request, RoleService $role)
     {
-        Room::create($request->validated());
+        $room = Room::create($request->validated());
+        RoomRole::create([
+            'room_id' => $room['id'],
+            'user_id' => $room['user_id'],
+            'role_id' => $role->getRoleAdminById(),
+        ]);
         return RoomResource::collection(Room::orderBy('created_at', 'desc')->get());
     }
 
@@ -37,37 +43,3 @@ class RoomController extends Controller
 
     }
 }
-
-//    public function getDesks(Auth $auth)
-//    {
-//        return DeskResource::collection(Desk::orderBy('created_at', 'desc')
-//            ->where('user_id', auth()->user()->id)->get());
-//    }
-//
-//    public function getDesk(Desk $desk)
-//    {
-//        if (auth()->user() && $desk->user_id === auth()->user()->id) {
-//            return new DeskResource($desk);
-//        }
-//        return response(null, Response::HTTP_NO_CONTENT);
-//    }
-//
-//    public function createDesk(DeskRequest $request)
-//    {
-//        Desk::create($request->validated());
-//        return DeskResource::collection(Desk::orderBy('created_at', 'desc')
-//            ->where('user_id', Auth::user()->id)->get());
-//    }
-//
-//    public function updateDesk(DeskRequest $request, Desk $desk)
-//    {
-//        $desk->update($request->validated());
-//        return DeskResource::make($desk);
-//    }
-//
-//    public function deleteDesk(Desk $desk)
-//    {
-//        $desk->delete();
-//        return DeskResource::collection(Desk::orderBy('created_at', 'desc')
-//            ->where('user_id', Auth::user()->id)->get());
-//    }

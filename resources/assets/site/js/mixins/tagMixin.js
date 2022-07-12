@@ -92,6 +92,7 @@ export const tagMixin = {
                 this.$store.dispatch('addTagToCard', params)
                 tag.id = this.$store.getters.cardInfo.id
                 this.$store.dispatch('getCardInfoNotLoader', tag)
+                this.$store.dispatch('getDeskTags', {id_desk: this.$store.getters.desk.id})
             }
         },
         getParent(pos) {

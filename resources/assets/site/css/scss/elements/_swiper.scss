@@ -7,7 +7,7 @@
         &.select {
             &::before {
                 content: '\f00c';
-                @include position(absolute, 0, 0, null, null);
+                @include position(absolute, 0, 0, null, null, 1);
                 @include size(100%, 100%);
                 @include font(20px, 400, 1, $color-white, null);
                 @include flex(center, center);

@@ -10,6 +10,9 @@
                 </photo-consumer>
             </photo-provider>
         </div>
+        <div v-if="cardInfo.id_backgrounds_cards" class="details__window-bg">
+            <img :src="`/storage/backgrounds_cards/thumb_380_380/${getCardBg(cardInfo.id_backgrounds_cards)}`" alt="">
+        </div>
         <div class="details__window-top">
             <div class="details__window-content">
                 <div class="details__window-inner">
@@ -92,6 +95,13 @@ export default {
             let form = this.$refs.cardInfo.querySelector('.details__window-card-form')
             form.classList.add('show')
             input.focus()
+        },
+        getCardBg(id) {
+            let bgs = this.$store.getters.backgrounds_cards
+            if (bgs) {
+                let bg = bgs.find(el => +el.id === +id)
+                return bg.image
+            }
         },
     },
     components: {
