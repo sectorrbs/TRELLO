@@ -48,6 +48,7 @@ export const actions = {
         axios.post(`/api/v1/room/create`,
             {_method: 'POST', name: data.name, description: data.description, user_id})
             .then(res => {
+                console.log(res.data.data)
                 dispatch('getRooms')
                 commit('setErrorMessage', null)
             })

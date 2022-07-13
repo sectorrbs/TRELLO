@@ -1,4 +1,3 @@
-import {getCountTasks} from "../../common/foo";
 
 export const actions = {
     getUsers({commit}, name) {

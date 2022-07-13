@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="party__items">
-                            <Participants v-for="participant in room.participants"
+                            <ParticipantsHome v-for="participant in room.participants"
                                           :key="participant.id"
                                           :participant="participant"/>
                         </div>
@@ -57,11 +57,11 @@
 
 <script>
 
-import Participants from './Components/Participants'
+import ParticipantsHome from './Components/ParticipantsHome'
 
 export default {
     name: "Index",
-    components: {Participants},
+    components: {ParticipantsHome},
     computed: {
         loader() {
             return this.$store.getters.loader

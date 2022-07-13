@@ -137,6 +137,11 @@
 
     &__modal {
 
+        &-title {
+            margin-bottom: 30px;
+            padding: 0 25px;
+        }
+
         &-user {
             @include flex(stretch);
             @include transition(.1s);
@@ -169,8 +174,6 @@
         }
 
         &-input {
-            margin-top: 30px;
-
             &::placeholder {
                 color: $color-gray;
                 font-weight: 500;
@@ -178,19 +181,22 @@
         }
 
         &-content {
-            padding: 25px 25px 40px 25px;
+            padding: 25px 0 0;
             height: 100%;
         }
 
         &-search {
+            background: rgba(107, 107, 107, .2);
+            padding: 25px;
+            margin-top: 25px;
             position: relative;
         }
 
         &-window {
-            @include position(absolute, null, null, 0);
+            @include position(absolute, null, null, 27px);
             background: $color-white;
             padding: 5px 0;
-            width: 100%;
+            width: 91%;
             margin-top: 5px;
             box-shadow: 0 4px 8px 0 rgba(34, 60, 80, 0.19);
             opacity: 0;
@@ -220,9 +226,71 @@
         }
 
         &-wrapper {
-            min-height: 200px;
             width: 600px;
+            min-height: 100px;
+        }
+    }
 
+    &__lists {
+        @include flex(flex-start, null);
+        gap: 8px;
+        padding: 10px;
+        background: $color-white;
+        width: 66%;
+    }
+
+    &__list {
+        @include flex(center);
+        @include font(12px, 500, 1);
+        gap: 7px;
+        padding: 7px;
+        background: rgba($color-gray, .2);
+        width: fit-content;
+
+        &-icon {
+            @include transition(.2s);
+            cursor: pointer;
+
+            &:hover {
+                color: $color-white;
+            }
+        }
+    }
+
+    &__confirm {
+        @include transition(.2s);
+        @include font(13px, null, 1, $color-white, null);
+        background: rgba(46, 187, 46, .82);
+        padding: 10px;
+        cursor: pointer;
+
+        &:hover {
+            background: rgba(46, 187, 46, .92);
+        }
+    }
+
+    &__actions {
+        @include flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 25px;
+        padding: 0 25px;
+
+        &-top {
+            @include flex(flex-start, null, nowrap);
+            gap: 10px;
+        }
+    }
+
+    &__message {
+        min-height: 70px;
+        border: 1px solid rgba(128, 128, 128, .4);
+        background: $color-white;
+        padding: 10px;
+        resize: none;
+
+        &::placeholder {
+            @include font(13px, null, 15px, rgba($color-gray, .5), null);
         }
     }
 }
