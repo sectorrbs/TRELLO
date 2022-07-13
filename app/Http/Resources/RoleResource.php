@@ -25,7 +25,7 @@
         {
             switch ($id) {
                 case 1:
-                    return 'Обычный';
+                    return 'Участник';
                 case 2:
                     return 'Администратор';
             }

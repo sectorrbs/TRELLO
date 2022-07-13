@@ -76,15 +76,22 @@
 
     &__btn {
         &-delete {
-            @include position(absolute, null, 0, 0, null);
             @include flex(center, center);
-            @include size(50px, 100%);
+            @include font(13px, 500, 35px, rgba(107, 107, 107, .9));
             @include transition(.2s);
-            background: rgba(219, 5, 61, .3);
+            gap: 5px;
+            background: $color-white;
+            border: 1px solid rgba(107, 107, 107, .5);
+            border-radius: 5px;
             cursor: pointer;
+            padding: 0 7px;
+
+            .room__empty-icon {
+                font-size: 13px;
+            }
 
             &:hover {
-                background: rgba(219, 5, 61, .4);
+                background: darken($color-white, 3%);
             }
         }
     }
@@ -99,11 +106,42 @@
             background: #2ebb2e26;
         }
 
+        &-actions {
+            @include flex(center, null, nowrap);
+            margin-left: auto;
+            gap: 10px;
+        }
+
+        &-settings {
+            transform: translateY(1px);
+            position: relative;
+
+            .details__actions-modal {
+                top: 0;
+            }
+
+            i {
+                @include font(19px, null, 1, rgba(107, 107, 107, .7), null);
+                cursor: pointer;
+
+                &:hover {
+                    color: rgba(107, 107, 107, .9);
+                }
+            }
+        }
+
         &-status {
-            @include font(14px, 500);
+            @include font(13px, 500, 35px, $color-white);
             @include flex(center, center);
             gap: 3px;
-            margin-left: auto;
+            height: 37px;
+            padding: 0 7px;
+            border-radius: 5px;
+            background: rgba(107, 107, 107, .5);
+
+            &.admin {
+                background: rgba(46, 187, 46, .82);
+            }
         }
 
         &-logo {
@@ -126,7 +164,8 @@
         }
 
         &-star {
-            transform: translateY(-1px)
+            transform: translateY(-1px);
+            font-size: 13px;
         }
 
         &-name {
@@ -193,7 +232,7 @@
                 @include font(11px, 700, 1,);
                 padding: 5px 7px;
                 border-radius: 3px;
-                background: rgba(46,187,46,.82);
+                background: rgba(46, 187, 46, .82);
                 width: fit-content;
 
                 span {

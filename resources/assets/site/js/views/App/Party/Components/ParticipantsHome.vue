@@ -1,5 +1,5 @@
 <template>
-    <div class="party__item" :class="[isAdmin ? 'admin' : '']">
+    <div class="party__item">
         <div class="party__item-logo">
            <span>
             {{ getInitials(participant.user.name) }}
@@ -11,14 +11,11 @@
                 @nickName
             </div>
         </div>
-        <div v-if="isAdmin" class="party__item-status">
-            <Fa :type="'s'"
-                :name="'star party__item-star'"/>
-            {{ participant.role.label }}
-        </div>
-        <div v-else class="party__btn-delete">
-            <Fa :type="'l'"
-                :name="'times room__empty-icon'"/>
+        <div class="party__item-actions">
+            <div class="party__item-status" :class="{admin: isAdmin}" @click="">
+                {{ participant.role.label }}
+            </div>
+            <ParticipantsSettings/>
         </div>
     </div>
 </template>
@@ -26,10 +23,12 @@
 <script>
 
 import {initialMixin} from "../../../../mixins/initialMixin";
+import ParticipantsSettings from './Components/ParticipantsSettings'
 
 export default {
     name: "Participants",
     props: ['participant'],
+    components: {ParticipantsSettings},
     computed: {
         isAdmin() {
             return this.participant.role.status === 'admin'
