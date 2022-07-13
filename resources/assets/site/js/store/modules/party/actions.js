@@ -16,7 +16,10 @@ export const actions = {
         commit('changeDisplayWindow', false)
     },
     sendInviteToParty({commit, dispatch}, data) {
-        axios.post('')
+        axios.post('/api/v1/room_party/add', {_method: 'POST', data})
+            .then((res) => {
+                dispatch('getRoomNotLoader', data.roomId)
+            })
         dispatch('clearUserFromPartyList')
         dispatch('hideModalCreateParty')
     },

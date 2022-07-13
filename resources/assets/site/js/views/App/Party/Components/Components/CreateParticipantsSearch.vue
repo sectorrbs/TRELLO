@@ -45,7 +45,7 @@ export default {
             } else {
                 this.windowHide()
             }
-            if (this.text.length > 2) {
+            if (this.text.length > 1) {
                 this.$store.dispatch('getUsers', this.text)
                 text.classList.add('hide')
                 results.classList.remove('hide')

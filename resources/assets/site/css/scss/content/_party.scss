@@ -107,12 +107,18 @@
         }
 
         &-logo {
+            @include flex(center, center);
             @include size(35px, 35px);
             background: $color-white;
             border-radius: 50%;
             margin-right: 15px;
-            @include flex(center, center);
-            border: 2px solid rgba($color, .6)
+            border: 2px solid rgba($color, .6);
+
+            span {
+                display: block;
+                transform: translateY(1px);
+                font-weight: 600;
+            }
         }
 
         &-icon {
@@ -142,15 +148,71 @@
             padding: 0 25px;
         }
 
+        &-initials {
+            font-weight: 600;
+            transform: translateY(1px);
+        }
+
         &-user {
-            @include flex(stretch);
+            @include flex(center);
             @include transition(.1s);
             cursor: pointer;
-            padding: 7px;
+            padding: 5px 10px;
+
+            &-info {
+                @include flex(flex-start);
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            &-time {
+                @include font(12px, 300, 1, null, null);
+            }
+
+            &-status {
+                @include flex(center, null, nowrap);
+                gap: 5px;
+            }
+
+            &-your {
+                @include flex(center, center);
+                @include font(11px, 700, 1,);
+                padding: 5px 7px;
+                border-radius: 3px;
+                background: rgba($color-gray, .2);
+                width: fit-content;
+
+                span {
+                    display: block;
+                    transform: translateY(1px);
+                }
+            }
+
+            &-participant {
+                @include flex(center, center);
+                @include font(11px, 700, 1,);
+                padding: 5px 7px;
+                border-radius: 3px;
+                background: rgba(46,187,46,.82);
+                width: fit-content;
+
+                span {
+                    display: block;
+                    transform: translateY(1px);
+                }
+            }
 
             &:hover {
                 background: rgba($color-gray, .1);
             }
+        }
+
+        &-logo {
+            @include flex(center, center);
+            @include size(35px, 35px);
+            background: rgba($color-gray, .2);
+            border-radius: 50%;
+            margin-right: 10px;
         }
 
         &-spinner {

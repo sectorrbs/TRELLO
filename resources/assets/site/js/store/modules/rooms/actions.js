@@ -32,12 +32,9 @@ export const actions = {
     },
 
     getRoomNotLoader({commit}, id) {
-        axios.get(`/api/v1/desk/${id}`)
+        axios.get(`/api/v1/room/${id}`)
             .then(res => {
-                commit('setDesk', res.data.data)
-                setTimeout(() => {
-                    document.querySelector('.desks__lists-inner').scrollLeft += 1000
-                }, 300)
+                commit('setRoom', res.data.data)
             })
             .catch(e => commit('setErrorMessage', e.message))
     },
@@ -48,7 +45,9 @@ export const actions = {
         axios.post(`/api/v1/room/create`,
             {_method: 'POST', name: data.name, description: data.description, user_id})
             .then(res => {
-                console.log(res.data.data)
+                let data = res.data.data[0]
+                axios.post('/api/v1/room_party/create',
+                    {_method: 'POST', user_id: data.user_id, room_id: data.id})
                 dispatch('getRooms')
                 commit('setErrorMessage', null)
             })

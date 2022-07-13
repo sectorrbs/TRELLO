@@ -2,7 +2,7 @@
     <div v-if="partyUsers.length" class="party__actions">
         <div class="party__actions-top">
             <CreateParticipantsList :partyUsers="partyUsers"/>
-            <CreateParticipantsConfirm @confirm="sendInvite" :partyUsers="partyUsers"/>
+            <CreateParticipantsConfirm @confirm="sendInvite"/>
         </div>
         <div class="party__actions-message">
             <CreateParticipantsMessage v-model="message" :partyUsers="partyUsers"/>
@@ -42,6 +42,7 @@ export default {
             if (e.target.classList.contains('party__modal-search')
                 || e.target.classList.contains('room__modal-title')
                 || e.target.classList.contains('party__modal-user')
+                || e.target.classList.contains('party__message')
                 || e.target.classList.contains('party__modal-window')
                 || e.target.classList.contains('party__modal-content')
                 || e.target.classList.contains('modal')) {

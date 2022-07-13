@@ -21,4 +21,5 @@
         {
             return $this->belongsTo(Role::class);
         }
+
     }

@@ -1,8 +1,9 @@
 <template>
     <div class="party__item" :class="[isAdmin ? 'admin' : '']">
         <div class="party__item-logo">
-            <Fa :type="'s'"
-                :name="'user-alt party__item-icon'"/>
+           <span>
+            {{ getInitials(participant.user.name) }}
+           </span>
         </div>
         <div class="party__item-name">
             {{ participant.user.name }}
@@ -23,6 +24,9 @@
 </template>
 
 <script>
+
+import {initialMixin} from "../../../../mixins/initialMixin";
+
 export default {
     name: "Participants",
     props: ['participant'],
@@ -30,6 +34,7 @@ export default {
         isAdmin() {
             return this.participant.role.status === 'admin'
         }
-    }
+    },
+    mixins: [initialMixin]
 }
 </script>

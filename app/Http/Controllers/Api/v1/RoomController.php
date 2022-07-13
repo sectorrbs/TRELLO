@@ -1,45 +1,38 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1;
+    namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Requests\RoomRequest;
-use App\Http\Resources\RoomResource;
-use App\Models\Room;
-use App\Http\Controllers\Controller;
-use App\Models\RoomParty;
-use App\Services\RoleService;
+    use App\Http\Requests\RoomRequest;
+    use App\Http\Resources\RoomResource;
+    use App\Models\Room;
+    use App\Http\Controllers\Controller;
 
-class RoomController extends Controller
-{
-    public function getRooms()
+    class RoomController extends Controller
     {
-        return RoomResource::collection(Room::orderBy('created_at', 'desc')
-            ->where('user_id', auth()->user()->id)->get());
+        public function getRooms()
+        {
+            return RoomResource::collection(Room::orderBy('created_at', 'desc')
+                ->where('user_id', auth()->user()->id)->get());
+        }
+
+        public function getRoom(Room $room)
+        {
+            return new RoomResource($room);
+        }
+
+        public function createRoom(RoomRequest $request)
+        {
+            $room = Room::create($request->validated());
+            return RoomResource::collection(Room::where('id', $room['id'])->get());
+        }
+
+        public function updateRoom(RoomRequest $request, Room $room)
+        {
+
+        }
+
+        public function deleteRoom(Room $room)
+        {
+
+        }
     }
-
-    public function getRoom(Room $room)
-    {
-        return new RoomResource($room);
-    }
-
-    public function createRoom(RoomRequest $request, RoleService $role)
-    {
-        $room = Room::create($request->validated());
-        RoomParty::create([
-            'room_id' => $room['id'],
-            'user_id' => $room['user_id'],
-            'role_id' => $role->getRoleAdminById(),
-        ]);
-        return RoomResource::collection(Room::orderBy('created_at', 'desc')->get());
-    }
-
-    public function updateRoom(RoomRequest $request, Room $room)
-    {
-
-    }
-
-    public function deleteRoom(Room $room)
-    {
-
-    }
-}
