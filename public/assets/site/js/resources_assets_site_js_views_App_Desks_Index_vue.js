@@ -2422,6 +2422,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Settings_Desks_DeleteDesk__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Settings/Desks/DeleteDesk */ "./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/DeleteDesk.vue");
 /* harmony import */ var _Settings_Desks_ReplaceBackground__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Settings/Desks/ReplaceBackground */ "./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue");
+/* harmony import */ var _mixins_settingsWindowMixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../mixins/settingsWindowMixin */ "./resources/assets/site/js/mixins/settingsWindowMixin.js");
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2431,30 +2433,7 @@ __webpack_require__.r(__webpack_exports__);
     DeleteDesk: _Settings_Desks_DeleteDesk__WEBPACK_IMPORTED_MODULE_0__["default"],
     ReplaceBackground: _Settings_Desks_ReplaceBackground__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  methods: {
-    closedTabs: function closedTabs() {
-      document.querySelectorAll('.settings__item-alert').forEach(function (el) {
-        return el.classList.remove('show');
-      });
-      document.querySelectorAll('.settings__item-btn').forEach(function (el) {
-        return el.classList.add('show');
-      });
-    },
-    showTab: function showTab(e) {
-      this.closedTabs();
-      var parent = e.target.closest('.settings__item'),
-          btn = parent.querySelector('.settings__item-btn'),
-          tab = parent.querySelector('.settings__item-alert');
-
-      if (btn.classList.contains('show')) {
-        btn.classList.remove('show');
-        tab.classList.add('show');
-      } else {
-        btn.classList.add('show');
-        tab.classList.remove('show');
-      }
-    }
-  }
+  mixins: [_mixins_settingsWindowMixin__WEBPACK_IMPORTED_MODULE_2__.settingsWindowMixin]
 });
 
 /***/ }),
@@ -3021,17 +3000,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "settings__title",
     onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {}, ["prevent"]))
   }, " Действия с доской "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeleteDesk, {
-    onOpen: $options.showTab,
-    onClosed: $options.closedTabs,
+    onOpen: _ctx.showTab,
+    onClosed: _ctx.closedTabs,
     desk: $props.desk
   }, null, 8
   /* PROPS */
   , ["onOpen", "onClosed", "desk"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ReplaceBackground, {
-    onOpen: $options.showTab,
+    onOpen: _ctx.showTab,
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return _this.$store.dispatch('getBackgroundsDesks');
     }),
-    onClosed: $options.closedTabs,
+    onClosed: _ctx.closedTabs,
     desk: $props.desk
   }, null, 8
   /* PROPS */
@@ -3484,6 +3463,45 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* KEYED_FRAGMENT */
   ))])]))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]));
 }
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/mixins/settingsWindowMixin.js":
+/*!****************************************************************!*\
+  !*** ./resources/assets/site/js/mixins/settingsWindowMixin.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "settingsWindowMixin": () => (/* binding */ settingsWindowMixin)
+/* harmony export */ });
+var settingsWindowMixin = {
+  methods: {
+    closedTabs: function closedTabs() {
+      document.querySelectorAll('.settings__item-alert').forEach(function (el) {
+        return el.classList.remove('show');
+      });
+      document.querySelectorAll('.settings__item-btn').forEach(function (el) {
+        return el.classList.add('show');
+      });
+    },
+    showTab: function showTab(e) {
+      this.closedTabs();
+      var parent = e.target.closest('.settings__item'),
+          btn = parent.querySelector('.settings__item-btn'),
+          tab = parent.querySelector('.settings__item-alert');
+
+      if (btn.classList.contains('show')) {
+        btn.classList.remove('show');
+        tab.classList.add('show');
+      } else {
+        btn.classList.add('show');
+        tab.classList.remove('show');
+      }
+    }
+  }
+};
 
 /***/ }),
 

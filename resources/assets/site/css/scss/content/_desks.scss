@@ -79,6 +79,7 @@
 
         &-cancel {
             @include font(19px, 300, 15px, rgba($color-red, .7) null);
+            cursor: pointer;
 
             &:hover {
                 color: $color-red;
@@ -88,6 +89,7 @@
         &-confirm {
             @include font(17px, null, 15px, $color-green-lite, null);
             transform: translateY(0);
+            cursor: pointer;
 
             &:hover {
                 color: $color-green;

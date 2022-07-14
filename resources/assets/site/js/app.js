@@ -8,7 +8,7 @@ import 'swiper/css'
 import router from './router';
 import store from './store/index';
 
-import components from './views/Global'
+import components from './views/Global/'
 import plugins from './utils/plugins'
 
 window.Vue = require('vue').default;

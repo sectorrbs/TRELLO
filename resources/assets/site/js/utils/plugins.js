@@ -54,6 +54,7 @@ export default {
                     !e.target.classList.contains('attachment__section-input') &&
                     !e.target.classList.contains('details__window-icon') &&
                     !e.target.classList.contains('attachment__section-btns') &&
+                    !e.target.classList.contains('attachment__section-btns') &&
                     !e.target.classList.contains('details__window-checklist-title')
                 ) {
                     clearAll()
@@ -87,6 +88,10 @@ export default {
                 document.querySelectorAll('.details__window-card-form')
                     .forEach(el => {
                         el.classList.remove('show')
+                    })
+                document.querySelectorAll('.party__settings-btn')
+                    .forEach(el => {
+                        el.classList.remove('open')
                     })
                 document.querySelectorAll('.settings__item-alert')
                     .forEach(el => el.classList.remove('show'))

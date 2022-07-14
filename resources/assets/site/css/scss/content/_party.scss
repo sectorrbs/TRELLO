@@ -117,7 +117,8 @@
             position: relative;
 
             .details__actions-modal {
-                top: 0;
+                top: -15px;
+                right: 29px;
             }
 
             i {
@@ -392,6 +393,21 @@
 
         &::placeholder {
             @include font(13px, null, 15px, rgba($color-gray, .5), null);
+        }
+    }
+
+    &__settings {
+        max-width: 280px;
+        top: 7px;
+        right: 170px;
+
+        &-btn {
+            @include font(16px, null, 1, rgba($color-gray, .7), null);
+            cursor: pointer;
+
+            &:hover {
+                color: rgba($color-gray, .9);
+            }
         }
     }
 }
