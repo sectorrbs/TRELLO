@@ -21,8 +21,8 @@
                     </span>
                 </div>
                 <div v-if="isParticipant(user.id)" class="party__modal-user-participant">
-                    <span>
-                        УЧАСТНИК
+                    <span :class="status">
+                        {{ label }}
                     </span>
                 </div>
             </div>
@@ -36,6 +36,10 @@ import {initialMixin} from "../../../../../mixins/initialMixin";
 
 export default {
     name: "CreateParticipantsUsers",
+    data: () => ({
+        status: null,
+        label: null,
+    }),
     props: ['users'],
     emits: ["clearInput"],
     methods: {
@@ -49,7 +53,11 @@ export default {
         },
         isParticipant(id) {
             let participants = this.$store.getters.room.participants
-            console.log(participants)
+            let party = participants.find(el => el.user['id'] === id)
+            if (party) {
+                this.label = party.role.label
+                this.status = party.role.status
+            }
             return participants.find(el => el.user['id'] === id)
         }
     },

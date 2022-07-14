@@ -6,7 +6,7 @@
                 <Sidebar/>
             </div>
             <div class="page__content-right">
-                <Room :rooms="rooms"/>
+                <Room :roomParty="roomParty"/>
             </div>
         </div>
     </div>
@@ -22,13 +22,13 @@ export default {
     name: "Desks",
     components: {Room},
     mounted() {
-        this.getRooms();
+        this.getRoomParty();
     },
     methods: {
-        ...mapActions(['getDesksNotLoader', 'getRooms'])
+        ...mapActions(['getRoomParty'])
     },
     computed: {
-        ...mapGetters(['rooms'])
+        ...mapGetters(['roomParty'])
     },
 }
 </script>

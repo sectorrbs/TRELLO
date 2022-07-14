@@ -32,9 +32,9 @@
                             </div>
                         </div>
                         <div class="party__items">
-                            <ParticipantsHome v-for="participant in room.participants"
-                                          :key="participant.id"
-                                          :participant="participant"/>
+                            <ParticipantsHome v-for="participant in participants"
+                                              :key="participant.id"
+                                              :participant="participant"/>
                         </div>
                         <div class="party__btns">
                             <router-link :to="{name: 'desks_index'}">
@@ -68,6 +68,11 @@ export default {
         },
         room() {
             return this.$store.getters.room
+        },
+        participants() {
+            return this.$store.getters.room.participants.sort((a, b) => {
+                return b.role.id - a.role.id
+            })
         }
     },
     mounted() {

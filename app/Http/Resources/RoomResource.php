@@ -20,7 +20,7 @@ class RoomResource extends JsonResource
             'description' => $this->description,
             'user_id' => $this->user_id,
             'desks' => DeskResource::collection($this->desks),
-            'participants' => RoomPartyResource::collection($this->participants),
+            'participants' => PartyResource::collection($this->participants),
         ];
     }
 }

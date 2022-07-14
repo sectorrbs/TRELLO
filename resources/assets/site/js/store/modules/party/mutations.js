@@ -19,6 +19,8 @@ export const mutations = {
         setTimeout(() => {
             state.partyUsers = []
         }, 500)
-
-    }
+    } ,
+    setRoomParty(state, roomParty) {
+        state.roomParty = roomParty
+    },
 }

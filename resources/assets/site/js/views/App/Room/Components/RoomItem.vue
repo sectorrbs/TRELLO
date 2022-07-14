@@ -1,11 +1,11 @@
 <template>
     <div class="room__item">
-        <RoomActions :room="room"/>
+        <RoomActions :room="party.room"/>
         <Loader v-if="loader"/>
         <div v-else class="desks">
-            <div class="desks__inner" v-if="room.desks">
-                <DeskItem v-for="desk in room.desks" :desk="desk" :key="desk.id"/>
-                <RoomDeskAdd :roomId="room.id"/>
+            <div class="desks__inner" v-if="party.room.desks">
+                <DeskItem v-for="desk in party.room.desks" :desk="desk" :key="desk.id"/>
+                <RoomDeskAdd :roomId="party.room.id"/>
             </div>
             <Loader v-else/>
         </div>
@@ -22,7 +22,7 @@ import ModalLoad from "../../../Global/ModalLoad";
 
 export default {
     name: "RoomItem",
-    props: ['room'],
+    props: ['party'],
     components: {ModalLoad, RoomActions, DeskItem, RoomDeskAdd},
     computed: {
         ...mapGetters(['loader'])

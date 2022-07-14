@@ -9,7 +9,6 @@ export const actions = {
             })
             .catch(e => commit('setErrorMessage', e.message))
             .finally(() => commit('changeLoader', false))
-
     },
 
     getDesksNotLoader({commit}) {
@@ -65,7 +64,7 @@ export const actions = {
                 commit('setErrorMessage', e.response.data.errors.name[0])
             })
             .finally(() => {
-                dispatch('getRooms')
+                dispatch('getRoomPartyNotLoader')
             })
     },
     updateDesk({commit}, desk) {
@@ -87,7 +86,7 @@ export const actions = {
         commit('changeLoader', true)
         axios.post(`/api/v1/desk/${desk.id}/delete`, {_method: 'DELETE', name: desk.name, id: desk.id})
             .then(res => {
-                dispatch('getRooms')
+                dispatch('getRoomPartyNotLoader')
                 setTimeout(() => {
                     commit('changeLoader', false)
                 }, 100)

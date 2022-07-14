@@ -4,12 +4,20 @@
 
     use App\Http\Controllers\Controller;
     use App\Http\Requests\RoomPartyRequest;
+    use App\Http\Resources\RoomPartyResource;
     use App\Models\RoomParty;
     use App\Services\RoleService;
     use Illuminate\Http\Request;
+    use Illuminate\Http\Response;
 
     class RoomPartyController extends Controller
     {
+
+        public function getRoomParty()
+        {
+            return RoomPartyResource::collection(RoomParty::orderBy('created_at', 'desc')
+                ->where('user_id', auth()->user()->id)->get());
+        }
 
         public function createRoomParty(RoomPartyRequest $request, RoleService $role)
         {
@@ -21,7 +29,7 @@
             ]);
         }
 
-        public function addRoomParty(Request $request, RoleService $role)
+        public function addUserRoomParty(Request $request, RoleService $role)
         {
             $users = $request->input('data.users');
             $room_id = $request->input('data.roomId');
@@ -38,5 +46,19 @@
                     ]);
                 }
             }
+        }
+
+        public function appointmentUserAdminRoomParty(RoomParty $roomParty, RoleService $role)
+        {
+            $roomParty->update([
+                'role_id' => $role->getRoleAdminById()
+            ]);
+            return response(null, Response::HTTP_NO_CONTENT);
+        }
+
+        public function deleteParticipantRoomParty(RoomParty $roomParty)
+        {
+            $roomParty->delete();
+            return response(null, Response::HTTP_NO_CONTENT);
         }
     }

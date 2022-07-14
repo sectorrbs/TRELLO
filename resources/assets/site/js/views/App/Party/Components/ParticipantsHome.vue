@@ -16,6 +16,7 @@
                 {{ participant.role.label }}
             </div>
             <Fa :type="'l'"
+                v-if="!isParticipantStatusAdmin"
                 @click.prevent.stop="showSettingsList"
                 :name="'cog room__empty-icon party__settings-btn'"/>
             <div class="desks__list-settings party__settings">
@@ -27,8 +28,9 @@
 
 <script>
 
-import {initialMixin} from "../../../../mixins/initialMixin";
 import ParticipantsSettings from './Components/ParticipantsSettings'
+import {initialMixin} from "../../../../mixins/initialMixin";
+import {settingsMixin} from "../../../../mixins/settingsMixin";
 
 export default {
     name: "Participants",
@@ -55,6 +57,6 @@ export default {
             }
         }
     },
-    mixins: [initialMixin]
+    mixins: [initialMixin, settingsMixin],
 }
 </script>

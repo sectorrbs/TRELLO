@@ -2,9 +2,10 @@ import router from '../../../router';
 
 export const actions = {
     getRooms({commit}) {
-        axios.get('/api/v1/rooms')
+        axios.get('/api/v1/room_party/get')
             .then(res => {
-                commit('setRooms', res.data.data)
+                console.log(res.data.data)
+                // commit('setRooms', res.data.data)
             })
             .catch(e => commit('setErrorMessage', e.message))
     },
@@ -17,7 +18,7 @@ export const actions = {
             .catch(e => commit('setErrorMessage', e.message))
     },
 
-    getRoom({commit}, id) {
+    getRoom({commit, dispatch}, id) {
         commit('changeLoader', true)
         axios.get(`/api/v1/room/${id}`)
             .then(res => {
@@ -28,7 +29,10 @@ export const actions = {
                 }
             })
             .catch(e => commit('setErrorMessage', e.message))
-            .finally(() => commit('changeLoader', false))
+            .finally(() => {
+                dispatch('getUserRoleInRoom')
+                commit('changeLoader', false)
+            })
     },
 
     getRoomNotLoader({commit}, id) {
@@ -48,7 +52,7 @@ export const actions = {
                 let data = res.data.data[0]
                 axios.post('/api/v1/room_party/create',
                     {_method: 'POST', user_id: data.user_id, room_id: data.id})
-                dispatch('getRooms')
+                dispatch('getRoomPartyNotLoader')
                 commit('setErrorMessage', null)
             })
             .catch(e => {
@@ -57,7 +61,7 @@ export const actions = {
             .finally(() => {
                 setTimeout(() => {
                     commit('changeLoader', false)
-                }, 300)
+                }, 500)
             })
     },
     updateRoom({commit}, desk) {
