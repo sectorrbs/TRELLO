@@ -3,7 +3,9 @@
         <div class="desks__create-list">
             <DeskListCreateForm :show="show" @showClose="hideForm" :desk_id="desk_id"/>
         </div>
-        <div class="desks__lists-add-btn" @click="showForm">
+        <div class="desks__lists-add-btn"
+             :class="{disabled: isUserGuest}"
+             @click="showForm">
             <Fa :type="'r'"
                 :name="'plus desks__add-icon'"/>
             Добавить новую колонку
@@ -14,6 +16,7 @@
 <script>
 
 import DeskListCreateForm from "./DeskListCreateForm";
+import {deskListMixin} from '../../../../mixins/deskListMixin'
 
 export default {
     name: "DeskListCreateNewList",
@@ -40,6 +43,8 @@ export default {
             this.show =  false
             this.$store.commit('setErrorMessage', null)
         }
-    }
+    } ,
+    mixins: [deskListMixin]
+
 }
 </script>

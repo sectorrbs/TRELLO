@@ -12,7 +12,7 @@
                 Он останется на всех своих досках в рабочем пространстве и получит уведомление
             </template>
             <template v-slot:alert_confirm>
-                <div class="party__settings-btns party__settings-confirm" @click="excludeParticipant">
+                <div class="party__settings-btns party__settings-confirm" @click="excludeParticipantRoomParty">
                     Исключить
                 </div>
             </template>
@@ -28,15 +28,14 @@
 
 <script>
 
-import {settingsMixin} from "../../../../../../mixins/settingsMixin";
+import {settingsRoomPartyMixin} from "../../../../../../mixins/settingsRoomPartyMixin";
 
 export default {
     name: "ParticipantsSettingsExclude",
-    mixins: [settingsMixin],
-    props: ['participant'],
+    mixins: [settingsRoomPartyMixin],
     methods: {
-        excludeParticipant() {
-            this.$store.dispatch('excludeParticipant', this.participant.id)
+        excludeParticipantRoomParty() {
+            this.$store.dispatch('excludeParticipantRoomParty', this.participant.id)
         }
     }
 }

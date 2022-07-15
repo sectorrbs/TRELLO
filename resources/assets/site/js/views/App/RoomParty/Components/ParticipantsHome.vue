@@ -4,19 +4,27 @@
            <span>
             {{ getInitials(participant.user.name) }}
            </span>
+            <img :src="'/storage/common/chevron.png'"
+                 v-if="partyCreator === participant.user.id"
+                 class="party__item-rang">
         </div>
         <div class="party__item-name">
-            {{ participant.user.name }}
+            <div>
+                {{ participant.user.name }}
+                <span v-if="isUser">
+                (Вы)
+            </span>
+            </div>
             <div class="party__item-nick">
                 @nickName
             </div>
         </div>
         <div class="party__item-actions" ref="actionsParty">
-            <div class="party__item-status" :class="{admin: isAdmin}" @click="">
+            <div class="party__item-status" :class="[participant.role.status]">
                 {{ participant.role.label }}
             </div>
             <Fa :type="'l'"
-                v-if="!isParticipantStatusAdmin"
+                v-if="(!isParticipantStatusAdmin || userRoleAdmin) && !isGuest"
                 @click.prevent.stop="showSettingsList"
                 :name="'cog room__empty-icon party__settings-btn'"/>
             <div class="desks__list-settings party__settings">
@@ -30,17 +38,11 @@
 
 import ParticipantsSettings from './Components/ParticipantsSettings'
 import {initialMixin} from "../../../../mixins/initialMixin";
-import {settingsMixin} from "../../../../mixins/settingsMixin";
+import {settingsRoomPartyMixin} from "../../../../mixins/settingsRoomPartyMixin";
 
 export default {
     name: "Participants",
-    props: ['participant'],
     components: {ParticipantsSettings},
-    computed: {
-        isAdmin() {
-            return this.participant.role.status === 'admin'
-        }
-    },
     methods: {
         showSettingsList() {
 
@@ -57,6 +59,11 @@ export default {
             }
         }
     },
-    mixins: [initialMixin, settingsMixin],
+    mixins: [initialMixin, settingsRoomPartyMixin],
+    computed: {
+        partyCreator() {
+            return this.$store.getters.room.user_id
+        }
+    }
 }
 </script>

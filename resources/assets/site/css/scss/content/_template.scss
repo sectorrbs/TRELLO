@@ -45,6 +45,7 @@ main {
         @include size(115px, 48px);
         @include font(20px, 700, 27px, $color-white, null);
         padding: 5px;
+        text-decoration: none;
 
         &-icon {
             transform: translateY(-2px);
@@ -58,6 +59,7 @@ main {
         cursor: pointer;
         padding: 10px 15px;
         background: $color-green-lite;
+        border-radius: 5px;
 
         &:hover {
             background: rgba(46, 187, 46, .82);
@@ -379,7 +381,7 @@ main {
         @include size(100%, 100%);
 
         .content {
-            padding: 98px 0 50px;
+            padding: 120px 0 50px;
         }
     }
 }

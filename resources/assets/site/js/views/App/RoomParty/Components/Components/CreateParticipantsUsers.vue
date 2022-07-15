@@ -2,7 +2,9 @@
     <div class="party__modal-users"
          v-for="user in users"
          :key="user.id">
-        <div class="party__modal-user" @click="addUserToPartyList(user)">
+        <div class="party__modal-user"
+             :class="{disabled: isParticipant(user.id)}"
+             @click="addUserToPartyList(user)">
             <div class="party__modal-logo">
                 <div class="party__modal-initials">
                     {{ getInitials(user.name) }}
@@ -17,7 +19,7 @@
             <div class="party__modal-user-status">
                 <div v-if="isUser(user.id)" class="party__modal-user-your">
                     <span>
-                        ВЫ
+                        Вы
                     </span>
                 </div>
                 <div v-if="isParticipant(user.id)" class="party__modal-user-participant">

@@ -19,18 +19,21 @@ export const actions = {
             .catch(e => commit('setErrorMessage', e.message))
     },
 
-    getDesk({commit}, id) {
+    getDesk({commit, dispatch}, id) {
         commit('changeLoader', true)
         axios.get(`/api/v1/desk/${id}`)
             .then(res => {
                 if (res.data.data) {
                     commit('setDesk', res.data.data)
+                    dispatch('getRoom', res.data.data.room_id)
                 } else {
                     router.push('/desks')
                 }
             })
             .catch(e => commit('setErrorMessage', e.message))
-            .finally(() => commit('changeLoader', false))
+            .finally(() => {
+                commit('changeLoader', false)
+            })
     },
 
     getDeskNotLoader({commit}, id) {
@@ -44,7 +47,8 @@ export const actions = {
             .catch(e => commit('setErrorMessage', e.message))
     },
 
-    createDesk({commit, dispatch}, data) {
+    createDesk({commit, dispatch, getters}, data) {
+        let desk_id = null
         axios.post(`/api/v1/desk/create`,
             {
                 _method: 'POST',
@@ -53,6 +57,7 @@ export const actions = {
                 room_id: data.room_id
             })
             .then(res => {
+                desk_id = res.data.data.id
                 axios.post(`/api/v1/desks-tags/create`, {
                     _method: 'POST',
                     id_desk: res.data.data.id
@@ -64,6 +69,8 @@ export const actions = {
                 commit('setErrorMessage', e.response.data.errors.name[0])
             })
             .finally(() => {
+                dispatch('createDeskParty',
+                    {desk_id, user_id: getters.user.id, room_id: data.room_id})
                 dispatch('getRoomPartyNotLoader')
             })
     },
@@ -83,16 +90,16 @@ export const actions = {
             })
     },
     deleteDesk({commit, dispatch}, desk) {
-        commit('changeLoader', true)
+
         axios.post(`/api/v1/desk/${desk.id}/delete`, {_method: 'DELETE', name: desk.name, id: desk.id})
             .then(res => {
                 dispatch('getRoomPartyNotLoader')
-                setTimeout(() => {
-                    commit('changeLoader', false)
-                }, 100)
             })
             .catch(e => {
                 commit('setErrorMessage', e.response.data.errors.name[0])
+            })
+            .finally(() => {
+
             })
     },
     getBackgroundsDesks({commit}) {

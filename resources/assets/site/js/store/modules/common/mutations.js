@@ -11,4 +11,7 @@ export const mutations = {
     operationModal(state, status){
         state.modal = status
     },
+    setRoles(state, roles){
+        state.roles = roles
+    }
 }

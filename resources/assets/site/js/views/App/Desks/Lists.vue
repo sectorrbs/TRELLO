@@ -4,6 +4,9 @@
 
     <div v-else class="content__wrapper">
         <div v-if="desk" class="content" :style="{background: deskBackgrounds}">
+
+            <DeskInfo :desk="desk"/>
+
             <div class="desks__lists">
                 <div class="desks__lists-wrapper" v-if="desk.lists?.length">
 
@@ -31,12 +34,13 @@
 </template>
 <script>
 
+import draggable from 'vuedraggable'
 import {mapGetters, mapActions} from 'vuex'
 import {required} from '@vuelidate/validators'
 import {useVuelidate} from '@vuelidate/core'
 import DeskList from "./Components/DeskList";
+import DeskInfo from "./Components/DeskInfo";
 import DeskListCreateNewList from "./Components/DeskListCreateNewList";
-import draggable from 'vuedraggable'
 
 export default {
     name: "Lists",
@@ -45,7 +49,7 @@ export default {
         name: null,
         show: false
     }),
-    components: {DeskList, DeskListCreateNewList, draggable},
+    components: {DeskList, DeskListCreateNewList, DeskInfo, draggable},
     mounted() {
         this.getDesk(this.$route.params.id)
         this.$store.dispatch('getBackgroundsCards')

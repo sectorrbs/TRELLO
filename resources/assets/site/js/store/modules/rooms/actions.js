@@ -35,12 +35,15 @@ export const actions = {
             })
     },
 
-    getRoomNotLoader({commit}, id) {
+    getRoomNotLoader({commit, dispatch}, id) {
         axios.get(`/api/v1/room/${id}`)
             .then(res => {
                 commit('setRoom', res.data.data)
             })
             .catch(e => commit('setErrorMessage', e.message))
+            .finally(() => {
+                dispatch('getUserRoleInRoom')
+            })
     },
 
     createRoom({commit, dispatch}, data) {
@@ -50,9 +53,8 @@ export const actions = {
             {_method: 'POST', name: data.name, description: data.description, user_id})
             .then(res => {
                 let data = res.data.data[0]
-                axios.post('/api/v1/room_party/create',
-                    {_method: 'POST', user_id: data.user_id, room_id: data.id})
-                dispatch('getRoomPartyNotLoader')
+                let params = {user_id: data.user_id, room_id: data.id}
+                dispatch('createRoomParty', params)
                 commit('setErrorMessage', null)
             })
             .catch(e => {
@@ -61,7 +63,7 @@ export const actions = {
             .finally(() => {
                 setTimeout(() => {
                     commit('changeLoader', false)
-                }, 500)
+                }, 800)
             })
     },
     updateRoom({commit}, desk) {

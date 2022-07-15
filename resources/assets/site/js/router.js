@@ -30,10 +30,10 @@ const routes = [
         component: () => import(`${appPath}Desks/Index`)
     },
     {
-        path: '/party/:id',
+        path: '/room_party/:id',
         name: 'party',
         meta: {page_title: 'Участники', layout: 'main'},
-        component: () => import(`${appPath}Party/Index`)
+        component: () => import(`${appPath}RoomParty/Index`)
     },
     {
         path: '/desks/:id',

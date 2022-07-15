@@ -16,9 +16,11 @@
                     :old_name="name"
                     v-model="list.name"/>
                 <Fa :type="'r'"
+                    v-if="!isUserGuest"
                     @click.prevent="renameList"
                     :name="'pen desks__edit'"/>
                 <Fa :type="'s'"
+                    v-if="!isUserGuest"
                     @click.prevent="showSettingsList"
                     :name="'ellipsis-h desks__settings'"/>
 
@@ -28,7 +30,6 @@
             </div>
 
             <Cards :cards="list.cards"/>
-            <!--            <Cards :cards="items"/>-->
 
             <DeskListNewCard @addNewCard="reloadCards" :list="list"/>
 
@@ -42,6 +43,7 @@ import DeskListRenameInput from './DeskListRenameInput'
 import DeskListNewCard from './DeskListNewCard'
 import DeskListSettings from './DeskListSettings'
 import Cards from '../../Cards/Cards'
+import {deskListMixin} from "../../../../mixins/deskListMixin";
 
 export default {
     name: "DeskList",
@@ -169,6 +171,7 @@ export default {
                 return cards
             }
         }
-    }
+    },
+    mixins: [deskListMixin]
 }
 </script>

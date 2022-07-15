@@ -1,4 +1,17 @@
+import router from "../../../router";
+
 export const actions = {
+    createDeskParty({dispatch}, data) {
+        axios.post('/api/v1/desk_party/add_user',
+            {
+                _method: 'POST',
+                desk_id: data.desk_id,
+                user_id: data.user_id,
+                room_id: data.room_id
+            })
+            .then(() => {
+            })
+    },
     getRoomParty({commit}) {
         commit('changeLoader', true)
         axios.get('/api/v1/room_party/get')
@@ -47,10 +60,28 @@ export const actions = {
                 dispatch('getRoomNotLoader', getters.room.id)
             })
     },
-    excludeParticipant({commit, dispatch, getters}, id) {
+    appointmentRegularRoomParty({commit, dispatch, getters}, id) {
+        axios.post(`/api/v1/room_party/${id}/appointment_regular`, {_method: 'PUT', id})
+            .then((res) => {
+                dispatch('getRoomNotLoader', getters.room.id)
+            })
+    },
+    appointmentGuestRoomParty({commit, dispatch, getters}, id) {
+        axios.post(`/api/v1/room_party/${id}/appointment_guest`, {_method: 'PUT', id})
+            .then((res) => {
+                dispatch('getRoomNotLoader', getters.room.id)
+            })
+    },
+    excludeParticipantRoomParty({commit, dispatch, getters}, id) {
         axios.post(`/api/v1/room_party/${id}/delete_participant`, {_method: 'DELETE', id})
             .then((res) => {
                 dispatch('getRoomNotLoader', getters.room.id)
+            })
+    },
+    leaveRoomParty({commit, dispatch, getters}, id) {
+        axios.post(`/api/v1/room_party/${id}/delete_participant`, {_method: 'DELETE', id})
+            .then((res) => {
+                router.push({name: 'desks_index'})
             })
     },
 }

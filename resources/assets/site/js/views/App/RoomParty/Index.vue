@@ -42,6 +42,7 @@
                                     :name="'chevron-left party__btns-back'"/>
                             </router-link>
                             <div class="btn party__btns-add sidebar__link sidebar__add-room"
+                                 :class="{disabled: !userRoleAdmin}"
                                  @click="this.$store.dispatch('openModalCreateParty')">
                                 <Fa :type="'s'"
                                     :name="'user-plus party__btns-icon'"/>
@@ -58,6 +59,7 @@
 <script>
 
 import ParticipantsHome from './Components/ParticipantsHome'
+import {settingsRoomPartyMixin} from "../../../mixins/settingsRoomPartyMixin";
 
 export default {
     name: "Index",
@@ -71,12 +73,13 @@ export default {
         },
         participants() {
             return this.$store.getters.room.participants.sort((a, b) => {
-                return b.role.id - a.role.id
+                return a.role.id - b.role.id
             })
-        }
+        },
     },
     mounted() {
         this.$store.dispatch('getRoom', this.$route.params.id)
     },
+    mixins: [settingsRoomPartyMixin],
 }
 </script>

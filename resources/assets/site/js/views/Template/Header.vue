@@ -1,10 +1,10 @@
 <template>
     <header class="header">
-        <div class="header__logo">
+        <router-link :to="{name: 'home'}" class="header__logo">
             <Fa :type="'b'"
                 :name="'trello header__logo-icon'"/>
             Rafaello
-        </div>
+        </router-link>
         <div class="header__btn">Создать</div>
 
         <HeaderAcc/>

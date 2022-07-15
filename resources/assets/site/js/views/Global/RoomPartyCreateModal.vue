@@ -18,7 +18,7 @@
 
 <script>
 
-import CreateParticipants from '../App/Party/Components/CreateParticipants'
+import CreateParticipants from '../App/RoomParty/Components/CreateParticipants'
 
 export default {
     name: "PartyCreateModal",

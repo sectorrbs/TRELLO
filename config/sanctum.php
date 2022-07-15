@@ -42,7 +42,7 @@ return [
     |
     | This value controls the number of minutes until an issued token will be
     | considered expired. If this value is null, personal access tokens do
-    | not expire. This won't tweak the lifetime of first-party sessions.
+    | not expire. This won't tweak the lifetime of first-room_party sessions.
     |
     */
 
@@ -53,7 +53,7 @@ return [
     | Sanctum Middleware
     |--------------------------------------------------------------------------
     |
-    | When authenticating your first-party SPA with Sanctum you may need to
+    | When authenticating your first-room_party SPA with Sanctum you may need to
     | customize some of the middleware Sanctum uses while processing the
     | request. You may change the middleware listed below as required.
     |

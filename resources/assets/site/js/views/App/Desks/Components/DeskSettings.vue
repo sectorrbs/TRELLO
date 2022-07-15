@@ -21,12 +21,12 @@
 
 import DeleteDesk from "./Settings/Desks/DeleteDesk";
 import ReplaceBackground from "./Settings/Desks/ReplaceBackground";
-import {settingsMixin} from "../../../../mixins/settingsMixin";
+import {settingsRoomPartyMixin} from "../../../../mixins/settingsRoomPartyMixin";
 
 export default {
     name: "DeskSettings",
     props: ['desk'],
     components: {DeleteDesk, ReplaceBackground},
-    mixins: [settingsMixin],
+    mixins: [settingsRoomPartyMixin],
 }
 </script>

@@ -1,7 +1,6 @@
 <template>
     <div class="settings__item" @click.prevent="this.$emit('open', $event)">
-        <div v-if="!isAdmin"
-             class="settings__item-btn party__settings-tab"
+        <div class="settings__item-btn party__settings-tab"
              :class="{show: !showDelete}">
             <Fa :type="'r'"
                 :name="'user-shield party__settings-icon green'"/>
@@ -15,8 +14,8 @@
                 на присвоение другим участникам рабочего пространства прав администратора
             </template>
             <template v-slot:alert_confirm>
-                <div class="party__settings-btns party__settings-confirm" @click="appointmentAdmin">
-                    Назначить
+                <div class="party__settings-btns party__settings-confirm" @click="appointmentAdminRoomParty">
+                    Назначить администратором
                 </div>
             </template>
             <template v-slot:alert_cancel>
@@ -31,20 +30,14 @@
 
 <script>
 
-import {settingsMixin} from "../../../../../../mixins/settingsMixin";
+import {settingsRoomPartyMixin} from "../../../../../../mixins/settingsRoomPartyMixin";
 
 export default {
-    name: "ParticipantsSettingsChangeStatus",
-    mixins: [settingsMixin],
-    props: ['participant'],
+    name: "ParticipantsSettingsStatusAdmin",
+    mixins: [settingsRoomPartyMixin],
     methods: {
-        appointmentAdmin() {
-            this.$store.dispatch('appointmentAdmin', this.participant.id)
-        },
-    },
-    computed: {
-        isAdmin() {
-            return this.participant.role.status === 'admin'
+        appointmentAdminRoomParty() {
+            this.$store.dispatch('appointmentAdminRoomParty', this.participant.id)
         },
     },
 }

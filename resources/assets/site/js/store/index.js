@@ -12,7 +12,8 @@ import DesksTags from './modules/desks_tags/index'
 import CardsTags from './modules/cards_tags/index'
 import CardsAttachments from './modules/cards_attachments/index'
 import Users from './modules/users/index'
-import Party from './modules/party/index'
+import RoomParty from './modules/room_party/index'
+import DeskParty from './modules/desk_party/index'
 
 const store = createStore({
     modules: {
@@ -29,7 +30,8 @@ const store = createStore({
         CardsTags,
         CardsAttachments,
         Users,
-        Party
+        RoomParty,
+        DeskParty,
     }
 })
 

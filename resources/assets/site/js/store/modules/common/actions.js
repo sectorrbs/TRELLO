@@ -1,3 +1,5 @@
+import {ROLES} from "../../common/constants";
+
 export const actions = {
     openModal({commit, dispatch}, card = null) {
         commit('operationModal', true)
@@ -18,4 +20,7 @@ export const actions = {
     hideModalCreateParty({}) {
         document.querySelector('.party__modal.modal').classList.remove('show')
     },
+    getRoles({commit}) {
+        commit('setRoles', ROLES)
+    }
 }

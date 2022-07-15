@@ -1,7 +1,8 @@
-export const settingsMixin = {
+export const settingsRoomPartyMixin = {
     data: () => ({
         showDelete: false,
     }),
+    props: ['participant', 'countAdmins'],
     methods: {
         closedTabs() {
             document.querySelectorAll('.settings__item-alert').forEach(el => el.classList.remove('show'))
@@ -27,15 +28,33 @@ export const settingsMixin = {
                 return this.participant.user.id === this.$store.getters.user.id
             }
         },
+        isGuest() {
+
+            if (this.$store.getters.user) {
+                let user = this.$store.getters.room.participants.find(el => {
+                    return el.user.id === this.$store.getters.user.id
+                })
+
+                return user.role.status === 'guest' && this.participant.role.status === 'participant'
+            }
+
+        },
         isParticipantStatusAdmin() {
             return this.participant.role.status === 'admin'
+        },
+        isParticipantStatusRegular() {
+            return this.participant.role.status === 'participant'
+        },
+        isParticipantStatusGuest() {
+            return this.participant.role.status === 'guest'
         },
         userRoleAdmin() {
             return this.$store.getters.userRoleAdmin
         },
         participantsAdminsCount() {
             let party = this.$store.getters.room.participants
-            return party.filter(el => el.role.status === 'admin').length
+            return party.filter(el => el.role.status === 'admin').length < 2
+                && this.isParticipantStatusAdmin
         },
         statusUser() {
             if (this.userRoleAdmin) {

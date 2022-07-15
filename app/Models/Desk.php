@@ -20,4 +20,9 @@
         {
             return $this->belongsTo(BackgroundDesk::class, 'id');
         }
+
+        public function participants()
+        {
+            return $this->hasMany(DeskParty::class);
+        }
     }

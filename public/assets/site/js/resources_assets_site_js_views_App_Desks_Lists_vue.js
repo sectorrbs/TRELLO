@@ -2461,6 +2461,29 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/DeskInfo.vue?vue&type=script&lang=js":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/DeskInfo.vue?vue&type=script&lang=js ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Info_DeskInfoParticipants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Info/DeskInfoParticipants */ "./resources/assets/site/js/views/App/Desks/Components/Info/DeskInfoParticipants.vue");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "DeskInfo",
+  props: ['desk'],
+  components: {
+    DeskInfoParticipants: _Info_DeskInfoParticipants__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/DeskList.vue?vue&type=script&lang=js":
 /*!******************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/DeskList.vue?vue&type=script&lang=js ***!
@@ -2476,6 +2499,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _DeskListNewCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DeskListNewCard */ "./resources/assets/site/js/views/App/Desks/Components/DeskListNewCard.vue");
 /* harmony import */ var _DeskListSettings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DeskListSettings */ "./resources/assets/site/js/views/App/Desks/Components/DeskListSettings.vue");
 /* harmony import */ var _Cards_Cards__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Cards/Cards */ "./resources/assets/site/js/views/App/Cards/Cards.vue");
+/* harmony import */ var _mixins_deskListMixin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../mixins/deskListMixin */ "./resources/assets/site/js/mixins/deskListMixin.js");
+
 
 
 
@@ -2614,7 +2639,8 @@ __webpack_require__.r(__webpack_exports__);
         return cards;
       }
     }
-  }
+  },
+  mixins: [_mixins_deskListMixin__WEBPACK_IMPORTED_MODULE_4__.deskListMixin]
 });
 
 /***/ }),
@@ -2687,6 +2713,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _DeskListCreateForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DeskListCreateForm */ "./resources/assets/site/js/views/App/Desks/Components/DeskListCreateForm.vue");
+/* harmony import */ var _mixins_deskListMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../mixins/deskListMixin */ "./resources/assets/site/js/mixins/deskListMixin.js");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "DeskListCreateNewList",
@@ -2717,7 +2745,8 @@ __webpack_require__.r(__webpack_exports__);
       this.show = false;
       this.$store.commit('setErrorMessage', null);
     }
-  }
+  },
+  mixins: [_mixins_deskListMixin__WEBPACK_IMPORTED_MODULE_1__.deskListMixin]
 });
 
 /***/ }),
@@ -2733,6 +2762,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _mixins_deskListMixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/deskListMixin */ "./resources/assets/site/js/mixins/deskListMixin.js");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "DeskListNewCard",
   data: function data() {
@@ -2771,7 +2802,8 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$refs.input.focus();
     }
-  }
+  },
+  mixins: [_mixins_deskListMixin__WEBPACK_IMPORTED_MODULE_0__.deskListMixin]
 });
 
 /***/ }),
@@ -2863,6 +2895,34 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/Info/DeskInfoParticipants.vue?vue&type=script&lang=js":
+/*!***********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/Info/DeskInfoParticipants.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _mixins_initialMixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../mixins/initialMixin */ "./resources/assets/site/js/mixins/initialMixin.js");
+/* harmony import */ var _mixins_deskListMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../mixins/deskListMixin */ "./resources/assets/site/js/mixins/deskListMixin.js");
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "DeskInfoParticipants",
+  props: ['participants'],
+  mixins: [_mixins_initialMixin__WEBPACK_IMPORTED_MODULE_0__.initialMixin, _mixins_deskListMixin__WEBPACK_IMPORTED_MODULE_1__.deskListMixin],
+  methods: {
+    isUserAdmin: function isUserAdmin(status) {
+      return status === 'admin';
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/Settings/Lists/DeleteList.vue?vue&type=script&lang=js":
 /*!***********************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/Settings/Lists/DeleteList.vue?vue&type=script&lang=js ***!
@@ -2907,13 +2967,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
-/* harmony import */ var _vuelidate_validators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @vuelidate/validators */ "./node_modules/@vuelidate/validators/dist/index.esm.js");
-/* harmony import */ var _vuelidate_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @vuelidate/core */ "./node_modules/@vuelidate/core/dist/index.esm.js");
-/* harmony import */ var _Components_DeskList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Components/DeskList */ "./resources/assets/site/js/views/App/Desks/Components/DeskList.vue");
-/* harmony import */ var _Components_DeskListCreateNewList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Components/DeskListCreateNewList */ "./resources/assets/site/js/views/App/Desks/Components/DeskListCreateNewList.vue");
-/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.js");
-/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.js");
+/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var _vuelidate_validators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @vuelidate/validators */ "./node_modules/@vuelidate/validators/dist/index.esm.js");
+/* harmony import */ var _vuelidate_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vuelidate/core */ "./node_modules/@vuelidate/core/dist/index.esm.js");
+/* harmony import */ var _Components_DeskList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Components/DeskList */ "./resources/assets/site/js/views/App/Desks/Components/DeskList.vue");
+/* harmony import */ var _Components_DeskInfo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Components/DeskInfo */ "./resources/assets/site/js/views/App/Desks/Components/DeskInfo.vue");
+/* harmony import */ var _Components_DeskListCreateNewList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Components/DeskListCreateNewList */ "./resources/assets/site/js/views/App/Desks/Components/DeskListCreateNewList.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -2926,25 +2987,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Lists",
   data: function data() {
     return {
-      v$: (0,_vuelidate_core__WEBPACK_IMPORTED_MODULE_0__.useVuelidate)(),
+      v$: (0,_vuelidate_core__WEBPACK_IMPORTED_MODULE_1__.useVuelidate)(),
       name: null,
       show: false
     };
   },
   components: {
-    DeskList: _Components_DeskList__WEBPACK_IMPORTED_MODULE_1__["default"],
-    DeskListCreateNewList: _Components_DeskListCreateNewList__WEBPACK_IMPORTED_MODULE_2__["default"],
-    draggable: (vuedraggable__WEBPACK_IMPORTED_MODULE_3___default())
+    DeskList: _Components_DeskList__WEBPACK_IMPORTED_MODULE_2__["default"],
+    DeskListCreateNewList: _Components_DeskListCreateNewList__WEBPACK_IMPORTED_MODULE_4__["default"],
+    DeskInfo: _Components_DeskInfo__WEBPACK_IMPORTED_MODULE_3__["default"],
+    draggable: (vuedraggable__WEBPACK_IMPORTED_MODULE_0___default())
   },
   mounted: function mounted() {
     this.getDesk(this.$route.params.id);
     this.$store.dispatch('getBackgroundsCards');
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)(['getDesks', 'getDesk', 'updateDesk'])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapActions)(['getDesks', 'getDesk', 'updateDesk'])), {}, {
     updateDeskName: function updateDeskName() {
       this.name = this.desk.name;
       this.v$.$touch();
@@ -2963,7 +3026,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.commit('setErrorMessage', null);
     }
   }),
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)(['desk', 'loader', 'errorMessage'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapGetters)(['desk', 'loader', 'errorMessage'])), {}, {
     deskBackgrounds: function deskBackgrounds() {
       var desk = this.desk[0] || this.desk;
 
@@ -2982,7 +3045,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   validations: function validations() {
     return {
       name: {
-        required: _vuelidate_validators__WEBPACK_IMPORTED_MODULE_5__.required
+        required: _vuelidate_validators__WEBPACK_IMPORTED_MODULE_6__.required
       }
     };
   }
@@ -3387,6 +3450,42 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/DeskInfo.vue?vue&type=template&id=63bc28ca":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/DeskInfo.vue?vue&type=template&id=63bc28ca ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "desks__info"
+};
+var _hoisted_2 = {
+  "class": "desks__info-wrapper"
+};
+var _hoisted_3 = {
+  "class": "desks__info-name"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_DeskInfoParticipants = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DeskInfoParticipants");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.desk.name), 1
+  /* TEXT */
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeskInfoParticipants, {
+    participants: $props.desk.participants
+  }, null, 8
+  /* PROPS */
+  , ["participants"])]);
+}
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/DeskList.vue?vue&type=template&id=ad54068c":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/DeskList.vue?vue&type=template&id=ad54068c ***!
@@ -3450,19 +3549,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 8
   /* PROPS */
-  , ["list", "show", "old_name", "modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+  , ["list", "show", "old_name", "modelValue"]), !_ctx.isUserGuest ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Fa, {
+    key: 0,
     type: 'r',
     onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($options.renameList, ["prevent"]),
     name: 'pen desks__edit'
   }, null, 8
   /* PROPS */
-  , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+  , ["onClick"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !_ctx.isUserGuest ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Fa, {
+    key: 1,
     type: 's',
     onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($options.showSettingsList, ["prevent"]),
     name: 'ellipsis-h desks__settings'
   }, null, 8
   /* PROPS */
-  , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeskListSettings, {
+  , ["onClick"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeskListSettings, {
     list: $props.list
   }, null, 8
   /* PROPS */
@@ -3472,7 +3573,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     cards: $props.list.cards
   }, null, 8
   /* PROPS */
-  , ["cards"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("            <Cards :cards=\"items\"/>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeskListNewCard, {
+  , ["cards"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeskListNewCard, {
     onAddNewCard: $options.reloadCards,
     list: $props.list
   }, null, 8
@@ -3597,14 +3698,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8
   /* PROPS */
   , ["show", "onShowClose", "desk_id"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "desks__lists-add-btn",
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["desks__lists-add-btn", {
+      disabled: _ctx.isUserGuest
+    }]),
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.showForm && $options.showForm.apply($options, arguments);
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'r',
     name: 'plus desks__add-icon'
-  }), _hoisted_3])]);
+  }), _hoisted_3], 2
+  /* CLASS */
+  )]);
 }
 
 /***/ }),
@@ -3622,26 +3727,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = {
-  "class": "desks__list-bottom",
-  ref: "bottom"
-};
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Добавить карточку ");
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Добавить карточку ");
 
-var _hoisted_3 = {
+var _hoisted_2 = {
   type: "text",
   ref: "input",
   "class": "desks__list-input",
   placeholder: "Введите заголовок для этой карточки"
 };
-var _hoisted_4 = {
+var _hoisted_3 = {
   "class": "desks__item-btns desks__list-btns"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["desks__list-bottom", {
+      disabled: _ctx.isUserGuest
+    }]),
+    ref: "bottom"
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "desks__list-btn",
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.showNewCardInput && $options.showNewCardInput.apply($options, arguments);
@@ -3649,14 +3755,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'r',
     name: 'plus'
-  }), _hoisted_2]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+  }), _hoisted_1]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     onSubmit: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.addNewCard && $options.addNewCard.apply($options, arguments);
     }, ["prevent"])),
     "class": "desks__list-newcard"
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", _hoisted_3, null, 512
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", _hoisted_2, null, 512
   /* NEED_PATCH */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'r',
     onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($options.addNewCard, ["prevent"]),
     name: 'check desks__item-confirm'
@@ -3670,8 +3776,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["onClick"])])], 32
   /* HYDRATE_EVENTS */
-  )], 512
-  /* NEED_PATCH */
+  )], 2
+  /* CLASS */
   );
 }
 
@@ -3784,6 +3890,56 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/Info/DeskInfoParticipants.vue?vue&type=template&id=aaf03396":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/Info/DeskInfoParticipants.vue?vue&type=template&id=aaf03396 ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "desks__info-participants desks__participants"
+};
+var _hoisted_2 = {
+  "class": "desks__info-wrapper"
+};
+var _hoisted_3 = {
+  "class": "desks__participants"
+};
+var _hoisted_4 = {
+  "class": "desks__participants-logo"
+};
+var _hoisted_5 = ["src"];
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.participants, function (participant) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.getInitials(participant.user.name)), 1
+    /* TEXT */
+    ), $options.isUserAdmin(participant.role.status) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("img", {
+      key: 0,
+      src: '/storage/common/chevron.png',
+      "class": "desks__participants-icon"
+    }, null, 8
+    /* PROPS */
+    , _hoisted_5)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+  }), 256
+  /* UNKEYED_FRAGMENT */
+  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["desks__participants-add", {
+      disabled: _ctx.isUserGuest
+    }])
+  }, " Пригласить ", 2
+  /* CLASS */
+  )])]);
+}
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/Settings/Lists/DeleteList.vue?vue&type=template&id=95ee4008":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/Settings/Lists/DeleteList.vue?vue&type=template&id=95ee4008 ***!
@@ -3878,6 +4034,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_Loader = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Loader");
 
+  var _component_DeskInfo = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DeskInfo");
+
   var _component_DeskList = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DeskList");
 
   var _component_draggable = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("draggable");
@@ -3892,7 +4050,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
       background: $options.deskBackgrounds
     })
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(_ctx$desk$lists = _ctx.desk.lists) !== null && _ctx$desk$lists !== void 0 && _ctx$desk$lists.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_draggable, {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeskInfo, {
+    desk: _ctx.desk
+  }, null, 8
+  /* PROPS */
+  , ["desk"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(_ctx$desk$lists = _ctx.desk.lists) !== null && _ctx$desk$lists !== void 0 && _ctx$desk$lists.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_draggable, {
     "item-key": "id",
     modelValue: _ctx.desk.lists,
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
@@ -3926,6 +4088,34 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* STYLE */
   )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]));
 }
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/mixins/deskListMixin.js":
+/*!**********************************************************!*\
+  !*** ./resources/assets/site/js/mixins/deskListMixin.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "deskListMixin": () => (/* binding */ deskListMixin)
+/* harmony export */ });
+var deskListMixin = {
+  computed: {
+    isUserGuest: function isUserGuest() {
+      var _this = this;
+
+      if (this.$store.getters.user && this.$store.getters.room) {
+        var user = this.$store.getters.room.participants.find(function (el) {
+          return el.user.id === _this.$store.getters.user.id;
+        });
+        return user.role.status === 'guest';
+      }
+    }
+  }
+};
 
 /***/ }),
 
@@ -7944,6 +8134,34 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/assets/site/js/views/App/Desks/Components/DeskInfo.vue":
+/*!**************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/Desks/Components/DeskInfo.vue ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _DeskInfo_vue_vue_type_template_id_63bc28ca__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DeskInfo.vue?vue&type=template&id=63bc28ca */ "./resources/assets/site/js/views/App/Desks/Components/DeskInfo.vue?vue&type=template&id=63bc28ca");
+/* harmony import */ var _DeskInfo_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DeskInfo.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Desks/Components/DeskInfo.vue?vue&type=script&lang=js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DeskInfo_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DeskInfo_vue_vue_type_template_id_63bc28ca__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Desks/Components/DeskInfo.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/assets/site/js/views/App/Desks/Components/DeskList.vue":
 /*!**************************************************************************!*\
   !*** ./resources/assets/site/js/views/App/Desks/Components/DeskList.vue ***!
@@ -8104,6 +8322,34 @@ __webpack_require__.r(__webpack_exports__);
 
 ;
 const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DeskListSettings_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DeskListSettings_vue_vue_type_template_id_c5fffd06__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Desks/Components/DeskListSettings.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/views/App/Desks/Components/Info/DeskInfoParticipants.vue":
+/*!*******************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/Desks/Components/Info/DeskInfoParticipants.vue ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _DeskInfoParticipants_vue_vue_type_template_id_aaf03396__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DeskInfoParticipants.vue?vue&type=template&id=aaf03396 */ "./resources/assets/site/js/views/App/Desks/Components/Info/DeskInfoParticipants.vue?vue&type=template&id=aaf03396");
+/* harmony import */ var _DeskInfoParticipants_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DeskInfoParticipants.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Desks/Components/Info/DeskInfoParticipants.vue?vue&type=script&lang=js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DeskInfoParticipants_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DeskInfoParticipants_vue_vue_type_template_id_aaf03396__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Desks/Components/Info/DeskInfoParticipants.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -8296,6 +8542,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/site/js/views/App/Desks/Components/DeskInfo.vue?vue&type=script&lang=js":
+/*!**************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/Desks/Components/DeskInfo.vue?vue&type=script&lang=js ***!
+  \**************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeskInfo_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeskInfo_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./DeskInfo.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/DeskInfo.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/assets/site/js/views/App/Desks/Components/DeskList.vue?vue&type=script&lang=js":
 /*!**************************************************************************************************!*\
   !*** ./resources/assets/site/js/views/App/Desks/Components/DeskList.vue?vue&type=script&lang=js ***!
@@ -8388,6 +8650,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeskListSettings_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeskListSettings_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./DeskListSettings.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/DeskListSettings.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/views/App/Desks/Components/Info/DeskInfoParticipants.vue?vue&type=script&lang=js":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/Desks/Components/Info/DeskInfoParticipants.vue?vue&type=script&lang=js ***!
+  \*******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeskInfoParticipants_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeskInfoParticipants_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./DeskInfoParticipants.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/Info/DeskInfoParticipants.vue?vue&type=script&lang=js");
  
 
 /***/ }),
@@ -8552,6 +8830,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/site/js/views/App/Desks/Components/DeskInfo.vue?vue&type=template&id=63bc28ca":
+/*!********************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/Desks/Components/DeskInfo.vue?vue&type=template&id=63bc28ca ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeskInfo_vue_vue_type_template_id_63bc28ca__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeskInfo_vue_vue_type_template_id_63bc28ca__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./DeskInfo.vue?vue&type=template&id=63bc28ca */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/DeskInfo.vue?vue&type=template&id=63bc28ca");
+
+
+/***/ }),
+
 /***/ "./resources/assets/site/js/views/App/Desks/Components/DeskList.vue?vue&type=template&id=ad54068c":
 /*!********************************************************************************************************!*\
   !*** ./resources/assets/site/js/views/App/Desks/Components/DeskList.vue?vue&type=template&id=ad54068c ***!
@@ -8644,6 +8938,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeskListSettings_vue_vue_type_template_id_c5fffd06__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeskListSettings_vue_vue_type_template_id_c5fffd06__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./DeskListSettings.vue?vue&type=template&id=c5fffd06 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/DeskListSettings.vue?vue&type=template&id=c5fffd06");
+
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/views/App/Desks/Components/Info/DeskInfoParticipants.vue?vue&type=template&id=aaf03396":
+/*!*************************************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/Desks/Components/Info/DeskInfoParticipants.vue?vue&type=template&id=aaf03396 ***!
+  \*************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeskInfoParticipants_vue_vue_type_template_id_aaf03396__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeskInfoParticipants_vue_vue_type_template_id_aaf03396__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./DeskInfoParticipants.vue?vue&type=template&id=aaf03396 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Desks/Components/Info/DeskInfoParticipants.vue?vue&type=template&id=aaf03396");
 
 
 /***/ }),

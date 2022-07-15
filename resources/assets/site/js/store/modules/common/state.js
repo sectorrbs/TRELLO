@@ -2,5 +2,6 @@ export const state = {
     loader: false,
     modalLoad: false,
     pageLoad: false,
-    modal: false
+    modal: false,
+    roles: false
 }

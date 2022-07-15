@@ -1,5 +1,5 @@
 <template>
-    <div class="desks__list-bottom" ref="bottom">
+    <div class="desks__list-bottom" ref="bottom" :class="{disabled: isUserGuest}">
         <div class="desks__list-btn" @click="showNewCardInput">
             <Fa :type="'r'"
                 :name="'plus'"/>
@@ -20,6 +20,9 @@
 </template>
 
 <script>
+
+import {deskListMixin} from "../../../../mixins/deskListMixin";
+
 export default {
     name: "DeskListNewCard",
     data: () => ({}),
@@ -56,5 +59,6 @@ export default {
             this.$refs.input.focus()
         }
     },
+    mixins: [deskListMixin]
 }
 </script>

@@ -134,16 +134,19 @@
         }
 
         &-status {
-            @include font(13px, 500, 35px, $color-white);
+            @include font(12px, 500, 35px, $color-white);
+            @include size(105px, 32px);
             @include flex(center, center);
             gap: 3px;
-            height: 37px;
-            padding: 0 7px;
             border-radius: 5px;
-            background: rgba(107, 107, 107, .5);
+            background: rgba(107, 107, 107, .3);
 
             &.admin {
                 background: rgba(46, 187, 46, .82);
+            }
+
+            &.participant {
+                background: $color-blue-lite;
             }
         }
 
@@ -153,7 +156,8 @@
             background: $color-white;
             border-radius: 50%;
             margin-right: 15px;
-            border: 2px solid rgba($color, .6);
+            border: 1px solid rgba($color, .6);
+            position: relative;
 
             span {
                 display: block;
@@ -180,6 +184,12 @@
 
         &-nick {
             @include font(13px, 400);
+        }
+
+        &-rang {
+            @include position(absolute, null, null, -2px, -1px);
+            @include font(17px, null, 1, gold, null);
+            height: 11px
         }
     }
 
@@ -219,11 +229,12 @@
 
             &-your {
                 @include flex(center, center);
-                @include font(11px, 700, 1,);
-                padding: 5px 7px;
+                @include font(11px, 700, 1, $color-white);
+                padding: 0 7px;
                 border-radius: 3px;
-                background: rgba($color-gray, .2);
+                background: rgba(107, 107, 107, .3);
                 width: fit-content;
+                height: 22px;
 
                 span {
                     display: block;
@@ -233,13 +244,11 @@
 
             &-participant {
                 @include flex(center, center);
-                @include font(12px, 700, 1);
-                padding: 5px 7px;
-                border-radius: 3px;
+                @include font(12px, 700, 1, $color-white);
                 width: fit-content;
 
                 .participant {
-                    background: rgba(107, 107, 107, .2)
+                    background: $color-blue-lite;
                 }
 
                 .admin {
@@ -247,11 +256,21 @@
                     color: $color-white;
                 }
 
-                span {
-                    padding: 5px;
-                    display: block;
-                    transform: translateY(1px);
+                .guest {
+                    background: rgba(107, 107, 107, .2)
                 }
+
+                span {
+                    @include flex(center, center);
+                    height: 22px;
+                    padding: 0 7px;
+                    border-radius: 3px;
+                }
+            }
+
+            &.disabled {
+                pointer-events: none;
+                opacity: .6;
             }
 
             &:hover {
@@ -391,8 +410,14 @@
         padding: 0 25px;
 
         &-top {
-            @include flex(flex-start, null, nowrap);
+            @include flex(stretch, null, nowrap);
             gap: 10px;
+        }
+
+        &-btns {
+            @include flex(stretch);
+            flex-direction: column;
+            gap: 5px;
         }
     }
 
@@ -445,9 +470,10 @@
         }
 
         &-alert {
+            @include font(12px, null, 14px);
             flex-direction: column;
             margin: 0 8px;
-            background: #f6f6f691;
+            background: #efefef;
             font-weight: 400;
             gap: 10px !important;
             padding: 8px;
@@ -455,7 +481,7 @@
 
         &-btns {
             @include flex(center, center);
-            @include font(12px, 500, 1, $color-white);
+            @include font(11px, 500, 1, $color-white);
             padding: 5px 10px;
             border-radius: 3px;
             height: 25px;
@@ -480,6 +506,59 @@
 
         &-title {
             font-weight: 600;
+        }
+    }
+
+    &__select {
+        position: relative;
+
+        &-parent {
+            @include flex(stretch, space-between);
+            @include transition(.2s);
+            @include font(13px, null, 1, $color-white, null);
+            padding: 10px;
+            cursor: pointer;
+            background: $color-blue-lite;
+
+            &:hover {
+                background: darken($color-blue-lite, 5%);
+            }
+        }
+
+        &-items {
+            @include position(absolute, 0, null, null, null);
+            box-shadow: 0 5px 10px -1px rgba(34, 60, 80, 0.09);
+            width: 100%;
+            opacity: 0;
+            visibility: hidden;
+            background: $color-white;
+        }
+
+        &-item {
+            @include transition(.2s);
+            @include font(13px, null, 1, $color, null);
+            padding: 10px;
+            cursor: pointer;
+
+            &.disabled {
+                pointer-events: none;
+                opacity: .5;
+            }
+
+            &:hover {
+                background: darken($color-white, 5%);
+            }
+        }
+
+        &.show {
+            .party__select-items {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .party__btns-icon {
+                transform: rotate(180deg);
+            }
         }
     }
 }

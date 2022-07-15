@@ -1,7 +1,7 @@
 <template>
     <div class="settings__item" @click.prevent="this.$emit('open', $event)">
         <div class="settings__item-btn party__settings-tab"
-             :class="{show: !showDelete, disabled: countAdmins<2}">
+             :class="{show: !showDelete, disabled: countAdmins}">
             <Fa :type="'r'"
                 :name="'sign-out party__settings-icon blue'"/>
             Покинуть пространство
@@ -13,7 +13,7 @@
                 В дальнейшем вернуться в пространство можно будет только в том случае, если Вас пригласят
             </template>
             <template v-slot:alert_confirm>
-                <div class="party__settings-btns party__settings-confirm">
+                <div class="party__settings-btns party__settings-confirm" @click="leaveRoomParty">
                     Покинуть пространство
                 </div>
             </template>
@@ -29,11 +29,15 @@
 
 <script>
 
-import {settingsMixin} from "../../../../../../mixins/settingsMixin";
+import {settingsRoomPartyMixin} from "../../../../../../mixins/settingsRoomPartyMixin";
 
 export default {
     name: "ParticipantsSettingsList",
-    mixins: [settingsMixin],
-    props: ['countAdmins']
+    mixins: [settingsRoomPartyMixin],
+    methods: {
+        leaveRoomParty() {
+            this.$store.dispatch('leaveRoomParty', this.participant.id)
+        }
+    }
 }
 </script>

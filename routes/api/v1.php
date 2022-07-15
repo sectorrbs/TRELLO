@@ -17,5 +17,6 @@
         require 'components/cards_attachments.php';
         require 'components/users.php';
         require 'components/room_party.php';
+        require 'components/desk_party.php';
     });
 

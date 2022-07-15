@@ -41,7 +41,7 @@ export default {
         updateBackgroundDesk() {
             this.desk.id_backgrounds_desks = this.idBg
             this.$store.dispatch('updateDesk', this.desk)
-            this.$store.dispatch('getRoomsNotLoader')
+            this.$store.dispatch('getRoomPartyNotLoader')
             this.$closed()
         },
     },

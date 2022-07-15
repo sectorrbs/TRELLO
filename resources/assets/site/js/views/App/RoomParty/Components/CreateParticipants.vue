@@ -2,7 +2,10 @@
     <div v-if="partyUsers.length" class="party__actions">
         <div class="party__actions-top">
             <CreateParticipantsList :partyUsers="partyUsers"/>
-            <CreateParticipantsConfirm @confirm="sendInvite"/>
+            <div class="party__actions-btns">
+                <CreateParticipantsSelect/>
+                <CreateParticipantsConfirm @confirm="sendInvite"/>
+            </div>
         </div>
         <div class="party__actions-message">
             <CreateParticipantsMessage v-model="message" :partyUsers="partyUsers"/>
@@ -16,6 +19,7 @@
 import CreateParticipantsSearch from './Components/CreateParticipantsSearch'
 import CreateParticipantsList from './Components/CreateParticipantsList'
 import CreateParticipantsConfirm from './Components/CreateParticipantsConfirm'
+import CreateParticipantsSelect from './Components/CreateParticipantsSelect'
 import CreateParticipantsMessage from './Components/CreateParticipantsMessage'
 
 export default {
@@ -30,7 +34,8 @@ export default {
         CreateParticipantsSearch,
         CreateParticipantsList,
         CreateParticipantsConfirm,
-        CreateParticipantsMessage
+        CreateParticipantsMessage,
+        CreateParticipantsSelect
     },
     mounted() {
         window.addEventListener('click', e => {
@@ -62,6 +67,7 @@ export default {
     methods: {
         sendInvite() {
             let params = {
+                role: +document.querySelector('[data-select-role]').dataset.selectRole,
                 roomId: this.$store.getters.room.id,
                 message: this.message,
                 users: this.partyUsers

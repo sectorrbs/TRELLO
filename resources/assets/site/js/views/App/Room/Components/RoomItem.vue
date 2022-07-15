@@ -4,8 +4,11 @@
         <Loader v-if="loader"/>
         <div v-else class="desks">
             <div class="desks__inner" v-if="party.room.desks">
-                <DeskItem v-for="desk in party.room.desks" :desk="desk" :key="desk.id"/>
-                <RoomDeskAdd :roomId="party.room.id"/>
+                <DeskItem :party="party"
+                          v-for="desk in party.room.desks"
+                          :desk="desk"
+                          :key="desk.id"/>
+                <RoomDeskAdd v-if="!isUserGuest" :roomId="party.room.id"/>
             </div>
             <Loader v-else/>
         </div>
@@ -19,13 +22,15 @@ import RoomDeskAdd from './RoomDeskAdd'
 import DeskItem from "../../Desks/Components/DeskItem";
 import {mapGetters} from 'vuex'
 import ModalLoad from "../../../Global/ModalLoad";
+import {deskMixin} from "../../../../mixins/deskMixin";
 
 export default {
     name: "RoomItem",
     props: ['party'],
     components: {ModalLoad, RoomActions, DeskItem, RoomDeskAdd},
     computed: {
-        ...mapGetters(['loader'])
-    }
+        ...mapGetters(['loader']),
+    },
+    mixins: [deskMixin]
 }
 </script>

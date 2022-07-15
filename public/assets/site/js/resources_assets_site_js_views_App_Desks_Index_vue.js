@@ -2289,6 +2289,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _DeskSettings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DeskSettings */ "./resources/assets/site/js/views/App/Desks/Components/DeskSettings.vue");
 /* harmony import */ var _DeskRenameInput__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DeskRenameInput */ "./resources/assets/site/js/views/App/Desks/Components/DeskRenameInput.vue");
+/* harmony import */ var _mixins_deskMixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../mixins/deskMixin */ "./resources/assets/site/js/mixins/deskMixin.js");
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2303,8 +2305,7 @@ __webpack_require__.r(__webpack_exports__);
     DeskRenameInput: _DeskRenameInput__WEBPACK_IMPORTED_MODULE_1__["default"],
     DeskSettings: _DeskSettings__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: ['desk'],
-  mounted: function mounted() {},
+  props: ['desk', 'party'],
   methods: {
     renameDesk: function renameDesk() {
       var _this = this;
@@ -2345,7 +2346,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     }
-  }
+  },
+  mixins: [_mixins_deskMixin__WEBPACK_IMPORTED_MODULE_2__.deskMixin]
 });
 
 /***/ }),
@@ -2422,7 +2424,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Settings_Desks_DeleteDesk__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Settings/Desks/DeleteDesk */ "./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/DeleteDesk.vue");
 /* harmony import */ var _Settings_Desks_ReplaceBackground__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Settings/Desks/ReplaceBackground */ "./resources/assets/site/js/views/App/Desks/Components/Settings/Desks/ReplaceBackground.vue");
-/* harmony import */ var _mixins_settingsMixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../mixins/settingsMixin */ "./resources/assets/site/js/mixins/settingsMixin.js");
+/* harmony import */ var _mixins_settingsRoomPartyMixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../mixins/settingsRoomPartyMixin */ "./resources/assets/site/js/mixins/settingsRoomPartyMixin.js");
 
 
 
@@ -2433,7 +2435,7 @@ __webpack_require__.r(__webpack_exports__);
     DeleteDesk: _Settings_Desks_DeleteDesk__WEBPACK_IMPORTED_MODULE_0__["default"],
     ReplaceBackground: _Settings_Desks_ReplaceBackground__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  mixins: [_mixins_settingsMixin__WEBPACK_IMPORTED_MODULE_2__.settingsMixin]
+  mixins: [_mixins_settingsRoomPartyMixin__WEBPACK_IMPORTED_MODULE_2__.settingsRoomPartyMixin]
 });
 
 /***/ }),
@@ -2497,7 +2499,7 @@ __webpack_require__.r(__webpack_exports__);
     updateBackgroundDesk: function updateBackgroundDesk() {
       this.desk.id_backgrounds_desks = this.idBg;
       this.$store.dispatch('updateDesk', this.desk);
-      this.$store.dispatch('getRoomsNotLoader');
+      this.$store.dispatch('getRoomPartyNotLoader');
       this.$closed();
     }
   }
@@ -2628,13 +2630,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _RoomActions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoomActions */ "./resources/assets/site/js/views/App/Room/Components/RoomActions.vue");
 /* harmony import */ var _RoomDeskAdd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RoomDeskAdd */ "./resources/assets/site/js/views/App/Room/Components/RoomDeskAdd.vue");
 /* harmony import */ var _Desks_Components_DeskItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Desks/Components/DeskItem */ "./resources/assets/site/js/views/App/Desks/Components/DeskItem.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _Global_ModalLoad__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../Global/ModalLoad */ "./resources/assets/site/js/views/Global/ModalLoad.vue");
+/* harmony import */ var _mixins_deskMixin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../mixins/deskMixin */ "./resources/assets/site/js/mixins/deskMixin.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -2650,7 +2654,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     DeskItem: _Desks_Components_DeskItem__WEBPACK_IMPORTED_MODULE_2__["default"],
     RoomDeskAdd: _RoomDeskAdd__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)(['loader']))
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapGetters)(['loader'])),
+  mixins: [_mixins_deskMixin__WEBPACK_IMPORTED_MODULE_4__.deskMixin]
 });
 
 /***/ }),
@@ -2840,7 +2845,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
+  return _ctx.userIsParticipantDesk || _ctx.isUserGuest ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
+    key: 0,
     draggable: "false",
     to: {
       name: 'lists',
@@ -2873,19 +2879,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         })
       }, null, 8
       /* PROPS */
-      , ["desk", "show", "old_name", "modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+      , ["desk", "show", "old_name", "modelValue"]), !_ctx.isUserGuest ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Fa, {
+        key: 0,
         type: 'r',
         onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($options.renameDesk, ["prevent", "stop"]),
         name: 'pen desks__edit'
       }, null, 8
       /* PROPS */
-      , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+      , ["onClick"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !_ctx.isUserGuest ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Fa, {
+        key: 1,
         type: 's',
         onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($options.showSettingsList, ["prevent", "stop"]),
         name: 'ellipsis-h desks__settings desks__item-settings'
       }, null, 8
       /* PROPS */
-      , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeskSettings, {
+      , ["onClick"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeskSettings, {
         desk: $props.desk
       }, null, 8
       /* PROPS */
@@ -2898,7 +2906,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["to", "class", "style", "id"]);
+  , ["to", "class", "style", "id"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
 }
 
 /***/ }),
@@ -3378,18 +3386,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     key: 0
   })) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [$props.party.room.desks ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.party.room.desks, function (desk) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_DeskItem, {
+      party: $props.party,
       desk: desk,
       key: desk.id
     }, null, 8
     /* PROPS */
-    , ["desk"]);
+    , ["party", "desk"]);
   }), 128
   /* KEYED_FRAGMENT */
-  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RoomDeskAdd, {
+  )), !_ctx.isUserGuest ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_RoomDeskAdd, {
+    key: 0,
     roomId: $props.party.room.id
   }, null, 8
   /* PROPS */
-  , ["roomId"])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Loader, {
+  , ["roomId"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Loader, {
     key: 1
   }))]))]);
 }
@@ -3465,22 +3475,59 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
-/***/ "./resources/assets/site/js/mixins/settingsMixin.js":
-/*!**********************************************************!*\
-  !*** ./resources/assets/site/js/mixins/settingsMixin.js ***!
-  \**********************************************************/
+/***/ "./resources/assets/site/js/mixins/deskMixin.js":
+/*!******************************************************!*\
+  !*** ./resources/assets/site/js/mixins/deskMixin.js ***!
+  \******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "settingsMixin": () => (/* binding */ settingsMixin)
+/* harmony export */   "deskMixin": () => (/* binding */ deskMixin)
 /* harmony export */ });
-var settingsMixin = {
+var deskMixin = {
+  computed: {
+    userIsParticipantDesk: function userIsParticipantDesk() {
+      var _this = this;
+
+      if (this.$store.getters.user) {
+        return this.desk.participants.find(function (el) {
+          return el.user.id === _this.$store.getters.user.id;
+        });
+      }
+    },
+    isUserGuest: function isUserGuest() {
+      var _this2 = this;
+
+      if (this.$store.getters.user) {
+        var user = this.party.room.participants.find(function (el) {
+          return el.user.id === _this2.$store.getters.user.id;
+        });
+        return user.role.status === 'guest';
+      }
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/mixins/settingsRoomPartyMixin.js":
+/*!*******************************************************************!*\
+  !*** ./resources/assets/site/js/mixins/settingsRoomPartyMixin.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "settingsRoomPartyMixin": () => (/* binding */ settingsRoomPartyMixin)
+/* harmony export */ });
+var settingsRoomPartyMixin = {
   data: function data() {
     return {
       showDelete: false
     };
   },
+  props: ['participant', 'countAdmins'],
   methods: {
     closedTabs: function closedTabs() {
       document.querySelectorAll('.settings__item-alert').forEach(function (el) {
@@ -3511,8 +3558,24 @@ var settingsMixin = {
         return this.participant.user.id === this.$store.getters.user.id;
       }
     },
+    isGuest: function isGuest() {
+      var _this = this;
+
+      if (this.$store.getters.user) {
+        var user = this.$store.getters.room.participants.find(function (el) {
+          return el.user.id === _this.$store.getters.user.id;
+        });
+        return user.role.status === 'guest' && this.participant.role.status === 'participant';
+      }
+    },
     isParticipantStatusAdmin: function isParticipantStatusAdmin() {
       return this.participant.role.status === 'admin';
+    },
+    isParticipantStatusRegular: function isParticipantStatusRegular() {
+      return this.participant.role.status === 'participant';
+    },
+    isParticipantStatusGuest: function isParticipantStatusGuest() {
+      return this.participant.role.status === 'guest';
     },
     userRoleAdmin: function userRoleAdmin() {
       return this.$store.getters.userRoleAdmin;
@@ -3521,7 +3584,7 @@ var settingsMixin = {
       var party = this.$store.getters.room.participants;
       return party.filter(function (el) {
         return el.role.status === 'admin';
-      }).length;
+      }).length < 2 && this.isParticipantStatusAdmin;
     },
     statusUser: function statusUser() {
       if (this.userRoleAdmin) {

@@ -1,6 +1,5 @@
 .desks {
     position: relative;
-    // min-height: 50vh;
 
     .modal__load {
         opacity: 1;
@@ -271,6 +270,11 @@
                 flex-shrink: 0;
                 padding: 30px 0;
 
+                &.disabled {
+                    pointer-events: none;
+                    opacity: .3;
+                }
+
                 &-icon {
                     font-size: 25px;
                     transform: translateY(-1px);
@@ -392,6 +396,7 @@
         }
 
         &-bottom {
+
             &.open {
                 .desks__list-btn {
                     opacity: 0;
@@ -402,6 +407,11 @@
                     opacity: 1;
                     visibility: visible;
                 }
+            }
+
+            &.disabled {
+                pointer-events: none;
+                opacity: .3;
             }
         }
 
@@ -689,6 +699,70 @@
             transform: translateX(50%);
             @include size(95%, 1px);
             background: rgba($color, .3);
+        }
+    }
+
+    &__participants {
+        &-logo {
+            @include flex(center, center);
+            @include size(35px, 35px);
+            @include font(16px, 700, 1);
+            border-radius: 50%;
+            background: $color-white;
+            position: relative;
+
+            span {
+                transform: translateY(1px);
+            }
+        }
+
+        &-icon {
+            height: 11px;
+            @include position(absolute, null, null, 0, 0);
+        }
+
+        &-add {
+            @include font(15px, 500, 15px, $color-white);
+            @include flex(center, center, nowrap);
+            cursor: pointer;
+            padding: 10px;
+            background: $color-blue-lite;
+            border-radius: 5px;
+            margin-left: 20px;
+
+            &.disabled {
+                pointer-events: none;
+                opacity: .3;
+            }
+
+            &:hover {
+                background: darken($color-blue-lite, 3%);
+            }
+        }
+    }
+
+    &__info {
+        @include flex();
+        @include position(fixed, 0, 60px, null, null);
+        @include size(100%, 48px);
+        padding: 0 15px;
+        gap: 10px;
+
+        &-wrapper {
+            @include flex(center);
+            background: rgba(255, 255, 255, .4);
+            border-radius: 5px;
+            padding: 7px;
+            height: 100%;
+        }
+
+        &-name {
+            @include font(19px, 600, 1, $color-white);
+            @include flex(center);
+            width: fit-content;
+            height: 100%;
+            border-radius: 5px;
+            padding: 0 10px
         }
     }
 }

@@ -23,7 +23,8 @@ class DeskResource extends JsonResource
             'is_descr_enlarged' => $this->is_descr_enlarged,
             'id_backgrounds_desks' => $this->id_backgrounds_desks,
             'background' => new BackgroundDeskResource(BackgroundDesk::query()->where('id', $this->id_backgrounds_desks)->first()),
-            'lists' => DeskListResource::collection($this->lists->sortBy('num'))
+            'lists' => DeskListResource::collection($this->lists->sortBy('num'))  ,
+            'participants' => PartyResource::collection($this->participants),
         ];
     }
 }
