@@ -13,5 +13,8 @@ export const mutations = {
     },
     setRoles(state, roles){
         state.roles = roles
+    },
+    setSpace(state, space){
+        state.space = space
     }
 }

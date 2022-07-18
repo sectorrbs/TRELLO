@@ -17,6 +17,12 @@
     &__inner {
         @include grid(20px, 20px, 290px, 299px);
         gap: 10px;
+
+        &.guest {
+            .room__desks-add, .desks__settings {
+                display: none;
+            }
+        }
     }
 
     &__item {

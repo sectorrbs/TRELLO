@@ -1,4 +1,6 @@
 export const getters = {
     users: state => state.users,
-    userRoleAdmin: state => state.userRoleAdmin,
+    userRoleAdminInRoom: state => state.userRoleAdminInRoom,
+    userRoleAdminInDesk: state => state.userRoleAdminInDesk,
+    userCurrentRoleInDesk: state => state.userCurrentRoleInDesk,
 }

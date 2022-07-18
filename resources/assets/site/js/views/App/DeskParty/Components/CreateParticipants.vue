@@ -12,6 +12,7 @@
         </div>
     </div>
     <CreateParticipantsSearch/>
+    <CreateParticipantsCurrentList/>
 </template>
 
 <script>
@@ -21,15 +22,22 @@ import {createPartyMixin} from "../../../../mixins/createPartyMixin";
 export default {
     name: "CreateParticipants",
     mixins: [createPartyMixin],
+    props: {
+        desk: {
+            type: Object,
+            default: null,
+        }
+    },
     methods: {
         sendInvite() {
-            let params = {
-                role: +document.querySelector('[data-select-role]').dataset.selectRole,
-                roomId: this.$store.getters.room.id,
-                message: this.message,
-                users: this.partyUsers
-            }
-            this.$store.dispatch('sendInviteToRoomParty', params)
+            // let params = {
+            //     role: +document.querySelector('[data-select-role]').dataset.selectRole,
+            //     roomId: this.$store.getters.room.id,
+            //     message: this.message,
+            //     users: this.partyUsers
+            // }
+            // this.$store.dispatch('sendInviteToParty', params)
+            console.log(12121211212122121)
         }
     }
 }

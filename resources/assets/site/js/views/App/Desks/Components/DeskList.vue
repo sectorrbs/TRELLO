@@ -16,11 +16,11 @@
                     :old_name="name"
                     v-model="list.name"/>
                 <Fa :type="'r'"
-                    v-if="!isUserGuest"
+                    v-if="!isGuest"
                     @click.prevent="renameList"
                     :name="'pen desks__edit'"/>
                 <Fa :type="'s'"
-                    v-if="!isUserGuest"
+                    v-if="!isGuest"
                     @click.prevent="showSettingsList"
                     :name="'ellipsis-h desks__settings'"/>
 

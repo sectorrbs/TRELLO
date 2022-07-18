@@ -1,4 +1,6 @@
 export const state = {
     users: null,
-    userRoleAdmin: null,
+    userRoleAdminInRoom: null,
+    userRoleAdminInDesk: null,
+    userCurrentRoleInDesk: null,
 }

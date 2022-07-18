@@ -16,7 +16,7 @@
 
 <script>
 export default {
-    name: "CreateParticipantsList",
+    name: "CreateParticipantsPossibleList",
     props: ['partyUsers']
 }
 </script>

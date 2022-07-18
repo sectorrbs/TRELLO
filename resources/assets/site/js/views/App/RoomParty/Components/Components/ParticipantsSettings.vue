@@ -4,17 +4,17 @@
             Действия с пользователем
         </div>
         <div class="settings__items">
-            <ParticipantsSettingsStatusAdmin v-if="userRoleAdmin && !isParticipantStatusAdmin"
+            <ParticipantsSettingsStatusAdmin v-if="userRoleAdminInRoom && !isParticipantStatusAdmin"
                                              :participant="participant"
                                              :countAdmins="participantsAdminsCount"
                                              @open="showTab"
                                              @closed="closedTabs"/>
-            <ParticipantsSettingsStatusRegular v-if="userRoleAdmin && !isParticipantStatusRegular"
+            <ParticipantsSettingsStatusRegular v-if="userRoleAdminInRoom && !isParticipantStatusRegular"
                                                :participant="participant"
                                                :countAdmins="participantsAdminsCount"
                                                @open="showTab"
                                                @closed="closedTabs"/>
-            <ParticipantsSettingsStatusGuest v-if="userRoleAdmin && !isParticipantStatusGuest"
+            <ParticipantsSettingsStatusGuest v-if="userRoleAdminInRoom && !isParticipantStatusGuest"
                                              :participant="participant"
                                              :countAdmins="participantsAdminsCount"
                                              @open="showTab"

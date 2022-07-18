@@ -10,7 +10,7 @@ import AuthError from './AuthError'
 import Sidebar from './Sidebar'
 import GlobalModal from './GlobalModal'
 import RoomCreateModal from './RoomCreateModal'
-import RoomPartyCreateModal from './RoomPartyCreateModal'
+import PartyCreateModal from './PartyCreateModal.vue'
 import ActionModal from './ActionModal'
 import Alert from './Alert'
 
@@ -27,7 +27,7 @@ export default [
     GlobalModal,
     AuthError,
     RoomCreateModal,
-    RoomPartyCreateModal,
+    PartyCreateModal,
     ActionModal,
     Alert
 ]

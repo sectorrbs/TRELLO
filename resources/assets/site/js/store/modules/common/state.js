@@ -3,5 +3,6 @@ export const state = {
     modalLoad: false,
     pageLoad: false,
     modal: false,
-    roles: false
+    roles: false,
+    space: false,
 }

@@ -4,7 +4,7 @@
             <DeskListCreateForm :show="show" @showClose="hideForm" :desk_id="desk_id"/>
         </div>
         <div class="desks__lists-add-btn"
-             :class="{disabled: isUserGuest}"
+             :class="{disabled: isGuest}"
              @click="showForm">
             <Fa :type="'r'"
                 :name="'plus desks__add-icon'"/>

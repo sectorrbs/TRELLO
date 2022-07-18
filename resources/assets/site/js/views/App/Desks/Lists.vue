@@ -29,8 +29,19 @@
                     <DeskListCreateNewList :desk_id="desk.id"/>
                 </div>
             </div>
+
         </div>
     </div>
+
+    <PartyCreateModal>
+        <template v-slot:title>
+            Пригласить на доску
+        </template>
+        <template v-slot:content>
+            <CreateParticipants/>
+        </template>
+    </PartyCreateModal>
+
 </template>
 <script>
 
@@ -41,6 +52,7 @@ import {useVuelidate} from '@vuelidate/core'
 import DeskList from "./Components/DeskList";
 import DeskInfo from "./Components/DeskInfo";
 import DeskListCreateNewList from "./Components/DeskListCreateNewList";
+import CreateParticipants from '../DeskParty/Components/CreateParticipants'
 
 export default {
     name: "Lists",
@@ -49,13 +61,15 @@ export default {
         name: null,
         show: false
     }),
-    components: {DeskList, DeskListCreateNewList, DeskInfo, draggable},
+    components: {DeskList, DeskListCreateNewList, DeskInfo, draggable, CreateParticipants},
     mounted() {
         this.getDesk(this.$route.params.id)
-        this.$store.dispatch('getBackgroundsCards')
+        this.getBackgroundsCards()
+        this.getSpace(this.$route.name)
+        // console.log(this.$store.getters)
     },
     methods: {
-        ...mapActions(['getDesks', 'getDesk', 'updateDesk']),
+        ...mapActions(['getDesks', 'getDesk', 'updateDesk', 'getUserRoleInDesk', 'getBackgroundsCards', 'getSpace']),
         updateDeskName() {
             this.name = this.desk.name
             this.v$.$touch()

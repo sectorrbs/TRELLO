@@ -326,7 +326,7 @@
         }
 
         &-window {
-            @include position(absolute, null, null, 27px);
+            @include position(absolute, null, null, 27px, null, 1);
             background: $color-white;
             padding: 5px 0;
             width: 91%;
@@ -361,6 +361,34 @@
         &-wrapper {
             width: 600px;
             min-height: 100px;
+        }
+    }
+
+    &__currents {
+        @include flex(stretch);
+        gap: 8px;
+        flex-direction: column;
+        padding: 25px;
+    }
+
+    &__current {
+        @include flex(center, null, nowrap);
+
+        &-select {
+            margin-left: auto;
+            width: 174px;
+
+            &.disabled {
+                .party__select {
+                    pointer-events: none;
+                    opacity: .5;
+                }
+            }
+        }
+
+        &-item {
+            width: 100%;
+            background: $color-white;
         }
     }
 
@@ -526,8 +554,8 @@
         }
 
         &-items {
-            @include position(absolute, 0, null, null, null);
-            box-shadow: 0 5px 10px -1px rgba(34, 60, 80, 0.09);
+            @include position(absolute, 0, null, null, null, 1);
+            box-shadow: 0 5px 10px -1px rgb(34 60 80 / 9%);
             width: 100%;
             opacity: 0;
             visibility: hidden;

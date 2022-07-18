@@ -7,9 +7,9 @@
                 :name="'times room__modal-close modal__close'"/>
             <div class="party__modal-content">
                 <div class="room__modal-title party__modal-title">
-                    Пригласить в рабочее пространство
+                    <slot name="title"></slot>
                 </div>
-                <CreateParticipants/>
+                <slot name="content"></slot>
             </div>
         </div>
     </div>

@@ -8,7 +8,7 @@
                           v-for="desk in party.room.desks"
                           :desk="desk"
                           :key="desk.id"/>
-                <RoomDeskAdd v-if="!isUserGuest" :roomId="party.room.id"/>
+                <RoomDeskAdd v-if="!isGuest" :roomId="party.room.id"/>
             </div>
             <Loader v-else/>
         </div>

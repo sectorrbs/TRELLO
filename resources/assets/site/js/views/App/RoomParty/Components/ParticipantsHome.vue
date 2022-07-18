@@ -24,7 +24,7 @@
                 {{ participant.role.label }}
             </div>
             <Fa :type="'l'"
-                v-if="(!isParticipantStatusAdmin || userRoleAdmin) && !isGuest"
+                v-if="(!isParticipantStatusAdmin || userRoleAdminInRoom) && !isGuest"
                 @click.prevent.stop="showSettingsList"
                 :name="'cog room__empty-icon party__settings-btn'"/>
             <div class="desks__list-settings party__settings">

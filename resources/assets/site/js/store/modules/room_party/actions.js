@@ -42,7 +42,7 @@ export const actions = {
     hideWindowUsersList({commit}) {
         commit('changeDisplayWindow', false)
     },
-    sendInviteToParty({commit, dispatch}, data) {
+    sendInviteToRoomParty({commit, dispatch}, data) {
         axios.post('/api/v1/room_party/add_users', {_method: 'POST', data})
             .then((res) => {
                 dispatch('getRoomNotLoader', data.roomId)

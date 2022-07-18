@@ -29,15 +29,12 @@ export const settingsRoomPartyMixin = {
             }
         },
         isGuest() {
-
             if (this.$store.getters.user) {
                 let user = this.$store.getters.room.participants.find(el => {
                     return el.user.id === this.$store.getters.user.id
                 })
-
                 return user.role.status === 'guest' && this.participant.role.status === 'participant'
             }
-
         },
         isParticipantStatusAdmin() {
             return this.participant.role.status === 'admin'
@@ -48,8 +45,8 @@ export const settingsRoomPartyMixin = {
         isParticipantStatusGuest() {
             return this.participant.role.status === 'guest'
         },
-        userRoleAdmin() {
-            return this.$store.getters.userRoleAdmin
+        userRoleAdminInRoom() {
+            return this.$store.getters.userRoleAdminInRoom
         },
         participantsAdminsCount() {
             let party = this.$store.getters.room.participants
@@ -57,9 +54,9 @@ export const settingsRoomPartyMixin = {
                 && this.isParticipantStatusAdmin
         },
         statusUser() {
-            if (this.userRoleAdmin) {
+            if (this.userRoleAdminInRoom) {
                 return true;
-            } else return !this.userRoleAdmin && !this.isParticipantStatusAdmin;
+            } else return !this.userRoleAdminInRoom && !this.isParticipantStatusAdmin;
         }
     },
 }

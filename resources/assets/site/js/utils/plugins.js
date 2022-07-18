@@ -130,6 +130,6 @@ export default {
                     .forEach(el => el.classList.remove('show'))
             }
         }
-    }
+    },
 }
 

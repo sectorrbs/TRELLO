@@ -26,6 +26,7 @@ export const actions = {
                 if (res.data.data) {
                     commit('setDesk', res.data.data)
                     dispatch('getRoom', res.data.data.room_id)
+                    dispatch('getUserRoleInDesk')
                 } else {
                     router.push('/desks')
                 }
@@ -36,10 +37,12 @@ export const actions = {
             })
     },
 
-    getDeskNotLoader({commit}, id) {
+    getDeskNotLoader({commit, dispatch}, id) {
         axios.get(`/api/v1/desk/${id}`)
             .then(res => {
                 commit('setDesk', res.data.data)
+                dispatch('getRoom', res.data.data.room_id)
+                dispatch('getUserRoleInDesk')
                 setTimeout(() => {
                     document.querySelector('.desks__lists-inner').scrollLeft += 1000
                 }, 300)

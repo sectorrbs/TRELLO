@@ -42,7 +42,7 @@
                                     :name="'chevron-left party__btns-back'"/>
                             </router-link>
                             <div class="btn party__btns-add sidebar__link sidebar__add-room"
-                                 :class="{disabled: !userRoleAdmin}"
+                                 :class="{disabled: !userRoleAdminInRoom}"
                                  @click="this.$store.dispatch('openModalCreateParty')">
                                 <Fa :type="'s'"
                                     :name="'user-plus party__btns-icon'"/>
@@ -54,16 +54,27 @@
             </div>
         </div>
     </div>
+
+    <PartyCreateModal>
+        <template v-slot:title>
+            Пригласить в рабочее пространство
+        </template>
+        <template v-slot:content>
+            <CreateParticipants/>
+        </template>
+    </PartyCreateModal>
+
 </template>
 
 <script>
 
+import CreateParticipants from './Components/CreateParticipants'
 import ParticipantsHome from './Components/ParticipantsHome'
 import {settingsRoomPartyMixin} from "../../../mixins/settingsRoomPartyMixin";
 
 export default {
     name: "Index",
-    components: {ParticipantsHome},
+    components: {ParticipantsHome, CreateParticipants},
     computed: {
         loader() {
             return this.$store.getters.loader

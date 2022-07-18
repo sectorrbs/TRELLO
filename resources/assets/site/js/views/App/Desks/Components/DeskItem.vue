@@ -1,5 +1,5 @@
 <template>
-    <router-link v-if="userIsParticipantDesk || isUserGuest" draggable="false"
+    <router-link v-if="IsParticipant|| isGuest" draggable="false"
                  :to="{name: 'lists', params: { id: desk.id }}"
                  class="desks__item"
                  :class="{default: desk.id_backgrounds_desks === 1}"
@@ -17,11 +17,11 @@
                 :old_name="name"
                 v-model="desk.name"/>
             <Fa :type="'r'"
-                v-if="!isUserGuest"
+                v-if="!isGuest"
                 @click.prevent.stop="renameDesk"
                 :name="'pen desks__edit'"/>
             <Fa :type="'s'"
-                v-if="!isUserGuest"
+                v-if="!isGuest"
                 @click.prevent.stop="showSettingsList"
                 :name="'ellipsis-h desks__settings desks__item-settings'"/>
 

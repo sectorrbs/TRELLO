@@ -1,12 +1,12 @@
 export const deskMixin = {
     computed: {
-        userIsParticipantDesk() {
+        IsParticipant() {
             if(this.$store.getters.user){
                 return this.desk.participants
                     .find(el => el.user.id === this.$store.getters.user.id)
             }
         },
-        isUserGuest() {
+        isGuest() {
             if (this.$store.getters.user) {
                 let user = this.party.room.participants
                     .find(el => el.user.id === this.$store.getters.user.id)

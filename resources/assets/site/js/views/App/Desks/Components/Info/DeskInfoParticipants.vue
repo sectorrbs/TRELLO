@@ -13,7 +13,8 @@
                 </div>
             </div>
             <div class="desks__participants-add"
-                 :class="{disabled: isUserGuest}">
+                 @click="this.$store.dispatch('openModalCreateParty')"
+                :class="{disabled: isGuest}">
                 Пригласить
             </div>
         </div>
@@ -22,8 +23,9 @@
 
 <script>
 
-import {initialMixin} from '../../../../../mixins/initialMixin'
 import {deskListMixin} from "../../../../../mixins/deskListMixin";
+import {initialMixin} from "../../../../../mixins/initialMixin";
+
 
 export default {
     name: "DeskInfoParticipants",

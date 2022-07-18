@@ -10,9 +10,21 @@ export const actions = {
         let userId = context.getters.user.id
         let userInRoom = context.getters.room.participants.find(el => +el.user.id === +userId)
         if (userInRoom.role.status === 'admin') {
-            context.commit('setUserRoleAdmin', true)
+            context.commit('setUserRoleAdminInRoom', true)
         } else {
-            context.commit('setUserRoleAdmin', false)
+            context.commit('setUserRoleAdminInRoom', false)
+        }
+    },
+    getUserRoleInDesk(context) {
+        if (context.getters.user) {
+            let userId = context.getters.user.id
+            let userInDesk = context.getters.desk.participants.find(el => +el.user.id === +userId)
+            if (userInDesk.role.status === 'admin') {
+                context.commit('setUserRoleAdminInDesk', true)
+            } else {
+                context.commit('setUserRoleAdminInDesk', false)
+            }
+            context.commit('setUserCurrentRoleInDesk', userInDesk.role.status)
         }
     }
 }

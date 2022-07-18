@@ -1,5 +1,7 @@
 <template>
-    <div class="desks__list-bottom" ref="bottom" :class="{disabled: isUserGuest}">
+    <div class="desks__list-bottom"
+         ref="bottom"
+         :class="{disabled: isGuest}">
         <div class="desks__list-btn" @click="showNewCardInput">
             <Fa :type="'r'"
                 :name="'plus'"/>
