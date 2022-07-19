@@ -21312,7 +21312,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _CreateParticipantsSelect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateParticipantsSelect */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsSelect.vue");
+/* harmony import */ var _CreateParticipantsDeskSelect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateParticipantsDeskSelect */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue");
 /* harmony import */ var _mixins_initialMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixins/initialMixin */ "./resources/assets/site/js/mixins/initialMixin.js");
 
 
@@ -21320,44 +21320,83 @@ __webpack_require__.r(__webpack_exports__);
   name: "CreateParticipantsCurrentList",
   data: function data() {
     return {
-      participants: null
+      disabled: null
     };
   },
   components: {
-    CreateParticipantsSelect: _CreateParticipantsSelect__WEBPACK_IMPORTED_MODULE_0__["default"]
+    CreateParticipantsDeskSelect: _CreateParticipantsDeskSelect__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   mixins: [_mixins_initialMixin__WEBPACK_IMPORTED_MODULE_1__.initialMixin],
-  mounted: function mounted() {
-    this.$store.dispatch('getParticipantsInDesk');
-    this.participants = this.deskParticipants;
-    console.log(this.participants);
-  },
   methods: {
-    isParticipant: function isParticipant(id) {
-      var participants = this.getSpace().participants;
+    isUser: function isUser(id) {
+      var _this$$store$getters$;
+
+      var participants = this.desk.participants;
       var party = participants.find(function (el) {
         return el.user['id'] === id;
       });
-      return party.user.id === this.$store.getters.user.id;
+      return party.user.id === ((_this$$store$getters$ = this.$store.getters.user) === null || _this$$store$getters$ === void 0 ? void 0 : _this$$store$getters$.id);
     },
-    getSpace: function getSpace() {
-      switch (this.$route.name) {
-        case 'party':
-          return this.$store.getters.room;
-
-        case 'lists':
-          return this.$store.getters.desk;
+    getDisabled: function getDisabled(id) {
+      if (this.$store.getters.userRoleAdminInDesk) {
+        if (this.isUser(id)) {
+          if (this.$store.getters.countAdminsInDesk < 2) {
+            return true;
+          }
+        } else {
+          return false;
+        }
+      } else {
+        return true;
       }
     }
   },
   computed: {
     desk: function desk() {
       return this.$store.getters.desk;
-    },
-    deskParticipants: function deskParticipants() {
-      return this.$store.getters.deskParticipants;
     }
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=script&lang=js":
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=script&lang=js ***!
+  \************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _createParticipantsRole__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createParticipantsRole */ "./resources/assets/site/js/views/Global/CreateParty/createParticipantsRole.vue");
+/* harmony import */ var _mixins_partyMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixins/partyMixin */ "./resources/assets/site/js/mixins/partyMixin.js");
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "CreateParticipantsSelect",
+  components: {
+    CreateParticipantsRole: _createParticipantsRole__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      selectedRole: null
+    };
+  },
+  methods: {
+    selectRole: function selectRole(e, id) {
+      this.$refs.selectLabel.textContent = e.target.dataset.role;
+      this.$refs.selectRole.dataset.selectRole = this.defaultRoleId = id;
+      this.$store.dispatch('updateParticipantRole', {
+        participant: this.participant,
+        desk_id: this.$store.getters.desk.id,
+        id: id
+      });
+    }
+  },
+  mixins: [_mixins_partyMixin__WEBPACK_IMPORTED_MODULE_1__.partyMixin]
 });
 
 /***/ }),
@@ -21486,130 +21525,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _createParticipantsRole__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createParticipantsRole */ "./resources/assets/site/js/views/Global/CreateParty/createParticipantsRole.vue");
+/* harmony import */ var _mixins_partyMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixins/partyMixin */ "./resources/assets/site/js/mixins/partyMixin.js");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CreateParticipantsSelect",
-  data: function data() {
-    return {
-      roleIsDefault: 'Участник',
-      defaultRoleId: 2
-    };
-  },
   components: {
     CreateParticipantsRole: _createParticipantsRole__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: {
-    currentRole: {
-      type: Object,
-      "default": null
-    },
-    selectNewRole: {
-      type: Boolean,
-      "default": null
-    },
-    parent: {
-      type: String,
-      "default": null
-    },
-    partyUser: {
-      type: Object,
-      "default": null
-    }
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    window.addEventListener('click', function (e) {
-      if (!e.target.classList.contains('party__select-parent') && !e.target.classList.contains('party__btns-icon') && _this.$refs.select) {
-        _this.$refs.select.classList.remove('show');
-      }
-    });
+  data: function data() {
+    return {
+      defaultParticipantLabel: 'Участник',
+      defaultParticipantId: 2,
+      selectedRole: 2
+    };
   },
   methods: {
-    getCurrentRoleLabel: function getCurrentRoleLabel(p) {
-      return p.querySelector('[data-select-label]').textContent;
-    },
-    showRoleList: function showRoleList(e) {
-      var p = e.target.closest('.party__select-parent');
-      this.getActiveSelect(e);
-      this.roleIsDefault = this.getCurrentRoleLabel(p);
-      this.displayRoleList();
-      this.$store.dispatch('getRoles');
-    },
-    displayRoleList: function displayRoleList() {
-      if (this.$refs.select.classList.contains('show') && this.$refs.select) {
-        this.$refs.select.classList.remove('show');
-      } else {
-        this.$refs.select.classList.add('show');
-      }
-    },
     selectRole: function selectRole(e, id) {
-      this.$refs.selectLabel.textContent = this.roleIsDefault = e.target.dataset.role;
-      this.$refs.selectRole.dataset.selectRole = this.defaultRoleId = id;
-
-      if (this.partyUser.id === this.user.id) {
-        this.checkingRoleCurrentUser(e);
-      } else {
-        if (this.isCurrentParty()) {
-          this.getUserOnlyAdmin();
-        }
-      }
-    },
-    getActiveSelect: function getActiveSelect(e) {
-      if (!e.target.closest('.party__select').classList.contains('show')) {
-        document.querySelectorAll('.party__select').forEach(function (el) {
-          return el.classList.remove('show');
-        });
-      }
-    },
-    isCurrentParty: function isCurrentParty() {
-      return this.parent === 'currentParty';
-    },
-    getUserOnlyAdmin: function getUserOnlyAdmin() {
-      var _this2 = this;
-
-      var countAdmins = 0;
-      var parentSelect = document.querySelectorAll("[data-select-parent=\"".concat(this.parent, "\"]"));
-      var currentsSelect = document.querySelectorAll('.party__current-select');
-      parentSelect.forEach(function (el) {
-        if (+el.dataset.selectRole === 1) {
-          countAdmins++;
-        }
-      });
-
-      if (countAdmins < 2) {
-        currentsSelect.forEach(function (el) {
-          var currentParentSelect = el.querySelector("[data-select-parent=\"".concat(_this2.parent, "\"]"));
-
-          if (+currentParentSelect.dataset.selectRole === 1) {
-            console.log(12121);
-            el.classList.add('disabled');
-          } else {
-            el.classList.remove('disabled');
-          }
-        });
-      } else {
-        currentsSelect.forEach(function (el) {
-          el.classList.remove('disabled');
-        });
-      }
-    },
-    checkingRoleCurrentUser: function checkingRoleCurrentUser(e) {
-      if (e.target.dataset.role !== 'Admin') {
-        document.querySelectorAll('.party__current-select').forEach(function (el) {
-          return el.classList.add('disabled');
-        });
-      }
+      this.$refs.selectLabel.textContent = e.target.dataset.role;
+      this.$refs.selectRole.dataset.selectRole = this.defaultParticipantId = id;
     }
   },
-  computed: {
-    roles: function roles() {
-      return this.$store.getters.roles;
-    },
-    user: function user() {
-      return this.$store.getters.user;
-    }
-  }
+  mixins: [_mixins_partyMixin__WEBPACK_IMPORTED_MODULE_1__.partyMixin]
 });
 
 /***/ }),
@@ -24723,7 +24660,7 @@ var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_CreateParticipantsSelect = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CreateParticipantsSelect");
+  var _component_CreateParticipantsDeskSelect = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CreateParticipantsDeskSelect");
 
   return $options.desk ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.desk.participants, function (participant) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
@@ -24733,21 +24670,81 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* TEXT */
     )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(participant.user.name) + " ", 1
     /* TEXT */
-    ), $options.isParticipant(participant.user.id) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_5, " (Вы) ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), _hoisted_6]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    ), $options.isUser(participant.user.id) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_5, " (Вы) ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), _hoisted_6]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
       "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["party__current-select", {
-        disabled: false
+        disabled: $options.getDisabled(participant.user.id)
       }])
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CreateParticipantsSelect, {
-      currentRole: participant.role,
-      partyUser: participant.user,
-      parent: 'currentParty',
-      selectNewRole: true
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CreateParticipantsDeskSelect, {
+      participant: participant
     }, null, 8
     /* PROPS */
-    , ["currentRole", "partyUser"])])])]);
+    , ["participant"])], 2
+    /* CLASS */
+    )])]);
   }), 128
   /* KEYED_FRAGMENT */
   ))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=template&id=d6a0c9e2":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=template&id=d6a0c9e2 ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "party__select",
+  ref: "select"
+};
+var _hoisted_2 = ["data-select-role"];
+var _hoisted_3 = {
+  "class": "party__select-items"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
+
+  var _component_CreateParticipantsRole = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CreateParticipantsRole");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "party__select-parent",
+    ref: "selectRole",
+    "data-select-role": _ctx.participant.role.id,
+    onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return _ctx.showRoleList && _ctx.showRoleList.apply(_ctx, arguments);
+    }, ["stop"]))
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    "data-select-label": "",
+    ref: "selectLabel"
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.participant.role.label), 513
+  /* TEXT, NEED_PATCH */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+    type: 's',
+    name: 'chevron-down party__btns-icon'
+  })], 8
+  /* PROPS */
+  , _hoisted_2), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.roles, function (role) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_CreateParticipantsRole, {
+      role: role,
+      roleIsDefault: _ctx.selectedRole,
+      onSelectRole: $options.selectRole,
+      key: role.id
+    }, null, 8
+    /* PROPS */
+    , ["role", "roleIsDefault", "onSelectRole"]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  ))])], 512
+  /* NEED_PATCH */
+  );
 }
 
 /***/ }),
@@ -24917,13 +24914,11 @@ var _hoisted_1 = {
   "class": "party__select",
   ref: "select"
 };
-var _hoisted_2 = ["data-select-parent", "data-select-role"];
+var _hoisted_2 = ["data-select-role"];
 var _hoisted_3 = {
   "class": "party__select-items"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _$props$currentRole, _$props$currentRole2;
-
   var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
 
   var _component_CreateParticipantsRole = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CreateParticipantsRole");
@@ -24931,31 +24926,29 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "party__select-parent",
     ref: "selectRole",
-    "data-select-parent": $props.parent,
-    "data-select-role": ((_$props$currentRole = $props.currentRole) === null || _$props$currentRole === void 0 ? void 0 : _$props$currentRole.id) || _ctx.defaultRoleId,
+    "data-select-role": _ctx.defaultParticipantId,
     onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
-      return $options.showRoleList && $options.showRoleList.apply($options, arguments);
+      return _ctx.showRoleList && _ctx.showRoleList.apply(_ctx, arguments);
     }, ["stop"]))
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "data-select-label": "",
     ref: "selectLabel"
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$props$currentRole2 = $props.currentRole) === null || _$props$currentRole2 === void 0 ? void 0 : _$props$currentRole2.label) || _ctx.roleIsDefault), 513
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.defaultParticipantLabel), 513
   /* TEXT, NEED_PATCH */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 's',
     name: 'chevron-down party__btns-icon'
   })], 8
   /* PROPS */
-  , _hoisted_2), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.roles, function (role) {
+  , _hoisted_2), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.roles, function (role) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_CreateParticipantsRole, {
       role: role,
-      user: $props.partyUser,
-      roleIsDefault: _ctx.roleIsDefault,
+      roleIsDefault: _ctx.selectedRole,
       onSelectRole: $options.selectRole,
       key: role.id
     }, null, 8
     /* PROPS */
-    , ["role", "user", "roleIsDefault", "onSelectRole"]);
+    , ["role", "roleIsDefault", "onSelectRole"]);
   }), 128
   /* KEYED_FRAGMENT */
   ))])], 512
@@ -25909,7 +25902,7 @@ var createPartyMixin = {
       }
     });
     window.addEventListener('click', function (e) {
-      if (e.target.classList.contains('party__modal-search') || e.target.classList.contains('room__modal-title') || e.target.classList.contains('party__modal-user') || e.target.classList.contains('party__message') || e.target.classList.contains('party__modal-window') || e.target.classList.contains('party__modal-content') || e.target.classList.contains('modal')) {
+      if (e.target.classList.contains('party__modal-search') || e.target.classList.contains('room__modal-title') || e.target.classList.contains('party__modal-user') || e.target.classList.contains('party__message') || e.target.classList.contains('party__modal-input') || e.target.classList.contains('party__modal-window') || e.target.classList.contains('party__select-item') || e.target.classList.contains('party__currents') || e.target.classList.contains('party__modal-content') || e.target.classList.contains('modal')) {
         _this.$store.dispatch('hideWindowUsersList');
       }
 
@@ -25993,6 +25986,69 @@ var initialMixin = {
         initials += el[0].toUpperCase();
       });
       return initials;
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/mixins/partyMixin.js":
+/*!*******************************************************!*\
+  !*** ./resources/assets/site/js/mixins/partyMixin.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "partyMixin": () => (/* binding */ partyMixin)
+/* harmony export */ });
+var partyMixin = {
+  props: {
+    participant: {
+      type: Object,
+      "default": null
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    window.addEventListener('click', function (e) {
+      if (!e.target.classList.contains('party__select-parent') && !e.target.classList.contains('party__btns-icon') && _this.$refs.select) {
+        _this.$refs.select.classList.remove('show');
+      }
+    });
+  },
+  methods: {
+    showRoleList: function showRoleList(e) {
+      var p = e.target.closest('.party__select-parent');
+      this.getActiveSelect(e);
+      this.displayRoleList();
+      this.setSelectedRole(e);
+      this.$store.dispatch('getRoles');
+    },
+    setSelectedRole: function setSelectedRole(e) {
+      var selectRole = this.$refs.selectLabel;
+      this.selectedRole = selectRole.textContent;
+    },
+    displayRoleList: function displayRoleList() {
+      if (this.$refs.select.classList.contains('show') && this.$refs.select) {
+        this.$refs.select.classList.remove('show');
+      } else {
+        this.$refs.select.classList.add('show');
+      }
+    },
+    getActiveSelect: function getActiveSelect(e) {
+      if (!e.target.closest('.party__select').classList.contains('show')) {
+        document.querySelectorAll('.party__select').forEach(function (el) {
+          return el.classList.remove('show');
+        });
+      }
+    }
+  },
+  computed: {
+    roles: function roles() {
+      return this.$store.getters.roles;
     }
   }
 };
@@ -27322,10 +27378,6 @@ var actions = {
   getRoles: function getRoles(_ref7) {
     var commit = _ref7.commit;
     commit('setRoles', _common_constants__WEBPACK_IMPORTED_MODULE_0__.ROLES);
-  },
-  getSpace: function getSpace(_ref8, space) {
-    var commit = _ref8.commit;
-    commit('setSpace', space);
   }
 };
 
@@ -27357,9 +27409,6 @@ var getters = {
   },
   roles: function roles(state) {
     return state.roles;
-  },
-  space: function space(state) {
-    return state.space;
   }
 };
 
@@ -27419,9 +27468,6 @@ var mutations = {
   },
   setRoles: function setRoles(state, roles) {
     state.roles = roles;
-  },
-  setSpace: function setSpace(state, space) {
-    state.space = space;
   }
 };
 
@@ -27443,8 +27489,7 @@ var state = {
   modalLoad: false,
   pageLoad: false,
   modal: false,
-  roles: false,
-  space: false
+  roles: false
 };
 
 /***/ }),
@@ -27472,83 +27517,51 @@ var actions = {
       room_id: data.room_id
     }).then(function () {});
   },
-  getParticipantsInDesk: function getParticipantsInDesk(_ref2) {
-    var commit = _ref2.commit,
-        getters = _ref2.getters;
-    commit('setDeskParticipants', getters.desk.participants || null);
-  } // getRoomParty({commit}) {
-  //     commit('changeLoader', true)
-  //     axios.get('/api/v1/room_party/get')
-  //         .then(res => {
-  //             commit('setRoomParty', res.data.data)
-  //         })
-  //         .catch(e => commit('setErrorMessage', e.message))
-  //         .finally(() => {
-  //             commit('changeLoader', false)
-  //         })
-  // },
-  // getRoomPartyNotLoader({commit}) {
-  //     axios.get('/api/v1/room_party/get')
-  //         .then(res => {
-  //             commit('setRoomParty', res.data.data)
-  //         })
-  //         .catch(e => commit('setErrorMessage', e.message))
-  // },
-  // clearUserFromPartyList({commit, dispatch}) {
-  //     commit('clearUserToLists')
-  //     dispatch('hideWindowUsersList')
-  // },
-  // addUserToParty({commit}, user) {
-  //     commit('pushUserToLists', user)
-  // },
-  // removeUserToParty({commit}, userId) {
-  //     commit('removeUserFromLists', userId)
-  // },
-  // showWindowUsersList({commit}) {
-  //     commit('changeDisplayWindow', true)
-  // },
-  // hideWindowUsersList({commit}) {
-  //     commit('changeDisplayWindow', false)
-  // },
-  // sendInviteToParty({commit, dispatch}, data) {
-  //     axios.post('/api/v1/room_party/add_users', {_method: 'POST', data})
-  //         .then((res) => {
-  //             dispatch('getRoomNotLoader', data.roomId)
-  //         })
-  //     dispatch('clearUserFromPartyList')
-  //     dispatch('hideModalCreateParty')
-  // },
-  // appointmentAdmin({commit, dispatch, getters}, id) {
-  //     axios.post(`/api/v1/room_party/${id}/appointment_admin`, {_method: 'PUT', id})
-  //         .then((res) => {
-  //             dispatch('getRoomNotLoader', getters.room.id)
-  //         })
-  // },
-  // appointmentRegularRoomParty({commit, dispatch, getters}, id) {
-  //     axios.post(`/api/v1/room_party/${id}/appointment_regular`, {_method: 'PUT', id})
-  //         .then((res) => {
-  //             dispatch('getRoomNotLoader', getters.room.id)
-  //         })
-  // },
-  // appointmentGuestRoomParty({commit, dispatch, getters}, id) {
-  //     axios.post(`/api/v1/room_party/${id}/appointment_guest`, {_method: 'PUT', id})
-  //         .then((res) => {
-  //             dispatch('getRoomNotLoader', getters.room.id)
-  //         })
-  // },
-  // excludeParticipantRoomParty({commit, dispatch, getters}, id) {
-  //     axios.post(`/api/v1/room_party/${id}/delete_participant`, {_method: 'DELETE', id})
-  //         .then((res) => {
-  //             dispatch('getRoomNotLoader', getters.room.id)
-  //         })
-  // },
-  // leaveRoomParty({commit, dispatch, getters}, id) {
-  //     axios.post(`/api/v1/room_party/${id}/delete_participant`, {_method: 'DELETE', id})
-  //         .then((res) => {
-  //             router.push({name: 'desks_index'})
-  //         })
-  // },
+  updateParticipantRole: function updateParticipantRole(_ref2, data) {
+    var dispatch = _ref2.dispatch;
+    axios.post("/api/v1/desk_party/".concat(data.participant.id, "/update_user"), {
+      _method: 'PUT',
+      id: data.id
+    }).then(function () {
+      dispatch('getDeskNotLoader', data.desk_id);
+    });
+  },
+  getCountAdminsInDesk: function getCountAdminsInDesk(_ref3, participants) {
+    var commit = _ref3.commit;
+    var countAdmins = participants.filter(function (el) {
+      return el.role.status === 'admin';
+    }).length;
+    commit('setCountAdminsInDesk', countAdmins);
+  },
+  getDeskParty: function getDeskParty(_ref4) {
+    var commit = _ref4.commit;
+    commit('changeLoader', true);
+    axios.get('/api/v1/desk_party/get').then(function (res) {
+      var party = [];
+      res.data.data.filter(function (el) {
+        var i = party.findIndex(function (item) {
+          return item.room_id === el.room_id;
+        });
 
+        if (i === -1) {
+          party.push(el);
+        }
+      });
+      commit('setDeskParty', party);
+    })["catch"](function (e) {
+      return commit('setErrorMessage', e.message);
+    })["finally"](function () {
+      commit('changeLoader', false);
+    });
+  },
+  getDeskPartyNotLoader: function getDeskPartyNotLoader(_ref5) {
+    var commit = _ref5.commit;
+    axios.get('/api/v1/desk_party/get').then(function (res) {
+      commit('setDeskParty', res.data.data);
+    })["catch"](function (e) {
+      return commit('setErrorMessage', e.message);
+    });
+  }
 };
 
 /***/ }),
@@ -27565,8 +27578,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getters": () => (/* binding */ getters)
 /* harmony export */ });
 var getters = {
-  deskParticipants: function deskParticipants(state) {
-    return state.deskParticipants;
+  countAdminsInDesk: function countAdminsInDesk(state) {
+    return state.countAdminsInDesk;
+  },
+  deskParty: function deskParty(state) {
+    return state.deskParty;
   }
 };
 
@@ -27612,8 +27628,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "mutations": () => (/* binding */ mutations)
 /* harmony export */ });
 var mutations = {
-  setDeskParticipants: function setDeskParticipants(state, participants) {
-    state.deskParticipants = participants;
+  setCountAdminsInDesk: function setCountAdminsInDesk(state, count) {
+    state.countAdminsInDesk = count;
+  },
+  setDeskParty: function setDeskParty(state, deskParty) {
+    state.deskParty = deskParty;
   }
 };
 
@@ -27631,7 +27650,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "state": () => (/* binding */ state)
 /* harmony export */ });
 var state = {
-  deskParticipants: null
+  countAdminsInDesk: 0,
+  deskParty: 0
 };
 
 /***/ }),
@@ -27675,15 +27695,16 @@ var actions = {
     commit('changeLoader', true);
     axios.get("/api/v1/desk/".concat(id)).then(function (res) {
       if (res.data.data) {
-        commit('setDesk', res.data.data);
-        dispatch('getRoom', res.data.data.room_id);
+        commit('setDesk', res.data.data); // dispatch('getRoom', res.data.data.room_id)
+
         dispatch('getUserRoleInDesk');
+        dispatch('getCountAdminsInDesk', res.data.data.participants);
       } else {
         _router__WEBPACK_IMPORTED_MODULE_0__["default"].push('/desks');
       }
     })["catch"](function (e) {
       return commit('setErrorMessage', e.message);
-    })["finally"](function () {
+    })["finally"](function (res) {
       commit('changeLoader', false);
     });
   },
@@ -27692,8 +27713,9 @@ var actions = {
         dispatch = _ref4.dispatch;
     axios.get("/api/v1/desk/".concat(id)).then(function (res) {
       commit('setDesk', res.data.data);
-      dispatch('getRoom', res.data.data.room_id);
+      dispatch('getRoomNotLoader', res.data.data.room_id);
       dispatch('getUserRoleInDesk');
+      dispatch('getCountAdminsInDesk', res.data.data.participants);
       setTimeout(function () {
         document.querySelector('.desks__lists-inner').scrollLeft += 1000;
       }, 300);
@@ -28279,6 +28301,7 @@ var actions = {
     var commit = _ref2.commit;
     commit('changeLoader', true);
     axios.get('/api/v1/room_party/get').then(function (res) {
+      // console.log(res.data.data)
       commit('setRoomParty', res.data.data);
     })["catch"](function (e) {
       return commit('setErrorMessage', e.message);
@@ -28912,7 +28935,7 @@ var actions = {
       return +el.user.id === +userId;
     });
 
-    if (userInRoom.role.status === 'admin') {
+    if ((userInRoom === null || userInRoom === void 0 ? void 0 : userInRoom.role.status) === 'admin') {
       context.commit('setUserRoleAdminInRoom', true);
     } else {
       context.commit('setUserRoleAdminInRoom', false);
@@ -38454,6 +38477,34 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue":
+/*!********************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _CreateParticipantsDeskSelect_vue_vue_type_template_id_d6a0c9e2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateParticipantsDeskSelect.vue?vue&type=template&id=d6a0c9e2 */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=template&id=d6a0c9e2");
+/* harmony import */ var _CreateParticipantsDeskSelect_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateParticipantsDeskSelect.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=script&lang=js");
+/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipantsDeskSelect_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipantsDeskSelect_vue_vue_type_template_id_d6a0c9e2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsMessage.vue":
 /*!*****************************************************************************************!*\
   !*** ./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsMessage.vue ***!
@@ -39654,6 +39705,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=script&lang=js":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=script&lang=js ***!
+  \********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CreateParticipantsDeskSelect_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CreateParticipantsDeskSelect_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CreateParticipantsDeskSelect.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsMessage.vue?vue&type=script&lang=js":
 /*!*****************************************************************************************************************!*\
   !*** ./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsMessage.vue?vue&type=script&lang=js ***!
@@ -40610,6 +40677,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CreateParticipantsCurrentList_vue_vue_type_template_id_505149e6__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CreateParticipantsCurrentList_vue_vue_type_template_id_505149e6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CreateParticipantsCurrentList.vue?vue&type=template&id=505149e6 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsCurrentList.vue?vue&type=template&id=505149e6");
+
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=template&id=d6a0c9e2":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=template&id=d6a0c9e2 ***!
+  \**************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CreateParticipantsDeskSelect_vue_vue_type_template_id_d6a0c9e2__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CreateParticipantsDeskSelect_vue_vue_type_template_id_d6a0c9e2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CreateParticipantsDeskSelect.vue?vue&type=template&id=d6a0c9e2 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=template&id=d6a0c9e2");
 
 
 /***/ }),

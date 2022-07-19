@@ -3047,7 +3047,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     this.getDesk(this.$route.params.id);
     this.getBackgroundsCards();
-    this.getSpace(this.$route.name); // console.log(this.$store.getters)
   },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_6__.mapActions)(['getDesks', 'getDesk', 'updateDesk', 'getUserRoleInDesk', 'getBackgroundsCards', 'getSpace'])), {}, {
     updateDeskName: function updateDeskName() {
@@ -4240,7 +4239,7 @@ var deskListMixin = {
         var user = this.$store.getters.room.participants.find(function (el) {
           return el.user.id === _this.$store.getters.user.id;
         });
-        return user.role.status === 'guest';
+        return (user === null || user === void 0 ? void 0 : user.role.status) === 'guest';
       }
     }
   }

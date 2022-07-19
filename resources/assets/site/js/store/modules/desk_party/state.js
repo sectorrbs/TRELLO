@@ -1,3 +1,4 @@
 export const state = {
-    deskParticipants: null
+    countAdminsInDesk: 0,
+    deskParty: 0
 }

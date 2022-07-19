@@ -995,10 +995,12 @@ var settingsRoomPartyMixin = {
       var _this = this;
 
       if (this.$store.getters.user) {
+        var _this$participant;
+
         var user = this.$store.getters.room.participants.find(function (el) {
           return el.user.id === _this.$store.getters.user.id;
         });
-        return user.role.status === 'guest' && this.participant.role.status === 'participant';
+        return (user === null || user === void 0 ? void 0 : user.role.status) === 'guest' && ((_this$participant = this.participant) === null || _this$participant === void 0 ? void 0 : _this$participant.role.status) === 'participant';
       }
     },
     isParticipantStatusAdmin: function isParticipantStatusAdmin() {

@@ -65,8 +65,6 @@ export default {
     mounted() {
         this.getDesk(this.$route.params.id)
         this.getBackgroundsCards()
-        this.getSpace(this.$route.name)
-        // console.log(this.$store.getters)
     },
     methods: {
         ...mapActions(['getDesks', 'getDesk', 'updateDesk', 'getUserRoleInDesk', 'getBackgroundsCards', 'getSpace']),

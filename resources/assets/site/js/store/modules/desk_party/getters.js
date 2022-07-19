@@ -1,3 +1,4 @@
 export const getters = {
-    deskParticipants: state => state.deskParticipants
+    countAdminsInDesk: state => state.countAdminsInDesk,
+    deskParty: state => state.deskParty,
 }

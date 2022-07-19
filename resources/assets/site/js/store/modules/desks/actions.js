@@ -25,14 +25,15 @@ export const actions = {
             .then(res => {
                 if (res.data.data) {
                     commit('setDesk', res.data.data)
-                    dispatch('getRoom', res.data.data.room_id)
+                    // dispatch('getRoom', res.data.data.room_id)
                     dispatch('getUserRoleInDesk')
+                    dispatch('getCountAdminsInDesk', res.data.data.participants)
                 } else {
                     router.push('/desks')
                 }
             })
             .catch(e => commit('setErrorMessage', e.message))
-            .finally(() => {
+            .finally((res) => {
                 commit('changeLoader', false)
             })
     },
@@ -41,8 +42,9 @@ export const actions = {
         axios.get(`/api/v1/desk/${id}`)
             .then(res => {
                 commit('setDesk', res.data.data)
-                dispatch('getRoom', res.data.data.room_id)
+                dispatch('getRoomNotLoader', res.data.data.room_id)
                 dispatch('getUserRoleInDesk')
+                dispatch('getCountAdminsInDesk', res.data.data.participants)
                 setTimeout(() => {
                     document.querySelector('.desks__lists-inner').scrollLeft += 1000
                 }, 300)

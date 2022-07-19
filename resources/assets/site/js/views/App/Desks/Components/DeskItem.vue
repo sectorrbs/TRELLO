@@ -1,5 +1,5 @@
 <template>
-    <router-link v-if="IsParticipant|| isGuest" draggable="false"
+    <router-link v-if="IsParticipant" draggable="false"
                  :to="{name: 'lists', params: { id: desk.id }}"
                  class="desks__item"
                  :class="{default: desk.id_backgrounds_desks === 1}"

@@ -12,7 +12,7 @@
                 <div class="party__item-name">
                     <div>
                         {{ participant.user.name }}
-                        <span v-if="isParticipant(participant.user.id)">
+                        <span v-if="isUser(participant.user.id)">
                             (Вы)
                         </span>
                     </div>
@@ -21,11 +21,8 @@
                     </div>
                 </div>
                 <div class="party__current-select"
-                     :class="{disabled: false}">
-                    <CreateParticipantsSelect :currentRole="participant.role"
-                                              :partyUser="participant.user"
-                                              :parent="'currentParty'"
-                                              :selectNewRole="true"/>
+                     :class="{disabled: getDisabled(participant.user.id)}">
+                    <CreateParticipantsDeskSelect :participant="participant"/>
                 </div>
             </div>
         </div>
@@ -34,33 +31,33 @@
 
 <script>
 
-import CreateParticipantsSelect from "./CreateParticipantsSelect";
+import CreateParticipantsDeskSelect from "./CreateParticipantsDeskSelect";
 import {initialMixin} from "../../../mixins/initialMixin";
 
 export default {
     name: "CreateParticipantsCurrentList",
     data: () => ({
-        participants: null
+        disabled: null
     }),
-    components: {CreateParticipantsSelect},
+    components: {CreateParticipantsDeskSelect},
     mixins: [initialMixin],
-    mounted() {
-        this.$store.dispatch('getParticipantsInDesk')
-        this.participants = this.deskParticipants
-        console.log(this.participants)
-    },
     methods: {
-        isParticipant(id) {
-            let participants = this.getSpace().participants
+        isUser(id) {
+            let participants = this.desk.participants
             let party = participants.find(el => el.user['id'] === id)
-            return party.user.id === this.$store.getters.user.id
+            return party.user.id === this.$store.getters.user?.id
         },
-        getSpace() {
-            switch (this.$route.name) {
-                case 'party':
-                    return this.$store.getters.room;
-                case 'lists':
-                    return this.$store.getters.desk
+        getDisabled(id) {
+            if (this.$store.getters.userRoleAdminInDesk) {
+                if (this.isUser(id)) {
+                    if (this.$store.getters.countAdminsInDesk < 2) {
+                        return true
+                    }
+                } else {
+                    return false
+                }
+            } else {
+                return true
             }
         }
     },
@@ -68,9 +65,8 @@ export default {
         desk() {
             return this.$store.getters.desk
         },
-        deskParticipants() {
-            return this.$store.getters.deskParticipants
-        }
     },
 }
 </script>
+<!--userRoleAdminInDesk-->
+<!--countAdminsInDesk-->

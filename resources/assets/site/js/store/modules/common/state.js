@@ -4,5 +4,4 @@ export const state = {
     pageLoad: false,
     modal: false,
     roles: false,
-    space: false,
 }

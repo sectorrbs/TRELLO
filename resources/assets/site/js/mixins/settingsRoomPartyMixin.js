@@ -33,7 +33,7 @@ export const settingsRoomPartyMixin = {
                 let user = this.$store.getters.room.participants.find(el => {
                     return el.user.id === this.$store.getters.user.id
                 })
-                return user.role.status === 'guest' && this.participant.role.status === 'participant'
+                return user?.role.status === 'guest' && this.participant?.role.status === 'participant'
             }
         },
         isParticipantStatusAdmin() {
