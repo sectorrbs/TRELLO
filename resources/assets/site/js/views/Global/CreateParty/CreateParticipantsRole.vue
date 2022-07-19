@@ -10,6 +10,6 @@
 <script>
 export default {
     name: "CreateParticipantsRole",
-    props: ['role', 'roleIsDefault', 'user'],
+    props: ['role', 'roleIsDefault'],
 }
 </script>

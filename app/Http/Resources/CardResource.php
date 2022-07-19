@@ -26,6 +26,7 @@ class CardResource extends JsonResource
             'attachments' => CardAttachmentResource::collection($this->attachments->sortByDesc('created_at')),
             'checkLists' => CheckListResource::collection($this->checkLists),
             'id_backgrounds_cards' => $this->id_backgrounds_cards,
+            'participants' => CardPartyResource::collection($this->party),
         ];
     }
 }

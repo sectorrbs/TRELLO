@@ -23,6 +23,11 @@
             return $this->hasMany(checkList::class);
         }
 
+        public function party()
+        {
+            return $this->hasMany(CardParty::class);
+        }
+
         public function attachments()
         {
             return $this->hasMany(CardAttachment::class);

@@ -23,7 +23,4 @@ export const actions = {
     getRoles({commit}) {
         commit('setRoles', ROLES)
     },
-    getSpace({commit}, space){
-        commit('setSpace', space)
-    }
 }

@@ -12,6 +12,7 @@ export const actions = {
         commit('changeLoader', true)
         axios.get('/api/v1/room_party/get')
             .then(res => {
+                // console.log(res.data.data)
                 commit('setRoomParty', res.data.data)
             })
             .catch(e => commit('setErrorMessage', e.message))

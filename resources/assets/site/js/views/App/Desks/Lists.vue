@@ -7,7 +7,7 @@
 
             <DeskInfo :desk="desk"/>
 
-            <div class="desks__lists">
+            <div class="desks__lists" :class="{guest: isGuest}">
                 <div class="desks__lists-wrapper" v-if="desk.lists?.length">
 
                     <draggable
@@ -45,6 +45,7 @@
 </template>
 <script>
 
+import {deskListMixin} from "../../../mixins/deskListMixin";
 import draggable from 'vuedraggable'
 import {mapGetters, mapActions} from 'vuex'
 import {required} from '@vuelidate/validators'
@@ -65,8 +66,6 @@ export default {
     mounted() {
         this.getDesk(this.$route.params.id)
         this.getBackgroundsCards()
-        this.getSpace(this.$route.name)
-        // console.log(this.$store.getters)
     },
     methods: {
         ...mapActions(['getDesks', 'getDesk', 'updateDesk', 'getUserRoleInDesk', 'getBackgroundsCards', 'getSpace']),
@@ -106,6 +105,7 @@ export default {
         return {
             name: {required},
         }
-    }
+    },
+    mixins: [deskListMixin]
 }
 </script>

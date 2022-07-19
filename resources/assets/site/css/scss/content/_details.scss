@@ -100,9 +100,12 @@
             }
 
             &-item {
+                @include flex(center, center);
                 @include size(30px, 30px);
-                background: rgba($color-gray, .3);
+                @include font(13px, 500);
+                background: $color-white;
                 border-radius: 50%;
+                border: 2px solid rgba($color-gray, .7);
             }
 
             &-btn {

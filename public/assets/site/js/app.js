@@ -19923,7 +19923,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     CardAttachments: _Components_CardAttachments__WEBPACK_IMPORTED_MODULE_4__["default"],
     CardAttachmentsLoading: _Components_AttachmentsComponents_CardAttachmentsLoading__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_10__.mapGetters)(['modalLoad', 'attachmentLoad'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_10__.mapGetters)(['modalLoad', 'attachmentLoad', 'cardParty'])), {}, {
     cover: function cover() {
       var attachment = this.cardInfo.attachments || 0;
 
@@ -20218,8 +20218,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _mixins_cardMixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../mixins/cardMixin */ "./resources/assets/site/js/mixins/cardMixin.js");
+/* harmony import */ var _components_ParticipantsModals__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/ParticipantsModals */ "./resources/assets/site/js/views/App/Cards/Components/Actions/components/ParticipantsModals.vue");
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "ActionParticipants"
+  name: "ActionParticipants",
+  data: function data() {
+    return {
+      show: false
+    };
+  },
+  components: {
+    ParticipantsModals: _components_ParticipantsModals__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  methods: {
+    openModal: function openModal(e) {
+      this.actionModal(e);
+    }
+  },
+  mixins: [_mixins_cardMixin__WEBPACK_IMPORTED_MODULE_0__.cardMixin],
+  computed: {
+    participants: function participants() {
+      return this.$store.getters.desk.participants;
+    }
+  }
 });
 
 /***/ }),
@@ -20264,6 +20287,49 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ActionСardBtn"
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Cards/Components/Actions/components/ParticipantsModals.vue?vue&type=script&lang=js":
+/*!***********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Cards/Components/Actions/components/ParticipantsModals.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _mixins_cardMixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../mixins/cardMixin */ "./resources/assets/site/js/mixins/cardMixin.js");
+/* harmony import */ var _mixins_initialMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../mixins/initialMixin */ "./resources/assets/site/js/mixins/initialMixin.js");
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "ParticipantsModals",
+  props: ['showModal', 'participants'],
+  mixins: [_mixins_cardMixin__WEBPACK_IMPORTED_MODULE_0__.cardMixin, _mixins_initialMixin__WEBPACK_IMPORTED_MODULE_1__.initialMixin],
+  methods: {
+    addUserToCardParty: function addUserToCardParty(participant) {
+      var params = {
+        card_id: this.$store.getters.cardInfo.id,
+        desk_id: this.$store.getters.desk.id,
+        user_id: participant.user.id
+      };
+      this.$store.dispatch('addUserToCardParty', params);
+    },
+    isParticipant: function isParticipant(id) {
+      return this.cardParty.find(function (el) {
+        return el.user.id === id;
+      });
+    }
+  },
+  computed: {
+    cardParty: function cardParty() {
+      return this.$store.getters.cardParty;
+    }
+  }
 });
 
 /***/ }),
@@ -20736,8 +20802,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _mixins_initialMixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/initialMixin */ "./resources/assets/site/js/mixins/initialMixin.js");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "Participants"
+  name: "Participants",
+  props: ['parties'],
+  mixins: [_mixins_initialMixin__WEBPACK_IMPORTED_MODULE_0__.initialMixin]
 });
 
 /***/ }),
@@ -21312,7 +21382,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _CreateParticipantsSelect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateParticipantsSelect */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsSelect.vue");
+/* harmony import */ var _CreateParticipantsDeskSelect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateParticipantsDeskSelect */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue");
 /* harmony import */ var _mixins_initialMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixins/initialMixin */ "./resources/assets/site/js/mixins/initialMixin.js");
 
 
@@ -21320,44 +21390,83 @@ __webpack_require__.r(__webpack_exports__);
   name: "CreateParticipantsCurrentList",
   data: function data() {
     return {
-      participants: null
+      disabled: null
     };
   },
   components: {
-    CreateParticipantsSelect: _CreateParticipantsSelect__WEBPACK_IMPORTED_MODULE_0__["default"]
+    CreateParticipantsDeskSelect: _CreateParticipantsDeskSelect__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   mixins: [_mixins_initialMixin__WEBPACK_IMPORTED_MODULE_1__.initialMixin],
-  mounted: function mounted() {
-    this.$store.dispatch('getParticipantsInDesk');
-    this.participants = this.deskParticipants;
-    console.log(this.participants);
-  },
   methods: {
-    isParticipant: function isParticipant(id) {
-      var participants = this.getSpace().participants;
+    isUser: function isUser(id) {
+      var _this$$store$getters$;
+
+      var participants = this.desk.participants;
       var party = participants.find(function (el) {
         return el.user['id'] === id;
       });
-      return party.user.id === this.$store.getters.user.id;
+      return party.user.id === ((_this$$store$getters$ = this.$store.getters.user) === null || _this$$store$getters$ === void 0 ? void 0 : _this$$store$getters$.id);
     },
-    getSpace: function getSpace() {
-      switch (this.$route.name) {
-        case 'party':
-          return this.$store.getters.room;
-
-        case 'lists':
-          return this.$store.getters.desk;
+    getDisabled: function getDisabled(id) {
+      if (this.$store.getters.userRoleAdminInDesk) {
+        if (this.isUser(id)) {
+          if (this.$store.getters.countAdminsInDesk < 2) {
+            return true;
+          }
+        } else {
+          return false;
+        }
+      } else {
+        return true;
       }
     }
   },
   computed: {
     desk: function desk() {
       return this.$store.getters.desk;
-    },
-    deskParticipants: function deskParticipants() {
-      return this.$store.getters.deskParticipants;
     }
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=script&lang=js":
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=script&lang=js ***!
+  \************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _createParticipantsRole__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createParticipantsRole */ "./resources/assets/site/js/views/Global/CreateParty/createParticipantsRole.vue");
+/* harmony import */ var _mixins_partyMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixins/partyMixin */ "./resources/assets/site/js/mixins/partyMixin.js");
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "CreateParticipantsSelect",
+  components: {
+    CreateParticipantsRole: _createParticipantsRole__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      selectedRole: null
+    };
+  },
+  methods: {
+    selectRole: function selectRole(e, id) {
+      this.$refs.selectLabel.textContent = e.target.dataset.role;
+      this.$refs.selectRole.dataset.selectRole = this.defaultRoleId = id;
+      this.$store.dispatch('updateParticipantRole', {
+        participant: this.participant,
+        desk_id: this.$store.getters.desk.id,
+        id: id
+      });
+    }
+  },
+  mixins: [_mixins_partyMixin__WEBPACK_IMPORTED_MODULE_1__.partyMixin]
 });
 
 /***/ }),
@@ -21486,130 +21595,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _createParticipantsRole__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createParticipantsRole */ "./resources/assets/site/js/views/Global/CreateParty/createParticipantsRole.vue");
+/* harmony import */ var _mixins_partyMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixins/partyMixin */ "./resources/assets/site/js/mixins/partyMixin.js");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CreateParticipantsSelect",
-  data: function data() {
-    return {
-      roleIsDefault: 'Участник',
-      defaultRoleId: 2
-    };
-  },
   components: {
     CreateParticipantsRole: _createParticipantsRole__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: {
-    currentRole: {
-      type: Object,
-      "default": null
-    },
-    selectNewRole: {
-      type: Boolean,
-      "default": null
-    },
-    parent: {
-      type: String,
-      "default": null
-    },
-    partyUser: {
-      type: Object,
-      "default": null
-    }
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    window.addEventListener('click', function (e) {
-      if (!e.target.classList.contains('party__select-parent') && !e.target.classList.contains('party__btns-icon') && _this.$refs.select) {
-        _this.$refs.select.classList.remove('show');
-      }
-    });
+  data: function data() {
+    return {
+      defaultParticipantLabel: 'Участник',
+      defaultParticipantId: 2,
+      selectedRole: 2
+    };
   },
   methods: {
-    getCurrentRoleLabel: function getCurrentRoleLabel(p) {
-      return p.querySelector('[data-select-label]').textContent;
-    },
-    showRoleList: function showRoleList(e) {
-      var p = e.target.closest('.party__select-parent');
-      this.getActiveSelect(e);
-      this.roleIsDefault = this.getCurrentRoleLabel(p);
-      this.displayRoleList();
-      this.$store.dispatch('getRoles');
-    },
-    displayRoleList: function displayRoleList() {
-      if (this.$refs.select.classList.contains('show') && this.$refs.select) {
-        this.$refs.select.classList.remove('show');
-      } else {
-        this.$refs.select.classList.add('show');
-      }
-    },
     selectRole: function selectRole(e, id) {
-      this.$refs.selectLabel.textContent = this.roleIsDefault = e.target.dataset.role;
-      this.$refs.selectRole.dataset.selectRole = this.defaultRoleId = id;
-
-      if (this.partyUser.id === this.user.id) {
-        this.checkingRoleCurrentUser(e);
-      } else {
-        if (this.isCurrentParty()) {
-          this.getUserOnlyAdmin();
-        }
-      }
-    },
-    getActiveSelect: function getActiveSelect(e) {
-      if (!e.target.closest('.party__select').classList.contains('show')) {
-        document.querySelectorAll('.party__select').forEach(function (el) {
-          return el.classList.remove('show');
-        });
-      }
-    },
-    isCurrentParty: function isCurrentParty() {
-      return this.parent === 'currentParty';
-    },
-    getUserOnlyAdmin: function getUserOnlyAdmin() {
-      var _this2 = this;
-
-      var countAdmins = 0;
-      var parentSelect = document.querySelectorAll("[data-select-parent=\"".concat(this.parent, "\"]"));
-      var currentsSelect = document.querySelectorAll('.party__current-select');
-      parentSelect.forEach(function (el) {
-        if (+el.dataset.selectRole === 1) {
-          countAdmins++;
-        }
-      });
-
-      if (countAdmins < 2) {
-        currentsSelect.forEach(function (el) {
-          var currentParentSelect = el.querySelector("[data-select-parent=\"".concat(_this2.parent, "\"]"));
-
-          if (+currentParentSelect.dataset.selectRole === 1) {
-            console.log(12121);
-            el.classList.add('disabled');
-          } else {
-            el.classList.remove('disabled');
-          }
-        });
-      } else {
-        currentsSelect.forEach(function (el) {
-          el.classList.remove('disabled');
-        });
-      }
-    },
-    checkingRoleCurrentUser: function checkingRoleCurrentUser(e) {
-      if (e.target.dataset.role !== 'Admin') {
-        document.querySelectorAll('.party__current-select').forEach(function (el) {
-          return el.classList.add('disabled');
-        });
-      }
+      this.$refs.selectLabel.textContent = e.target.dataset.role;
+      this.$refs.selectRole.dataset.selectRole = this.defaultParticipantId = id;
     }
   },
-  computed: {
-    roles: function roles() {
-      return this.$store.getters.roles;
-    },
-    user: function user() {
-      return this.$store.getters.user;
-    }
-  }
+  mixins: [_mixins_partyMixin__WEBPACK_IMPORTED_MODULE_1__.partyMixin]
 });
 
 /***/ }),
@@ -21689,7 +21696,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CreateParticipantsRole",
-  props: ['role', 'roleIsDefault', 'user']
+  props: ['role', 'roleIsDefault']
 });
 
 /***/ }),
@@ -22315,19 +22322,24 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     card: $props.cardInfo
   }, null, 8
   /* PROPS */
-  , ["card"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CardParticipants), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CardDescription, {
+  , ["card"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.cardInfo.participants.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_CardParticipants, {
+    key: 2,
+    parties: $props.cardInfo.participants
+  }, null, 8
+  /* PROPS */
+  , ["parties"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CardDescription, {
     card: $props.cardInfo
   }, null, 8
   /* PROPS */
   , ["card"]), _ctx.attachmentLoad ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_CardAttachmentsLoading, {
-    key: 2
+    key: 3
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.cardInfo.attachments.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_CardAttachments, {
-    key: 3,
+    key: 4,
     attachments: $props.cardInfo.attachments
   }, null, 8
   /* PROPS */
   , ["attachments"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.cardInfo.checkLists.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_CheckLists, {
-    key: 4,
+    key: 5,
     checkLists: $props.cardInfo.checkLists
   }, null, 8
   /* PROPS */
@@ -22791,19 +22803,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = {
-  "class": "details__actions-btn"
-};
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Участники ");
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Участники ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+  var _component_ParticipantsModals = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ParticipantsModals");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+    "class": "details__actions-btn participants",
+    onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return $options.openModal && $options.openModal.apply($options, arguments);
+    }, ["stop"]))
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'r',
     name: 'user details__actions-icon'
-  }), _hoisted_2]);
+  }), _hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ParticipantsModals, {
+    participants: $options.participants,
+    showModal: _ctx.show
+  }, null, 8
+  /* PROPS */
+  , ["participants", "showModal"])]);
 }
 
 /***/ }),
@@ -22865,6 +22886,82 @@ var _hoisted_1 = {
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default")]);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Cards/Components/Actions/components/ParticipantsModals.vue?vue&type=template&id=2a2f689e":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Cards/Components/Actions/components/ParticipantsModals.vue?vue&type=template&id=2a2f689e ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Участники ");
+
+var _hoisted_2 = {
+  "class": "participants__items"
+};
+var _hoisted_3 = ["onClick"];
+var _hoisted_4 = {
+  "class": "party__modal-logo"
+};
+var _hoisted_5 = {
+  "class": "party__modal-initials"
+};
+var _hoisted_6 = {
+  "class": "participants__item-name"
+};
+var _hoisted_7 = {
+  key: 0,
+  "class": "participants__item-check"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
+
+  var _component_ActionModal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ActionModal");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_ActionModal, {
+    show: $props.showModal
+  }, {
+    modal_title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_1];
+    }),
+    modal_content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.participants, function (participant) {
+        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+          key: participant.id,
+          onClick: function onClick($event) {
+            return $options.addUserToCardParty(participant);
+          },
+          "class": "participants__item"
+        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.getInitials(participant.user.name)), 1
+        /* TEXT */
+        )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(participant.user.name), 1
+        /* TEXT */
+        ), $options.isParticipant(participant.user.id) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+          type: 'r',
+          name: 'check details__window-icon'
+        })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 8
+        /* PROPS */
+        , _hoisted_3);
+      }), 128
+      /* KEYED_FRAGMENT */
+      ))])];
+    }),
+    _: 1
+    /* STABLE */
+
+  }, 8
+  /* PROPS */
+  , ["show"]);
 }
 
 /***/ }),
@@ -23770,24 +23867,25 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 var _hoisted_4 = {
   "class": "details__window-participants-content"
 };
-
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_5 = {
   "class": "details__window-participants-items"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "details__window-participants-item"
-}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "details__window-participants-item"
-})], -1
-/* HOISTED */
-);
-
+};
 var _hoisted_6 = {
   "class": "details__window-participants-btn"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.parties, function (party) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      "class": "details__window-participants-item",
+      key: party.id
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.getInitials(party.user.name)), 1
+    /* TEXT */
+    );
+  }), 128
+  /* KEYED_FRAGMENT */
+  ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'l',
     name: 'plus'
   })])])])]);
@@ -24723,7 +24821,7 @@ var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_CreateParticipantsSelect = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CreateParticipantsSelect");
+  var _component_CreateParticipantsDeskSelect = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CreateParticipantsDeskSelect");
 
   return $options.desk ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.desk.participants, function (participant) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
@@ -24733,21 +24831,81 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* TEXT */
     )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(participant.user.name) + " ", 1
     /* TEXT */
-    ), $options.isParticipant(participant.user.id) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_5, " (Вы) ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), _hoisted_6]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    ), $options.isUser(participant.user.id) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_5, " (Вы) ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), _hoisted_6]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
       "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["party__current-select", {
-        disabled: false
+        disabled: $options.getDisabled(participant.user.id)
       }])
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CreateParticipantsSelect, {
-      currentRole: participant.role,
-      partyUser: participant.user,
-      parent: 'currentParty',
-      selectNewRole: true
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CreateParticipantsDeskSelect, {
+      participant: participant
     }, null, 8
     /* PROPS */
-    , ["currentRole", "partyUser"])])])]);
+    , ["participant"])], 2
+    /* CLASS */
+    )])]);
   }), 128
   /* KEYED_FRAGMENT */
   ))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=template&id=d6a0c9e2":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=template&id=d6a0c9e2 ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "party__select",
+  ref: "select"
+};
+var _hoisted_2 = ["data-select-role"];
+var _hoisted_3 = {
+  "class": "party__select-items"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
+
+  var _component_CreateParticipantsRole = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CreateParticipantsRole");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "party__select-parent",
+    ref: "selectRole",
+    "data-select-role": _ctx.participant.role.id,
+    onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return _ctx.showRoleList && _ctx.showRoleList.apply(_ctx, arguments);
+    }, ["stop"]))
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    "data-select-label": "",
+    ref: "selectLabel"
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.participant.role.label), 513
+  /* TEXT, NEED_PATCH */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
+    type: 's',
+    name: 'chevron-down party__btns-icon'
+  })], 8
+  /* PROPS */
+  , _hoisted_2), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.roles, function (role) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_CreateParticipantsRole, {
+      role: role,
+      roleIsDefault: _ctx.selectedRole,
+      onSelectRole: $options.selectRole,
+      key: role.id
+    }, null, 8
+    /* PROPS */
+    , ["role", "roleIsDefault", "onSelectRole"]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  ))])], 512
+  /* NEED_PATCH */
+  );
 }
 
 /***/ }),
@@ -24917,13 +25075,11 @@ var _hoisted_1 = {
   "class": "party__select",
   ref: "select"
 };
-var _hoisted_2 = ["data-select-parent", "data-select-role"];
+var _hoisted_2 = ["data-select-role"];
 var _hoisted_3 = {
   "class": "party__select-items"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _$props$currentRole, _$props$currentRole2;
-
   var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
 
   var _component_CreateParticipantsRole = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CreateParticipantsRole");
@@ -24931,31 +25087,29 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "party__select-parent",
     ref: "selectRole",
-    "data-select-parent": $props.parent,
-    "data-select-role": ((_$props$currentRole = $props.currentRole) === null || _$props$currentRole === void 0 ? void 0 : _$props$currentRole.id) || _ctx.defaultRoleId,
+    "data-select-role": _ctx.defaultParticipantId,
     onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
-      return $options.showRoleList && $options.showRoleList.apply($options, arguments);
+      return _ctx.showRoleList && _ctx.showRoleList.apply(_ctx, arguments);
     }, ["stop"]))
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "data-select-label": "",
     ref: "selectLabel"
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$props$currentRole2 = $props.currentRole) === null || _$props$currentRole2 === void 0 ? void 0 : _$props$currentRole2.label) || _ctx.roleIsDefault), 513
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.defaultParticipantLabel), 513
   /* TEXT, NEED_PATCH */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 's',
     name: 'chevron-down party__btns-icon'
   })], 8
   /* PROPS */
-  , _hoisted_2), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.roles, function (role) {
+  , _hoisted_2), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.roles, function (role) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_CreateParticipantsRole, {
       role: role,
-      user: $props.partyUser,
-      roleIsDefault: _ctx.roleIsDefault,
+      roleIsDefault: _ctx.selectedRole,
       onSelectRole: $options.selectRole,
       key: role.id
     }, null, 8
     /* PROPS */
-    , ["role", "user", "roleIsDefault", "onSelectRole"]);
+    , ["role", "roleIsDefault", "onSelectRole"]);
   }), 128
   /* KEYED_FRAGMENT */
   ))])], 512
@@ -25909,7 +26063,7 @@ var createPartyMixin = {
       }
     });
     window.addEventListener('click', function (e) {
-      if (e.target.classList.contains('party__modal-search') || e.target.classList.contains('room__modal-title') || e.target.classList.contains('party__modal-user') || e.target.classList.contains('party__message') || e.target.classList.contains('party__modal-window') || e.target.classList.contains('party__modal-content') || e.target.classList.contains('modal')) {
+      if (e.target.classList.contains('party__modal-search') || e.target.classList.contains('room__modal-title') || e.target.classList.contains('party__modal-user') || e.target.classList.contains('party__message') || e.target.classList.contains('party__modal-input') || e.target.classList.contains('party__modal-window') || e.target.classList.contains('party__select-item') || e.target.classList.contains('party__currents') || e.target.classList.contains('party__item') || e.target.classList.contains('party__modal-content') || e.target.classList.contains('modal')) {
         _this.$store.dispatch('hideWindowUsersList');
       }
 
@@ -25993,6 +26147,69 @@ var initialMixin = {
         initials += el[0].toUpperCase();
       });
       return initials;
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/mixins/partyMixin.js":
+/*!*******************************************************!*\
+  !*** ./resources/assets/site/js/mixins/partyMixin.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "partyMixin": () => (/* binding */ partyMixin)
+/* harmony export */ });
+var partyMixin = {
+  props: {
+    participant: {
+      type: Object,
+      "default": null
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    window.addEventListener('click', function (e) {
+      if (!e.target.classList.contains('party__select-parent') && !e.target.classList.contains('party__btns-icon') && _this.$refs.select) {
+        _this.$refs.select.classList.remove('show');
+      }
+    });
+  },
+  methods: {
+    showRoleList: function showRoleList(e) {
+      var p = e.target.closest('.party__select-parent');
+      this.getActiveSelect(e);
+      this.displayRoleList();
+      this.setSelectedRole(e);
+      this.$store.dispatch('getRoles');
+    },
+    setSelectedRole: function setSelectedRole(e) {
+      var selectRole = this.$refs.selectLabel;
+      this.selectedRole = selectRole.textContent;
+    },
+    displayRoleList: function displayRoleList() {
+      if (this.$refs.select.classList.contains('show') && this.$refs.select) {
+        this.$refs.select.classList.remove('show');
+      } else {
+        this.$refs.select.classList.add('show');
+      }
+    },
+    getActiveSelect: function getActiveSelect(e) {
+      if (!e.target.closest('.party__select').classList.contains('show')) {
+        document.querySelectorAll('.party__select').forEach(function (el) {
+          return el.classList.remove('show');
+        });
+      }
+    }
+  },
+  computed: {
+    roles: function roles() {
+      return this.$store.getters.roles;
     }
   }
 };
@@ -26385,7 +26602,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _modules_rooms_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/rooms/index */ "./resources/assets/site/js/store/modules/rooms/index.js");
 /* harmony import */ var _modules_desks_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/desks/index */ "./resources/assets/site/js/store/modules/desks/index.js");
 /* harmony import */ var _modules_lists_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/lists/index */ "./resources/assets/site/js/store/modules/lists/index.js");
@@ -26401,6 +26618,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_users_index__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/users/index */ "./resources/assets/site/js/store/modules/users/index.js");
 /* harmony import */ var _modules_room_party_index__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./modules/room_party/index */ "./resources/assets/site/js/store/modules/room_party/index.js");
 /* harmony import */ var _modules_desk_party_index__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./modules/desk_party/index */ "./resources/assets/site/js/store/modules/desk_party/index.js");
+/* harmony import */ var _modules_card_party_index__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./modules/card_party/index */ "./resources/assets/site/js/store/modules/card_party/index.js");
 
 
 
@@ -26417,7 +26635,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var store = (0,vuex__WEBPACK_IMPORTED_MODULE_15__.createStore)({
+
+var store = (0,vuex__WEBPACK_IMPORTED_MODULE_16__.createStore)({
   modules: {
     Rooms: _modules_rooms_index__WEBPACK_IMPORTED_MODULE_0__["default"],
     Desks: _modules_desks_index__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -26433,7 +26652,8 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_15__.createStore)({
     CardsAttachments: _modules_cards_attachments_index__WEBPACK_IMPORTED_MODULE_11__["default"],
     Users: _modules_users_index__WEBPACK_IMPORTED_MODULE_12__["default"],
     RoomParty: _modules_room_party_index__WEBPACK_IMPORTED_MODULE_13__["default"],
-    DeskParty: _modules_desk_party_index__WEBPACK_IMPORTED_MODULE_14__["default"]
+    DeskParty: _modules_desk_party_index__WEBPACK_IMPORTED_MODULE_14__["default"],
+    CardParty: _modules_card_party_index__WEBPACK_IMPORTED_MODULE_15__["default"]
   }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
@@ -26602,6 +26822,119 @@ var state = {
 
 /***/ }),
 
+/***/ "./resources/assets/site/js/store/modules/card_party/actions.js":
+/*!**********************************************************************!*\
+  !*** ./resources/assets/site/js/store/modules/card_party/actions.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "actions": () => (/* binding */ actions)
+/* harmony export */ });
+var actions = {
+  addUserToCardParty: function addUserToCardParty(_ref, data) {
+    var commit = _ref.commit,
+        dispatch = _ref.dispatch;
+    axios.post("/api/v1/card_party/add_user", {
+      _method: 'POST',
+      card_id: data.card_id,
+      desk_id: data.desk_id,
+      user_id: data.user_id
+    }).then(function (res) {
+      data.id = data.card_id;
+      dispatch('getCardInfoNotLoader', data);
+      dispatch('getDeskNotLoader', data.desk_id);
+    });
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/store/modules/card_party/getters.js":
+/*!**********************************************************************!*\
+  !*** ./resources/assets/site/js/store/modules/card_party/getters.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getters": () => (/* binding */ getters)
+/* harmony export */ });
+var getters = {
+  cardParty: function cardParty(state) {
+    return state.cardParty;
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/store/modules/card_party/index.js":
+/*!********************************************************************!*\
+  !*** ./resources/assets/site/js/store/modules/card_party/index.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./state */ "./resources/assets/site/js/store/modules/card_party/state.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mutations */ "./resources/assets/site/js/store/modules/card_party/mutations.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actions */ "./resources/assets/site/js/store/modules/card_party/actions.js");
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getters */ "./resources/assets/site/js/store/modules/card_party/getters.js");
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  state: _state__WEBPACK_IMPORTED_MODULE_0__.state,
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_1__.mutations,
+  actions: _actions__WEBPACK_IMPORTED_MODULE_2__.actions,
+  getters: _getters__WEBPACK_IMPORTED_MODULE_3__.getters
+});
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/store/modules/card_party/mutations.js":
+/*!************************************************************************!*\
+  !*** ./resources/assets/site/js/store/modules/card_party/mutations.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "mutations": () => (/* binding */ mutations)
+/* harmony export */ });
+var mutations = {
+  setCardParty: function setCardParty(state, party) {
+    state.cardParty = party;
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/store/modules/card_party/state.js":
+/*!********************************************************************!*\
+  !*** ./resources/assets/site/js/store/modules/card_party/state.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "state": () => (/* binding */ state)
+/* harmony export */ });
+var state = {
+  cardParty: []
+};
+
+/***/ }),
+
 /***/ "./resources/assets/site/js/store/modules/cards/actions.js":
 /*!*****************************************************************!*\
   !*** ./resources/assets/site/js/store/modules/cards/actions.js ***!
@@ -26686,6 +27019,7 @@ var actions = {
       }
 
       commit('setCardInfo', res.data.data);
+      commit('setCardParty', res.data.data.participants);
     })["catch"](function (e) {
       commit('setErrorMessage', e.response.data.errors.name[0]);
     })["finally"](function () {
@@ -26701,6 +27035,7 @@ var actions = {
       }
 
       commit('setCardInfo', res.data.data);
+      commit('setCardParty', res.data.data.participants);
     })["catch"](function (e) {
       commit('setErrorMessage', e.response.data.errors.name[0]);
     });
@@ -27322,10 +27657,6 @@ var actions = {
   getRoles: function getRoles(_ref7) {
     var commit = _ref7.commit;
     commit('setRoles', _common_constants__WEBPACK_IMPORTED_MODULE_0__.ROLES);
-  },
-  getSpace: function getSpace(_ref8, space) {
-    var commit = _ref8.commit;
-    commit('setSpace', space);
   }
 };
 
@@ -27357,9 +27688,6 @@ var getters = {
   },
   roles: function roles(state) {
     return state.roles;
-  },
-  space: function space(state) {
-    return state.space;
   }
 };
 
@@ -27419,9 +27747,6 @@ var mutations = {
   },
   setRoles: function setRoles(state, roles) {
     state.roles = roles;
-  },
-  setSpace: function setSpace(state, space) {
-    state.space = space;
   }
 };
 
@@ -27443,8 +27768,7 @@ var state = {
   modalLoad: false,
   pageLoad: false,
   modal: false,
-  roles: false,
-  space: false
+  roles: false
 };
 
 /***/ }),
@@ -27472,83 +27796,62 @@ var actions = {
       room_id: data.room_id
     }).then(function () {});
   },
-  getParticipantsInDesk: function getParticipantsInDesk(_ref2) {
-    var commit = _ref2.commit,
-        getters = _ref2.getters;
-    commit('setDeskParticipants', getters.desk.participants || null);
-  } // getRoomParty({commit}) {
-  //     commit('changeLoader', true)
-  //     axios.get('/api/v1/room_party/get')
-  //         .then(res => {
-  //             commit('setRoomParty', res.data.data)
-  //         })
-  //         .catch(e => commit('setErrorMessage', e.message))
-  //         .finally(() => {
-  //             commit('changeLoader', false)
-  //         })
-  // },
-  // getRoomPartyNotLoader({commit}) {
-  //     axios.get('/api/v1/room_party/get')
-  //         .then(res => {
-  //             commit('setRoomParty', res.data.data)
-  //         })
-  //         .catch(e => commit('setErrorMessage', e.message))
-  // },
-  // clearUserFromPartyList({commit, dispatch}) {
-  //     commit('clearUserToLists')
-  //     dispatch('hideWindowUsersList')
-  // },
-  // addUserToParty({commit}, user) {
-  //     commit('pushUserToLists', user)
-  // },
-  // removeUserToParty({commit}, userId) {
-  //     commit('removeUserFromLists', userId)
-  // },
-  // showWindowUsersList({commit}) {
-  //     commit('changeDisplayWindow', true)
-  // },
-  // hideWindowUsersList({commit}) {
-  //     commit('changeDisplayWindow', false)
-  // },
-  // sendInviteToParty({commit, dispatch}, data) {
-  //     axios.post('/api/v1/room_party/add_users', {_method: 'POST', data})
-  //         .then((res) => {
-  //             dispatch('getRoomNotLoader', data.roomId)
-  //         })
-  //     dispatch('clearUserFromPartyList')
-  //     dispatch('hideModalCreateParty')
-  // },
-  // appointmentAdmin({commit, dispatch, getters}, id) {
-  //     axios.post(`/api/v1/room_party/${id}/appointment_admin`, {_method: 'PUT', id})
-  //         .then((res) => {
-  //             dispatch('getRoomNotLoader', getters.room.id)
-  //         })
-  // },
-  // appointmentRegularRoomParty({commit, dispatch, getters}, id) {
-  //     axios.post(`/api/v1/room_party/${id}/appointment_regular`, {_method: 'PUT', id})
-  //         .then((res) => {
-  //             dispatch('getRoomNotLoader', getters.room.id)
-  //         })
-  // },
-  // appointmentGuestRoomParty({commit, dispatch, getters}, id) {
-  //     axios.post(`/api/v1/room_party/${id}/appointment_guest`, {_method: 'PUT', id})
-  //         .then((res) => {
-  //             dispatch('getRoomNotLoader', getters.room.id)
-  //         })
-  // },
-  // excludeParticipantRoomParty({commit, dispatch, getters}, id) {
-  //     axios.post(`/api/v1/room_party/${id}/delete_participant`, {_method: 'DELETE', id})
-  //         .then((res) => {
-  //             dispatch('getRoomNotLoader', getters.room.id)
-  //         })
-  // },
-  // leaveRoomParty({commit, dispatch, getters}, id) {
-  //     axios.post(`/api/v1/room_party/${id}/delete_participant`, {_method: 'DELETE', id})
-  //         .then((res) => {
-  //             router.push({name: 'desks_index'})
-  //         })
-  // },
+  updateParticipantRole: function updateParticipantRole(_ref2, data) {
+    var dispatch = _ref2.dispatch;
+    axios.post("/api/v1/desk_party/".concat(data.participant.id, "/update_user"), {
+      _method: 'PUT',
+      id: data.id
+    }).then(function () {
+      dispatch('getDeskNotLoader', data.desk_id);
+    });
+  },
+  getCountAdminsInDesk: function getCountAdminsInDesk(_ref3, participants) {
+    var commit = _ref3.commit;
+    var countAdmins = participants.filter(function (el) {
+      return el.role.status === 'admin';
+    }).length;
+    commit('setCountAdminsInDesk', countAdmins);
+  },
+  getDeskParty: function getDeskParty(_ref4) {
+    var commit = _ref4.commit;
+    commit('changeLoader', true);
+    axios.get('/api/v1/desk_party/get').then(function (res) {
+      var party = [];
+      res.data.data.filter(function (el) {
+        var i = party.findIndex(function (item) {
+          return item.room_id === el.room_id;
+        });
 
+        if (i === -1) {
+          party.push(el);
+        }
+      });
+      commit('setDeskParty', party);
+    })["catch"](function (e) {
+      return commit('setErrorMessage', e.message);
+    })["finally"](function () {
+      commit('changeLoader', false);
+    });
+  },
+  getDeskPartyNotLoader: function getDeskPartyNotLoader(_ref5) {
+    var commit = _ref5.commit;
+    axios.get('/api/v1/desk_party/get').then(function (res) {
+      commit('setDeskParty', res.data.data);
+    })["catch"](function (e) {
+      return commit('setErrorMessage', e.message);
+    });
+  },
+  sendInviteToDeskParty: function sendInviteToDeskParty(_ref6, data) {
+    var commit = _ref6.commit,
+        dispatch = _ref6.dispatch;
+    axios.post('/api/v1/desk_party/add_users', {
+      _method: 'POST',
+      data: data
+    }).then(function (res) {
+      dispatch('getDeskNotLoader', data.deskId);
+    });
+    dispatch('clearUserFromPartyList'); // dispatch('hideModalCreateParty')
+  }
 };
 
 /***/ }),
@@ -27565,8 +27868,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getters": () => (/* binding */ getters)
 /* harmony export */ });
 var getters = {
-  deskParticipants: function deskParticipants(state) {
-    return state.deskParticipants;
+  countAdminsInDesk: function countAdminsInDesk(state) {
+    return state.countAdminsInDesk;
+  },
+  deskParty: function deskParty(state) {
+    return state.deskParty;
   }
 };
 
@@ -27612,8 +27918,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "mutations": () => (/* binding */ mutations)
 /* harmony export */ });
 var mutations = {
-  setDeskParticipants: function setDeskParticipants(state, participants) {
-    state.deskParticipants = participants;
+  setCountAdminsInDesk: function setCountAdminsInDesk(state, count) {
+    state.countAdminsInDesk = count;
+  },
+  setDeskParty: function setDeskParty(state, deskParty) {
+    state.deskParty = deskParty;
   }
 };
 
@@ -27631,7 +27940,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "state": () => (/* binding */ state)
 /* harmony export */ });
 var state = {
-  deskParticipants: null
+  countAdminsInDesk: 0,
+  deskParty: 0
 };
 
 /***/ }),
@@ -27675,15 +27985,16 @@ var actions = {
     commit('changeLoader', true);
     axios.get("/api/v1/desk/".concat(id)).then(function (res) {
       if (res.data.data) {
-        commit('setDesk', res.data.data);
-        dispatch('getRoom', res.data.data.room_id);
+        commit('setDesk', res.data.data); // dispatch('getRoom', res.data.data.room_id)
+
         dispatch('getUserRoleInDesk');
+        dispatch('getCountAdminsInDesk', res.data.data.participants);
       } else {
         _router__WEBPACK_IMPORTED_MODULE_0__["default"].push('/desks');
       }
     })["catch"](function (e) {
       return commit('setErrorMessage', e.message);
-    })["finally"](function () {
+    })["finally"](function (res) {
       commit('changeLoader', false);
     });
   },
@@ -27692,10 +28003,15 @@ var actions = {
         dispatch = _ref4.dispatch;
     axios.get("/api/v1/desk/".concat(id)).then(function (res) {
       commit('setDesk', res.data.data);
-      dispatch('getRoom', res.data.data.room_id);
+      dispatch('getRoomNotLoader', res.data.data.room_id);
       dispatch('getUserRoleInDesk');
+      dispatch('getCountAdminsInDesk', res.data.data.participants);
       setTimeout(function () {
-        document.querySelector('.desks__lists-inner').scrollLeft += 1000;
+        var desks = document.querySelector('.desks__lists-inner');
+
+        if (desks) {
+          desks.scrollLeft += 1000;
+        }
       }, 300);
     })["catch"](function (e) {
       return commit('setErrorMessage', e.message);
@@ -28279,6 +28595,7 @@ var actions = {
     var commit = _ref2.commit;
     commit('changeLoader', true);
     axios.get('/api/v1/room_party/get').then(function (res) {
+      // console.log(res.data.data)
       commit('setRoomParty', res.data.data);
     })["catch"](function (e) {
       return commit('setErrorMessage', e.message);
@@ -28912,7 +29229,7 @@ var actions = {
       return +el.user.id === +userId;
     });
 
-    if (userInRoom.role.status === 'admin') {
+    if ((userInRoom === null || userInRoom === void 0 ? void 0 : userInRoom.role.status) === 'admin') {
       context.commit('setUserRoleAdminInRoom', true);
     } else {
       context.commit('setUserRoleAdminInRoom', false);
@@ -37347,13 +37664,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _App_vue_vue_type_template_id_1ee775af__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App.vue?vue&type=template&id=1ee775af */ "./resources/assets/site/js/App.vue?vue&type=template&id=1ee775af");
 /* harmony import */ var _App_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.vue?vue&type=script&lang=js */ "./resources/assets/site/js/App.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_App_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_App_vue_vue_type_template_id_1ee775af__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/App.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_App_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_App_vue_vue_type_template_id_1ee775af__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/App.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37375,13 +37692,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CardInfo_vue_vue_type_template_id_762a969b__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardInfo.vue?vue&type=template&id=762a969b */ "./resources/assets/site/js/views/App/Cards/CardInfo.vue?vue&type=template&id=762a969b");
 /* harmony import */ var _CardInfo_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardInfo.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/CardInfo.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardInfo_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardInfo_vue_vue_type_template_id_762a969b__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/CardInfo.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardInfo_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardInfo_vue_vue_type_template_id_762a969b__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/CardInfo.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37403,13 +37720,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ActionAttachment_vue_vue_type_template_id_62308237__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ActionAttachment.vue?vue&type=template&id=62308237 */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionAttachment.vue?vue&type=template&id=62308237");
 /* harmony import */ var _ActionAttachment_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ActionAttachment.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionAttachment.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ActionAttachment_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ActionAttachment_vue_vue_type_template_id_62308237__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/ActionAttachment.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ActionAttachment_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ActionAttachment_vue_vue_type_template_id_62308237__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/ActionAttachment.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37431,13 +37748,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ActionCheckList_vue_vue_type_template_id_4d90f5e2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ActionCheckList.vue?vue&type=template&id=4d90f5e2 */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionCheckList.vue?vue&type=template&id=4d90f5e2");
 /* harmony import */ var _ActionCheckList_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ActionCheckList.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionCheckList.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ActionCheckList_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ActionCheckList_vue_vue_type_template_id_4d90f5e2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/ActionCheckList.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ActionCheckList_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ActionCheckList_vue_vue_type_template_id_4d90f5e2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/ActionCheckList.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37459,13 +37776,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ActionCover_vue_vue_type_template_id_93d6f55a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ActionCover.vue?vue&type=template&id=93d6f55a */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionCover.vue?vue&type=template&id=93d6f55a");
 /* harmony import */ var _ActionCover_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ActionCover.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionCover.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ActionCover_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ActionCover_vue_vue_type_template_id_93d6f55a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/ActionCover.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ActionCover_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ActionCover_vue_vue_type_template_id_93d6f55a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/ActionCover.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37487,13 +37804,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ActionDate_vue_vue_type_template_id_709aef7c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ActionDate.vue?vue&type=template&id=709aef7c */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionDate.vue?vue&type=template&id=709aef7c");
 /* harmony import */ var _ActionDate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ActionDate.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionDate.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ActionDate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ActionDate_vue_vue_type_template_id_709aef7c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/ActionDate.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ActionDate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ActionDate_vue_vue_type_template_id_709aef7c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/ActionDate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37515,13 +37832,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ActionDelete_vue_vue_type_template_id_2d9d88bf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ActionDelete.vue?vue&type=template&id=2d9d88bf */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionDelete.vue?vue&type=template&id=2d9d88bf");
 /* harmony import */ var _ActionDelete_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ActionDelete.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionDelete.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ActionDelete_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ActionDelete_vue_vue_type_template_id_2d9d88bf__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/ActionDelete.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ActionDelete_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ActionDelete_vue_vue_type_template_id_2d9d88bf__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/ActionDelete.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37543,13 +37860,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ActionParticipants_vue_vue_type_template_id_49a8e998__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ActionParticipants.vue?vue&type=template&id=49a8e998 */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionParticipants.vue?vue&type=template&id=49a8e998");
 /* harmony import */ var _ActionParticipants_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ActionParticipants.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionParticipants.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ActionParticipants_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ActionParticipants_vue_vue_type_template_id_49a8e998__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/ActionParticipants.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ActionParticipants_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ActionParticipants_vue_vue_type_template_id_49a8e998__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/ActionParticipants.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37571,13 +37888,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ActionTags_vue_vue_type_template_id_305b9f2d__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ActionTags.vue?vue&type=template&id=305b9f2d */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionTags.vue?vue&type=template&id=305b9f2d");
 /* harmony import */ var _ActionTags_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ActionTags.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionTags.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ActionTags_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ActionTags_vue_vue_type_template_id_305b9f2d__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/ActionTags.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ActionTags_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ActionTags_vue_vue_type_template_id_305b9f2d__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/ActionTags.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37599,13 +37916,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Action_ardBtn_vue_vue_type_template_id_7397d4b4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ActionСardBtn.vue?vue&type=template&id=7397d4b4 */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionСardBtn.vue?vue&type=template&id=7397d4b4");
 /* harmony import */ var _Action_ardBtn_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ActionСardBtn.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/Actions/ActionСardBtn.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Action_ardBtn_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Action_ardBtn_vue_vue_type_template_id_7397d4b4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/ActionСardBtn.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Action_ardBtn_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Action_ardBtn_vue_vue_type_template_id_7397d4b4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/ActionСardBtn.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/views/App/Cards/Components/Actions/components/ParticipantsModals.vue":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/Cards/Components/Actions/components/ParticipantsModals.vue ***!
+  \*******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ParticipantsModals_vue_vue_type_template_id_2a2f689e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ParticipantsModals.vue?vue&type=template&id=2a2f689e */ "./resources/assets/site/js/views/App/Cards/Components/Actions/components/ParticipantsModals.vue?vue&type=template&id=2a2f689e");
+/* harmony import */ var _ParticipantsModals_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ParticipantsModals.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/Actions/components/ParticipantsModals.vue?vue&type=script&lang=js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ParticipantsModals_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ParticipantsModals_vue_vue_type_template_id_2a2f689e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/components/ParticipantsModals.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37627,13 +37972,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _TagModals_vue_vue_type_template_id_0fa6cbe5__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TagModals.vue?vue&type=template&id=0fa6cbe5 */ "./resources/assets/site/js/views/App/Cards/Components/Actions/components/TagModals.vue?vue&type=template&id=0fa6cbe5");
 /* harmony import */ var _TagModals_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TagModals.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/Actions/components/TagModals.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_TagModals_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_TagModals_vue_vue_type_template_id_0fa6cbe5__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/components/TagModals.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_TagModals_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_TagModals_vue_vue_type_template_id_0fa6cbe5__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/Actions/components/TagModals.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37655,13 +38000,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CardAttachmentRenameSection_vue_vue_type_template_id_64b9b5cf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardAttachmentRenameSection.vue?vue&type=template&id=64b9b5cf */ "./resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentRenameSection.vue?vue&type=template&id=64b9b5cf");
 /* harmony import */ var _CardAttachmentRenameSection_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardAttachmentRenameSection.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentRenameSection.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardAttachmentRenameSection_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardAttachmentRenameSection_vue_vue_type_template_id_64b9b5cf__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentRenameSection.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardAttachmentRenameSection_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardAttachmentRenameSection_vue_vue_type_template_id_64b9b5cf__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentRenameSection.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37683,13 +38028,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CardAttachmentsActions_vue_vue_type_template_id_b258c8dc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardAttachmentsActions.vue?vue&type=template&id=b258c8dc */ "./resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentsActions.vue?vue&type=template&id=b258c8dc");
 /* harmony import */ var _CardAttachmentsActions_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardAttachmentsActions.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentsActions.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardAttachmentsActions_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardAttachmentsActions_vue_vue_type_template_id_b258c8dc__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentsActions.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardAttachmentsActions_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardAttachmentsActions_vue_vue_type_template_id_b258c8dc__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentsActions.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37711,13 +38056,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CardAttachmentsImage_vue_vue_type_template_id_6e87cfa0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardAttachmentsImage.vue?vue&type=template&id=6e87cfa0 */ "./resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentsImage.vue?vue&type=template&id=6e87cfa0");
 /* harmony import */ var _CardAttachmentsImage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardAttachmentsImage.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentsImage.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardAttachmentsImage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardAttachmentsImage_vue_vue_type_template_id_6e87cfa0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentsImage.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardAttachmentsImage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardAttachmentsImage_vue_vue_type_template_id_6e87cfa0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentsImage.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37739,13 +38084,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CardAttachmentsLink_vue_vue_type_template_id_69b36f96__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardAttachmentsLink.vue?vue&type=template&id=69b36f96 */ "./resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentsLink.vue?vue&type=template&id=69b36f96");
 /* harmony import */ var _CardAttachmentsLink_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardAttachmentsLink.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentsLink.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardAttachmentsLink_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardAttachmentsLink_vue_vue_type_template_id_69b36f96__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentsLink.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardAttachmentsLink_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardAttachmentsLink_vue_vue_type_template_id_69b36f96__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentsLink.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37767,13 +38112,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CardAttachmentsLoading_vue_vue_type_template_id_398ffc51__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardAttachmentsLoading.vue?vue&type=template&id=398ffc51 */ "./resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentsLoading.vue?vue&type=template&id=398ffc51");
 /* harmony import */ var _CardAttachmentsLoading_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardAttachmentsLoading.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentsLoading.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardAttachmentsLoading_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardAttachmentsLoading_vue_vue_type_template_id_398ffc51__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentsLoading.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardAttachmentsLoading_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardAttachmentsLoading_vue_vue_type_template_id_398ffc51__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/AttachmentsComponents/CardAttachmentsLoading.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37795,13 +38140,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CardActions_vue_vue_type_template_id_28b2b531__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardActions.vue?vue&type=template&id=28b2b531 */ "./resources/assets/site/js/views/App/Cards/Components/CardActions.vue?vue&type=template&id=28b2b531");
 /* harmony import */ var _CardActions_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardActions.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/CardActions.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardActions_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardActions_vue_vue_type_template_id_28b2b531__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardActions.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardActions_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardActions_vue_vue_type_template_id_28b2b531__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardActions.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37823,13 +38168,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CardAddDescriptionField_vue_vue_type_template_id_5ad7e653__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardAddDescriptionField.vue?vue&type=template&id=5ad7e653 */ "./resources/assets/site/js/views/App/Cards/Components/CardAddDescriptionField.vue?vue&type=template&id=5ad7e653");
 /* harmony import */ var _CardAddDescriptionField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardAddDescriptionField.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/CardAddDescriptionField.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardAddDescriptionField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardAddDescriptionField_vue_vue_type_template_id_5ad7e653__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardAddDescriptionField.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardAddDescriptionField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardAddDescriptionField_vue_vue_type_template_id_5ad7e653__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardAddDescriptionField.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37851,13 +38196,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CardAttachments_vue_vue_type_template_id_930b8f38__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardAttachments.vue?vue&type=template&id=930b8f38 */ "./resources/assets/site/js/views/App/Cards/Components/CardAttachments.vue?vue&type=template&id=930b8f38");
 /* harmony import */ var _CardAttachments_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardAttachments.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/CardAttachments.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardAttachments_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardAttachments_vue_vue_type_template_id_930b8f38__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardAttachments.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardAttachments_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardAttachments_vue_vue_type_template_id_930b8f38__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardAttachments.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37879,13 +38224,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CardComment_vue_vue_type_template_id_46a2d993__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardComment.vue?vue&type=template&id=46a2d993 */ "./resources/assets/site/js/views/App/Cards/Components/CardComment.vue?vue&type=template&id=46a2d993");
 /* harmony import */ var _CardComment_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardComment.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/CardComment.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardComment_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardComment_vue_vue_type_template_id_46a2d993__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardComment.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardComment_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardComment_vue_vue_type_template_id_46a2d993__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardComment.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37907,13 +38252,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CardCreateTask_vue_vue_type_template_id_3624211d__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardCreateTask.vue?vue&type=template&id=3624211d */ "./resources/assets/site/js/views/App/Cards/Components/CardCreateTask.vue?vue&type=template&id=3624211d");
 /* harmony import */ var _CardCreateTask_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardCreateTask.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/CardCreateTask.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardCreateTask_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardCreateTask_vue_vue_type_template_id_3624211d__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardCreateTask.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardCreateTask_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardCreateTask_vue_vue_type_template_id_3624211d__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardCreateTask.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37935,13 +38280,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CardDescription_vue_vue_type_template_id_184eeab0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardDescription.vue?vue&type=template&id=184eeab0 */ "./resources/assets/site/js/views/App/Cards/Components/CardDescription.vue?vue&type=template&id=184eeab0");
 /* harmony import */ var _CardDescription_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardDescription.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/CardDescription.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardDescription_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardDescription_vue_vue_type_template_id_184eeab0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardDescription.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardDescription_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardDescription_vue_vue_type_template_id_184eeab0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardDescription.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37963,13 +38308,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CardParticipants_vue_vue_type_template_id_2bd1e8c8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardParticipants.vue?vue&type=template&id=2bd1e8c8 */ "./resources/assets/site/js/views/App/Cards/Components/CardParticipants.vue?vue&type=template&id=2bd1e8c8");
 /* harmony import */ var _CardParticipants_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardParticipants.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/CardParticipants.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardParticipants_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardParticipants_vue_vue_type_template_id_2bd1e8c8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardParticipants.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardParticipants_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardParticipants_vue_vue_type_template_id_2bd1e8c8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardParticipants.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -37991,13 +38336,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CardRenameField_vue_vue_type_template_id_24d8f1e0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardRenameField.vue?vue&type=template&id=24d8f1e0 */ "./resources/assets/site/js/views/App/Cards/Components/CardRenameField.vue?vue&type=template&id=24d8f1e0");
 /* harmony import */ var _CardRenameField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardRenameField.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/CardRenameField.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardRenameField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardRenameField_vue_vue_type_template_id_24d8f1e0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardRenameField.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardRenameField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardRenameField_vue_vue_type_template_id_24d8f1e0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardRenameField.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38019,13 +38364,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CardTags_vue_vue_type_template_id_c73bf0d6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardTags.vue?vue&type=template&id=c73bf0d6 */ "./resources/assets/site/js/views/App/Cards/Components/CardTags.vue?vue&type=template&id=c73bf0d6");
 /* harmony import */ var _CardTags_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardTags.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/CardTags.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardTags_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardTags_vue_vue_type_template_id_c73bf0d6__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardTags.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardTags_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardTags_vue_vue_type_template_id_c73bf0d6__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardTags.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38047,13 +38392,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CardTerms_vue_vue_type_template_id_6292908a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardTerms.vue?vue&type=template&id=6292908a */ "./resources/assets/site/js/views/App/Cards/Components/CardTerms.vue?vue&type=template&id=6292908a");
 /* harmony import */ var _CardTerms_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardTerms.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Cards/Components/CardTerms.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardTerms_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardTerms_vue_vue_type_template_id_6292908a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardTerms.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardTerms_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardTerms_vue_vue_type_template_id_6292908a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Cards/Components/CardTerms.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38075,13 +38420,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CheckListCreateField_vue_vue_type_template_id_83e3ac40__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CheckListCreateField.vue?vue&type=template&id=83e3ac40 */ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListCreateField.vue?vue&type=template&id=83e3ac40");
 /* harmony import */ var _CheckListCreateField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CheckListCreateField.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListCreateField.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CheckListCreateField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CheckListCreateField_vue_vue_type_template_id_83e3ac40__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/CheckLists/Components/CheckListCreateField.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CheckListCreateField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CheckListCreateField_vue_vue_type_template_id_83e3ac40__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/CheckLists/Components/CheckListCreateField.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38103,13 +38448,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CheckListRenameField_vue_vue_type_template_id_4bff0444__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CheckListRenameField.vue?vue&type=template&id=4bff0444 */ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue?vue&type=template&id=4bff0444");
 /* harmony import */ var _CheckListRenameField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CheckListRenameField.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CheckListRenameField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CheckListRenameField_vue_vue_type_template_id_4bff0444__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CheckListRenameField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CheckListRenameField_vue_vue_type_template_id_4bff0444__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/CheckLists/Components/CheckListRenameField.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38131,13 +38476,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CheckListScale_vue_vue_type_template_id_08d5874c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CheckListScale.vue?vue&type=template&id=08d5874c */ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue?vue&type=template&id=08d5874c");
 /* harmony import */ var _CheckListScale_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CheckListScale.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CheckListScale_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CheckListScale_vue_vue_type_template_id_08d5874c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CheckListScale_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CheckListScale_vue_vue_type_template_id_08d5874c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/CheckLists/Components/CheckListScale.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38159,13 +38504,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Index_vue_vue_type_template_id_395003c1__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Index.vue?vue&type=template&id=395003c1 */ "./resources/assets/site/js/views/App/CheckLists/Index.vue?vue&type=template&id=395003c1");
 /* harmony import */ var _Index_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Index.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/CheckLists/Index.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Index_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Index_vue_vue_type_template_id_395003c1__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/CheckLists/Index.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Index_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Index_vue_vue_type_template_id_395003c1__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/CheckLists/Index.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38187,13 +38532,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _List_vue_vue_type_template_id_92b80802__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./List.vue?vue&type=template&id=92b80802 */ "./resources/assets/site/js/views/App/CheckLists/List.vue?vue&type=template&id=92b80802");
 /* harmony import */ var _List_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./List.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/CheckLists/List.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_List_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_List_vue_vue_type_template_id_92b80802__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/CheckLists/List.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_List_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_List_vue_vue_type_template_id_92b80802__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/CheckLists/List.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38215,13 +38560,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateParticipants_vue_vue_type_template_id_691bcb20__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateParticipants.vue?vue&type=template&id=691bcb20 */ "./resources/assets/site/js/views/App/RoomParty/Components/CreateParticipants.vue?vue&type=template&id=691bcb20");
 /* harmony import */ var _CreateParticipants_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateParticipants.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/RoomParty/Components/CreateParticipants.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipants_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipants_vue_vue_type_template_id_691bcb20__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/RoomParty/Components/CreateParticipants.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipants_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipants_vue_vue_type_template_id_691bcb20__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/RoomParty/Components/CreateParticipants.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38243,13 +38588,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _TaskRenameField_vue_vue_type_template_id_77c39a70__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TaskRenameField.vue?vue&type=template&id=77c39a70 */ "./resources/assets/site/js/views/App/Tasks/Components/TaskRenameField.vue?vue&type=template&id=77c39a70");
 /* harmony import */ var _TaskRenameField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TaskRenameField.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Tasks/Components/TaskRenameField.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_TaskRenameField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_TaskRenameField_vue_vue_type_template_id_77c39a70__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Tasks/Components/TaskRenameField.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_TaskRenameField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_TaskRenameField_vue_vue_type_template_id_77c39a70__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Tasks/Components/TaskRenameField.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38271,13 +38616,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Index_vue_vue_type_template_id_a86e4060__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Index.vue?vue&type=template&id=a86e4060 */ "./resources/assets/site/js/views/App/Tasks/Index.vue?vue&type=template&id=a86e4060");
 /* harmony import */ var _Index_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Index.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Tasks/Index.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Index_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Index_vue_vue_type_template_id_a86e4060__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Tasks/Index.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Index_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Index_vue_vue_type_template_id_a86e4060__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Tasks/Index.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38299,13 +38644,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Task_vue_vue_type_template_id_c7fec912__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Task.vue?vue&type=template&id=c7fec912 */ "./resources/assets/site/js/views/App/Tasks/Task.vue?vue&type=template&id=c7fec912");
 /* harmony import */ var _Task_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Task.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/App/Tasks/Task.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Task_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Task_vue_vue_type_template_id_c7fec912__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Tasks/Task.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Task_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Task_vue_vue_type_template_id_c7fec912__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/App/Tasks/Task.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38327,13 +38672,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ActionModal_vue_vue_type_template_id_4d35c7ae__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ActionModal.vue?vue&type=template&id=4d35c7ae */ "./resources/assets/site/js/views/Global/ActionModal.vue?vue&type=template&id=4d35c7ae");
 /* harmony import */ var _ActionModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ActionModal.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/ActionModal.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ActionModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ActionModal_vue_vue_type_template_id_4d35c7ae__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/ActionModal.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ActionModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ActionModal_vue_vue_type_template_id_4d35c7ae__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/ActionModal.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38355,13 +38700,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Alert_vue_vue_type_template_id_7599b3b3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Alert.vue?vue&type=template&id=7599b3b3 */ "./resources/assets/site/js/views/Global/Alert.vue?vue&type=template&id=7599b3b3");
 /* harmony import */ var _Alert_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Alert.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/Alert.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Alert_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Alert_vue_vue_type_template_id_7599b3b3__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/Alert.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Alert_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Alert_vue_vue_type_template_id_7599b3b3__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/Alert.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38383,13 +38728,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _AuthError_vue_vue_type_template_id_493e23d2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AuthError.vue?vue&type=template&id=493e23d2 */ "./resources/assets/site/js/views/Global/AuthError.vue?vue&type=template&id=493e23d2");
 /* harmony import */ var _AuthError_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AuthError.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/AuthError.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_AuthError_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AuthError_vue_vue_type_template_id_493e23d2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/AuthError.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_AuthError_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AuthError_vue_vue_type_template_id_493e23d2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/AuthError.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38411,13 +38756,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateParticipantsConfirm_vue_vue_type_template_id_078ce696__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateParticipantsConfirm.vue?vue&type=template&id=078ce696 */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsConfirm.vue?vue&type=template&id=078ce696");
 /* harmony import */ var _CreateParticipantsConfirm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateParticipantsConfirm.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsConfirm.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipantsConfirm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipantsConfirm_vue_vue_type_template_id_078ce696__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/CreateParticipantsConfirm.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipantsConfirm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipantsConfirm_vue_vue_type_template_id_078ce696__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/CreateParticipantsConfirm.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38439,13 +38784,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateParticipantsCurrentList_vue_vue_type_template_id_505149e6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateParticipantsCurrentList.vue?vue&type=template&id=505149e6 */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsCurrentList.vue?vue&type=template&id=505149e6");
 /* harmony import */ var _CreateParticipantsCurrentList_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateParticipantsCurrentList.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsCurrentList.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipantsCurrentList_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipantsCurrentList_vue_vue_type_template_id_505149e6__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/CreateParticipantsCurrentList.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipantsCurrentList_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipantsCurrentList_vue_vue_type_template_id_505149e6__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/CreateParticipantsCurrentList.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue":
+/*!********************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _CreateParticipantsDeskSelect_vue_vue_type_template_id_d6a0c9e2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateParticipantsDeskSelect.vue?vue&type=template&id=d6a0c9e2 */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=template&id=d6a0c9e2");
+/* harmony import */ var _CreateParticipantsDeskSelect_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateParticipantsDeskSelect.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=script&lang=js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipantsDeskSelect_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipantsDeskSelect_vue_vue_type_template_id_d6a0c9e2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38467,13 +38840,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateParticipantsMessage_vue_vue_type_template_id_8209f746__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateParticipantsMessage.vue?vue&type=template&id=8209f746 */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsMessage.vue?vue&type=template&id=8209f746");
 /* harmony import */ var _CreateParticipantsMessage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateParticipantsMessage.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsMessage.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipantsMessage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipantsMessage_vue_vue_type_template_id_8209f746__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/CreateParticipantsMessage.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipantsMessage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipantsMessage_vue_vue_type_template_id_8209f746__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/CreateParticipantsMessage.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38495,13 +38868,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateParticipantsPossibleList_vue_vue_type_template_id_75ae9a49__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateParticipantsPossibleList.vue?vue&type=template&id=75ae9a49 */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsPossibleList.vue?vue&type=template&id=75ae9a49");
 /* harmony import */ var _CreateParticipantsPossibleList_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateParticipantsPossibleList.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsPossibleList.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipantsPossibleList_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipantsPossibleList_vue_vue_type_template_id_75ae9a49__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/CreateParticipantsPossibleList.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipantsPossibleList_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipantsPossibleList_vue_vue_type_template_id_75ae9a49__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/CreateParticipantsPossibleList.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38523,13 +38896,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateParticipantsSearch_vue_vue_type_template_id_0314917c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateParticipantsSearch.vue?vue&type=template&id=0314917c */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsSearch.vue?vue&type=template&id=0314917c");
 /* harmony import */ var _CreateParticipantsSearch_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateParticipantsSearch.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsSearch.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipantsSearch_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipantsSearch_vue_vue_type_template_id_0314917c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/CreateParticipantsSearch.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipantsSearch_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipantsSearch_vue_vue_type_template_id_0314917c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/CreateParticipantsSearch.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38551,13 +38924,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateParticipantsSelect_vue_vue_type_template_id_73ca86d4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateParticipantsSelect.vue?vue&type=template&id=73ca86d4 */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsSelect.vue?vue&type=template&id=73ca86d4");
 /* harmony import */ var _CreateParticipantsSelect_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateParticipantsSelect.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsSelect.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipantsSelect_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipantsSelect_vue_vue_type_template_id_73ca86d4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/CreateParticipantsSelect.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipantsSelect_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipantsSelect_vue_vue_type_template_id_73ca86d4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/CreateParticipantsSelect.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38579,13 +38952,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateParticipantsUsers_vue_vue_type_template_id_78183d44__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateParticipantsUsers.vue?vue&type=template&id=78183d44 */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsUsers.vue?vue&type=template&id=78183d44");
 /* harmony import */ var _CreateParticipantsUsers_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateParticipantsUsers.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsUsers.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipantsUsers_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipantsUsers_vue_vue_type_template_id_78183d44__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/CreateParticipantsUsers.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateParticipantsUsers_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateParticipantsUsers_vue_vue_type_template_id_78183d44__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/CreateParticipantsUsers.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38607,13 +38980,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _createParticipantsRole_vue_vue_type_template_id_11ec1120__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createParticipantsRole.vue?vue&type=template&id=11ec1120 */ "./resources/assets/site/js/views/Global/CreateParty/createParticipantsRole.vue?vue&type=template&id=11ec1120");
 /* harmony import */ var _createParticipantsRole_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createParticipantsRole.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/CreateParty/createParticipantsRole.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_createParticipantsRole_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_createParticipantsRole_vue_vue_type_template_id_11ec1120__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/createParticipantsRole.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_createParticipantsRole_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_createParticipantsRole_vue_vue_type_template_id_11ec1120__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/CreateParty/createParticipantsRole.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38635,13 +39008,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Error_vue_vue_type_template_id_3f2e7342__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Error.vue?vue&type=template&id=3f2e7342 */ "./resources/assets/site/js/views/Global/Error.vue?vue&type=template&id=3f2e7342");
 /* harmony import */ var _Error_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Error.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/Error.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Error_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Error_vue_vue_type_template_id_3f2e7342__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/Error.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Error_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Error_vue_vue_type_template_id_3f2e7342__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/Error.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38663,13 +39036,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Fa_vue_vue_type_template_id_87815718__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Fa.vue?vue&type=template&id=87815718 */ "./resources/assets/site/js/views/Global/Fa.vue?vue&type=template&id=87815718");
 /* harmony import */ var _Fa_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Fa.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/Fa.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Fa_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Fa_vue_vue_type_template_id_87815718__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/Fa.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Fa_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Fa_vue_vue_type_template_id_87815718__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/Fa.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38691,13 +39064,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _GlobalModal_vue_vue_type_template_id_6da70ce1__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GlobalModal.vue?vue&type=template&id=6da70ce1 */ "./resources/assets/site/js/views/Global/GlobalModal.vue?vue&type=template&id=6da70ce1");
 /* harmony import */ var _GlobalModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GlobalModal.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/GlobalModal.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_GlobalModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_GlobalModal_vue_vue_type_template_id_6da70ce1__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/GlobalModal.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_GlobalModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_GlobalModal_vue_vue_type_template_id_6da70ce1__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/GlobalModal.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38719,13 +39092,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Loader_vue_vue_type_template_id_410a5968__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Loader.vue?vue&type=template&id=410a5968 */ "./resources/assets/site/js/views/Global/Loader.vue?vue&type=template&id=410a5968");
 /* harmony import */ var _Loader_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Loader.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/Loader.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Loader_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Loader_vue_vue_type_template_id_410a5968__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/Loader.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Loader_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Loader_vue_vue_type_template_id_410a5968__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/Loader.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38747,13 +39120,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Modal_vue_vue_type_template_id_4e191484__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Modal.vue?vue&type=template&id=4e191484 */ "./resources/assets/site/js/views/Global/Modal.vue?vue&type=template&id=4e191484");
 /* harmony import */ var _Modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Modal.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/Modal.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Modal_vue_vue_type_template_id_4e191484__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/Modal.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Modal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Modal_vue_vue_type_template_id_4e191484__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/Modal.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38775,13 +39148,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ModalLoad_vue_vue_type_template_id_52b2848a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModalLoad.vue?vue&type=template&id=52b2848a */ "./resources/assets/site/js/views/Global/ModalLoad.vue?vue&type=template&id=52b2848a");
 /* harmony import */ var _ModalLoad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ModalLoad.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/ModalLoad.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ModalLoad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ModalLoad_vue_vue_type_template_id_52b2848a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/ModalLoad.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ModalLoad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ModalLoad_vue_vue_type_template_id_52b2848a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/ModalLoad.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38803,13 +39176,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Notification_vue_vue_type_template_id_324fb938__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Notification.vue?vue&type=template&id=324fb938 */ "./resources/assets/site/js/views/Global/Notification.vue?vue&type=template&id=324fb938");
 /* harmony import */ var _Notification_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Notification.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/Notification.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Notification_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Notification_vue_vue_type_template_id_324fb938__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/Notification.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Notification_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Notification_vue_vue_type_template_id_324fb938__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/Notification.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38831,13 +39204,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PageLoad_vue_vue_type_template_id_72e2ebe4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PageLoad.vue?vue&type=template&id=72e2ebe4 */ "./resources/assets/site/js/views/Global/PageLoad.vue?vue&type=template&id=72e2ebe4");
 /* harmony import */ var _PageLoad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PageLoad.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/PageLoad.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PageLoad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PageLoad_vue_vue_type_template_id_72e2ebe4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/PageLoad.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PageLoad_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PageLoad_vue_vue_type_template_id_72e2ebe4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/PageLoad.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38859,13 +39232,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Pagination_vue_vue_type_template_id_3339c6d3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pagination.vue?vue&type=template&id=3339c6d3 */ "./resources/assets/site/js/views/Global/Pagination.vue?vue&type=template&id=3339c6d3");
 /* harmony import */ var _Pagination_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pagination.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/Pagination.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Pagination_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Pagination_vue_vue_type_template_id_3339c6d3__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/Pagination.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Pagination_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Pagination_vue_vue_type_template_id_3339c6d3__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/Pagination.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38887,13 +39260,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PartyCreateModal_vue_vue_type_template_id_3b3fda44__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PartyCreateModal.vue?vue&type=template&id=3b3fda44 */ "./resources/assets/site/js/views/Global/PartyCreateModal.vue?vue&type=template&id=3b3fda44");
 /* harmony import */ var _PartyCreateModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PartyCreateModal.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/PartyCreateModal.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartyCreateModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartyCreateModal_vue_vue_type_template_id_3b3fda44__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/PartyCreateModal.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartyCreateModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartyCreateModal_vue_vue_type_template_id_3b3fda44__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/PartyCreateModal.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38915,13 +39288,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _RoomCreateModal_vue_vue_type_template_id_327a11cd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoomCreateModal.vue?vue&type=template&id=327a11cd */ "./resources/assets/site/js/views/Global/RoomCreateModal.vue?vue&type=template&id=327a11cd");
 /* harmony import */ var _RoomCreateModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RoomCreateModal.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/RoomCreateModal.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomCreateModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomCreateModal_vue_vue_type_template_id_327a11cd__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/RoomCreateModal.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomCreateModal_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomCreateModal_vue_vue_type_template_id_327a11cd__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/RoomCreateModal.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38943,13 +39316,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Sidebar_vue_vue_type_template_id_56027c1a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Sidebar.vue?vue&type=template&id=56027c1a */ "./resources/assets/site/js/views/Global/Sidebar.vue?vue&type=template&id=56027c1a");
 /* harmony import */ var _Sidebar_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Sidebar.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Global/Sidebar.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Sidebar_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Sidebar_vue_vue_type_template_id_56027c1a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/Sidebar.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Sidebar_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Sidebar_vue_vue_type_template_id_56027c1a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Global/Sidebar.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38971,13 +39344,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Header_vue_vue_type_template_id_3d45224f__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Header.vue?vue&type=template&id=3d45224f */ "./resources/assets/site/js/views/Template/Header.vue?vue&type=template&id=3d45224f");
 /* harmony import */ var _Header_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Header.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Template/Header.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Header_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Header_vue_vue_type_template_id_3d45224f__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Template/Header.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Header_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Header_vue_vue_type_template_id_3d45224f__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Template/Header.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -38999,13 +39372,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _HeaderAcc_vue_vue_type_template_id_3e358dfd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HeaderAcc.vue?vue&type=template&id=3e358dfd */ "./resources/assets/site/js/views/Template/components/HeaderAcc.vue?vue&type=template&id=3e358dfd");
 /* harmony import */ var _HeaderAcc_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HeaderAcc.vue?vue&type=script&lang=js */ "./resources/assets/site/js/views/Template/components/HeaderAcc.vue?vue&type=script&lang=js");
-/* harmony import */ var D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,D_OpenServer_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_HeaderAcc_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_HeaderAcc_vue_vue_type_template_id_3e358dfd__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Template/components/HeaderAcc.vue"]])
+const __exports__ = /*#__PURE__*/(0,E_open_server_5_3_5_basic_premium_ultimate_OSPanel_domains_trello_loc_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_HeaderAcc_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_HeaderAcc_vue_vue_type_template_id_3e358dfd__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/assets/site/js/views/Template/components/HeaderAcc.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -39170,6 +39543,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Action_ardBtn_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Action_ardBtn_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ActionСardBtn.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Cards/Components/Actions/ActionСardBtn.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/views/App/Cards/Components/Actions/components/ParticipantsModals.vue?vue&type=script&lang=js":
+/*!*******************************************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/Cards/Components/Actions/components/ParticipantsModals.vue?vue&type=script&lang=js ***!
+  \*******************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ParticipantsModals_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ParticipantsModals_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ParticipantsModals.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Cards/Components/Actions/components/ParticipantsModals.vue?vue&type=script&lang=js");
  
 
 /***/ }),
@@ -39654,6 +40043,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=script&lang=js":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=script&lang=js ***!
+  \********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CreateParticipantsDeskSelect_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CreateParticipantsDeskSelect_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CreateParticipantsDeskSelect.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsMessage.vue?vue&type=script&lang=js":
 /*!*****************************************************************************************************************!*\
   !*** ./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsMessage.vue?vue&type=script&lang=js ***!
@@ -40134,6 +40539,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/site/js/views/App/Cards/Components/Actions/components/ParticipantsModals.vue?vue&type=template&id=2a2f689e":
+/*!*************************************************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/App/Cards/Components/Actions/components/ParticipantsModals.vue?vue&type=template&id=2a2f689e ***!
+  \*************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ParticipantsModals_vue_vue_type_template_id_2a2f689e__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ParticipantsModals_vue_vue_type_template_id_2a2f689e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ParticipantsModals.vue?vue&type=template&id=2a2f689e */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/App/Cards/Components/Actions/components/ParticipantsModals.vue?vue&type=template&id=2a2f689e");
+
+
+/***/ }),
+
 /***/ "./resources/assets/site/js/views/App/Cards/Components/Actions/components/TagModals.vue?vue&type=template&id=0fa6cbe5":
 /*!****************************************************************************************************************************!*\
   !*** ./resources/assets/site/js/views/App/Cards/Components/Actions/components/TagModals.vue?vue&type=template&id=0fa6cbe5 ***!
@@ -40610,6 +41031,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CreateParticipantsCurrentList_vue_vue_type_template_id_505149e6__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CreateParticipantsCurrentList_vue_vue_type_template_id_505149e6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CreateParticipantsCurrentList.vue?vue&type=template&id=505149e6 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsCurrentList.vue?vue&type=template&id=505149e6");
+
+
+/***/ }),
+
+/***/ "./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=template&id=d6a0c9e2":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=template&id=d6a0c9e2 ***!
+  \**************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CreateParticipantsDeskSelect_vue_vue_type_template_id_d6a0c9e2__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CreateParticipantsDeskSelect_vue_vue_type_template_id_d6a0c9e2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CreateParticipantsDeskSelect.vue?vue&type=template&id=d6a0c9e2 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/assets/site/js/views/Global/CreateParty/CreateParticipantsDeskSelect.vue?vue&type=template&id=d6a0c9e2");
 
 
 /***/ }),

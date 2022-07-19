@@ -7,9 +7,10 @@ export const actions = {
             })
     },
     getUserRoleInRoom(context) {
+
         let userId = context.getters.user.id
         let userInRoom = context.getters.room.participants.find(el => +el.user.id === +userId)
-        if (userInRoom.role.status === 'admin') {
+        if (userInRoom?.role.status === 'admin') {
             context.commit('setUserRoleAdminInRoom', true)
         } else {
             context.commit('setUserRoleAdminInRoom', false)

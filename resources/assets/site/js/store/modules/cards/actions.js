@@ -65,6 +65,7 @@ export const actions = {
                     dispatch('getPercentPerformedTasks', res.data.data.checkLists)
                 }
                 commit('setCardInfo', res.data.data)
+                commit('setCardParty', res.data.data.participants)
             })
             .catch(e => {
                 commit('setErrorMessage', e.response.data.errors.name[0])
@@ -81,6 +82,7 @@ export const actions = {
                     dispatch('getPercentPerformedTasks', res.data.data.checkLists)
                 }
                 commit('setCardInfo', res.data.data)
+                commit('setCardParty', res.data.data.participants)
             })
             .catch(e => {
                 commit('setErrorMessage', e.response.data.errors.name[0])

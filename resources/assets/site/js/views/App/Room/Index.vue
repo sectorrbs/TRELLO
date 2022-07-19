@@ -1,13 +1,13 @@
 <template>
     <Loader v-if="loader"/>
     <div v-else>
-        <div class="room" v-if="roomParty.length">
+        <div class="room" v-if="parties.length">
             <div class="room__content">
                 <div class="room__title">
                     Ваши рабочие пространства
                 </div>
                 <div class="room__items">
-                    <RoomItem v-for="party in roomParty"
+                    <RoomItem v-for="party in parties"
                               :key="party.id"
                               :party="party"/>
                 </div>
@@ -27,7 +27,7 @@ import RoomItem from "./Components/RoomItem";
 
 export default {
     name: "Index",
-    props: ['roomParty'],
+    props: ['parties'],
     components: {RoomItem},
     computed: {
         loader() {

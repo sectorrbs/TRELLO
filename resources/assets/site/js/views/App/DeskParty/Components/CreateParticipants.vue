@@ -30,14 +30,14 @@ export default {
     },
     methods: {
         sendInvite() {
-            // let params = {
-            //     role: +document.querySelector('[data-select-role]').dataset.selectRole,
-            //     roomId: this.$store.getters.room.id,
-            //     message: this.message,
-            //     users: this.partyUsers
-            // }
-            // this.$store.dispatch('sendInviteToParty', params)
-            console.log(12121211212122121)
+            let params = {
+                role: +document.querySelector('[data-select-role]').dataset.selectRole,
+                roomId: this.$store.getters.desk.room_id,
+                deskId: this.$store.getters.desk.id,
+                message: this.message,
+                users: this.partyUsers
+            }
+            this.$store.dispatch('sendInviteToDeskParty', params)
         }
     }
 }

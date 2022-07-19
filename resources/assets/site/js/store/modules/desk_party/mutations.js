@@ -1,5 +1,8 @@
 export const mutations = {
-    setDeskParticipants(state, participants){
-        state.deskParticipants = participants
+    setCountAdminsInDesk(state, count) {
+        state.countAdminsInDesk = count
+    },
+    setDeskParty(state, deskParty) {
+        state.deskParty = deskParty
     }
 }

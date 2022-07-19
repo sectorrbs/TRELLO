@@ -5,8 +5,8 @@
             <div class="page__content-left">
                 <Sidebar/>
             </div>
-            <div class="page__content-right">
-                <Room :roomParty="roomParty"/>
+            <div v-if="parties" class="page__content-right">
+                <Room :parties="parties"/>
             </div>
         </div>
     </div>
@@ -23,12 +23,26 @@ export default {
     components: {Room},
     mounted() {
         this.getRoomParty();
+        this.getDeskParty();
     },
     methods: {
-        ...mapActions(['getRoomParty'])
+        ...mapActions(['getDeskParty', 'getRoomParty'])
     },
     computed: {
-        ...mapGetters(['roomParty'])
+        ...mapGetters(['deskParty', 'roomParty']),
+        parties() {
+            if (this.roomParty && this.deskParty) {
+                let allParties = [...this.roomParty, ...this.deskParty]
+                let result = []
+                allParties.filter(el => {
+                    let i = result.findIndex(item => item.room_id === el.room_id)
+                    if (i === -1) {
+                        result.push(el)
+                    }
+                })
+                return result
+            }
+        }
     },
 }
 </script>

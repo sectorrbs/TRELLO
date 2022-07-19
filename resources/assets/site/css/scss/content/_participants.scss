@@ -1,0 +1,33 @@
+.participants {
+    .details__actions-modal {
+        top: 38px;
+    }
+
+    &__items {
+        @include flex(stretch);
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    &__item {
+        @include flex(center, null, nowrap);
+        gap: 7px;
+        padding: 3px;
+
+        &-name {
+            @include font(14px, 400);
+        }
+
+        &-check {
+            margin-left: auto;
+        }
+
+        .party__modal-logo {
+            margin-right: 0;
+        }
+
+        &:hover {
+            background: #f4f5f7;
+        }
+    }
+}

@@ -3,12 +3,14 @@
         <RoomActions :room="party.room"/>
         <Loader v-if="loader"/>
         <div v-else class="desks">
-            <div class="desks__inner" v-if="party.room.desks">
+            <div class="desks__inner"
+                 :class="{guest: isGuest}"
+                 v-if="party.room.desks">
                 <DeskItem :party="party"
                           v-for="desk in party.room.desks"
                           :desk="desk"
                           :key="desk.id"/>
-                <RoomDeskAdd v-if="!isGuest" :roomId="party.room.id"/>
+                <RoomDeskAdd :class="{disabled: isGuest}" :roomId="party.room.id"/>
             </div>
             <Loader v-else/>
         </div>

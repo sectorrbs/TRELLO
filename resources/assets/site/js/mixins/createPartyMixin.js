@@ -37,7 +37,11 @@ export const createPartyMixin = {
                 || e.target.classList.contains('room__modal-title')
                 || e.target.classList.contains('party__modal-user')
                 || e.target.classList.contains('party__message')
+                || e.target.classList.contains('party__modal-input')
                 || e.target.classList.contains('party__modal-window')
+                || e.target.classList.contains('party__select-item')
+                || e.target.classList.contains('party__currents')
+                || e.target.classList.contains('party__item')
                 || e.target.classList.contains('party__modal-content')
                 || e.target.classList.contains('modal')) {
                 this.$store.dispatch('hideWindowUsersList')

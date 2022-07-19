@@ -24,7 +24,7 @@
                 {{ participant.role.label }}
             </div>
             <Fa :type="'l'"
-                v-if="(!isParticipantStatusAdmin || userRoleAdminInRoom) && !isGuest"
+                v-if="viewSettingsBtn"
                 @click.prevent.stop="showSettingsList"
                 :name="'cog room__empty-icon party__settings-btn'"/>
             <div class="desks__list-settings party__settings">
@@ -63,6 +63,11 @@ export default {
     computed: {
         partyCreator() {
             return this.$store.getters.room.user_id
+        },
+        viewSettingsBtn(){
+           return(!this.isParticipantStatusAdmin || this.userRoleAdminInRoom)
+               && !this.isGuest
+               && !this.isUnknown
         }
     }
 }

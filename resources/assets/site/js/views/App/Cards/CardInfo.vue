@@ -37,7 +37,7 @@
             <div class="details__window-bottom-left">
                 <CardTags v-if="cardInfo.tags.length" :tags="cardInfo.tags"/>
                 <CardTerms v-if="cardInfo.term" :card="cardInfo"/>
-                <CardParticipants/>
+                <CardParticipants v-if="cardInfo.participants.length" :parties="cardInfo.participants"/>
                 <CardDescription :card="cardInfo"/>
                 <CardAttachmentsLoading v-if="attachmentLoad"/>
                 <CardAttachments v-if="cardInfo.attachments.length" :attachments="cardInfo.attachments"/>
@@ -117,7 +117,7 @@ export default {
         CardAttachmentsLoading
     },
     computed: {
-        ...mapGetters(['modalLoad', 'attachmentLoad']),
+        ...mapGetters(['modalLoad', 'attachmentLoad', 'cardParty']),
         cover() {
             let attachment = this.cardInfo.attachments || 0
             if (attachment) {

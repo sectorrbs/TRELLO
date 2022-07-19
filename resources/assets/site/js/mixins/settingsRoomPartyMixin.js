@@ -28,12 +28,20 @@ export const settingsRoomPartyMixin = {
                 return this.participant.user.id === this.$store.getters.user.id
             }
         },
+        isUnknown() {
+            if (this.$store.getters.user) {
+                let user = this.$store.getters.room.participants.find(el => {
+                    return el.user.id === this.$store.getters.user.id
+                })
+                return !user?.role
+            }
+        },
         isGuest() {
             if (this.$store.getters.user) {
                 let user = this.$store.getters.room.participants.find(el => {
                     return el.user.id === this.$store.getters.user.id
                 })
-                return user.role.status === 'guest' && this.participant.role.status === 'participant'
+                return user?.role.status === 'guest' && this.participant?.role.status === 'participant'
             }
         },
         isParticipantStatusAdmin() {

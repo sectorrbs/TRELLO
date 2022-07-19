@@ -19,7 +19,9 @@
         gap: 10px;
 
         &.guest {
-            .room__desks-add, .desks__settings {
+            .room__desks-add,
+            .desks__settings,
+            .desks__edit {
                 display: none;
             }
         }
@@ -756,6 +758,7 @@
 
         &-wrapper {
             @include flex(center);
+            gap: 3px;
             background: rgba(255, 255, 255, .4);
             border-radius: 5px;
             padding: 7px;

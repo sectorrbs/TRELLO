@@ -34,7 +34,7 @@
 
 <script>
 
-import {initialMixin} from "../../../../../mixins/initialMixin";
+import {initialMixin} from "../../../mixins/initialMixin";
 
 export default {
     name: "CreateParticipantsUsers",
@@ -54,13 +54,21 @@ export default {
             return id === +localStorage.getItem('user_id')
         },
         isParticipant(id) {
-            let participants = this.$store.getters.room.participants
+            let participants = this.getSpace().participants
             let party = participants.find(el => el.user['id'] === id)
             if (party) {
                 this.label = party.role.label
                 this.status = party.role.status
             }
             return participants.find(el => el.user['id'] === id)
+        },
+        getSpace() {
+            switch (this.$route.name) {
+                case 'party':
+                    return this.$store.getters.room;
+                case 'lists':
+                    return this.$store.getters.desk
+            }
         }
     },
     mixins: [initialMixin],
