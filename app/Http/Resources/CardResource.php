@@ -27,6 +27,7 @@ class CardResource extends JsonResource
             'checkLists' => CheckListResource::collection($this->checkLists),
             'id_backgrounds_cards' => $this->id_backgrounds_cards,
             'participants' => CardPartyResource::collection($this->party),
+            'comments' => CardCommentResource::collection($this->comments),
         ];
     }
 }

@@ -25,7 +25,7 @@
                                  :countAllTasks="countAllTasks"/>
             <CardMiniDescription :description="description" :class="{hidden: !description}"/>
         </div>
-        <div class="desks__cards-parties" v-if="card.participants.length">
+        <div class="desks__cards-parties" v-if="card.participants?.length">
             <CardMiniParticipants :parties="card.participants"/>
         </div>
     </div>

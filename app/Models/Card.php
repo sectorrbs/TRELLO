@@ -36,12 +36,18 @@
         public function tags()
         {
             return $this->belongsToMany(
-                 DeskTag::class, 'cards_tags'
+                DeskTag::class, 'cards_tags'
             );
         }
+
         public function backgrounds()
         {
             return $this->belongsTo(BackgroundDesk::class, 'id');
+        }
+
+        public function comments()
+        {
+            return $this->hasMany(CardComment::class);
         }
 
     }

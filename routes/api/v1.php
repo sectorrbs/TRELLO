@@ -19,5 +19,6 @@
         require 'components/room_party.php';
         require 'components/desk_party.php';
         require 'components/card_party.php';
+        require 'components/card_comments.php';
     });
 

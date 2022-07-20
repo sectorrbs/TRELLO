@@ -1,17 +1,178 @@
 .comments {
-    &__inner {
+    &__box {
+        @include flex(stretch);
+        flex-direction: column;
+        width: 100%;
+        position: relative;
+        border-radius: 5px;
 
+        &.active {
+            .comments__box-actions {
+                @include flex(center, space-between, nowrap);
+            }
+
+            .comments__field {
+                height: 40px;
+                z-index: 2;
+                resize: none;
+            }
+        }
+
+        &.focus {
+            box-shadow: 0 0 8px -2px #091e4240, 0 0 0 1px #091e4214;
+        }
+
+        &-actions {
+            display: none;
+            height: 55px;
+            background: $color-white;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border: 1px solid rgba(107, 107, 107, .5);
+            border-top: none;
+            padding: 10px;
+        }
+
+        &-controls {
+            @include font(13px, 500, 1, $color-white);
+            @include flex(center, center);
+            background: $color-blue-lite;
+            height: 100%;
+            width: max-content;
+            padding: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+
+            &.disabled {
+                pointer-events: none;
+                opacity: .5;
+            }
+
+            &:hover {
+                background: darken($color-blue-lite, 5%);
+            }
+        }
+
+        &-options {
+            @include flex(center, null, nowrap);
+            gap: 3px;
+        }
+
+        &-option {
+            @include flex(center, center);
+            cursor: pointer;
+            font-size: 12px;
+            padding: 8px;
+            transform: translateY(3px);
+
+            &:hover {
+                background: #f4f5f7;
+            }
+        }
     }
 
-    &__item {
+    &__user {
+        transform: translateY(3px);
 
+        span {
+            transform: translateY(1px);
+        }
+    }
+
+    &__wrapper {
+        flex-direction: column;
+    }
+
+    &__content {
+        @include flex(flex-start, null, nowrap);
+        gap: 6px;
+        width: 100%;
     }
 
     &__btn {
-
+        @include position(absolute, 0, 0, null, null, 2);
+        z-index: 1;
     }
 
     &__field {
+        @include font(14px, null, 1, #6b6b6b);
+        position: relative;
+        height: 30px;
+        min-height: auto;
+        background: #fff;
+        border: 1px solid rgba(107, 107, 107, .5);
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        padding: 10px;
+        border-bottom: none;
 
+        &::placeholder {
+            font-size: 14px;
+        }
+    }
+
+    &__items {
+        @include flex;
+        flex-direction: column;
+        margin-top: 15px;
+        width: 100%;
+        gap: 20px;
+    }
+
+    &__item {
+        @include flex(flex-start, null, nowrap);
+        gap: 7px;
+
+        &-box {
+            @include flex(stretch);
+            flex-direction: column;
+            gap: 3px;
+            flex: 1;
+        }
+
+        &-logo {
+            @include flex(center, center);
+            @include size(30px, 30px);
+            @include font(13px, 500);
+            flex-shrink: 0;
+            background: $color-white;
+            border-radius: 50%;
+            border: 2px solid rgba(107, 107, 107, .7);
+        }
+
+        &-name {
+            @include font(15px, 700);
+            @include flex(center, flex-start);
+            gap: 5px;
+        }
+
+        &-date {
+            @include font(11px, 500, null, rgba($color-gray, .8));
+        }
+
+        &-text {
+            @include font(13px, null, 1, #6b6b6b, null);
+            background: $color-white;
+            border: 1px solid rgba(107, 107, 107, .5);
+            border-radius: 5px;
+            padding: 10px;
+            width: 100%;
+        }
+
+        &-actions {
+            @include flex(stretch);
+            gap: 5px;
+            margin-top: 2px;
+        }
+
+        &-action {
+            @include font(11px, 500, null, $color-gray);
+            text-decoration: underline;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
     }
 }

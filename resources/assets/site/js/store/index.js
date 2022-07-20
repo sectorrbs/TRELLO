@@ -15,6 +15,7 @@ import Users from './modules/users/index'
 import RoomParty from './modules/room_party/index'
 import DeskParty from './modules/desk_party/index'
 import CardParty from './modules/card_party/index'
+import CardComments from './modules/card_comments/index'
 
 const store = createStore({
     modules: {
@@ -34,6 +35,7 @@ const store = createStore({
         RoomParty,
         DeskParty,
         CardParty,
+        CardComments,
     }
 })
 

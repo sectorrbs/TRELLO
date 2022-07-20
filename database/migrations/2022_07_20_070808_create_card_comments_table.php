@@ -22,9 +22,6 @@ class CreateCardCommentsTable extends Migration
             $table->foreignId('user_id')
                 ->references('id')
                 ->on('users');
-            $table->foreignId('type_id')
-                ->references('id')
-                ->on('comment_types');
             $table->text('text');
             $table->timestamps();
         });
