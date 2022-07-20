@@ -595,7 +595,10 @@
             background-size: cover;
 
             &.success {
-                background: rgba($color-green-lite, .2);
+                .desks__cards-term.term, .desks__cards-count-tasks {
+                    background: $color-green-lite !important;
+                    color: $color-white;
+                }
 
                 &:hover {
                     background: rgba($color-green-lite, .3)
@@ -603,7 +606,10 @@
             }
 
             &.overdue {
-                background: $color-error;
+                .desks__cards-term.term, .desks__cards-count-tasks {
+                    background: $color-error;
+                    color: $color-white;
+                }
 
                 &:hover {
                     background: darken($color-error, 10%)
@@ -684,6 +690,30 @@
 
             &.hidden {
                 display: none;
+            }
+        }
+
+        &-parties {
+            @include flex(center);
+            gap: 3px;
+            margin-top: 15px;
+
+            .desks__participants-logo {
+                span {
+                    transform: translateY(2px);
+                }
+            }
+        }
+
+        &-party {
+            @include size(30px, 30px);
+            @include flex(center, center);
+            @include font(15px, 500);
+            background: $color-white;
+            border-radius: 50%;
+
+            span {
+                transform: translateY(2px);
             }
         }
 

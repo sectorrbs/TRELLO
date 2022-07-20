@@ -7,6 +7,7 @@
                  :class="{guest: isGuest}"
                  v-if="party.room.desks">
                 <DeskItem :party="party"
+                          :class="{disabled: isGuest}"
                           v-for="desk in party.room.desks"
                           :desk="desk"
                           :key="desk.id"/>

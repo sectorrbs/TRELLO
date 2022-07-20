@@ -25,6 +25,9 @@
                                  :countAllTasks="countAllTasks"/>
             <CardMiniDescription :description="description" :class="{hidden: !description}"/>
         </div>
+        <div class="desks__cards-parties" v-if="card.participants.length">
+            <CardMiniParticipants :parties="card.participants"/>
+        </div>
     </div>
 </template>
 
@@ -34,6 +37,7 @@ import {dateMixin} from "../../../mixins/dateMixin";
 import CardMiniTags from './components/CardMiniTags'
 import CardMiniTerms from './components/CardMiniTerms'
 import CardMiniAttachments from './components/CardMiniAttachments'
+import CardMiniParticipants from './components/CardMiniParticipants'
 import CardCountTasks from './components/CardCountTasks'
 import CardCover from './components/CardCover'
 import CardMiniDescription from './components/CardMiniDescription'
@@ -41,7 +45,15 @@ import CardMiniDescription from './components/CardMiniDescription'
 export default {
     name: "CardItem",
     props: ['card'],
-    components: {CardMiniTags, CardMiniDescription, CardMiniTerms, CardCountTasks, CardCover, CardMiniAttachments},
+    components: {
+        CardMiniTags,
+        CardMiniDescription,
+        CardMiniTerms,
+        CardCountTasks,
+        CardCover,
+        CardMiniAttachments,
+        CardMiniParticipants
+    },
     computed: {
         cover() {
             let attachment = this.card.attachments || 0

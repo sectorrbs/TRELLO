@@ -10,9 +10,11 @@
                         {{ getInitials(party.user.name) }}
                     </div>
                 </div>
-                <div class="details__window-participants-btn">
+                <div class="details__window-participants-btn" @click.stop="openModal">
                     <Fa :type="'l'"
                         :name="'plus'"/>
+                    <ParticipantsModals :participants="participants"
+                                        :showModal="show"/>
                 </div>
             </div>
         </div>
@@ -21,11 +23,27 @@
 
 <script>
 
+import ParticipantsModals from './Actions/components/ParticipantsModals'
 import {initialMixin} from "../../../../mixins/initialMixin";
+import {cardMixin} from "../../../../mixins/cardMixin";
 
 export default {
     name: "Participants",
+    data: () => ({
+        show: false,
+    }),
     props: ['parties'],
-    mixins: [initialMixin],
+    mixins: [initialMixin, cardMixin],
+    components: {ParticipantsModals},
+    methods: {
+        openModal(e) {
+            this.actionModal(e)
+        },
+    },
+    computed: {
+        participants() {
+            return this.$store.getters.desk.participants
+        }
+    }
 }
 </script>

@@ -92,6 +92,7 @@
                 @include flex(center, null, nowrap);
                 gap: 5px;
                 margin-top: 7px;
+                position: relative;
             }
 
             &-items {
@@ -103,6 +104,7 @@
                 @include flex(center, center);
                 @include size(30px, 30px);
                 @include font(13px, 500);
+                flex-shrink: 0;
                 background: $color-white;
                 border-radius: 50%;
                 border: 2px solid rgba($color-gray, .7);
@@ -115,6 +117,13 @@
                 background: rgba($color-gray, .1);
                 border-radius: 50%;
                 cursor: pointer;
+                position: relative;
+
+                .details__actions-modal {
+                    left: 0;
+                    right: auto;
+                    top: 35px;
+                }
 
                 &:hover {
                     background: rgba($color-gray, .2);

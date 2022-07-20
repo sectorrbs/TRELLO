@@ -7,7 +7,8 @@
             <div class="participants__items">
                 <div v-for="participant in participants"
                      :key="participant.id"
-                     @click="addUserToCardParty(participant)"
+                     @click="addUserToCardParty(participant, $event)"
+                     :class="{active: isParticipant(participant.user.id)}"
                      class="participants__item">
                     <div class="party__modal-logo">
                         <div class="party__modal-initials">
@@ -37,16 +38,28 @@ export default {
     props: ['showModal', 'participants'],
     mixins: [cardMixin, initialMixin],
     methods: {
-        addUserToCardParty(participant) {
+        addUserToCardParty(participant, e) {
             let params = {
                 card_id: this.$store.getters.cardInfo.id,
                 desk_id: this.$store.getters.desk.id,
                 user_id: participant.user.id,
+                party_id: this.getPartyById(participant)
             }
-            this.$store.dispatch('addUserToCardParty', params)
+            this.isActive(e)
+                ? this.$store.dispatch('removeUserToCardParty', params)
+                : this.$store.dispatch('addUserToCardParty', params)
+
         },
         isParticipant(id) {
-             return this.cardParty.find(el => el.user.id === id)
+            return this.cardParty.find(el => el.user.id === id)
+        },
+        isActive(e) {
+            let parent = e.target.closest('.participants__item')
+            return parent.classList.contains('active')
+        },
+        getPartyById(participant) {
+            let party = this.cardParty.filter(el => el.user.id === participant.user.id)
+            return party[0]?.id || null
         }
     },
     computed: {

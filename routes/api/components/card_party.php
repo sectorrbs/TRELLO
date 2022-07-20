@@ -5,4 +5,5 @@
 
     Route::get('card_party/get', [CardPartyController::class, 'getCardParty']);
     Route::post('card_party/add_user', [CardPartyController::class, 'addUserCardParty']);
+    Route::delete('card_party/{card_party}/delete', [CardPartyController::class, 'deleteUserCardParty']);
 

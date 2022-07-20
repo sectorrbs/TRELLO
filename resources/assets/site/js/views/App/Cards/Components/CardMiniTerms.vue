@@ -1,5 +1,5 @@
 <template>
-    <div :class="{hidden: !term}" class="desks__cards-term">
+    <div :class="{hidden: !term}" class="desks__cards-term term">
         <Fa :type="'r'"
             :name="'clock icon'"/>
         <span>{{ term }}</span>

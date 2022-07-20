@@ -32,7 +32,6 @@ import {dateMixin} from "../../../../mixins/dateMixin";
 
 export default {
     name: "CardTerms",
-    data: () => ({}),
     props: ['card'],
     methods: {
         checkTerm(e) {
