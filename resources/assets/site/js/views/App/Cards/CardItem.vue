@@ -7,7 +7,7 @@
                          : '#0cc7d4bf'
                           }"
          draggable="true"
-         :class="{success: successAllTasks || status, overdue: status === 2}"
+         :class="checkPerformed"
          :data-card-item="card.id"
          @dragstart="onDragStart($event, card)"
          @click="this.$store.dispatch('openModal', card)">
@@ -112,6 +112,13 @@ export default {
         successAllTasks() {
             return this.countPerformTasks === this.countAllTasks && this.countAllTasks > 0
         },
+        checkPerformed() {
+            if (this.successAllTasks || this.status === 1) {
+                return 'success'
+            } else if (this.status === 2) {
+                return 'overdue'
+            } else return null;
+        }
     },
 
     methods: {

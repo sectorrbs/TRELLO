@@ -1,7 +1,8 @@
 import {getCountTasks} from "../../common/foo";
 
 export const actions = {
-    createCheckList({commit, dispatch}, data) {
+    createCheckList({commit, dispatch, getters}, data) {
+        console.log(data)
         axios.post(`/api/v1/check_list/create`, {
             _method: 'POST',
             name: data.name,

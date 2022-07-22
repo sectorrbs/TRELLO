@@ -78,7 +78,7 @@ export const tagMixin = {
         },
         addTag(e, tag) {
             let params = {id_desk_tag: tag.id, id_card: this.$store.getters.cardInfo.id}
-            document.querySelector('.details__window-participants-subtitle').style.display = 'block'
+
             if (document.querySelector('.details__window-tag')) {
                 let wrap = document.querySelector('.details__window-wrapper')
                 let html = `<div class="details__window-tag" data-tag-id="${tag.id}" style="background: ${tag.color};">${tag.title || ''}</div>`
@@ -93,6 +93,10 @@ export const tagMixin = {
                 tag.id = this.$store.getters.cardInfo.id
                 this.$store.dispatch('getCardInfoNotLoader', tag)
                 this.$store.dispatch('getDeskTags', {id_desk: this.$store.getters.desk.id})
+            }
+
+            if (document.querySelector('.details__window-participants-subtitle')) {
+                document.querySelector('.details__window-participants-subtitle').style.display = 'block'
             }
         },
         getParent(pos) {

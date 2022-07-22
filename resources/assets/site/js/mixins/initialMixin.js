@@ -9,5 +9,9 @@ export const initialMixin = {
             })
             return initials;
         }
-    }
+    },
+    autoSize(e) {
+        this.isDisabled(e)
+        this.calculationSize(e.target)
+    },
 }

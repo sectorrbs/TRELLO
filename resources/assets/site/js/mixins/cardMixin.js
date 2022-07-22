@@ -22,6 +22,6 @@ export const cardMixin = {
             ) {
                 this.show = !this.show
             }
-        }
-    },
+        },
+    }
 }

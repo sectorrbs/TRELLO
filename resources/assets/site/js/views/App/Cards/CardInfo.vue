@@ -35,7 +35,7 @@
         </div>
         <div class="details__window-bottom">
             <div class="details__window-bottom-left">
-                <CardTags v-if="cardInfo.tags.length" :tags="cardInfo.tags"/>
+                <CardTags v-if="cardInfo.tags.length" :tags="tags"/>
                 <CardTerms v-if="cardInfo.term" :card="cardInfo"/>
                 <CardParticipants v-if="cardInfo.participants.length" :parties="cardInfo.participants"/>
                 <CardDescription :card="cardInfo"/>
@@ -124,6 +124,9 @@ export default {
                 return attachment.find(el => el.type === 'image' && el.cover)
             }
             return 0
+        },
+        tags() {
+            return this.cardInfo.tags
         }
     }
 }

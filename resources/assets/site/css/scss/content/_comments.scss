@@ -12,9 +12,10 @@
             }
 
             .comments__field {
+                resize: none;
+                min-height: 40px !important;
                 height: 40px;
                 z-index: 2;
-                resize: none;
             }
         }
 
@@ -56,6 +57,9 @@
         &-options {
             @include flex(center, null, nowrap);
             gap: 3px;
+            margin-left: auto;
+            position: relative;
+            z-index: 10;
         }
 
         &-option {
@@ -64,9 +68,23 @@
             font-size: 12px;
             padding: 8px;
             transform: translateY(3px);
+            position: relative;
 
             &:hover {
                 background: #f4f5f7;
+            }
+        }
+
+        &-cancel {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        &-window {
+
+
+            &.emoji {
+                @include position(absolute, 0, null, null, -320px);
             }
         }
     }
@@ -123,7 +141,7 @@
         @include flex(flex-start, null, nowrap);
         gap: 7px;
 
-        &-box {
+        &-inner {
             @include flex(stretch);
             flex-direction: column;
             gap: 3px;
@@ -157,12 +175,14 @@
             border-radius: 5px;
             padding: 10px;
             width: 100%;
+            position: relative;
+            min-height: 35px;
         }
 
         &-actions {
             @include flex(stretch);
             gap: 5px;
-            margin-top: 2px;
+            margin-top: 5px;
         }
 
         &-action {
@@ -170,8 +190,64 @@
             text-decoration: underline;
             cursor: pointer;
 
+            &.delete {
+                position: relative;
+
+                .details__actions-modal {
+                    top: 15px;
+                    right: -247px;
+                }
+
+            }
+
             &:hover {
                 text-decoration: none;
+            }
+        }
+
+        &-field {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        &-box {
+            @include flex(stretch);
+            flex-direction: column;
+            border-radius: 5px;
+        }
+
+        &-wrapper {
+            .comments__field {
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            &.active {
+                .comments__box-actions {
+                    @include flex(center, null, nowrap);
+                }
+
+                .comments__item-text,
+                .comments__item-actions {
+                    display: none;
+                }
+
+                .comments__field {
+                    height: 40px;
+                    min-height: 50px !important;
+                    z-index: 2;
+                    resize: none;
+                    opacity: 1;
+                    visibility: visible;
+                    position: relative;
+                }
+            }
+
+            &.focus {
+                .comments__item-box {
+                    box-shadow: 0 0 8px -2px #091e4240, 0 0 0 1px #091e4214;
+                }
             }
         }
     }

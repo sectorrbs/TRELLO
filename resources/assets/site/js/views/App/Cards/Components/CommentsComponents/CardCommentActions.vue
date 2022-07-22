@@ -1,29 +1,34 @@
 <template>
     <div class="comments__box-actions">
         <div class="comments__box-controls"
+             :data-comment-id="comment_id"
              :class="{disabled}"
              @click="saveComment">
             Сохранить
         </div>
+        <Fa :type="'r'"
+            @click="cancelEditComment"
+            :data-comment-id="comment_id"
+            :name="'times comments__box-cancel tasks__item-cancel'"/>
         <div class="comments__box-options">
-            <div class="comments__box-option" @click="openWindow">
+            <div class="comments__box-option" @click="openOptionWindow">
                 <Fa :type="'r'"
-                    :name="'paperclip icon'"/>
+                    :name="'paperclip icon comments__box-icon'"/>
                 <CommentAttachment/>
             </div>
-            <div class="comments__box-option" @click="openWindow">
+            <div class="comments__box-option" @click="openOptionWindow">
                 <Fa :type="'r'"
-                    :name="'at icon'"/>
+                    :name="'at icon comments__box-icon'"/>
                 <CommentAt/>
             </div>
-            <div class="comments__box-option" @click="openWindow">
+            <div class="comments__box-option" @click="openEmojiWindow">
                 <Fa :type="'r'"
-                    :name="'smile icon'"/>
-                <CommentEmoji/>
+                    :name="'smile icon comments__box-icon'"/>
+                <CommentEmoji :emoji="emoji"/>
             </div>
-            <div class="comments__box-option" @click="openWindow">
+            <div class="comments__box-option" @click="openOptionWindow">
                 <Fa :type="'r'"
-                    :name="'credit-card-front icon'"/>
+                    :name="'credit-card-front icon comments__box-icon'"/>
                 <CommentCard/>
             </div>
         </div>
@@ -36,32 +41,29 @@ import CommentAttachment from './Actions/CommentAttachment'
 import CommentAt from './Actions/CommentAt'
 import CommentEmoji from './Actions/CommentEmoji'
 import CommentCard from './Actions/CommentCard'
+import {commentMixin} from "../../../../../mixins/commentMixin";
 
 export default {
     name: "CardCommentActions",
-    props: ['disabled'],
+    data: () => ({
+        emoji: false
+    }),
+    props: {
+        disabled: {
+            type: Boolean,
+        },
+        comment_id: {
+            type: Number,
+            default: null
+        }
+    },
     components: {CommentAttachment, CommentAt, CommentEmoji, CommentCard},
     methods: {
-        openWindow(e) {
-            console.log(121211)
-            let box = e.target.closest('.comments__box')
-            box.classList.add('focus')
-            box.classList.add('active')
-            box.querySelector('.comments__field').focus()
+        openEmojiWindow() {
+            this.emoji = true
         },
-        saveComment(e) {
-            let box = e.target.closest('.comments__box')
-            let text = box.querySelector('.comments__field').value
-            let params = {
-                user_id: this.$store.getters.user.id,
-                card_id: this.$store.getters.cardInfo.id,
-                text
-            }
-            box.classList.remove('active')
-            text = ''
-            this.$store.dispatch('createCardComment', params)
-        }
-    }
+    },
+    mixins: [commentMixin],
 }
 </script>
 

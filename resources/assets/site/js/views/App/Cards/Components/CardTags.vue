@@ -2,7 +2,7 @@
     <div class="details__window-participants-subtitle">
         Метки
         <div class="details__window-tags" @click.prevent>
-            <div class="details__window-wrapper">
+            <div v-if="tags" class="details__window-wrapper">
                 <div class="details__window-tag"
                      v-for="tag in tags"
                      :key="tag.id"
@@ -31,6 +31,28 @@ export default {
     name: "CardTags",
     props: ['tags'],
     mixins: [cardMixin, tagMixin],
-    components: {TagModals}
+    components: {TagModals},
+    watch: {
+        tags(n, o) {
+            document.querySelector('.details__window-wrapper').remove()
+
+            let parent = document.querySelector('.tag--edit')
+            parent.insertAdjacentHTML("beforebegin", '<div class="details__window-wrapper"></div>');
+
+            let box = document.querySelector('.details__window-wrapper')
+
+            this.tags.forEach(el => {
+                let html =
+                    `
+                     <div class="details__window-tag"
+                      data-tag-id="${el.id}"
+                     style="background: ${el.color}">
+                    ${el.title || ''}
+                    </div>
+                    `
+                box.insertAdjacentHTML('beforeend', html)
+            })
+        }
+    }
 }
 </script>

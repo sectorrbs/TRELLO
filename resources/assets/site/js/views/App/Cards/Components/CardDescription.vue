@@ -44,9 +44,6 @@ export default {
         toggleCreateDescription() {
             this.field = !this.field
         },
-        hided(e) {
-
-        }
     },
     mounted() {
         window.addEventListener('click', (e) => {

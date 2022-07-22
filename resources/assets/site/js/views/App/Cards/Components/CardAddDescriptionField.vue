@@ -1,7 +1,6 @@
 <template>
     <div class="details__window-checklist-create">
         <textarea ref="descrInput"
-                  @keyup=""
                   :value="descr"
                   @input="editDescription"
                   type="text"
