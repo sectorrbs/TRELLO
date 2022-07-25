@@ -96,6 +96,7 @@ export const commentMixin = {
             this.$store.dispatch('createOrUpdateCardComment', params)
         },
         closingCommentFields(e) {
+
             if (this.isCommentId) {
                 document.querySelectorAll('.comments__item-wrapper')
                     .forEach(el => el.classList.remove('focus', 'active'))
