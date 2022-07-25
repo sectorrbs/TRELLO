@@ -13,8 +13,8 @@
 
             .comments__field {
                 resize: none;
-                min-height: 40px !important;
-                height: 40px;
+                min-height: 50px !important;
+                height: 100%;
                 z-index: 2;
             }
         }
@@ -234,7 +234,7 @@
                 }
 
                 .comments__field {
-                    height: 40px;
+                    height: 100%;
                     min-height: 50px !important;
                     z-index: 2;
                     resize: none;
@@ -250,5 +250,9 @@
                 }
             }
         }
+    }
+
+    &__emoji {
+        @include size(20px, 20px);
     }
 }

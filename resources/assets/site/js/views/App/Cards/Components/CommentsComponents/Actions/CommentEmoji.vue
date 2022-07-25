@@ -8,16 +8,31 @@
 
 import EmojiPicker from 'vue3-emoji-picker'
 import '../../../../../../../../../../node_modules/vue3-emoji-picker/dist/style.css'
+import {emojiList} from '../../../../../../utils/emojiList'
+import {commentMixin} from "../../../../../../mixins/commentMixin";
+import {initialMixin} from "../../../../../../mixins/initialMixin";
 
 export default {
     name: "CommentEmoji",
     components: {EmojiPicker},
-    props: ['emoji'],
+    props: ['emoji', 'field'],
     methods: {
         onSelectEmoji(emoji) {
             console.log(emoji)
+            let selectedEmoji = emoji.n[1] || emoji.n[0]
+            this.searchEmoji(selectedEmoji)
         },
-    }
+        searchEmoji(emoji) {
+            let elem = emojiList.find(el => {
+                let currentEmoji = el.n[1] || el.n[0]
+                return currentEmoji === emoji
+            })
+            let emojiTag = `:${elem.n[1] || elem.n[0]}:`
+            this.field.value += ` ${emojiTag}`
+            this.autoSizeFromInsertEmoji(this.field)
+        }
+    },
+    mixins: [commentMixin],
 }
 </script>
 

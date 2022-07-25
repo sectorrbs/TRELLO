@@ -9,10 +9,12 @@
 <script>
 
 import CardCommentItem from './CardCommentItem'
+import {commentMixin} from "../../../../../mixins/commentMixin";
 
 export default {
     name: "CardCommentList",
     props: ['comments'],
-    components: {CardCommentItem}
+    components: {CardCommentItem},
+    mixins: [commentMixin],
 }
 </script>

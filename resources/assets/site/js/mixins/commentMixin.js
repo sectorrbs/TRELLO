@@ -1,7 +1,8 @@
+import {emojiList} from "../utils/emojiList";
+
 export const commentMixin = {
     data: () => ({
-        oldOffsetHeight: 0,
-        oldScrollHeight: 0,
+        content: true
     }),
     mounted() {
         window.addEventListener('click', e => {
@@ -14,7 +15,7 @@ export const commentMixin = {
                 document.querySelectorAll('.comments__box').forEach(el => {
                     if (!el.querySelector('.comments__field').value) {
                         el.classList.remove('active')
-                        //this.getDefaultHeightCommentField()
+                        this.getDefaultHeightCommentField()
                     }
                     el.classList.remove('focus')
                 })
@@ -26,6 +27,13 @@ export const commentMixin = {
             this.isDisabled(e)
             this.calculationNewSize(e.target)
         },
+        autoSizeFromInsertEmoji(field) {
+            let box = field.closest('.comments__box')
+            let btn = box.querySelector('.comments__box-controls')
+            if (field.value) {
+                btn.classList.remove('disabled')
+            }
+        },
         updateSize(e) {
             let parent = e.closest('.comments__item')
             let field = parent.querySelector('.comments__field')
@@ -33,7 +41,7 @@ export const commentMixin = {
         },
         calculationUpdateSize(el) {
             if (el.offsetHeight < el.scrollHeight) {
-                let newHeight = el.scrollHeight + 2
+                let newHeight = el.scrollHeight - 12
                 el.setAttribute('style', `height: ${newHeight}px; overflow: hidden`);
             }
         },
@@ -43,8 +51,7 @@ export const commentMixin = {
         },
 
         getDefaultHeightCommentField() {
-
-            document.querySelectorAll('.comments__field').forEach(el => el.style.height = `30px`)
+            document.querySelector('.comments__field').style.height = `30px`
         },
         getHeightField40px(field) {
             field.style.height = `40px`
@@ -97,10 +104,51 @@ export const commentMixin = {
         cancelEditComment(e) {
             this.getDefaultHeightCommentField()
             this.closingCommentFields(e)
-            if (!this.isCommentId(e)) this.clearNewCommentField(e)
+            !this.isCommentId(e)
+                ? this.clearNewCommentField(e)
+                : this.setCommentFieldOldText(e)
         },
         isCommentId(e) {
             return e.target.dataset.commentId
         },
+        setOldCommentText(e) {
+            let box = e.target.closest('.comments__item-wrapper')
+            this.$store.dispatch('getOldComment', box.querySelector('.comments__field').value)
+        },
+        setCommentFieldOldText(e) {
+            let box = e.target.closest('.comments__item-wrapper')
+            let text = box.querySelector('.comments__item-text span')
+            let field = box.querySelector('.comments__field')
+            field.value = this.$store.getters.oldComment
+            text.innerHTML = this.reformatText(this.$store.getters.oldComment)
+        },
+        reformatText(text) {
+            let tag = /\n/gi;
+            return text.replace(tag, '<br/>');
+        },
+        searchImage(text) {
+            let regex = /:\w*(\-)*\w*:/gi;
+            const founds = text.match(regex);
+            if (founds) {
+                founds.forEach(el => {
+                    let changeEl = el.replaceAll(':', '')
+                    let elem = emojiList.find(el => {
+                        let currentEmoji = el.n[1] || el.n[0]
+                        return currentEmoji === changeEl
+                    }).u
+                    let block = `<img src="/storage/emoji/${elem}.png" class="comments__emoji" alt="${changeEl}">`
+                    text = text.replace(el, block)
+                })
+            }
+            return text;
+        }
+    },
+    computed: {
+        text() {
+            this.a = this.comment.text
+            let tag = /\n/gi;
+            let str = this.searchImage(this.comment.text);
+            return str.replace(tag, '<br/>');
+        }
     },
 }

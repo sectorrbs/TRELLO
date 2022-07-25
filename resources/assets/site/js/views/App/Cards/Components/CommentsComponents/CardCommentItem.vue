@@ -1,5 +1,5 @@
 <template>
-    <div class="comments__item">
+    <div class="comments__item" v-if="content">
         <div class="comments__item-logo">
                 <span>
                     {{ getInitials(this.$store.getters.user.name) }}
@@ -18,7 +18,8 @@
                            @input="autoSize"
                            v-model="comment.text"
                            placeholder="Напишите комментарий..."></textarea>
-                    <CardCommentActions :comment_id="comment.id" :disabled="disabled"/>
+                    <CardCommentActions :comment_id="comment.id"
+                                        :disabled="disabled"/>
                 </div>
                 <div class="comments__item-text">
                     <span v-html="text"></span>
@@ -50,13 +51,6 @@ export default {
         disabled: true
     }),
     mixins: [initialMixin, commentMixin],
-    computed: {
-        text() {
-            let tag = /\n/gi;
-            let str = this.comment.text;
-            return str.replace(tag, '<br/>');
-        }
-    }
 }
 </script>
 

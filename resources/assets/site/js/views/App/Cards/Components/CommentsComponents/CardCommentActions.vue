@@ -24,7 +24,7 @@
             <div class="comments__box-option" @click="openEmojiWindow">
                 <Fa :type="'r'"
                     :name="'smile icon comments__box-icon'"/>
-                <CommentEmoji :emoji="emoji"/>
+                <CommentEmoji :field="field" :emoji="emoji"/>
             </div>
             <div class="comments__box-option" @click="openOptionWindow">
                 <Fa :type="'r'"
@@ -46,7 +46,8 @@ import {commentMixin} from "../../../../../mixins/commentMixin";
 export default {
     name: "CardCommentActions",
     data: () => ({
-        emoji: false
+        emoji: false,
+        field: null
     }),
     props: {
         disabled: {
@@ -59,8 +60,9 @@ export default {
     },
     components: {CommentAttachment, CommentAt, CommentEmoji, CommentCard},
     methods: {
-        openEmojiWindow() {
+        openEmojiWindow(e) {
             this.emoji = true
+            this.field = e.target.closest('.comments__box').querySelector('.comments__field')
         },
     },
     mixins: [commentMixin],

@@ -5,6 +5,9 @@
 </template>
 
 <script>
+
+import {commentMixin} from "../../../../../../mixins/commentMixin";
+
 export default {
     name: "CommentChange",
     props: ['comment'],
@@ -19,8 +22,10 @@ export default {
             setTimeout(() => {
                 wrapper.querySelector('.comments__field').focus()
             }, 0)
-        }
-    }
+            this.setOldCommentText(e)
+        },
+    },
+    mixins: [commentMixin],
 }
 </script>
 

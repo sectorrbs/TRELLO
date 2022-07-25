@@ -2,7 +2,6 @@ import axios from "axios";
 
 export const actions = {
     createOrUpdateCardComment({commit, dispatch}, data) {
-        console.log(data)
         axios.post(`/api/v1/card_comment/create-or-update`, {
             _method: 'POST',
             comment_id: data.comment_id || null,
@@ -24,6 +23,9 @@ export const actions = {
                 data.id = data.card_id
                 dispatch('getCardInfoNotLoader', data)
             })
+    },
+    getOldComment({commit}, comment){
+        commit('setOldComment', comment)
     }
 }
 
