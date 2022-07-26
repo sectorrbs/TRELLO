@@ -4,4 +4,5 @@ export const state = {
     pageLoad: false,
     modal: false,
     roles: false,
+    isOpenEmojiWindow: false,
 }

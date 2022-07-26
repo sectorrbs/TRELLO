@@ -8,10 +8,13 @@ export const mutations = {
     changeModalLoad(state, modalLoad) {
         state.modalLoad = modalLoad
     },
-    operationModal(state, status){
+    operationModal(state, status) {
         state.modal = status
     },
-    setRoles(state, roles){
+    setRoles(state, roles) {
         state.roles = roles
+    },
+    isOpenEmojiWindow(state, bool) {
+        state.isOpenEmojiWindow = bool
     },
 }

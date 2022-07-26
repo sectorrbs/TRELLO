@@ -119,6 +119,7 @@
 
     &__modal {
         @include transition;
+        z-index: -1;
 
         &-wrapper {
             @include flex(stretch);
@@ -221,6 +222,10 @@
 
         .btn {
             margin-top: 50px;
+        }
+
+        &.show {
+            z-index: 10000;
         }
     }
 }

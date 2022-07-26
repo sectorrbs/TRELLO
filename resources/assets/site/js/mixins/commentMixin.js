@@ -4,24 +4,6 @@ export const commentMixin = {
     data: () => ({
         content: true
     }),
-    mounted() {
-        window.addEventListener('click', e => {
-            if (!e.target.classList.contains('comments__field')
-                || !e.target.classList.contains('comments__box-actions')
-                || !e.target.classList.contains('comments__btn')
-                || !e.target.classList.contains('details__window-action-btn')
-                || !e.target.classList.contains('comments__box-icon')
-                || !e.target.classList.contains('comments__box-option')) {
-                document.querySelectorAll('.comments__box').forEach(el => {
-                    if (!el.querySelector('.comments__field').value) {
-                        el.classList.remove('active')
-                        this.getDefaultHeightCommentField()
-                    }
-                    el.classList.remove('focus')
-                })
-            }
-        })
-    },
     methods: {
         autoSize(e) {
             this.isDisabled(e)
@@ -70,8 +52,8 @@ export const commentMixin = {
             let box = e.target.closest('.comments__box')
             let field = box.querySelector('.comments__field')
             this.getHeightField40px(field)
-            box.classList.add('active', 'focus')
             this.disabled = true
+            box.classList.add('active', 'focus')
             field.value = ''
             field.focus()
         },
@@ -96,7 +78,6 @@ export const commentMixin = {
             this.$store.dispatch('createOrUpdateCardComment', params)
         },
         closingCommentFields(e) {
-
             if (this.isCommentId) {
                 document.querySelectorAll('.comments__item-wrapper')
                     .forEach(el => el.classList.remove('focus', 'active'))
@@ -121,14 +102,14 @@ export const commentMixin = {
             let text = box.querySelector('.comments__item-text span')
             let field = box.querySelector('.comments__field')
             field.value = this.$store.getters.oldComment
-            text.innerHTML = this.reformatText(this.$store.getters.oldComment)
+            text.innerHTML = this.searchImage(this.reformatText(this.$store.getters.oldComment))
         },
         reformatText(text) {
             let tag = /\n/gi;
             return text.replace(tag, '<br/>');
         },
         searchImage(text) {
-            let regex = /:\w*(\-)*\w*:/gi;
+            let regex = /:\w*(\-)*\w*(\-)*\w*:/gi;
             const founds = text.match(regex);
             if (founds) {
                 founds.forEach(el => {

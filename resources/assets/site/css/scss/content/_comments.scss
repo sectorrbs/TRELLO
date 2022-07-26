@@ -81,10 +81,8 @@
         }
 
         &-window {
-
-
             &.emoji {
-                @include position(absolute, 0, null, null, -320px);
+                @include position(absolute, 0, null, null, 30px);
             }
         }
     }

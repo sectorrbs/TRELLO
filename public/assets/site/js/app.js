@@ -20720,7 +20720,6 @@ __webpack_require__.r(__webpack_exports__);
     CardCommentActions: _CommentsComponents_CardCommentActions__WEBPACK_IMPORTED_MODULE_0__["default"],
     CardCommentList: _CommentsComponents_CardCommentList__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  methods: {},
   computed: {
     comments: function comments() {
       return this.$store.getters.cardInfo.comments;
@@ -21111,8 +21110,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vue3_emoji_picker_dist_style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../../../../node_modules/vue3-emoji-picker/dist/style.css */ "./node_modules/vue3-emoji-picker/dist/style.css");
 /* harmony import */ var _utils_emojiList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../utils/emojiList */ "./resources/assets/site/js/utils/emojiList.js");
 /* harmony import */ var _mixins_commentMixin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../mixins/commentMixin */ "./resources/assets/site/js/mixins/commentMixin.js");
-/* harmony import */ var _mixins_initialMixin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../mixins/initialMixin */ "./resources/assets/site/js/mixins/initialMixin.js");
-
 
 
 
@@ -21123,6 +21120,17 @@ __webpack_require__.r(__webpack_exports__);
     EmojiPicker: vue3_emoji_picker__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: ['emoji', 'field'],
+  mounted: function mounted() {
+    var _this = this;
+
+    window.addEventListener('click', function (e) {
+      console.log(e.target);
+
+      if (!e.target.classList.contains('comments__box-emoji') || !e.target.classList.contains('comments__box-option')) {
+        _this.$emit('closeEmojiWindow');
+      }
+    });
+  },
   methods: {
     onSelectEmoji: function onSelectEmoji(emoji) {
       console.log(emoji);
@@ -21139,7 +21147,12 @@ __webpack_require__.r(__webpack_exports__);
       this.autoSizeFromInsertEmoji(this.field);
     }
   },
-  mixins: [_mixins_commentMixin__WEBPACK_IMPORTED_MODULE_3__.commentMixin]
+  mixins: [_mixins_commentMixin__WEBPACK_IMPORTED_MODULE_3__.commentMixin],
+  computed: {
+    isOpenEmojiWindow: function isOpenEmojiWindow() {
+      return this.$store.getters.isOpenEmojiWindow;
+    }
+  }
 });
 
 /***/ }),
@@ -24055,7 +24068,12 @@ var _hoisted_5 = {
 var _hoisted_6 = {
   "class": "details__window-participants-item comments__user"
 };
+var _hoisted_7 = {
+  "class": "comments__box"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _this$$store$getters$;
+
   var _component_Fa = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Fa");
 
   var _component_CardCommentActions = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CardCommentActions");
@@ -24065,16 +24083,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'd',
     name: 'list-ul details__window-icon'
-  }), _hoisted_3]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.getInitials(this.$store.getters.user.name)), 1
+  }), _hoisted_3]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.getInitials((_this$$store$getters$ = this.$store.getters.user) === null || _this$$store$getters$ === void 0 ? void 0 : _this$$store$getters$.name)), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "comments__box",
-    onClick: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {}, ["stop"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "details__window-action-btn comments__btn",
-    onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+    onClick: _cache[0] || (_cache[0] = function () {
       return _ctx.showWindowNewComment && _ctx.showWindowNewComment.apply(_ctx, arguments);
-    }, ["stop"]))
+    })
   }, " Напишите комментарий... "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     "class": "comments__field",
     onInput: _cache[1] || (_cache[1] = function () {
@@ -24701,7 +24716,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'r',
-    name: 'paperclip icon comments__box-icon'
+    name: 'paperclip icon comments__box-attach comments__box-icon'
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CommentAttachment)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "comments__box-option",
     onClick: _cache[2] || (_cache[2] = function () {
@@ -24709,28 +24724,31 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'r',
-    name: 'at icon comments__box-icon'
+    name: 'at icon comments__box-nick comments__box-icon'
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CommentAt)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "comments__box-option",
-    onClick: _cache[3] || (_cache[3] = function () {
+    onClick: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.openEmojiWindow && $options.openEmojiWindow.apply($options, arguments);
-    })
+    }, ["stop"]))
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'r',
-    name: 'smile icon comments__box-icon'
+    name: 'smile icon comments__box-emoji comments__box-icon'
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CommentEmoji, {
+    onCloseEmojiWindow: _cache[3] || (_cache[3] = function ($event) {
+      return _ctx.emoji = false;
+    }),
     field: _ctx.field,
     emoji: _ctx.emoji
   }, null, 8
   /* PROPS */
   , ["field", "emoji"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "comments__box-option",
-    onClick: _cache[4] || (_cache[4] = function () {
+    onClick: _cache[5] || (_cache[5] = function () {
       return _ctx.openOptionWindow && _ctx.openOptionWindow.apply(_ctx, arguments);
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Fa, {
     type: 'r',
-    name: 'credit-card-front icon comments__box-icon'
+    name: 'credit-card-front icon comments__box-card comments__box-icon'
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CommentCard)])])]);
 }
 
@@ -24779,15 +24797,17 @@ var _hoisted_10 = {
   "class": "comments__item-actions"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _this$$store$getters$;
+
   var _component_CardCommentActions = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CardCommentActions");
 
   var _component_CommentChange = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CommentChange");
 
   var _component_CommentDelete = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CommentDelete");
 
-  return _ctx.content ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.getInitials(this.$store.getters.user.name)), 1
+  return _ctx.content ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.getInitials($props.comment.user.name)), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.$store.getters.user.name) + " ", 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_this$$store$getters$ = this.$store.getters.user) === null || _this$$store$getters$ === void 0 ? void 0 : _this$$store$getters$.name) + " ", 1
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.comment.created_at), 1
   /* TEXT */
@@ -26805,23 +26825,6 @@ var commentMixin = {
       content: true
     };
   },
-  mounted: function mounted() {
-    var _this = this;
-
-    window.addEventListener('click', function (e) {
-      if (!e.target.classList.contains('comments__field') || !e.target.classList.contains('comments__box-actions') || !e.target.classList.contains('comments__btn') || !e.target.classList.contains('details__window-action-btn') || !e.target.classList.contains('comments__box-icon') || !e.target.classList.contains('comments__box-option')) {
-        document.querySelectorAll('.comments__box').forEach(function (el) {
-          if (!el.querySelector('.comments__field').value) {
-            el.classList.remove('active');
-
-            _this.getDefaultHeightCommentField();
-          }
-
-          el.classList.remove('focus');
-        });
-      }
-    });
-  },
   methods: {
     autoSize: function autoSize(e) {
       this.isDisabled(e);
@@ -26870,8 +26873,8 @@ var commentMixin = {
       var box = e.target.closest('.comments__box');
       var field = box.querySelector('.comments__field');
       this.getHeightField40px(field);
-      box.classList.add('active', 'focus');
       this.disabled = true;
+      box.classList.add('active', 'focus');
       field.value = '';
       field.focus();
     },
@@ -26919,14 +26922,14 @@ var commentMixin = {
       var text = box.querySelector('.comments__item-text span');
       var field = box.querySelector('.comments__field');
       field.value = this.$store.getters.oldComment;
-      text.innerHTML = this.reformatText(this.$store.getters.oldComment);
+      text.innerHTML = this.searchImage(this.reformatText(this.$store.getters.oldComment));
     },
     reformatText: function reformatText(text) {
       var tag = /\n/gi;
       return text.replace(tag, '<br/>');
     },
     searchImage: function searchImage(text) {
-      var regex = /:\w*(\-)*\w*:/gi;
+      var regex = /:\w*(\-)*\w*(\-)*\w*:/gi;
       var founds = text.match(regex);
 
       if (founds) {
@@ -27087,12 +27090,14 @@ __webpack_require__.r(__webpack_exports__);
 var initialMixin = {
   methods: {
     getInitials: function getInitials(name) {
-      var arr = name.split(' ');
-      var initials = '';
-      arr.forEach(function (el) {
-        initials += el[0].toUpperCase();
-      });
-      return initials;
+      if (name) {
+        var arr = name.split(' ');
+        var initials = '';
+        arr.forEach(function (el) {
+          initials += el[0].toUpperCase();
+        });
+        return initials;
+      }
     }
   },
   autoSize: function autoSize(e) {
@@ -28740,6 +28745,7 @@ var actions = {
     _objectDestructuringEmpty(_ref3);
 
     document.querySelector('.room__modal.modal').classList.add('show');
+    document.querySelector('.room__modal-input').value = '';
   },
   hideModalCreateRoom: function hideModalCreateRoom(_ref4) {
     _objectDestructuringEmpty(_ref4);
@@ -28759,6 +28765,14 @@ var actions = {
   getRoles: function getRoles(_ref7) {
     var commit = _ref7.commit;
     commit('setRoles', _common_constants__WEBPACK_IMPORTED_MODULE_0__.ROLES);
+  },
+  openEmojiWindow: function openEmojiWindow(_ref8) {
+    var commit = _ref8.commit;
+    commit('isOpenEmojiWindow', true);
+  },
+  closeEmojiWindow: function closeEmojiWindow(_ref9) {
+    var commit = _ref9.commit;
+    commit('isOpenEmojiWindow', false);
   }
 };
 
@@ -28790,6 +28804,9 @@ var getters = {
   },
   roles: function roles(state) {
     return state.roles;
+  },
+  isOpenEmojiWindow: function isOpenEmojiWindow(state) {
+    return state.isOpenEmojiWindow;
   }
 };
 
@@ -28849,6 +28866,9 @@ var mutations = {
   },
   setRoles: function setRoles(state, roles) {
     state.roles = roles;
+  },
+  isOpenEmojiWindow: function isOpenEmojiWindow(state, bool) {
+    state.isOpenEmojiWindow = bool;
   }
 };
 
@@ -28870,7 +28890,8 @@ var state = {
   modalLoad: false,
   pageLoad: false,
   modal: false,
-  roles: false
+  roles: false,
+  isOpenEmojiWindow: false
 };
 
 /***/ }),
@@ -35422,6 +35443,12 @@ __webpack_require__.r(__webpack_exports__);
         if (!e.target.classList.contains('desks__settings') && !e.target.classList.contains('desks__edit') && !e.target.classList.contains('desks__list-btn') && !e.target.classList.contains('desks__list-input') && !e.target.classList.contains('desks__item-input') && !e.target.classList.contains('settings__item-btn') && !e.target.classList.contains('settings__title') && !e.target.classList.contains('swiper-slide') && !e.target.classList.contains('settings') && !e.target.classList.contains('swiper-button-next') && !e.target.classList.contains('swiper-button-prev') && !e.target.classList.contains('settings__item-text') && !e.target.classList.contains('settings__item-alert') && !e.target.classList.contains('settings__cancel') && !e.target.classList.contains('tasks__item-settings') && !e.target.classList.contains('tasks__item-settings-icon') && !e.target.classList.contains('create-task-btn') && !e.target.classList.contains('details__window-title') && !e.target.classList.contains('details__window-card-rename') && !e.target.classList.contains('details__window-checklist-rename') && !e.target.classList.contains('details__window-checklist-btn') && !e.target.classList.contains('details__actions-modal-title') && !e.target.classList.contains('details__actions-modal-label') && !e.target.classList.contains('details__actions-modal-top') && !e.target.classList.contains('details__actions-input') && !e.target.classList.contains('attachment__section-input') && !e.target.classList.contains('details__window-icon') && !e.target.classList.contains('attachment__section-btns') && !e.target.classList.contains('attachment__section-btns') && !e.target.classList.contains('details__window-checklist-title')) {
           clearAll();
         }
+      }); // ДЛЯ КОММЕНТАРИЕВ
+
+      window.addEventListener('click', function (e) {
+        if (!e.target.classList.contains('comments__field') && !e.target.classList.contains('comments__box-actions') && !e.target.classList.contains('comments__btn') && !e.target.classList.contains('details__window-action-btn') && !e.target.classList.contains('comments__box-icon') && !e.target.classList.contains('comments__box-option')) {
+          clearNewCommentField();
+        }
       });
 
       function clearAll() {
@@ -35499,6 +35526,17 @@ __webpack_require__.r(__webpack_exports__);
       function clearCardActionsModal() {
         document.querySelectorAll('.details__actions-modal').forEach(function (el) {
           return el.classList.remove('show');
+        });
+      }
+
+      function clearNewCommentField() {
+        document.querySelectorAll('.comments__box').forEach(function (el) {
+          if (!el.querySelector('.comments__field').value) {
+            el.classList.remove('active');
+            document.querySelector('.comments__field').style.height = "30px";
+          }
+
+          el.classList.remove('focus');
         });
       }
     };

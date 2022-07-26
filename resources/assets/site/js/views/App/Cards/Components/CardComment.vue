@@ -9,12 +9,12 @@
             <div class="comments__content">
                 <div class="details__window-participants-item comments__user">
                 <span>
-                    {{ getInitials(this.$store.getters.user.name) }}
+                    {{ getInitials(this.$store.getters.user?.name) }}
                 </span>
                 </div>
-                <div class="comments__box" @click.stop>
+                <div class="comments__box">
                     <div class="details__window-action-btn comments__btn"
-                         @click.stop="showWindowNewComment">
+                         @click="showWindowNewComment">
                         Напишите комментарий...
                     </div>
                     <textarea class="comments__field"
@@ -39,12 +39,9 @@ import {commentMixin} from "../../../../mixins/commentMixin";
 export default {
     name: "Comment",
     data: () => ({
-        disabled: true
+        disabled: true,
     }),
     components: {CardCommentActions, CardCommentList},
-    methods: {
-
-    },
     computed: {
         comments() {
             return this.$store.getters.cardInfo.comments

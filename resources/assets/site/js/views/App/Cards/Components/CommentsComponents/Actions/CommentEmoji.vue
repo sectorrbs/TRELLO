@@ -10,12 +10,21 @@ import EmojiPicker from 'vue3-emoji-picker'
 import '../../../../../../../../../../node_modules/vue3-emoji-picker/dist/style.css'
 import {emojiList} from '../../../../../../utils/emojiList'
 import {commentMixin} from "../../../../../../mixins/commentMixin";
-import {initialMixin} from "../../../../../../mixins/initialMixin";
 
 export default {
     name: "CommentEmoji",
     components: {EmojiPicker},
     props: ['emoji', 'field'],
+    mounted() {
+        window.addEventListener('click', e => {
+            console.log(e.target)
+            if (!e.target.classList.contains('comments__box-emoji') ||
+                !e.target.classList.contains('comments__box-option')
+            ) {
+                this.$emit('closeEmojiWindow')
+            }
+        })
+    },
     methods: {
         onSelectEmoji(emoji) {
             console.log(emoji)
@@ -33,6 +42,11 @@ export default {
         }
     },
     mixins: [commentMixin],
+    computed: {
+        isOpenEmojiWindow() {
+            return this.$store.getters.isOpenEmojiWindow
+        }
+    }
 }
 </script>
 

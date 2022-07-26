@@ -4231,7 +4231,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     key: 0,
     "class": "content",
     style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
-      background: $options.deskBackgrounds
+      background: $options.deskBackgrounds,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeskInfo, {
     desk: _ctx.desk

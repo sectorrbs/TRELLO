@@ -4,4 +4,5 @@ export const getters = {
     pageLoad: state => state.pageLoad,
     modal: state => state.modal,
     roles: state => state.roles,
+    isOpenEmojiWindow: state => state.isOpenEmojiWindow,
 }

@@ -2,12 +2,12 @@
     <div class="comments__item" v-if="content">
         <div class="comments__item-logo">
                 <span>
-                    {{ getInitials(this.$store.getters.user.name) }}
+                    {{ getInitials(comment.user.name) }}
                 </span>
         </div>
         <div class="comments__item-inner">
             <div class="comments__item-name">
-                {{ this.$store.getters.user.name }}
+                {{ this.$store.getters.user?.name }}
                 <div class="comments__item-date">
                     {{ comment.created_at }}
                 </div>

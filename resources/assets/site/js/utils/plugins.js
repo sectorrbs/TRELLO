@@ -61,6 +61,18 @@ export default {
                 }
             })
 
+            // ДЛЯ КОММЕНТАРИЕВ
+            window.addEventListener('click', e => {
+                if (!e.target.classList.contains('comments__field')
+                    && !e.target.classList.contains('comments__box-actions')
+                    && !e.target.classList.contains('comments__btn')
+                    && !e.target.classList.contains('details__window-action-btn')
+                    && !e.target.classList.contains('comments__box-icon')
+                    && !e.target.classList.contains('comments__box-option')) {
+                    clearNewCommentField()
+                }
+            })
+
             function clearAll() {
                 document.querySelectorAll('.desks__item-rename').forEach(el => {
                     el.classList.remove('show')
@@ -128,6 +140,16 @@ export default {
             function clearCardActionsModal() {
                 document.querySelectorAll('.details__actions-modal')
                     .forEach(el => el.classList.remove('show'))
+            }
+
+            function clearNewCommentField() {
+                document.querySelectorAll('.comments__box').forEach(el => {
+                    if (!el.querySelector('.comments__field').value) {
+                        el.classList.remove('active')
+                        document.querySelector('.comments__field').style.height = `30px`
+                    }
+                    el.classList.remove('focus')
+                })
             }
         }
     },

@@ -10,6 +10,7 @@ export const actions = {
     },
     openModalCreateRoom({}) {
         document.querySelector('.room__modal.modal').classList.add('show')
+        document.querySelector('.room__modal-input').value = ''
     },
     hideModalCreateRoom({}) {
         document.querySelector('.room__modal.modal').classList.remove('show')
@@ -23,4 +24,10 @@ export const actions = {
     getRoles({commit}) {
         commit('setRoles', ROLES)
     },
+    openEmojiWindow({commit}) {
+        commit('isOpenEmojiWindow', true)
+    },
+    closeEmojiWindow({commit}) {
+        commit('isOpenEmojiWindow', false)
+    }
 }

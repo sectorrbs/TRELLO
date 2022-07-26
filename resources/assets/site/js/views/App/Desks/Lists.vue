@@ -3,7 +3,8 @@
     <Loader v-if="loader"/>
 
     <div v-else class="content__wrapper">
-        <div v-if="desk" class="content" :style="{background: deskBackgrounds}">
+        <div v-if="desk" class="content"
+             :style="{background: deskBackgrounds, backgroundSize: 'cover', backgroundPosition: 'center'}">
 
             <DeskInfo :desk="desk"/>
 

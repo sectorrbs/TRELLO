@@ -13,22 +13,24 @@
         <div class="comments__box-options">
             <div class="comments__box-option" @click="openOptionWindow">
                 <Fa :type="'r'"
-                    :name="'paperclip icon comments__box-icon'"/>
+                    :name="'paperclip icon comments__box-attach comments__box-icon'"/>
                 <CommentAttachment/>
             </div>
             <div class="comments__box-option" @click="openOptionWindow">
                 <Fa :type="'r'"
-                    :name="'at icon comments__box-icon'"/>
+                    :name="'at icon comments__box-nick comments__box-icon'"/>
                 <CommentAt/>
             </div>
-            <div class="comments__box-option" @click="openEmojiWindow">
+            <div class="comments__box-option" @click.stop="openEmojiWindow">
                 <Fa :type="'r'"
-                    :name="'smile icon comments__box-icon'"/>
-                <CommentEmoji :field="field" :emoji="emoji"/>
+                    :name="'smile icon comments__box-emoji comments__box-icon'"/>
+                <CommentEmoji @closeEmojiWindow="emoji=false"
+                              :field="field"
+                              :emoji="emoji"/>
             </div>
             <div class="comments__box-option" @click="openOptionWindow">
                 <Fa :type="'r'"
-                    :name="'credit-card-front icon comments__box-icon'"/>
+                    :name="'credit-card-front icon comments__box-card comments__box-icon'"/>
                 <CommentCard/>
             </div>
         </div>
